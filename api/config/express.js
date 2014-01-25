@@ -3,6 +3,7 @@ var express = require('express');
 module.exports = function(app, config) {
   app.configure(function () {
     app.use(express.compress());
+    app.use(require(config.root + '/config/cors'));
     app.use(express.static(config.root + '/public'));
     app.set('port', config.port);
     app.set('views', config.root + '/app/views');

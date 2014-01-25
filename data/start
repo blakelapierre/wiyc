@@ -1,0 +1,14 @@
+#!/bin/bash
+mkdir -p db
+mkdir -p logs
+mkdir -p run
+rm -Rf logs/*
+
+echo "killall mongod"
+killall mongod
+
+echo "sleeping two seconds..."
+sleep 2
+
+echo "starting local mongod"
+mongod --config=mongod.conf --smallfiles --fork

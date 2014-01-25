@@ -25,7 +25,26 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
+      </div>
+      <div class="row-fluid content-section">
+        <div class="col-sm-8">
+          <div ng-view=""></div>
+        </div>
+        <div class="col-sm-4">
+          <div ng-include="'views/thoughts.html'" ng-controller="ThoughtsCtrl"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="row-fluid footer">
+        <p>
+          &copy; 2014 Rob Colbert
+          &lt;<a href="mailto:rob.isConnected@gmail.com">rob.isConnected@gmail.com</a>&gt;
+        </p>
+      </div>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -58,6 +77,11 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/services/thoughts.js"></script>
+        <script src="scripts/controllers/header.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/contact.js"></script>
+        <script src="scripts/controllers/thoughts.js"></script>
         <!-- endbuild -->
 </body>
 </html>
