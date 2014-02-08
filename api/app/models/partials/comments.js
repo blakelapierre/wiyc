@@ -4,5 +4,5 @@
 module.exports = [{
   'posted': { 'type': Date, 'default': Date.now },
   'author': { 'type': String, 'default': 'Anonymous' },
-  'comment': { 'type': String, 'required': true }
+  'content': { 'type': String, 'required': true }
 }];

@@ -1,22 +1,22 @@
 'use strict';
 
-describe('Controller: HeaderCtrl', function () {
+describe('Controller: PostsComposeCtrl', function () {
 
   // load the controller's module
   beforeEach(module('robcolbertApp'));
 
-  var HeaderCtrl,
+  var PostsComposeCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    HeaderCtrl = $controller('HeaderCtrl', {
+    PostsComposeCtrl = $controller('PostsComposeCtrl', {
       $scope: scope
     });
   }));
 
-//   it('should attach a title to the scope', function () {
-//     expect(scope.title).toBeDefined();
+//   it('should attach a list of awesomeThings to the scope', function () {
+//     expect(scope.awesomeThings.length).toBe(3);
 //   });
 });

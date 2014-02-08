@@ -1,0 +1,54 @@
+<div class="row post">
+  <div class="col-sm-12">
+    <div class="title" ng-bind-html="post.title"></div>
+    <div class="content" ng-bind-html="post.content"></div>
+    <h3>Comments</h3>
+    <div ng-switch on="post.comments.length">
+      <div ng-switch-when="0">
+        <p>No comment, motherfucker.</p>
+      </div>
+      <div ng-switch-default="">
+        <div class="row comment" ng-repeat="comment in post.comments">
+          <div class="header">
+            <div class="col-sm-8 author">{{comment.author}}</div>
+            <div class="col-sm-4 posted">{{comment.posted}}</div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="content col-sm-12">{{comment.content}}</div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Submit Comment</h2>
+<div class="row">
+  <div class="col-sm-12">
+    <form role="form">
+      <div class="form-group">
+        <label for="authorName">Author name</label>
+        <input type="text"
+               class="form-control" 
+               id="authorName" 
+               name="authorName" 
+               ng-model="comment.author"
+               placeholder="Enter display name">
+      </div>
+      <div class="form-group">
+        <label for="commentContent">Comment</label>
+        <textarea class="form-control" 
+                  id="commentContent" 
+                  name="commentContent" 
+                  ng-model="comment.content"
+                  placeholder="Enter comment here. Or, enter your comment elsewhere if you can. Be like that."
+                  rows="4"
+                  style="resize:vertical;"
+                  ></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="createComment()">Post Comment</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,15 +1,10 @@
-<div class="row-fluid">
-  <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/120320327&amp;color=428bca&amp;auto_play=false&amp;show_artwork=true"></iframe>
-</div>
-<div class="row-fluid">
-  <h1>I've Gone MEAN</h1>
-  <p>
-    Welcome to my all-new site built using the
-    <abbr title="Mongo, ExpressJS, AngularJS and Node.js">MEAN</abbr> stack.
-    This is a custom blog engine (a theme with my personal playground projects)
-    that meets my needs. I can't fucking <em>stand</em> social networks, and no
-    one cares about what I write. So, this is the perfect solution. I can write
-    into this bucket, own everything and you can ignore it more easily than you
-    can pay attention to it.
-  </p>
+<div class="row post" ng-repeat="post in posts">
+  <div class="col-sm-12">
+    <h1>{{post.title}}</h1>
+    <div ng-bind-html="post.excerpt"></div>
+    <p>
+      <a href="#/posts/{{post._id}}" title="{{post.title}}">Continue reading...</a>
+    </p>
+  </div>
+  <div class="clearfix"></div>
 </div>

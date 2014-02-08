@@ -1,35 +1,11 @@
 // config/routes.js
 // Copyright (C) Rob Colbert <rob.isConnected@gmail.com>
 
-function RouteAssembler (app) {
-  this.app = app;
-}
-
-RouteAssembler.prototype.addRoute = function (route) {
-  console.log('publishing route:', route.method, route.uri);
-  switch (route.method) {
-  case 'POST':
-    this.app.post(route.uri, route.controller);
-    break;
-  case 'GET':
-    this.app.get(route.uri, route.controller);
-    break;
-  case 'PUT':
-    this.app.put(route.uri, route.controller);
-    break;
-  case 'DELETE':
-    this.app.delete(route.uri, route.controller);
-    break;
-    
-  default:
-    console.log('unsupported HTTP method for route: ', route);
-    break;
-  }
-};
+var RouteAssembler = require('robcolbert-utils').expressjs.RouteAssembler;
 
 module.exports = function Routes (app) {
 
-  var routes = [ ];
+  var routes = new RouteAssembler(app);
 
   //
   // CONTROLLERS
@@ -37,23 +13,26 @@ module.exports = function Routes (app) {
 
   var thoughts = require('../app/controllers/thoughts');
 
-  routes.push({ 'method': 'GET',    'uri': '/thoughts',               'controller': thoughts.list });
-  routes.push({ 'method': 'POST',   'uri': '/thoughts',               'controller': thoughts.create });
-  
-  routes.push({ 'method': 'GET',    'uri': '/thoughts/:id',           'controller': thoughts.get });
-  routes.push({ 'method': 'PUT',    'uri': '/thoughts/:id',           'controller': thoughts.update });
-  routes.push({ 'method': 'DELETE', 'uri': '/thoughts/:id',           'controller': thoughts.delete });
-  
-  routes.push({ 'method': 'POST',   'uri': '/thoughts/:id/comments',  'controller': thoughts.createComment });
-  routes.push({ 'method': 'GET',    'uri': '/thoughts/:id/comments',  'controller': thoughts.getComments });
-  
-  //
-  // ROUTE ASSEMBLER
-  //
+  routes.add({ 'method': 'GET',     'uri': '/thoughts',               'controllerMethod': thoughts.list });
+  routes.add({ 'method': 'POST',    'uri': '/thoughts',               'controllerMethod': thoughts.create });
 
-  var routeIdx, route;
-  for (routeIdx in routes) {
-    route = routes[routeIdx];
-  }
-  
+  routes.add({ 'method': 'GET',     'uri': '/thoughts/:id',           'controllerMethod': thoughts.get });
+  routes.add({ 'method': 'PUT',     'uri': '/thoughts/:id',           'controllerMethod': thoughts.update });
+  routes.add({ 'method': 'DELETE',  'uri': '/thoughts/:id',           'controllerMethod': thoughts.delete });
+
+  routes.add({ 'method': 'POST',    'uri': '/thoughts/:id/comments',  'controllerMethod': thoughts.createComment });
+  routes.add({ 'method': 'GET',     'uri': '/thoughts/:id/comments',  'controllerMethod': thoughts.getComments });
+
+  var posts = require('../app/controllers/posts');
+
+  routes.add({ 'method': 'GET',     'uri': '/posts',                  'controllerMethod': posts.list });
+  routes.add({ 'method': 'POST',    'uri': '/posts',                  'controllerMethod': posts.create });
+
+  routes.add({ 'method': 'GET',     'uri': '/posts/:postId',          'controllerMethod': posts.get });
+  routes.add({ 'method': 'PUT',     'uri': '/posts/:postId',          'controllerMethod': posts.update });
+  routes.add({ 'method': 'DELETE',  'uri': '/posts/:postId',          'controllerMethod': posts.delete });
+
+  routes.add({ 'method': 'POST',    'uri': '/posts/:postId/comments', 'controllerMethod': posts.createComment });
+  routes.add({ 'method': 'GET',     'uri': '/posts/:postId/comments', 'controllerMethod': posts.getComments });
+
 };

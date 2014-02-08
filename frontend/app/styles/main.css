@@ -22,7 +22,37 @@ body {
 }
 
 .content-section {
-  margin: 40px 0;
+  margin: 20px 0;
+}
+
+.post {
+  margin-bottom:60px;
+}
+.post .title {
+  display:block;
+  font-size:36px;
+  margin:0 0 20px 0;
+  padding:0;
+}
+.post .content {
+  display:block;
+  font-size:14px;
+}
+.post .comment {
+  margin-bottom:20px;
+}
+.post .comment .header {
+  border-bottom:solid 1px #e8e8e8;
+}
+.post .comment .posted {
+  font-size:12px;
+}
+.post .comment .author {
+  font-size:14px;
+  font-weight:bold;
+}
+.post .comment .content {
+  font-size:12px;
 }
 
 .footer {
