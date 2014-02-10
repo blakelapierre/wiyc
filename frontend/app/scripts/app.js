@@ -29,8 +29,12 @@ angular.module('robcolbertApp', [
     controller: 'PostsComposeCtrl'
   })
   .when('/posts/:postId', {
-    templateUrl: 'views/posts/post-reader.html',
-    controller: 'PostsPostReaderCtrl'
+    templateUrl: 'views/posts/reader.html',
+    controller: 'PostReaderCtrl'
+  })
+  .when('/posts/:postId/edit', {
+    templateUrl: 'views/posts/postid/edit.html',
+    controller: 'PostEditCtrl'
   })
   .otherwise({
     redirectTo: '/'

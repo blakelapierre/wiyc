@@ -1,11 +1,12 @@
 <div class="row post">
   <div class="col-sm-12">
+    <a class="btn btn-default pull-right" href="#/posts/{{post._id}}/edit">Edit</a>
     <div class="title" ng-bind-html="post.title"></div>
     <div class="content" ng-bind-html="post.content"></div>
     <h3>Comments</h3>
     <div ng-switch on="post.comments.length">
       <div ng-switch-when="0">
-        <p>No comment, motherfucker.</p>
+        <p>No comments, yet. Share your thoughts and start the conversation.</p>
       </div>
       <div ng-switch-default="">
         <div class="row comment" ng-repeat="comment in post.comments">
@@ -29,17 +30,17 @@
       <div class="form-group">
         <label for="authorName">Author name</label>
         <input type="text"
-               class="form-control" 
-               id="authorName" 
-               name="authorName" 
+               class="form-control"
+               id="authorName"
+               name="authorName"
                ng-model="comment.author"
                placeholder="Enter display name">
       </div>
       <div class="form-group">
         <label for="commentContent">Comment</label>
-        <textarea class="form-control" 
-                  id="commentContent" 
-                  name="commentContent" 
+        <textarea class="form-control"
+                  id="commentContent"
+                  name="commentContent"
                   ng-model="comment.content"
                   placeholder="Enter comment here. Or, enter your comment elsewhere if you can. Be like that."
                   rows="4"

@@ -4,6 +4,9 @@
 'use strict';
 
 angular.module('robcolbertApp')
-.controller('ContactCtrl', function ($scope) {
-  $scope.dummy = 'fried';
-});
+.controller('ContactCtrl', [
+  '$scope',
+  function ($scope) {
+    $scope.$emit('setPageGroup', 'contact');
+  }
+]);

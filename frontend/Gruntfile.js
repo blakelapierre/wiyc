@@ -42,6 +42,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
+      recess: {
+        files: ['<%= yeoman.app %>/less/{,*/}*.less'],
+        tasks: ['newer:recess']
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -147,9 +151,24 @@ module.exports = function (grunt) {
       }
     },
 
-
-
-
+    // Executes LESS to build:
+    // 1. Boostrap in-place from its packaged sources
+    // 2. robcolbert.less
+    recess: {
+      dist: {
+        options: {
+          compile: true
+        },
+        files: {
+          'app/bower_components/bootstrap/dist/css/bootstrap.css': [
+            'app/bower_components/bootstrap/less/bootstrap.less'
+          ],
+          'app/styles/robcolbert.css': [
+            'app/less/robcolbert.less'
+          ]
+        }
+      }
+    },
 
     // Renames files for browser caching purposes
     rev: {
@@ -356,6 +375,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'bower-install',
+    'recess',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

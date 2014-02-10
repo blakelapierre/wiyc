@@ -1,18 +1,21 @@
-<div class="row-fluid">
-  <div class="col-sm-12">
+<form role="form" class="form">
+  <div class="form-group">
+    <label for="postTitle">Post Title</label>
     <input class="form-control"
+           id="postTitle"
            ng-model="post.title"
            placeholder="Enter post title/subject"
            />
   </div>
-</div>
-
-<div class="row-fluid">
-  <div class="col-sm-12">
-    <textarea data-ui-tinymce="tinymceOptions"
+  <div class="form-group">
+    <label for="postContent">Share Your Thoughts</label>
+    <textarea id="postContent"
+              data-ui-tinymce="tinymceOptions"
               data-ng-model="post.content"
               ></textarea>
   </div>
-</div>
-
-<button class="btn btn-primary" ng-click="createPost()">Publish</button>
+  <div class="form-group">
+    <button class="btn btn-primary" ng-click="createPost()">Publish</button>
+    <button class="btn btn-default" ng-click="refreshWidgets()">Magicality</button>
+  </div>
+</form>

@@ -6,23 +6,25 @@
 angular.module('robcolbertApp')
 .controller('PostsComposeCtrl', [
   '$scope',
+  'Configuration',
   'Posts',
-  function ($scope, Posts) {
+  function ($scope, Configuration, Posts) {
+
+    $scope.editable = true;
+    $scope.tinymceOptions = Configuration.tinymceOptions;
 
     $scope.editable = false;
-    $scope.tinymceOptions = {
-      'skin': 'lightgray',
-      'theme': 'modern',
-      'resize': false,
-      'height': 400,
-      'fixed_toolbar_container': '#editor-toolbar'
-    };
-    
+    $scope.$emit('setPageGroup', 'blog');
+
     $scope.post = { };
     $scope.createPost = function ( ) {
       Posts.create($scope.post, function (newPost) {
         console.log('post created', newPost);
       });
+    };
+
+    $scope.refreshWidgets = function ( ) {
+      twttr.widgets.load();
     };
   }
 ]);

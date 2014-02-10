@@ -6,7 +6,7 @@ var Posts = mongoose.model('Posts');
 var Paginator = require('./lib/paginator');
 
 exports.list = function(req, res){
-  var query = Posts.find(req.query, 'created title content').lean(true);
+  var query = Posts.find(req.query, 'created title content excerpt').lean(true);
   var paginator = new Paginator(req);
   paginator.paginateQuery(query).exec(function (err, posts) {
     if (err) {
@@ -40,7 +40,16 @@ exports.get = function (req, res) {
 };
 
 exports.update = function (req, res) {
-  res.json(500, {'msg':'stubbed'});
+  delete req.body._id;
+  console.log('posts.update', req.body);
+  Posts.findByIdAndUpdate(req.route.params.postId, req.body, function (err, post) {
+    if (err) {
+      console.log(err);
+      res.json(500, err);
+      return;
+    }
+    res.json(200, post);
+  });
 };
 
 exports.delete = function (req, res) {

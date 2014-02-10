@@ -9,7 +9,7 @@ angular.module('robcolbertApp')
   'Thoughts',
   function ($scope, Thoughts) {
 
-    $scope.thoughts = Thoughts.get(function ( ) {
+    $scope.thoughts = Thoughts.list(function ( ) {
       console.log('thoughts', $scope.thoughts);
     });
 

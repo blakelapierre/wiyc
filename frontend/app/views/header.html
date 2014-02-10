@@ -1,8 +1,8 @@
 <div class="header">
   <ul class="nav nav-pills pull-right">
-    <li class="active"><a ng-href="#" title="Back to the blog...">BLAWG</a></li>
-    <li><a ng-href="#/about" title="Read about Rob...">ABOUWT</a></li>
-    <li><a ng-href="#/contact" title="Get in touch...">CAWNTACT</a></li>
+    <li ng-class="pills.blog.className"><a ng-href="#" title="Back to the blog...">BLOG</a></li>
+    <li ng-class="pills.about.className"><a ng-href="#/about" title="Read about Rob...">ABOUT</a></li>
+    <li ng-class="pills.contact.className"><a ng-href="#/contact" title="Get in touch...">CONTACT</a></li>
   </ul>
   <h3 class="text-muted"><a href="#/" title="{{subtitle}}">{{title}}</a></h3>
 </div>
