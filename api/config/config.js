@@ -4,6 +4,7 @@
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
+var listenPort = 10010;
 
 var corsConfig = {
   'allowOrigins': [
@@ -28,7 +29,7 @@ var config = {
     app: {
       name: 'api'
     },
-    port: 3000,
+    port: listenPort,
     db: 'mongodb://localhost/robcolbert-development',
     cors: corsConfig
   },
@@ -38,7 +39,7 @@ var config = {
     app: {
       name: 'api'
     },
-    port: 3000,
+    port: listenPort,
     db: 'mongodb://localhost/robcolbert-test',
     cors: corsConfig
   },
@@ -48,7 +49,7 @@ var config = {
     app: {
       name: 'api'
     },
-    port: 3000,
+    port: listenPort,
     db: 'mongodb://localhost/robcolbert-production',
     cors: corsConfig
   }

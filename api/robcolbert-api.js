@@ -22,6 +22,7 @@ db.on('open', function ( ) {
   
   require('./config/express')(app, config);
   require('./config/routes')(app);
-  
+
+  console.log('API server listening on port', config.port);  
   app.listen(config.port);
 });
