@@ -7,11 +7,14 @@ angular.module('robcolbertApp')
 .controller('PostReaderCtrl', [
   '$scope',
   '$route',
+  '$sce',
   'Posts',
-  function ($scope, $route, Posts) {
+  function ($scope, $route, $sce, Posts) {
     $scope.$emit('setPageGroup', 'blog');
     $scope.post = Posts.get({'postId': $route.current.params.postId}, null, function ( ) {
       console.log('post loaded', $scope.post);
+      $scope.post.excerpt = $sce.trustAsHtml($scope.post.excerpt);
+      $scope.post.content = $sce.trustAsHtml($scope.post.content);
       setTimeout(twttr.widgets.load, 0);
     });
 
