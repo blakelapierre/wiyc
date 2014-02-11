@@ -12,6 +12,7 @@ angular.module('robcolbertApp')
   };
 
   this.tinymceOptions = {
+    'script_url': 'bower_components/tinymce/tinymce.min.js',
     'skin': 'lightgray',
     'theme': 'modern',
     'resize': false,
