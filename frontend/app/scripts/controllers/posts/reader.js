@@ -15,7 +15,9 @@ angular.module('robcolbertApp')
       console.log('post loaded', $scope.post);
       $scope.post.excerpt = $sce.trustAsHtml($scope.post.excerpt);
       $scope.post.content = $sce.trustAsHtml($scope.post.content);
-      setTimeout(twttr.widgets.load, 0);
+      if (angular.isDefined(window.twttr)) {
+        setTimeout(window.twttr.widgets.load, 0);
+      }
     });
 
     $scope.comment = { }; // empty by default

@@ -7,21 +7,29 @@ angular.module('robcolbertApp')
 .controller('PostEditCtrl', [
   '$scope',
   '$route',
+  '$location',
   '$sce',
   'Configuration',
   'Posts',
-  function ($scope, $route, $sce, Configuration, Posts) {
+  function ($scope, $route, $location, $sce, Configuration, Posts) {
     $scope.$emit('setPageGroup', 'blog');
     $scope.tinymceOptions = Configuration.tinymceOptions;
     $scope.post = Posts.get({'postId': $route.current.params.postId}, null, function ( ) {
       console.log('post loaded', $scope.post);
-      $scope.post.excerpt = $sce.trustAsHtml($scope.post.excerpt);
-      $scope.post.content = $sce.trustAsHtml($scope.post.content);
-      setTimeout(twttr.widgets.load, 0);
+      if (angular.isDefined(window.twttr)) {
+        setTimeout(window.twttr.widgets.load, 0);
+      }
     });
 
     $scope.updatePost = function ( ) {
-      $scope.post.$update({'postId':$scope.post._id});
+      if (angular.isObject($scope.post.content)) {
+        console.log('post content as object', $scope.post.content);
+      } else {
+        $scope.post.$update({'postId':$scope.post._id}, function ( ) {
+          console.log('$location', $location);
+          $location.path('/posts/'+$scope.post._id);
+        });
+      }
     };
   }
 ]);
