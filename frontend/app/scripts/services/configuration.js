@@ -5,12 +5,6 @@
 angular.module('robcolbertApp')
 .service('Configuration', function Configuration( ) {
 
-  this.apiServer = {
-    'scheme': 'http://',
-    'host': 'robcolbert.com',
-    'port': 10010
-  };
-
   this.tinymceOptions = {
     'script_url': 'bower_components/tinymce/tinymce.min.js',
     'skin': 'lightgray',
@@ -26,8 +20,15 @@ angular.module('robcolbertApp')
     ]
   };
 
+  var apiServer = {
+    'scheme': 'http://',
+//    'host': 'localhost',
+    'host': 'robcolbert.com',
+    'port': 10010
+  };
+
   this.buildApiUrl = function (endpoint) {
-    return this.apiServer.scheme + this.apiServer.host + ':' + this.apiServer.port + endpoint;
+    return apiServer.scheme + apiServer.host + ':' + apiServer.port + endpoint;
   };
 
 });
