@@ -8,7 +8,7 @@ var Paginator = require('./lib/paginator');
 exports.list = function(req, res){
   var query = Posts.find(req.query, 'created title content excerpt').lean(true);
   var paginator = new Paginator(req);
-  paginator.paginateQuery(query).exec(function (err, posts) {
+  paginator.paginateQuery(query).sort({'created':-1}).exec(function (err, posts) {
     if (err) {
       res.json(500, err);
       return;
@@ -83,7 +83,7 @@ exports.createComment = function (req, res) {
 exports.getComments = function (req, res) {
   var paginator = new Paginator(req);
   var query = Posts.findById(req.route.params.postId, 'comments').lean(true);
-  paginator.paginateQuery(query).exec(function (err, post) {
+  paginator.paginateQuery(query).sort({'posted':1}).exec(function (err, post) {
     if (err) {
       res.json(500, err);
       return;
