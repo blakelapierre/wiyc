@@ -26,3 +26,5 @@ db.on('open', function ( ) {
   console.log('API server listening on port', config.port);  
   app.listen(config.port);
 });
+
+setInterval(function ( ) { console.log('ssh buster'); }, 15000);
