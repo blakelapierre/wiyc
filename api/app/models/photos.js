@@ -1,14 +1,14 @@
-// models/posts.js
+// models/photos.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 var mongoose = require('mongoose');
-var PostsSchema = new mongoose.Schema({
+var PhotosSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },
+  'mimeType': { 'type': String, 'required': true },
   'title': { 'type': String, 'required': true },
-  'content': { 'type': String, 'required': true },
-  'excerpt': { 'type': String, 'required': false },
+  'description': { 'type': String, 'required': false },
   'interactions': require('./partials/interactions.js')
 });
 
-mongoose.model('Posts', PostsSchema);
-console.log('MODEL: Posts');
+mongoose.model('PhotosSchema', PhotosSchema);
+console.log('MODEL: Photos');
