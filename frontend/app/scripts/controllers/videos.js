@@ -46,7 +46,7 @@ angular.module('robcolbertApp')
       $scope.players[videoId].pauseVideo();
     };
 
-   $window.onYouTubeIframeAPIReady = function ( ) {
+    $window.onYouTubeIframeAPIReady = function ( ) {
       console.log('YouTube <iframe> API ready');
       $scope.videos.forEach(function (video) {
         switch (video.type) {
@@ -118,9 +118,9 @@ angular.module('robcolbertApp')
             break;
         }
       });
-    }
+    };
 
-    $window.onYouTubePlayerReady = function (playerId) {
+    $window.onYouTubePlayerReady = function (/*playerId*/) {
       console.log('YouTube Player API ready');
     };
 
