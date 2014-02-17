@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose');
 var Posts = mongoose.model('Posts');
-var Paginator = require('./lib/paginator');
+var Paginator = require('robcolbert-utils').expressjs.Paginator;
 
 exports.list = function(req, res){
   var query = Posts.find(req.query, 'created title content excerpt').lean(true);

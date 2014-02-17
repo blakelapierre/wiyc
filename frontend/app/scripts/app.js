@@ -36,6 +36,10 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/posts/postid/edit.html',
     controller: 'PostEditCtrl'
   })
+  .when('/videos', {
+    templateUrl: 'views/videos.html',
+    controller: 'VideosCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

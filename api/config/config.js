@@ -23,6 +23,12 @@ var corsConfig = {
   'allowCredentials': true
 };
 
+var monitorConfig = {
+  enabled: true,
+  mountPoint: '/monitor',
+  maxHistoryLength: 3
+};
+
 var config = {
   development: {
     root: rootPath,
@@ -31,7 +37,8 @@ var config = {
     },
     port: listenPort,
     db: 'mongodb://localhost/robcolbert-development',
-    cors: corsConfig
+    cors: corsConfig,
+    monitor: monitorConfig
   },
 
   test: {
@@ -41,7 +48,8 @@ var config = {
     },
     port: listenPort,
     db: 'mongodb://localhost/robcolbert-test',
-    cors: corsConfig
+    cors: corsConfig,
+    monitor: monitorConfig
   },
 
   production: {
@@ -51,7 +59,8 @@ var config = {
     },
     port: listenPort,
     db: 'mongodb://localhost/robcolbert-production',
-    cors: corsConfig
+    cors: corsConfig,
+    monitor: monitorConfig
   }
 };
 

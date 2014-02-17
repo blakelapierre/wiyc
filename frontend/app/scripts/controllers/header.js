@@ -16,6 +16,9 @@ angular.module('robcolbertApp')
       'blog': {
         'className': 'active'
       },
+      'videos': {
+        'className': ''
+      },
       'about': {
         'className': ''
       },
@@ -31,6 +34,9 @@ angular.module('robcolbertApp')
       switch (group) {
         case 'blog':
           $scope.pills.blog.className = 'active';
+          break;
+        case 'videos':
+          $scope.pills.videos.className = 'active';
           break;
         case 'about':
           $scope.pills.about.className = 'active';

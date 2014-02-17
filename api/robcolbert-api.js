@@ -1,7 +1,12 @@
-var express = require('express'),
-  mongoose = require('mongoose'),
-  fs = require('fs'),
-  config = require('./config/config');
+// robcolbert-api.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+
+var express = require('express');
+var mongoose = require('mongoose');
+var fs = require('fs');
+var config = require('./config/config');
+var robcolbert = require('robcolbert-utils');
+console.log('robcolbert', robcolbert.monitor);
 
 mongoose.connect(config.db);
 var db = mongoose.connection;
@@ -17,13 +22,14 @@ db.on('open', function ( ) {
       require(modelsPath + '/' + file);
     }
   });
-  
+
   var app = express();
-  
   require('./config/express')(app, config);
   require('./config/routes')(app);
 
-  console.log('API server listening on port', config.port);  
+  var monitor = new robcolbert.monitor.Monitor(app, config);
+
+  console.log('API server listening on port', config.port);
   app.listen(config.port);
 });
 

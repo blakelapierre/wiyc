@@ -3,8 +3,7 @@
 
 var mongoose = require('mongoose');
 var Thoughts = mongoose.model('Thoughts');
-
-var Paginator = require('./lib/paginator');
+var Paginator = require('robcolbert-utils').expressjs.Paginator;
 
 exports.list = function(req, res){
   var query = Thoughts.find(req.query, 'created thought').lean(true);
@@ -71,7 +70,7 @@ exports.getComments = function (req, res) {
   console.log('query', req.query);
 
   var paginator = new Paginator(req);
-  
+
   var query = Thoughts.findById(req.route.params.id, 'comments').lean(true);
   paginator.paginateQuery(query).exec(function (err, thought) {
     if (err) {

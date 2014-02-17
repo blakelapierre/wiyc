@@ -6,20 +6,21 @@
 angular.module('robcolbertApp')
 .controller('PostsComposeCtrl', [
   '$scope',
+  '$location',
   'Configuration',
   'Posts',
-  function ($scope, Configuration, Posts) {
+  function ($scope, $location, Configuration, Posts) {
+
+    $scope.$emit('setPageGroup', 'blog');
 
     $scope.editable = true;
     $scope.tinymceOptions = Configuration.tinymceOptions;
-
-    $scope.editable = false;
-    $scope.$emit('setPageGroup', 'blog');
-
     $scope.post = { };
+
     $scope.createPost = function ( ) {
       Posts.create($scope.post, function (newPost) {
         console.log('post created', newPost);
+        $location.path('/posts/'+$scope.post._id);
       });
     };
 
