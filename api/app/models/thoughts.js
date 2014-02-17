@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var ThoughtsSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },
   'thought': { 'type': String, 'required': true },
-  'comments': require('./partials/comments.js')
+  'interactions': require('./partials/interactions.js')
 });
 
 ThoughtsSchema.virtual('date')
