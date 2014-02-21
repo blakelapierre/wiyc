@@ -68,6 +68,10 @@ exports.createComment = function (req, res) {
       res.json(500, err);
       return;
     }
+    if (!post) {
+      res.json(404, {'msg':'post not found'});
+      return;
+    }
     post.comments.push(req.body);
     post.save(function (err, newPost) {
       if (err) {
