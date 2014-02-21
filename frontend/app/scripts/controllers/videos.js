@@ -9,18 +9,21 @@ angular.module('robcolbertApp')
   '$interval',
   function ($window, $scope, $sce, $timeout, $interval) {
     $scope.$emit('setPageGroup', 'videos');
+
+    /*
+     * 'type':'hosted',
+     * 'title':'ASO-RT Demo: Dynamic Data Sources',
+     * 'description': 'Demonstration of creating new dataSource instances and the charts and grids that display them.',
+     * 'url': 'videos/asort-mean.001.ogv'
+     */
     $scope.videos = [
-      /*{
-        'type':'hosted',
-        'title':'ASO-RT Demo: Dynamic Data Sources',
-        'description': 'Demonstration of creating new dataSource instances and the charts and grids that display them.',
-        'url': 'videos/asort-mean.001.ogv'
-      },*/
       {
         'type':'youtube',
-        'title':'',
-        'description':'',
-        'videoId':'GdAz5nd7Uj8'
+        'title':'Krewella - Live For The Night (Pegboard Nerds Remix)',
+        'videoId':'GdAz5nd7Uj8',
+        'description':
+        'Sorry to keep you waiting but we didn\'t have time to upload anything, we are very sorry and from now on we will upload every 2 days.' +
+          'Another great upload of ours this time its a remix from Pegboard Nerds they made an exellent job of remixing "Live For The Night" by Krewella so we hope you like it ;)'
       },
       {
         'type':'youtube',
