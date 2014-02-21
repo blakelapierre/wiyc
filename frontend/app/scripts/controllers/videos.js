@@ -10,11 +10,17 @@ angular.module('robcolbertApp')
   function ($window, $scope, $sce, $timeout, $interval) {
     $scope.$emit('setPageGroup', 'videos');
     $scope.videos = [
-      {
+      /*{
         'type':'hosted',
         'title':'ASO-RT Demo: Dynamic Data Sources',
         'description': 'Demonstration of creating new dataSource instances and the charts and grids that display them.',
         'url': 'videos/asort-mean.001.ogv'
+      },*/
+      {
+        'type':'youtube',
+        'title':'',
+        'description':'',
+        'videoId':'GdAz5nd7Uj8'
       },
       {
         'type':'youtube',
