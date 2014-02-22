@@ -7,9 +7,11 @@
 angular.module('robcolbertApp')
 .controller('MainCtrl', [
   '$scope',
+  'UserSession',
   'Thoughts',
   'Posts',
-  function ($scope, Thoughts, Posts) {
+  function ($scope, UserSession, Thoughts, Posts) {
+    $scope.user = UserSession;
     $scope.$emit('setPageGroup', 'blog');
     $scope.thoughts = Thoughts.list();
     $scope.posts = Posts.list(function ( ) {

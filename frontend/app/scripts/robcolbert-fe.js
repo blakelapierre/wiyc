@@ -1,4 +1,5 @@
-// app.js
+// robcolbert-app.js
+// AngularJS front-end application for robcolbert.com
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';

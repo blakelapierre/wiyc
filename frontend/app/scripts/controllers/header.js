@@ -8,13 +8,21 @@ angular.module('robcolbertApp')
 .controller('HeaderCtrl', [
   '$scope',
   '$rootScope',
-  function ($scope, $rootScope) {
+  'UserSession',
+  function ($scope, $rootScope, UserSession) {
+
     $scope.title = 'robcolbert.com';
+    $scope.brand = 'robcolbert.com';
     $scope.subtitle = 'simplicity as a science';
+
+    $scope.user = UserSession;
 
     $scope.pills = {
       'blog': {
         'className': 'active'
+      },
+      'postComposer': {
+        'className': ''
       },
       'videos': {
         'className': ''
@@ -31,21 +39,16 @@ angular.module('robcolbertApp')
       $.each($scope.pills, function (index, pill) {
         pill.className = '';
       });
-      switch (group) {
-        case 'blog':
-          $scope.pills.blog.className = 'active';
-          break;
-        case 'videos':
-          $scope.pills.videos.className = 'active';
-          break;
-        case 'about':
-          $scope.pills.about.className = 'active';
-          break;
-        case 'contact':
-          $scope.pills.contact.className = 'active';
-          break;
-      }
+      $scope.pills[group].className = 'active';
     });
+
+    $scope.showLoginModal = function ( ) {
+      $('#userLoginModal').modal('show');
+    };
+
+    $scope.clearUserSession = function ( ) {
+      $scope.$emit('clearUserSession');
+    };
 
   }
 ]);

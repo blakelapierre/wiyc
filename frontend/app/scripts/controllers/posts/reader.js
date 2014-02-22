@@ -8,8 +8,10 @@ angular.module('robcolbertApp')
   '$scope',
   '$route',
   '$sce',
+  'UserSession',
   'Posts',
-  function ($scope, $route, $sce, Posts) {
+  function ($scope, $route, $sce, UserSession, Posts) {
+    $scope.user = UserSession;
     $scope.$emit('setPageGroup', 'blog');
     $scope.post = Posts.get({'postId': $route.current.params.postId}, null, function ( ) {
       console.log('post loaded', $scope.post);

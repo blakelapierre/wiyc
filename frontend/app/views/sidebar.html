@@ -1,0 +1,44 @@
+<div class="row">
+  <div>
+    <p>
+      <img class="img-responsive"
+           src="images/rob-profile.jpg"
+           title="Rob Colbert <rob.isConnected@gmail.com>" />
+    </p>
+    <p>
+      My name is Rob Colbert, and I am actively seeking new opportunities to
+      put today's latest technology to work for the <em>right</em> company.
+    </p>
+  </div>
+</div>
+
+<div class="row" ng-controller="ThoughtsCtrl">
+  <div>
+    <button class="btn btn-primary btn-xs pull-right"
+            ng-show="user.session.authenticated"
+            ng-click="showComposer = !showComposer"
+            >+</button>
+    <h4>Thoughts<small>/Twitter Sucks</small></h4>
+  </div>
+  <div ng-show="showComposer">
+    <div class="form-group">
+      <textarea class="form-control"
+                placeholder="Enter thought"
+                ng-model="newThought.thought"
+                >
+      </textarea>
+    </div>
+    <button class="btn btn-primary" ng-click="postThought()">Post Thought</button>
+  </div>
+  <div ng-include="'views/thoughts.html'"></div>
+</div>
+
+<div class="row">
+  <div>
+    <h4>Music</h4>
+  </div>
+
+  <iframe width="100%" height="450" scrolling="no" frameborder="no"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/14571791&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"
+          ></iframe>
+</div>

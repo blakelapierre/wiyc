@@ -19,6 +19,12 @@ angular.module('robcolbertApp')
     $scope.videos = [
       {
         'type':'youtube',
+        'title':'',
+        'videoId':'2W3G7NUDTvw',
+        'description':''
+      },
+      {
+        'type':'youtube',
         'title':'Krewella - Live For The Night (Pegboard Nerds Remix)',
         'videoId':'GdAz5nd7Uj8',
         'description':
