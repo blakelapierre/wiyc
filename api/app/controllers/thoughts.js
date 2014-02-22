@@ -6,8 +6,8 @@ var Thoughts = mongoose.model('Thoughts');
 var Paginator = require('robcolbert-utils').expressjs.Paginator;
 
 exports.list = function(req, res){
-  var query = Thoughts.find(req.query, 'created thought').lean(true);
   var paginator = new Paginator(req);
+  var query = Thoughts.find({ }, 'created thought', { 'sort': { 'created': -1 }});
   paginator.paginateQuery(query).exec(function (err, thoughts) {
     if (err) {
       res.json(500, err);
@@ -39,17 +39,35 @@ exports.get = function (req, res) {
 };
 
 exports.update = function (req, res) {
-  res.json(500, {'msg':'stubbed'});
+  delete req.body._id;
+  Thoughts.findOneAndUpdate(
+    {'_id': req.route.params.id},
+    req.body,
+    function (thought) {
+      if (err) {
+        res.json(500, err);
+        return;
+      }
+      if (!thought) {
+        res.json(404, {'msg':'thought not found (and that\'s funny shit)'});
+        return;
+      }
+      res.json(200, thought);
+    }
+  );
 };
 
 exports.delete = function (req, res) {
-  Thoughts.remove(req.body, function (err) {
-    if (err) {
-      res.json(500, err);
-      return;
+  Thoughts.findOneAndRemove(
+    {'_id': req.route.params.id },
+    function (err) {
+      if (err) {
+        res.json(500, err);
+        return;
+      }
+      res.json(200);
     }
-    res.json(200);
-  });
+  );
 };
 
 exports.createComment = function (req, res) {

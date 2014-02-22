@@ -12,8 +12,11 @@ angular.module('robcolbertApp')
   '$sce',
   '$timeout',
   'Configuration',
+  'UserSession',
   'Posts',
-  function ($rootScope, $scope, $route, $location, $sce, $timeout, Configuration, Posts) {
+  function ($rootScope, $scope, $route, $location, $sce, $timeout, Configuration, UserSession, Posts) {
+
+    $scope.user = UserSession;
 
     $scope.$emit('setPageGroup', 'blog');
     $scope.tinymceOptions = Configuration.tinymceOptions;
@@ -33,8 +36,8 @@ angular.module('robcolbertApp')
     });
 
     $scope.updatePost = function ( ) {
-      if (editor === null) {
-        return; // no
+      if (!$scope.user.session.authenticated || (editor === null)) {
+        return;
       }
       $scope.post.content = editor.getContent();
       $scope.post.$update({'postId':$scope.post._id}, function ( ) {

@@ -27,7 +27,7 @@
     <!-- Add your site or application content here -->
     <div class="container-fluid">
 
-      <div class="row-fluid">
+    <div class="row-fluid">
         <div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
       </div>
 
@@ -36,28 +36,64 @@
         <div class="col-sm-9">
           <div ng-view=""></div>
         </div>
-
-        <div class="col-sm-3 text-center">
-          <div class="row">
-            <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/14571791&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"></iframe>
-          </div>
-          <div class="row">
-            <div ng-include="'views/thoughts.html'" ng-controller="ThoughtsCtrl"></div>
-            <a class="twitter-timeline" href="https://twitter.com/robcolbert" data-widget-id="366459724331364352">Tweets by @robcolbert</a>
-          </div>
+        <div class="col-sm-3">
+          <ng-include src="'views/sidebar.html'"></ng-include>
         </div>
-
         <div class="clearfix"></div>
 
       </div>
 
       <div class="row-fluid footer">
-        <p>
-          &copy; 2014 Rob Colbert
-          &lt;<a href="mailto:rob.isConnected@gmail.com">rob.isConnected@gmail.com</a>&gt;
-        </p>
+        <div ng-include="'views/footer.html'"></div>
       </div>
 
+    </div>
+
+    <div class="modal fade bs-example-modal-sm"
+         id="userLoginModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="mySmallModalLabel"
+         aria-hidden="true"
+         ng-controller="AccountLoginCtrl">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Account Login</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="loginUsernameInput">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="loginUsernameInput" ng-mode="username">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="loginPasswordInput">Username</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="loginPasswordInput" ng-mode="username">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                        Remember me
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="userLogin()">Login</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -90,14 +126,16 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
+    <script src="scripts/robcolbert-fe.js"></script>
 
-    <script src="scripts/services/thoughts.js"></script>
-    <script src="scripts/services/posts.js"></script>
     <script src="scripts/services/configuration.js"></script>
+    <script src="scripts/services/user-session.js"></script>
+    <script src="scripts/services/posts.js"></script>
+    <script src="scripts/services/thoughts.js"></script>
 
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/account-login.js"></script>
     <script src="scripts/controllers/about.js"></script>
     <script src="scripts/controllers/contact.js"></script>
     <script src="scripts/controllers/thoughts.js"></script>

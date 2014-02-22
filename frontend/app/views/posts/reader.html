@@ -1,6 +1,10 @@
 <div class="row post">
   <div class="col-sm-12">
-    <!-- a class="btn btn-default pull-right" href="#/posts/{{post._id}}/edit">Edit</a -->
+    <a class="btn btn-default pull-right"
+       href="#/posts/{{post._id}}/edit"
+       ng-show="user.session.authenticated">
+      Edit
+    </a>
     <div class="title" ng-bind-html="post.title"></div>
     <div class="content">
       <blockquote ng-bind-html="post.excerpt"></blockquote>
