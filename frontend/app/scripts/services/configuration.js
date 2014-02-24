@@ -1,4 +1,5 @@
-
+// services/configuration.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';
 
@@ -9,8 +10,8 @@ angular.module('robcolbertApp')
 
     var apiServer = {
       'scheme': 'http://',
-      'host': 'localhost',
-      //'host': 'robcolbert.com',
+      //'host': 'localhost',
+      'host': 'robcolbert.com',
       'port': 10010
     };
 
