@@ -98,14 +98,15 @@ PostsController.prototype.createComment = function (req, res) {
       res.json(404, {'msg':'post not found'});
       return;
     }
-    post.comments.push(req.body);
+    post.interactions.comments.push(req.body);
     post.save(function (err, newPost) {
       if (err) {
         log.error(err);
         res.json(500, err);
         return;
       }
-      res.json(200, newPost.comments[newPost.comments.length - 1]);
+      var commentIdx = newPost.interactions.comments.length - 1;
+      res.json(200, newPost.interactions.comments[commentIdx]);
     });
   });
 };
@@ -120,7 +121,7 @@ PostsController.prototype.getComments = function (req, res) {
       res.json(500, err);
       return;
     }
-    res.json(200, post.comments);
+    res.json(200, post.interactions.comments);
   });
 };
 

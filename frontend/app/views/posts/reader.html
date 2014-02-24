@@ -1,47 +1,51 @@
-<div class="row post">
-  <div class="col-sm-12">
-    <a class="btn btn-default pull-right"
-       href="#/posts/{{post._id}}/edit"
-       ng-show="user.session.authenticated">
-      Edit
-    </a>
-    <div class="title" ng-bind-html="post.title"></div>
-    <div class="content">
-      <blockquote ng-bind-html="post.excerpt"></blockquote>
+<div class="row-fluid">
+  <div class="post">
+    <div class="header">
+      <a class="btn btn-default pull-right"
+        href="#/posts/{{post._id}}/edit"
+        ng-show="user.session.authenticated">
+        Edit
+      </a>
+      <div class="title" ng-bind-html="post.title"></div>
+      <div class="byline">Posted {{calendarMoment(post.created)}}</div>
     </div>
-    <div class="content" ng-bind-html="post.content"></div>
-    <h3>Comments</h3>
-    <div ng-switch on="post.comments.length">
-      <div ng-switch-when="0">
-        <p>No comments, yet. Share your thoughts and start the conversation.</p>
+
+    <div class="body">
+      <div class="content">
+        <blockquote ng-bind-html="post.excerpt"></blockquote>
       </div>
-      <div ng-switch-default="">
-        <div class="row comment" ng-repeat="comment in post.comments">
-          <div class="header">
-            <div class="col-sm-8 author">{{comment.author}}</div>
-            <div class="col-sm-4 posted">{{comment.posted}}</div>
-            <div class="clearfix"></div>
+      <div class="content" ng-bind-html="post.content"></div>
+    </div>
+
+    <h3>Comments</h3>
+    <div class="comments">
+      <div ng-switch on="post.interactions.comments.length">
+        <div ng-switch-when="0">
+          <p>No comments, yet. Share your thoughts and start the conversation.</p>
+        </div>
+        <div ng-switch-default="">
+          <div class="comment" ng-repeat="comment in post.interactions.comments">
+            <div class="header">
+              <span class="author">{{comment.author}}</span>
+              commented
+              <span class="posted">{{fromNow(comment.posted)}}</span>:
+            </div>
+            <div class="body">{{comment.content}}</div>
           </div>
-          <div class="content col-sm-12">{{comment.content}}</div>
-          <div class="clearfix"></div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<h2>Submit Comment</h2>
-<div class="row">
-  <div class="col-sm-12">
+    <h3>Add comment</h3>
     <form role="form">
       <div class="form-group">
         <label for="authorName">Author name</label>
         <input type="text"
-               class="form-control"
-               id="authorName"
-               name="authorName"
-               ng-model="comment.author"
-               placeholder="Enter display name">
+                class="form-control"
+                id="authorName"
+                name="authorName"
+                ng-model="comment.author"
+                placeholder="Enter display name">
       </div>
       <div class="form-group">
         <label for="commentContent">Comment</label>
@@ -58,5 +62,8 @@
         <button class="btn btn-primary" ng-click="createComment()">Post Comment</button>
       </div>
     </form>
+
+    <div class="clearfix"></div>
+
   </div>
 </div>

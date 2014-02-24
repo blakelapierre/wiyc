@@ -10,15 +10,8 @@ textarea {
   resize: vertical;
 }
 
-.header,
-.content-section,
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
 .header {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #f8f8f8;
 }
 
 .header h3 {
@@ -29,43 +22,67 @@ textarea {
 }
 
 .content-section {
-  margin: 20px 0;
+  margin: 16px 0;
 }
 
 .post {
-  margin-bottom: 60px;
+  margin-bottom: 64px;
 }
 
-.post .title {
+.post .header {
+  display: block;
+  margin-bottom: 32px;
+}
+
+.post .header .title {
   display: block;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 0;
   font-size: 36px;
 }
 
-.post .content {
+.post .header .byline {
+  display: block;
+  padding: 8px 0;
+  font-size: 18px;
+}
+
+.post .body .content {
   display: block;
   font-size: 14px;
 }
 
-.post .comment {
+.post .body .comment {
   margin-bottom: 20px;
 }
 
-.post .comment .header {
-  border-bottom: solid 1px #e8e8e8;
+.comments {
+  max-height: 300px;
+  overflow: auto;
+  border-top: solid 1px #f8f8f8;
+  border-bottom: solid 1px #f8f8f8;
 }
 
-.post .comment .posted {
-  font-size: 12px;
+.comment {
+  margin-bottom: 1.75em;
 }
 
-.post .comment .author {
-  font-size: 14px;
+.comment .header {
+  padding-right: 0;
+  padding-left: 0;
+  margin-bottom: 2px;
+  border-bottom: none;
+}
+
+.comment .header .posted {
+  font-size: 10px;
+}
+
+.comment .header .author {
   font-weight: bold;
 }
 
-.post .comment .content {
+.comment .body {
   font-size: 12px;
 }
 
@@ -99,5 +116,5 @@ textarea {
 .footer {
   padding-top: 19px;
   color: #777;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #f8f8f8;
 }

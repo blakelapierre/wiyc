@@ -11,8 +11,10 @@ angular.module('robcolbertApp')
   'UserSession',
   'Posts',
   function ($scope, $route, $sce, UserSession, Posts) {
+
     $scope.user = UserSession;
     $scope.$emit('setPageGroup', 'blog');
+
     $scope.post = Posts.get({'postId': $route.current.params.postId}, null, function ( ) {
       console.log('post loaded', $scope.post);
       $scope.post.excerpt = $sce.trustAsHtml($scope.post.excerpt);
@@ -22,11 +24,14 @@ angular.module('robcolbertApp')
       }
     });
 
+    $scope.calendarMoment = function (date) { return moment(date).calendar(); };
+    $scope.fromNow = function (date) { return moment(date).fromNow(); };
+
     $scope.comment = { }; // empty by default
     $scope.createComment = function ( ) {
       console.log('createComment', $scope.comment);
       Posts.createComment({'postId': $route.current.params.postId}, $scope.comment, function (newComment) {
-        $scope.post.comments.push(newComment);
+        $scope.post.interactions.comments.push(newComment);
         $scope.comment = { }; // empty it out
       });
     };
