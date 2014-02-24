@@ -7,7 +7,8 @@ angular.module('robcolbertApp')
   '$sce',
   '$timeout',
   '$interval',
-  function ($window, $scope, $sce, $timeout, $interval) {
+  'Videos',
+  function ($window, $scope, $sce, $timeout, $interval, Videos) {
     $scope.$emit('setPageGroup', 'videos');
 
     /*
@@ -16,41 +17,7 @@ angular.module('robcolbertApp')
      * 'description': 'Demonstration of creating new dataSource instances and the charts and grids that display them.',
      * 'url': 'videos/asort-mean.001.ogv'
      */
-    $scope.videos = [
-      {
-        'type':'youtube',
-        'title':'',
-        'videoId':'2W3G7NUDTvw',
-        'description':''
-      },
-      {
-        'type':'youtube',
-        'title':'Krewella - Live For The Night (Pegboard Nerds Remix)',
-        'videoId':'GdAz5nd7Uj8',
-        'description':
-        'Sorry to keep you waiting but we didn\'t have time to upload anything, we are very sorry and from now on we will upload every 2 days.' +
-          'Another great upload of ours this time its a remix from Pegboard Nerds they made an exellent job of remixing "Live For The Night" by Krewella so we hope you like it ;)'
-      },
-      {
-        'type':'youtube',
-        'title':'Quadski (One Awesome Vehicle)',
-        'description':'Possibly the most awesome vehicle on the surface of Earth right now. Would <em>love</em> to commute to work on this!',
-        'videoId':'xOCxT89ynbA'
-      },
-      {
-        'type':'youtube',
-        'title':'Adventure Club - Wonder (Dabin Remix)',
-        'description':'Published on Feb 14, 2014',
-        'videoId':'2xXMqJwndTU'
-      },
-      {
-        'type':'youtube',
-        'title':'Reach For The Sky (Ft. Diane Charlemagne) (The Others Remix)',
-        'description':'Published on Feb 10, 2014',
-        'videoId':'XKNOc6XDyRo'
-      }
-    ];
-
+    $scope.videos = Videos.list( );
     $scope.players = { };
 
     $scope.playVideo = function (videoId) {
@@ -61,78 +28,76 @@ angular.module('robcolbertApp')
       $scope.players[videoId].pauseVideo();
     };
 
+    function initializeVideo (video) {
+      switch (video.type) {
+        case 'youtube':
+          $timeout(function ( ) {
+            $scope.players[video.videoId] = new $window.YT.Player(video.videoId, {
+              height: '390',
+              width: '640',
+              videoId: video.videoId,
+              playerVars: {
+                controls: 0,
+                modestbranding: 1,
+                playsinline: 0 /* full-screen on iProducts, please */,
+                showinfo: 0
+              },
+              events: {
+                'onReady': function onReady ( ) {
+                  console.log('YouTube video', video.videoId, 'is ready');
+                },
+                'onStateChange': function onPlayerStateChange (newState) {
+                  if ($scope.videoUpdateIntervalId !== null) {
+                    clearInterval($scope.videoUpdateIntervalId);
+                    $scope.videoUpdateIntervalId = null;
+                  }
+                  console.log('onPlayerStateChange', video.videoId, 'newState', video.state);
+                  $scope.$apply(function ( ) {
+                    video.state = newState.data;
+                    switch (video.state) {
+                      case -1:
+                        video.stateLabel = '';
+                        break;
+                      case 0:
+                        video.stateLabel = 'end';
+                        break;
+                      case 1:
+                        video.stateLabel = 'play';
+                        $scope.videoUpdateIntervalId = $interval(function ( ) {
+                          var player = $scope.players[video.videoId];
+                          video.currentTime = Math.round(player.getCurrentTime());
+                          video.duration = Math.round(player.getDuration().toFixed(2));
+                          video.playedFraction = (video.currentTime / video.duration).toFixed(2);
+                          video.loadedFraction = (player.getVideoLoadedFraction()).toFixed(2);
+                        }, 100);
+                        break;
+                      case 2:
+                        video.stateLabel = 'pause';
+                        break;
+                      case 3:
+                        video.stateLabel = 'buffer';
+                        break;
+                      case 4:
+                        video.stateLabel = 'cued';
+                        break;
+                    }
+                  });
+                }
+              }
+            });
+          }, 0);
+          break;
+      }
+    }
+
+    function createPlayers ( ) {
+      $scope.videos.forEach(initializeVideo);
+    }
+
     $window.onYouTubeIframeAPIReady = function ( ) {
       console.log('YouTube <iframe> API ready');
-      $scope.videos.forEach(function (video) {
-        switch (video.type) {
-          case 'youtube':
-//             $timeout(function ( ) {
-//               var params = { 'allowScriptAccess': 'always' };
-//               var atts = { 'id': video.videoId };
-//               // var embedUrl = 'http://www.youtube.com/embed/'+video.videoId+'?enablejsapi=1&playerapiid='+video.videoId+'&version=3';
-//               var embedUrl = 'http://www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid='+video.videoId;
-//               video.url = $sce.trustAsResourceUrl(embedUrl);
-//               swfobject.embedSWF(embedUrl, video.videoId, '425', '356', '8', null, null, params, atts);
-//             }, 0);
-
-            $timeout(function ( ) {
-              $scope.players[video.videoId] = new $window.YT.Player(video.videoId, {
-                height: '390',
-                width: '640',
-                videoId: video.videoId,
-                playerVars: {
-                  controls: 0,
-                  modestbranding: 1,
-                  playsinline: 0 /* full-screen on iProducts, please */,
-                  showinfo: 0
-                },
-                events: {
-                  'onReady': function onReady ( ) {
-                    console.log('YouTube video', video.videoId, 'is ready');
-                  },
-                  'onStateChange': function onPlayerStateChange (newState) {
-                    if ($scope.videoUpdateIntervalId !== null) {
-                      clearInterval($scope.videoUpdateIntervalId);
-                      $scope.videoUpdateIntervalId = null;
-                    }
-                    console.log('onPlayerStateChange', video.videoId, 'newState', video.state);
-                    $scope.$apply(function ( ) {
-                      video.state = newState.data;
-                      switch (video.state) {
-                        case -1:
-                          video.stateLabel = '';
-                          break;
-                        case 0:
-                          video.stateLabel = 'end';
-                          break;
-                        case 1:
-                          video.stateLabel = 'play';
-                          $scope.videoUpdateIntervalId = $interval(function ( ) {
-                            var player = $scope.players[video.videoId];
-                            video.currentTime = Math.round(player.getCurrentTime());
-                            video.duration = Math.round(player.getDuration().toFixed(2));
-                            video.playedFraction = (video.currentTime / video.duration).toFixed(2);
-                            video.loadedFraction = (player.getVideoLoadedFraction()).toFixed(2);
-                          }, 100);
-                          break;
-                        case 2:
-                          video.stateLabel = 'pause';
-                          break;
-                        case 3:
-                          video.stateLabel = 'buffer';
-                          break;
-                        case 4:
-                          video.stateLabel = 'cued';
-                          break;
-                      }
-                    });
-                  }
-                }
-              });
-            }, 0);
-            break;
-        }
-      });
+      $scope.playerReady = true;
+      createPlayers();
     };
 
     $window.onYouTubePlayerReady = function (/*playerId*/) {

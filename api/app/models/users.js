@@ -2,6 +2,9 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 var mongoose = require('mongoose');
+var log = require('winston');
+
+log.info('model: Users');
 
 var UsersSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },
@@ -21,4 +24,3 @@ var UsersSchema = new mongoose.Schema({
 });
 
 mongoose.model('Users', UsersSchema);
-console.log('MODEL: Users');
