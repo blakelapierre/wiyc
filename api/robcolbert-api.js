@@ -42,5 +42,5 @@ db.on('open', function ( ) {
   var monitor = new robcolbert.monitor.Monitor(app, config);
 
   winston.info('API server listening on port', config.port);
-  app.listen(config.port);
+  app.listen(config.port, '0.0.0.0');
 });
