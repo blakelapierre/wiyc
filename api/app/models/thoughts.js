@@ -2,6 +2,10 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 var mongoose = require('mongoose');
+var log = require('winston');
+
+log.info('model: Thoughts');
+
 var ThoughtsSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },
   'thought': { 'type': String, 'required': true },
@@ -14,4 +18,3 @@ ThoughtsSchema.virtual('date')
 });
 
 mongoose.model('Thoughts', ThoughtsSchema);
-console.log('MODEL: Thoughts');

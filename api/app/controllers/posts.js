@@ -1,15 +1,25 @@
 // controllers/posts.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
+var log = require('winston');
+log.info('controller: PostsController');
+
 var mongoose = require('mongoose');
 var Posts = mongoose.model('Posts');
 var Paginator = require('robcolbert-utils').expressjs.Paginator;
 
-exports.list = function(req, res){
+function PostsController (app, config) {
+  this.app = app;
+  this.config = config;
+}
+
+PostsController.prototype.list = function(req, res){
+  console.debug('posts.list', req.route, req.query);
   var query = Posts.find(req.query, 'created title content excerpt').lean(true);
   var paginator = new Paginator(req);
   paginator.paginateQuery(query).sort({'created':-1}).exec(function (err, posts) {
     if (err) {
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -17,44 +27,58 @@ exports.list = function(req, res){
   });
 };
 
-exports.create = function (req, res) {
+PostsController.prototype.create = function (req, res) {
+  console.debug('posts.create', req.route, req.query, req.body);
   var post = new Posts(req.body);
   post.save(function (err, newPost) {
     if (err) {
+      log.error(err);
       res.json(500, err);
-      console.log('posts.create error', err);
+      log.error('posts.create error', err);
       return;
     }
     res.json(200, newPost);
   });
 };
 
-exports.get = function (req, res) {
+PostsController.prototype.get = function (req, res) {
+  console.debug('posts.get', req.route, req.query);
   Posts.findById(req.route.params.postId, function (err, post) {
     if (err) {
+      log.error(err);
       res.json(500, err);
+      return;
+    }
+    if (!post) {
+      res.json(404, {'msg':'post not found'});
       return;
     }
     res.json(200, post);
   });
 };
 
-exports.update = function (req, res) {
+PostsController.prototype.update = function (req, res) {
+  console.debug('posts.update', req.route, req.query, req.body);
   delete req.body._id;
-  console.log('posts.update', req.body);
   Posts.findByIdAndUpdate(req.route.params.postId, req.body, function (err, post) {
     if (err) {
-      console.log(err);
+      log.error(err);
       res.json(500, err);
+      return;
+    }
+    if (!post) {
+      res.json(404, {'msg':'post not found'});
       return;
     }
     res.json(200, post);
   });
 };
 
-exports.delete = function (req, res) {
+PostsController.prototype.delete = function (req, res) {
+  console.debug('posts.delete', req.route, req.query);
   Posts.remove(req.body, function (err) {
     if (err) {
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -62,17 +86,23 @@ exports.delete = function (req, res) {
   });
 };
 
-exports.createComment = function (req, res) {
+PostsController.prototype.createComment = function (req, res) {
+  console.debug('posts.createComment', req.route, req.query, req.body);
   Posts.findById(req.route.params.postId, function (err, post) {
     if (err) {
+      log.error(err);
       res.json(500, err);
+      return;
+    }
+    if (!post) {
+      res.json(404, {'msg':'post not found'});
       return;
     }
     post.comments.push(req.body);
     post.save(function (err, newPost) {
       if (err) {
+        log.error(err);
         res.json(500, err);
-        console.log(err);
         return;
       }
       res.json(200, newPost.comments[newPost.comments.length - 1]);
@@ -80,14 +110,18 @@ exports.createComment = function (req, res) {
   });
 };
 
-exports.getComments = function (req, res) {
+PostsController.prototype.getComments = function (req, res) {
+  console.debug('posts.getComments', req.route, req.query);
   var paginator = new Paginator(req);
   var query = Posts.findById(req.route.params.postId, 'comments').lean(true);
   paginator.paginateQuery(query).sort({'posted':1}).exec(function (err, post) {
     if (err) {
+      log.error(err);
       res.json(500, err);
       return;
     }
     res.json(200, post.comments);
   });
 };
+
+module.exports = exports = PostsController;

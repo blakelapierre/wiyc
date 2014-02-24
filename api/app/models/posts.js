@@ -2,6 +2,10 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 var mongoose = require('mongoose');
+var log = require('winston');
+
+log.info('model: Posts');
+
 var PostsSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },
   'title': { 'type': String, 'required': true },
@@ -11,4 +15,3 @@ var PostsSchema = new mongoose.Schema({
 });
 
 mongoose.model('Posts', PostsSchema);
-console.log('MODEL: Posts');
