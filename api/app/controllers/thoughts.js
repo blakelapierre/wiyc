@@ -14,7 +14,7 @@ function ThoughtsController (app, config) {
 }
 
 ThoughtsController.prototype.list = function(req, res){
-  console.debug('thoughts.list', req.route, req.query);
+  log.debug('thoughts.list', req.route, req.query);
   var paginator = new Paginator(req);
   var query = Thoughts.find({ }, 'created thought', { 'sort': { 'created': -1 }});
   paginator.paginateQuery(query).exec(function (err, thoughts) {
@@ -28,7 +28,7 @@ ThoughtsController.prototype.list = function(req, res){
 };
 
 ThoughtsController.prototype.create = function (req, res) {
-  console.debug('thoughts.create', req.route, req.query, req.body);
+  log.debug('thoughts.create', req.route, req.query, req.body);
   var thought = new Thoughts(req.body);
   thought.save(function (err, newThought) {
     if (err) {
@@ -41,7 +41,7 @@ ThoughtsController.prototype.create = function (req, res) {
 };
 
 ThoughtsController.prototype.get = function (req, res) {
-  console.debug('thoughts.get', req.route, req.query);
+  log.debug('thoughts.get', req.route, req.query);
   Thoughts.findById(req.route.params.id, function (err, thought) {
     if (err) {
       log.error(err);
@@ -53,7 +53,7 @@ ThoughtsController.prototype.get = function (req, res) {
 };
 
 ThoughtsController.prototype.update = function (req, res) {
-  console.debug('thoughts.update', req.route, req.query, req.body);
+  log.debug('thoughts.update', req.route, req.query, req.body);
   delete req.body._id;
   Thoughts.findOneAndUpdate(
     {'_id': req.route.params.id},
@@ -75,7 +75,7 @@ ThoughtsController.prototype.update = function (req, res) {
 };
 
 ThoughtsController.prototype.delete = function (req, res) {
-  console.debug('thoughts.delete', req.route, req.query);
+  log.debug('thoughts.delete', req.route, req.query);
   Thoughts.findOneAndRemove(
     {'_id': req.route.params.id },
     function (err) {
@@ -90,7 +90,7 @@ ThoughtsController.prototype.delete = function (req, res) {
 };
 
 ThoughtsController.prototype.createComment = function (req, res) {
-  console.debug('thoughts.createComment', req.route, req.query, req.body);
+  log.debug('thoughts.createComment', req.route, req.query, req.body);
   Thoughts.findById(req.route.params.id, function (err, thought) {
     if (err) {
       log.error(err);
@@ -110,7 +110,7 @@ ThoughtsController.prototype.createComment = function (req, res) {
 };
 
 ThoughtsController.prototype.getComments = function (req, res) {
-  console.debug('thoughts.getComments', req.route, req.query);
+  log.debug('thoughts.getComments', req.route, req.query);
   var paginator = new Paginator(req);
   var query = Thoughts.findById(req.route.params.id, 'comments').lean(true);
   paginator.paginateQuery(query).exec(function (err, thought) {
