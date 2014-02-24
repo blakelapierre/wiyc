@@ -14,7 +14,7 @@ function PostsController (app, config) {
 }
 
 PostsController.prototype.list = function(req, res){
-  console.debug('posts.list', req.route, req.query);
+  log.debug('posts.list', req.route, req.query);
   var query = Posts.find(req.query, 'created title content excerpt').lean(true);
   var paginator = new Paginator(req);
   paginator.paginateQuery(query).sort({'created':-1}).exec(function (err, posts) {
@@ -28,7 +28,7 @@ PostsController.prototype.list = function(req, res){
 };
 
 PostsController.prototype.create = function (req, res) {
-  console.debug('posts.create', req.route, req.query, req.body);
+  log.debug('posts.create', req.route, req.query, req.body);
   var post = new Posts(req.body);
   post.save(function (err, newPost) {
     if (err) {
@@ -42,7 +42,7 @@ PostsController.prototype.create = function (req, res) {
 };
 
 PostsController.prototype.get = function (req, res) {
-  console.debug('posts.get', req.route, req.query);
+  log.debug('posts.get', req.route, req.query);
   Posts.findById(req.route.params.postId, function (err, post) {
     if (err) {
       log.error(err);
@@ -58,7 +58,7 @@ PostsController.prototype.get = function (req, res) {
 };
 
 PostsController.prototype.update = function (req, res) {
-  console.debug('posts.update', req.route, req.query, req.body);
+  log.debug('posts.update', req.route, req.query, req.body);
   delete req.body._id;
   Posts.findByIdAndUpdate(req.route.params.postId, req.body, function (err, post) {
     if (err) {
@@ -75,7 +75,7 @@ PostsController.prototype.update = function (req, res) {
 };
 
 PostsController.prototype.delete = function (req, res) {
-  console.debug('posts.delete', req.route, req.query);
+  log.debug('posts.delete', req.route, req.query);
   Posts.remove(req.body, function (err) {
     if (err) {
       log.error(err);
@@ -87,7 +87,7 @@ PostsController.prototype.delete = function (req, res) {
 };
 
 PostsController.prototype.createComment = function (req, res) {
-  console.debug('posts.createComment', req.route, req.query, req.body);
+  log.debug('posts.createComment', req.route, req.query, req.body);
   Posts.findById(req.route.params.postId, function (err, post) {
     if (err) {
       log.error(err);
@@ -111,7 +111,7 @@ PostsController.prototype.createComment = function (req, res) {
 };
 
 PostsController.prototype.getComments = function (req, res) {
-  console.debug('posts.getComments', req.route, req.query);
+  log.debug('posts.getComments', req.route, req.query);
   var paginator = new Paginator(req);
   var query = Posts.findById(req.route.params.postId, 'comments').lean(true);
   paginator.paginateQuery(query).sort({'posted':1}).exec(function (err, post) {
