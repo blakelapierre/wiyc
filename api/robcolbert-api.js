@@ -30,7 +30,7 @@ db.on('open', function ( ) {
   var monitor = new robcolbert.monitor.Monitor(app, config);
 
   console.log('API server listening on port', config.port);
-  app.listen(config.port);
+  app.listen(config.port, '0.0.0.0');
 });
 
 setInterval(function ( ) { console.log('ssh buster'); }, 15000);
