@@ -1,6 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Share+Tech);
 @import url(http://fonts.googleapis.com/css?family=Duru+Sans);
 
+@rjc-gray:      #f8f8f8;
+
 body {
   padding: 50px 0 20px 0;
 }
@@ -12,12 +14,11 @@ textarea {
 .header,
 .content-section,
 .footer {
-  padding-left: 15px;
-  padding-right: 15px;
+
 }
 
 .header {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid @rjc-gray;
 }
 
 .header h3 {
@@ -28,39 +29,70 @@ textarea {
 }
 
 .content-section {
-  margin: 20px 0;
+  margin: 16px 0;
 }
 
 .post {
-  margin-bottom:60px;
+  margin-bottom:64px;
 }
-.post .title {
+
+.post .header {
+  display:block;
+  margin-bottom:32px;
+}
+
+.post .header .title {
   display:block;
   font-size:36px;
-  margin:0 0 20px 0;
+  margin:0;
   padding:0;
 }
-.post .title a {
+.post .header .title a {
 
 }
-.post .content {
+
+.post .header .byline {
+  display:block;
+  font-size:18px;
+  padding:8px 0;
+}
+
+.post .body {
+
+}
+
+.post .body .content {
   display:block;
   font-size:14px;
 }
-.post .comment {
+.post .body .comment {
   margin-bottom:20px;
 }
-.post .comment .header {
-  border-bottom:solid 1px #e8e8e8;
+
+.comments {
+  max-height:300px;
+  overflow:auto;
+  border-top:solid 1px @rjc-gray;
+  border-bottom:solid 1px @rjc-gray;
 }
-.post .comment .posted {
-  font-size:12px;
+
+.comment {
+  margin-bottom:1.75em;
 }
-.post .comment .author {
-  font-size:14px;
+
+.comment .header {
+  padding-left:0;
+  padding-right:0;
+  margin-bottom:2px;
+  border-bottom:none;
+}
+.comment .header .posted {
+  font-size:10px;
+}
+.comment .header .author {
   font-weight:bold;
 }
-.post .comment .content {
+.comment .body {
   font-size:12px;
 }
 
@@ -88,5 +120,5 @@ textarea {
 .footer {
   padding-top: 19px;
   color: #777;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid @rjc-gray;
 }
