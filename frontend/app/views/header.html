@@ -1,6 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -11,8 +10,8 @@
       <a class="navbar-brand" href="#">{{brand}}</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="header-navbar-collapse">
+
       <ul class="nav navbar-nav" ng-switch on="user.session.authenticated">
 
         <li class="dropdown" ng-switch-when="true">
@@ -35,15 +34,8 @@
         <li ng-class="pills.hireRob.className"><a ng-href="#/hire-rob" title="Hire me!">HIRE ROB</a></li>
       </ul>
 
-      <!-- form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form -->
-
       <ul ng-class="user.session.authenticated ? 'nav navbar-nav navbar-right' : 'nav navbar-right'"
-          style="margin-right:16px;">
+          style="padding-right:15px;">
         <li class="dropdown" ng-show="user.session.authenticated">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">{{user.session.displayName}} <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -58,8 +50,8 @@
         <li ng-class="pills.videos.className" ng-show="!user.session.authenticated">
           <button class="btn btn-default navbar-btn" ng-click="showLoginModal()">Login</button>
         </li>
-
       </ul>
+
     </div><!-- /.navbar-collapse -->
     <div class="clearfix"></div>
   </div><!-- /.container-fluid -->

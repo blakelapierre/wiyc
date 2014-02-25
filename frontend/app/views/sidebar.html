@@ -1,30 +1,22 @@
-<div class="row">
-  <div>
-    <p>
-      <img class="img-responsive"
-           src="images/rob-profile.jpg"
-           title="Rob Colbert <rob.isConnected@gmail.com>" />
-    </p>
-    <p>
-      My name is Rob Colbert. I created Pulsar. Then, I used it to create
-      this blog. Then, people were like, "Wait...what?"
-    </p>
-    <p>
-      You can create stuff with Pulsar. No, I mean you. And, even you,
-      too. I'm just getting started, but it's certainly ready to come out
-      and play to a small crowd. You're either already that crowd or you
-      aren't. Relax. We're growing the crowd.
-    </p>
-  </div>
+<div>
+  <p>
+    <img class="img-responsive"
+          src="images/rob-profile.jpg"
+          title="Rob Colbert <rob.isConnected@gmail.com>" />
+  </p>
+  <p>
+    My name is Rob Colbert, and I created Pulsar. Then, I used it to create
+    this blog.
+  </p>
 </div>
 
-<div class="row" ng-controller="ThoughtsCtrl">
+<div ng-controller="ThoughtsCtrl">
   <div>
     <button class="btn btn-primary btn-xs pull-right"
             ng-show="user.session.authenticated"
             ng-click="showComposer = !showComposer"
             >+</button>
-    <h4>Thoughts<small>/Twitter Sucks</small></h4>
+    <h4>Thoughts<small>.beyond140</small></h4>
   </div>
   <div ng-show="showComposer">
     <div class="form-group">
@@ -39,12 +31,7 @@
   <div ng-include="'views/thoughts.html'"></div>
 </div>
 
-<div class="row">
-  <div>
-    <h4>Music</h4>
-  </div>
-
-  <iframe width="100%" height="450" scrolling="no" frameborder="no"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/14571791&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"
-          ></iframe>
-</div>
+<h4>Music</h4>
+<iframe width="100%" height="450" scrolling="no" frameborder="no"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/14571791&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"
+        ></iframe>
