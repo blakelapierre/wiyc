@@ -41,6 +41,10 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/videos.html',
     controller: 'VideosCtrl'
   })
+  .when('/hire-rob', {
+    templateUrl: 'views/hire-rob.html',
+    controller: 'HireRobCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

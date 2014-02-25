@@ -32,6 +32,9 @@ angular.module('robcolbertApp')
       },
       'contact': {
         'className': ''
+      },
+      'hireRob': {
+        'className': ''
       }
     };
 
