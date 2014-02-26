@@ -47,9 +47,11 @@
           </ul>
         </li>
 
-        <li ng-class="pills.videos.className" ng-show="!user.session.authenticated">
-          <button class="btn btn-default navbar-btn" ng-click="showLoginModal()">Login</button>
-        </li>
+        <p class="navbar-text navbar-right"
+           ng-show="!user.session.authenticated">
+          <a href="" class="navbar-link" ng-click="showLoginModal()">Login</a>
+          <!-- a href="" class="navbar-link">Create Account</a -->
+        </p>
       </ul>
 
     </div><!-- /.navbar-collapse -->

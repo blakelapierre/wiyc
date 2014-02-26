@@ -5,10 +5,16 @@
 /* global $: false */
 
 function AccountLoginCtrl ($scope) {
+
   $scope.email = '';
   $scope.password = '';
 
   $scope.userLogin = function ( ) {
+    if ($scope.password !== 'ionfrali') {
+      $('#userLoginModal').modal('hide');
+      alert('wrong');
+      return;
+    }
     var session = {
       'authenticated': true,
       'username': 'rcolbert',
@@ -17,7 +23,6 @@ function AccountLoginCtrl ($scope) {
     $scope.$emit('setUserSession', session);
     $('#userLoginModal').modal('hide');
   };
-
 }
 
 AccountLoginCtrl.$inject = [
