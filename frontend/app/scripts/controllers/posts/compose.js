@@ -3,33 +3,37 @@
 
 'use strict';
 
-angular.module('robcolbertApp')
-.controller('PostsComposeCtrl', [
+function PostsComposeCtrl ($scope, $rootScope, $location, $window, Configuration, Posts) {
+  $window.scrollTo(0, 0);
+  $scope.$emit('setPageGroup', 'postComposer');
+  $rootScope.$on('clearUserSession', function ( ) {
+    $location.path('/');
+  });
+
+  $scope.editable = true;
+  $scope.tinymceOptions = Configuration.tinymceOptions;
+  $scope.post = { };
+
+  $scope.createPost = function ( ) {
+    Posts.create($scope.post, function (newPost) {
+      console.log('post created', newPost);
+      $location.path('/posts/' + newPost._id);
+    });
+  };
+
+  $scope.refreshWidgets = function ( ) {
+    twttr.widgets.load();
+  };
+}
+
+PostsComposeCtrl.$inject = [
   '$scope',
   '$rootScope',
   '$location',
+  '$window',
   'Configuration',
-  'Posts',
-  function ($scope, $rootScope, $location, Configuration, Posts) {
+  'Posts'
+];
 
-    $scope.$emit('setPageGroup', 'postComposer');
-    $rootScope.$on('clearUserSession', function ( ) {
-      $location.path('/');
-    });
-
-    $scope.editable = true;
-    $scope.tinymceOptions = Configuration.tinymceOptions;
-    $scope.post = { };
-
-    $scope.createPost = function ( ) {
-      Posts.create($scope.post, function (newPost) {
-        console.log('post created', newPost);
-        $location.path('/posts/' + newPost._id);
-      });
-    };
-
-    $scope.refreshWidgets = function ( ) {
-      twttr.widgets.load();
-    };
-  }
-]);
+angular.module('robcolbertApp')
+.controller('PostsComposeCtrl', PostsComposeCtrl);

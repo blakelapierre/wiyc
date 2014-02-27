@@ -9,6 +9,7 @@ angular.module('robcolbertApp')
   '$interval',
   'Videos',
   function ($window, $scope, $sce, $timeout, $interval, Videos) {
+    $window.scrollTo(0, 0);
     $scope.$emit('setPageGroup', 'videos');
 
     /*

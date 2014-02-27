@@ -3,10 +3,15 @@
 
 'use strict';
 
-angular.module('robcolbertApp')
-.controller('ContactCtrl', [
+function ContactCtrl ($scope, $window) {
+  $window.scrollTo(0, 0);
+  $scope.$emit('setPageGroup', 'contact');
+}
+
+ContactCtrl.$inject = [
   '$scope',
-  function ($scope) {
-    $scope.$emit('setPageGroup', 'contact');
-  }
-]);
+  '$window'
+];
+
+angular.module('robcolbertApp')
+.controller('ContactCtrl', ContactCtrl);
