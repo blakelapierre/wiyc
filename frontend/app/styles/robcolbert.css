@@ -58,6 +58,29 @@ textarea {
   margin-bottom: 20px;
 }
 
+.thought {
+  font-size:12px;
+  line-height:1.2em;
+  margin-bottom:16px;
+}
+
+.thought .created {
+  padding:6px 8px;
+  color:#f8f8f8;
+  background-color:#4a4a4a;
+  border-top-left-radius:8px;
+  border-top-right-radius:8px;
+}
+
+.thought .body {
+  padding:8px;
+  border-left:solid 1px #4a4a4a;
+  border-right:solid 1px #4a4a4a;
+  border-bottom:solid 1px #4a4a4a;
+  border-bottom-left-radius:8px;
+  border-bottom-right-radius:8px;
+}
+
 .comments {
   max-height: 300px;
   overflow: auto;

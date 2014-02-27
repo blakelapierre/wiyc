@@ -14,12 +14,17 @@ angular.module('robcolbertApp')
     $scope.user = UserSession;
     $scope.thoughts = Thoughts.list(function ( ) {
       console.log('thoughts', $scope.thoughts);
+      if (angular.isDefined(window.twttr)) {
+        setTimeout(window.twttr.widgets.load, 0);
+      }
     });
 
     $rootScope.$on('clearUserSession', function ( ) {
       $scope.showComposer = false;
       $scope.newThought = { };
     });
+
+    $scope.dateAsMoment = function (date) { return moment(date).calendar(); };
 
     $scope.newThought = { };
     $scope.postThought = function ( ) {
@@ -33,6 +38,9 @@ angular.module('robcolbertApp')
         $scope.thoughts.unshift(thought);
         $scope.showComposer = false;
         $scope.newThought = { };
+        if (angular.isDefined(window.twttr)) {
+          setTimeout(window.twttr.widgets.load, 0);
+        }
       });
     };
 
