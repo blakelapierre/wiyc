@@ -2,12 +2,17 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 var winston = require('winston');
-winston.cli();
 
+winston.cli();
 winston.add(winston.transports.File, { 'filename': 'robcolbert-api.log' });
 winston.info('api.robcolbert.com startup initiated');
 
-var express = require('express');
+var app = require('express')();
+app.log = winston;
+
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
 var mongoose = require('mongoose');
 var fs = require('fs');
 var config = require('./config/config');
@@ -33,14 +38,21 @@ db.on('open', function ( ) {
     }
   });
 
-  var app = express();
-  app.log = winston;
-
   require('./config/express')(app, config);
   require('./config/routes')(app);
 
   var monitor = new robcolbert.monitor.Monitor(app, config);
 
+  io.sockets.on('connection', function (socket) {
+    winston.info('socket.io client connection', socket);
+    socket.emit('hello', {
+      'service':'PulseWire Real-Time Messaging',
+      'version':'0.0.1'
+    });
+    socket.on('goodbye', function (data) {
+    });
+  });
+
   winston.info('API server listening on port', config.port);
-  app.listen(config.port, '0.0.0.0');
+  server.listen(config.port, '0.0.0.0');
 });

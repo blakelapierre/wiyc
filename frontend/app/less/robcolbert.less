@@ -1,10 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Share+Tech);
 @import url(http://fonts.googleapis.com/css?family=Duru+Sans);
 @import url(http://fonts.googleapis.com/css?family=Istok+Web:400,700,400italic);
+
+@rjc-black:     #181818;
 @rjc-gray:      #f8f8f8;
+@rjc-lightgray: lighten(@rjc-gray, 10%);
+@rjc-darkgray:  darken(@rjc-gray, 60%);
 
 body {
-  padding: 50px 0 0 0;
+  padding: 50px 0 32px 0;
 }
 
 textarea {
@@ -19,6 +23,7 @@ textarea {
 
 .header {
   border-bottom: 1px solid @rjc-gray;
+  font-family:"Share Tech";
 }
 
 .header h3 {
@@ -38,7 +43,12 @@ textarea {
 
 .post .header {
   display:block;
+  padding:8px 0;
   margin-bottom:32px;
+  background-color:@rjc-gray;
+  color:@rjc-darkgray;
+  text-align:center;
+  box-shadow:-2px 2px 8px rgba(0,0,0,0.4);
 }
 
 .post .header .title {
@@ -72,24 +82,25 @@ textarea {
 .thought {
   font-size:12px;
   line-height:1.2em;
-  margin-bottom:16px;
+  margin-bottom:8px;
 }
 
 .thought .created {
   padding:6px 8px;
-  color:#f8f8f8;
-  background-color:#4a4a4a;
   border-top-left-radius:8px;
   border-top-right-radius:8px;
+  background-color:@rjc-black;
+  color:lighten(@rjc-gray, 5%);
 }
 
 .thought .body {
   padding:8px;
-  border-left:solid 1px #4a4a4a;
-  border-right:solid 1px #4a4a4a;
-  border-bottom:solid 1px #4a4a4a;
+  border-left:solid 1px @rjc-black;
+  border-right:solid 1px @rjc-black;
+  border-bottom:solid 1px @rjc-black;
   border-bottom-left-radius:8px;
   border-bottom-right-radius:8px;
+  color: @rjc-black;
 }
 
 .comments {
@@ -134,7 +145,7 @@ textarea {
 .resume,
 .resume div,
 .resume p {
-  font-size:16px;
+  font-size:14px;
 }
 
 .resume .section {
@@ -175,13 +186,68 @@ textarea {
   height: 100%;
 }
 
+.sidebar {
+
+}
+
+.sidebar .heading {
+  padding:8px 0;
+  margin:24px 0 8px 0;
+  font-family:"Share Tech";
+  font-size:24px;
+  line-height:1.2em;
+  border:solid 1px darken(@rjc-gray, 20%);
+  border-radius:8px;
+  background-color:@rjc-gray;
+  color:@rjc-black;
+  text-align:center;
+}
+
 .footer {
-  padding:15px 0;
+  position:fixed;
+  right:0; bottom:0; left:0;
+  height:32px;
+  padding:7px 0; margin:0;
   color: #777;
   border-top: 1px solid darken(@rjc-gray, 25%);
   background-color:@rjc-gray;
+  box-shadow:0 -2px 8px rgba(0,0,0,0.4);
 }
 
 .footer .footer-wrap {
+  position:relative;
   padding:0 15px;
+}
+
+.footer-wrap .brand {
+  display:inline-block;
+  padding:0;
+  font-size:16px;
+  font-weight:bold;
+  line-height:1.0em;
+}
+.footer-wrap .label {
+  display:inline-block;
+  font-size:16px;
+  font-weight:bold;
+  line-height:1.0em;
+  padding:8px 0;
+  margin:0 4px;
+  color:#4a4a4a;
+}
+.footer-wrap .icon {
+  font-size:18px;
+  line-height:1em;
+  width:18px; height:18px;
+  margin-left:4px;
+}
+
+/*
+ * I do not give a shit if there's a better/more favorable way to position these.
+ * This works very well.
+ */
+.footer-wrap .badge {
+  position:relative;
+  top:-4px;
+  padding:2px 5px;
 }

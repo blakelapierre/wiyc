@@ -4,7 +4,7 @@
 'use strict';
 /* global $: false */
 
-function AccountLoginCtrl ($scope) {
+function AccountLoginCtrl ($scope, $window) {
 
   $scope.email = '';
   $scope.password = '';
@@ -12,13 +12,15 @@ function AccountLoginCtrl ($scope) {
   $scope.userLogin = function ( ) {
     if ($scope.password !== 'ionfrali') {
       $('#userLoginModal').modal('hide');
-      alert('wrong');
+      $window.alert('wrong');
       return;
     }
     var session = {
       'authenticated': true,
       'username': 'rcolbert',
-      'displayName': 'Rob'
+      'displayName': 'Rob',
+      'inbox': { 'count': 8 },
+      'friends': { 'onlineCount': 2 }
     };
     $scope.$emit('setUserSession', session);
     $('#userLoginModal').modal('hide');
@@ -26,7 +28,8 @@ function AccountLoginCtrl ($scope) {
 }
 
 AccountLoginCtrl.$inject = [
-  '$scope'
+  '$scope',
+  '$window'
 ];
 
 angular.module('robcolbertApp')

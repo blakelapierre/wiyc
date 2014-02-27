@@ -2,6 +2,7 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';
+/* global moment:false */
 
 angular.module('robcolbertApp')
 .controller('ThoughtsCtrl', [

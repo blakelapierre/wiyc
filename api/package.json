@@ -9,7 +9,8 @@
     "express": "~3.3.4",
     "jade": "~0.34.0",
     "mongoose": "~3.6.14",
-    "winston": "latest"
+    "winston": "latest",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

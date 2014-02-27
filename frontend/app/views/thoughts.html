@@ -1,11 +1,3 @@
-<p class="help-block">
-  <small>
-  The Pulsar Thoughts module gives you the ability to post "Pulses" or
-  small status updates. They aren't blog posts, they're just small bits of
-  content you can post whenever you feel like putting something on a page
-  but don't really want to give it the weight of a full post/page.
-  </small>
-</p>
 <div class="thought" ng-repeat="thought in thoughts">
   <div class="created">{{dateAsMoment(thought.created)}}</div>
   <div class="body" ng-bind-html="thought.thought"></div>

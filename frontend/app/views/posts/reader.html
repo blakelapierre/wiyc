@@ -1,14 +1,15 @@
+<div class="jumbotron">
+  <a class="btn btn-default pull-right"
+      href="#/posts/{{post._id}}/edit"
+      ng-show="user.session.authenticated">
+    Edit
+  </a>
+  <h1 ng-bind-html="post.title"></h1>
+  <p>Posted {{calendarMoment(post.created)}}</p>
+</div>
+
 <div class="row-fluid">
   <div class="post">
-    <div class="header">
-      <a class="btn btn-default pull-right"
-        href="#/posts/{{post._id}}/edit"
-        ng-show="user.session.authenticated">
-        Edit
-      </a>
-      <div class="title" ng-bind-html="post.title"></div>
-      <div class="byline">Posted {{calendarMoment(post.created)}}</div>
-    </div>
 
     <div class="body">
       <div class="content">

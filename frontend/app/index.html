@@ -28,23 +28,15 @@
     </p>
     <![endif]-->
 
+    <div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
     <div class="container-fluid">
-
-      <div class="row-fluid">
-        <div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
-      </div>
-
       <div class="row-fluid content-section">
         <div class="col-sm-9"><div ng-view=""></div></div>
-        <div class="col-sm-3"><ng-include src="'views/sidebar.html'"></ng-include></div>
+        <div class="col-sm-3 sidebar"><ng-include src="'views/sidebar.html'"></ng-include></div>
         <div class="clearfix"></div>
       </div>
-
-      <div class="row-fluid footer">
-        <div ng-include="'views/footer.html'"></div>
-      </div>
-
     </div>
+    <div class="footer" ng-include="'views/footer.html'" ng-controller="FooterCtrl"></div>
 
     <div class="modal fade bs-example-modal-sm"
          id="userLoginModal"
@@ -93,14 +85,13 @@
       </div>
     </div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-       ga('create', 'UA-6890824-26');
-       ga('send', 'pageview');
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-6890824-26');
+      ga('send', 'pageview');
     </script>
 
     <!--[if lt IE 9]>
@@ -128,8 +119,10 @@
 
     <script src="scripts/services/configuration.js"></script>
     <script src="scripts/services/user-session.js"></script>
+    <script src="scripts/services/pulse-wire.js"></script>
     <script src="scripts/services/posts.js"></script>
     <script src="scripts/services/thoughts.js"></script>
+    <script src="scripts/services/videos.js"></script>
 
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/header.js"></script>
@@ -141,9 +134,11 @@
     <script src="scripts/controllers/posts/reader.js"></script>
     <script src="scripts/controllers/posts/postId/edit.js"></script>
     <script src="scripts/controllers/videos.js"></script>
-    <script src="scripts/services/videos.js"></script>
     <script src="scripts/controllers/hire-rob.js"></script>
+    <script src="scripts/controllers/footer.js"></script>
     <!-- endbuild -->
+
+    <script src="http://localhost:10010/socket.io/socket.io.js" type="text/javascript"></script>
 
     <!-- Twitter Widget API -->
     <script src="http://platform.twitter.com/widgets.js"

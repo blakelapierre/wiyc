@@ -9,6 +9,7 @@ angular.module('robcolbertApp')
   '$interval',
   'Videos',
   function ($window, $scope, $sce, $timeout, $interval, Videos) {
+
     $window.scrollTo(0, 0);
     $scope.$emit('setPageGroup', 'videos');
 
@@ -18,7 +19,7 @@ angular.module('robcolbertApp')
      * 'description': 'Demonstration of creating new dataSource instances and the charts and grids that display them.',
      * 'url': 'videos/asort-mean.001.ogv'
      */
-    // $scope.videos = Videos.list( );
+    $scope.videoList = Videos.list( );//@TODO: this was a hack to appease jshint. change back to $scope.videos =
     $scope.videos = [
       {
         'type':'youtube',
