@@ -14,7 +14,7 @@ function PulseWire($rootScope, Configuration, UserSession) {
 
 PulseWire.prototype.connect = function ( ) {
   var connectUrl = this.Configuration.buildApiUrl('/');
-  connectUrl = 'http://localhost:10010/';
+  //connectUrl = 'http://localhost:10010/';
   console.log('socket.io connecting to', connectUrl);
   this.socket = io.connect(connectUrl);
   this.attach();
