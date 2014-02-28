@@ -1,29 +1,15 @@
 <div>
-  <div style="width:60%; float:right; margin:0 0 8px 16px;">
-    <div style="padding:0; box-shadow:-4px 4px 12px rgba(0,0,0,0.33); margin-bottom:16px;">
+
+  <div style="width:57%; float:right; margin-left:16px; margin-bottom:6px;">
+    <div style="padding:0; box-shadow:-4px 4px 12px rgba(0,0,0,0.33);">
       <div class="video-container" style="margin-bottom:0;">
         <div class="video-player">
           <iframe width="853" height="480" src="//www.youtube.com/embed/aHjpOzsQ9YI?theme=light" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     </div>
-    <p class="help-block">
-      <small>
-        Lindsey Stirling does not endorse Pulsar. And, this paragraph is only
-        here to demonstrate that your content layout options are limitless on
-        Pulsar. If you know HTML and CSS, I truly do mean limitless. And, if
-        not, Pulsar integrates with and provides a lot of today's best content
-        layout and text editing tools.
-      </small>
-    </p>
-    <p class="help-block">
-      <small>
-        Make no mistake: I am not a front-end UX designer. I am a hard-core
-        programmer who is looking for one. So, I'm doing my best to show you
-        what Pulsar can do. Trust: In the right hands, it does everything.
-      </small>
-    </p>
   </div>
+
   <h1>Welcome to Pulsar!</h1>
   <p class="lead">
     Pulsar is a brand-new content management system being built with one very
@@ -49,28 +35,27 @@
     looks as good as it possibly can. It's an excellent tool for building touch
     screen kiosks, interactive sales displays and more.
   </p>
+
+  <h1>Sample Blog</h1>
+  <p>
+    This is a sample of a blog built with Pulsar. The data model and API already
+    support likes and dislikes. I'm working on the UI for those. Comments are
+    implemented. Open any post and scroll down. No need to create an account or
+    login to comment on a post. I have other ways of preventing spam. Just enjoy
+    the blog and feel free to leave some feedback. This is intended to be a
+    discsussion and not just a demonstration of what Pulsar can do.
+  </p>
+
   <div class="clearfix"></div>
+
 </div>
 
-<h1>Sample Blog</h1>
-<p>
-  This is a sample of a blog built with Pulsar. The data model and API already
-  support likes and dislikes. I'm working on the UI for those. Comments are
-  implemented. Open any post and scroll down. No need to create an account or
-  login to comment on a post. I have other ways of preventing spam. Just enjoy
-  the blog and feel free to leave some feedback. This is intended to be a
-  discsussion and not just a demonstration of what Pulsar can do.
-</p>
-
-<div class="row post" ng-repeat="post in posts">
-  <div class="col-sm-12">
-    <h1><a href="#/posts/{{post._id}}" title="{{post.title}}">{{post.title}}</a></h1>
-    <div ng-bind-html="post.excerpt"></div>
-    <p>
-      <a href="#/posts/{{post._id}}" title="{{post.title}}">Continue reading...</a>
-    </p>
-  </div>
-  <div class="clearfix"></div>
+<div class="post" ng-repeat="post in posts">
+  <h1><a href="#/posts/{{post._id}}" title="{{post.title}}">{{post.title}}</a></h1>
+  <div ng-bind-html="post.excerpt"></div>
+  <p>
+    <a href="#/posts/{{post._id}}" title="{{post.title}}">Continue reading...</a>
+  </p>
 </div>
 
 <h2>Developing On Pulsar</h2>
