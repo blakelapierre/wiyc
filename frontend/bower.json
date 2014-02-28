@@ -1,6 +1,8 @@
 {
   "name": "robcolbert",
   "version": "0.0.0",
+  "appPath": "app",
+  "appScriptName": "scripts/robcolbert-fe",
   "dependencies": {
     "angular": "1.2.6",
     "json3": "~3.2.6",

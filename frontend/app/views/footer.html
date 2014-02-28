@@ -1,7 +1,11 @@
 <div class="container-fluid">
   <div class="footer-wrap">
 
-    <div class="brand">PULSAR {{onlineStatus}}</div>
+    <div class="brand">PULSAR</div>
+    <div class="message"
+         ng-bind-html="message.content"
+         >
+    </div>
 
     <div class="pull-right"
          title="Message Inbox"
