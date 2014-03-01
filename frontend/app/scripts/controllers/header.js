@@ -8,8 +8,8 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
 
   $scope.pulsewire = PulseWire;
   $scope.title = 'robcolbert.com';
-  $scope.brand = 'robcolbert.com';
-  $scope.subtitle = 'simplicity as a science';
+  $scope.brand = 'PULSAR';
+  $scope.subtitle = 'An experiment of sorts.';
 
   $scope.user = UserSession;
 
