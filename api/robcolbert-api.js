@@ -44,7 +44,6 @@ db.on('open', function ( ) {
   var monitor = new robcolbert.monitor.Monitor(app, config);
 
   io.sockets.on('connection', function (socket) {
-    winston.info('socket.io client connection', socket);
     socket.emit('hello', {
       'service':'PulseWire Real-Time Messaging',
       'version':'0.0.1'
