@@ -1,40 +1,17 @@
 <div>
 
-  <div style="width:57%; float:right; margin-left:16px; margin-bottom:6px;">
-    <div style="padding:0; box-shadow:-4px 4px 12px rgba(0,0,0,0.33);">
-      <div class="video-container" style="margin-bottom:0;">
-        <div class="video-player">
-          <iframe width="853" height="480" src="//www.youtube.com/embed/aHjpOzsQ9YI?theme=light" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
+  <div class="jumbotron">
+    <h1>Welcome to Pulsar!</h1>
+    <p class="lead">
+      Pulsar is a new content management system being built with one very
+      important primary concern: High-quality user experiences.
+    </p>
+    <p>
+      Pulsar is built on the <a href="http://mean.io">MEAN stack</a>, and my
+      intention is to keep it simple. I am just getting started.
+      <a href="/#/posts/530b060b1c40eec960000007">Learn more...</a>
+    </p>
   </div>
-
-  <h1>Welcome to Pulsar!</h1>
-  <p class="lead">
-    Pulsar is a brand-new content management system being built with one very
-    important primary concern: High-quality user experiences.
-  </p>
-  <p>
-    Pulsar is built on the <a href="http://mean.io">MEAN stack</a>, and my
-    intention is to keep it simple. I am just getting started.
-    <a href="/#/posts/530b060b1c40eec960000007">Learn more...</a>
-  </p>
-  <p>
-    And, yes: Thanks to technology such as
-    <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>
-    and a little personal CSS-fu, that actually <em>is</em> a responsive
-    embedded YouTube video with a drop shadow and gorgeous text powered by
-    <a href="https://www.google.com/fonts" target="_blank">Google Fonts</a>
-    flowing freely around it.
-  </p>
-  <p>
-    Please resize the browser window. Take it down to mobile phone sizes and all
-    the way to full screen (press F11 in most browsers). From yesterday's phones
-    to a performance venue's projection grid arrays, Pulsar ensures your content
-    looks as good as it possibly can. It's an excellent tool for building touch
-    screen kiosks, interactive sales displays and more.
-  </p>
 
   <h1>Sample Blog</h1>
   <p>
@@ -57,40 +34,3 @@
     <a href="#/posts/{{post._id}}" title="{{post.title}}">Continue reading...</a>
   </p>
 </div>
-
-<h2>Developing On Pulsar</h2>
-<p>
-  Pulsar doesn't get themed. No CMS should. Pulsar does not want to be a rigid
-  monolith that lets you edit a little CSS and add an HTML file. That whole
-  paradigm is entirely too limiting to your designs. Instead, developers are
-  encouraged to build a custom client/front-end of their own design using
-  AngularJS (obviously my preference) or <em>whatever else you want to use</em>
-  if that's what you really want to do. Building on AngularJS means you can
-  use the ng-pulsar framework and finish faster.
-</p>
-<p>
-  Because Pulsar isn't a single server, it's
-  two. The Pulsar API server is powered by Node.js atop MongoDB. Separately,
-  the Pulsar front end isn't even technically a server. It's an HTML5
-  single-page application client that works more like desktop software than a
-  web page. And, you have complete freedom in its hosting if you even decide to
-  use it.
-</p>
-<p>
-  I am using Apache httpd. But, if "it" throws a file onto a wire when properly
-  asked to do so, it'll work. Pulsar's front end really is just a bunch of
-  static, cache-busted, concatenated, minified and crunched standard MIME-typed
-  assets. I'm serving this very site from atop a mountain in Pennsylvania using
-  ridiculously unstable DSL service with a 1Mbps upstream connection to you
-  when it decides to stay connected. So, yes. It's "tested" (daily).
-</p>
-
-<h2>Availability</h2>
-<p>
-  I am primarily building Pulsar at this time as a portfolio piece that will
-  eventually ship to the market. It's actually a race. If I become employed
-  and that does not involve working on Pulsar, it'll be a while. If I succeed
-  in get at least a little funding to be able to pay rent and bills while
-  finishing this and building a team for it, then Pulsar becomes available to
-  the public sooner.
-</p>

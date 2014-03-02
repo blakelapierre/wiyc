@@ -9,7 +9,7 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
   $scope.pulsewire = PulseWire;
   $scope.title = 'robcolbert.com';
   $scope.brand = 'PULSAR';
-  $scope.subtitle = 'An experiment of sorts.';
+  $scope.subtitle = 'simplicity as a science';
 
   $scope.user = UserSession;
 

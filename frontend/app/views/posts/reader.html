@@ -28,8 +28,7 @@
           <div class="comment" ng-repeat="comment in post.interactions.comments">
             <div class="header">
               <span class="author">{{comment.author}}</span>
-              commented
-              <span class="posted">{{fromNow(comment.posted)}}</span>:
+              <span class="posted">{{fromNow(comment.posted)}}</span>
             </div>
             <div class="body">{{comment.content}}</div>
           </div>
