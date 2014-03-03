@@ -27,12 +27,12 @@ angular.module('robcolbertApp')
         'description':'1080p video from my Galaxy S3 of some awesome snowfall in Cranberry Twp, PA. Pulsar\'s video player is fully responsive. This looks awesome from mobile to a 1080p TV and back by way of a phablet and a wristwatch. Gadget geeks beware: UNOGET2COMPLAIN!',
         'videoId':'nn0PcfR0Vtk'
       },
-      {
-        'type':'youtube',
-        'title':'Virus Syndicate - Sick Wid It [Official Music Video]',
-        'description':'They should have listened from the get-go, \'cause we ain\'t ever gonna let go... We\'re gettin\' sick wid it ;)',
-        'videoId':'v4kBSxX4N_0'
-      },
+//       {
+//         'type':'youtube',
+//         'title':'Virus Syndicate - Sick Wid It [Official Music Video]',
+//         'description':'They should have listened from the get-go, \'cause we ain\'t ever gonna let go... We\'re gettin\' sick wid it ;)',
+//         'videoId':'v4kBSxX4N_0'
+//       },
       {
         'type':'youtube',
         'title':'Anant Narayanan - Building Realtime Apps With Firebase and Angular - NG-Conf 2014',

@@ -7,10 +7,10 @@ var log = require('winston');
 log.info('model: Posts');
 
 var PostsSchema = new mongoose.Schema({
-  'created': { 'type': Date, 'default': Date.now },
-  'title': { 'type': String, 'required': true },
+  'created': { 'type': Date, 'default': Date.now, 'index': true },
+  'title': { 'type': String, 'required': true, 'index': true },
   'content': { 'type': String, 'required': true },
-  'excerpt': { 'type': String, 'required': false },
+  'excerpt': { 'type': String, 'required': false, 'index': true },
   'interactions': require('./partials/interactions.js')
 });
 

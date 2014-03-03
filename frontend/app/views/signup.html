@@ -1,1 +1,87 @@
-<p>This is the signup view.</p>
+<h1 ng-show="!isComplete">Create New Pulsar Account</h1>
+<p ng-show="!isComplete">
+  Thanks for taking Pulsar out for a test drive. Your feedback is highly
+  anticipated and greatly appreciated. Over the coming weeks as more
+  features are added, the hope is for people to simply have a lot of fun
+  here proving that Node.js and MongoDB are, in fact, ready for production
+  deployments. Because, well, here they are!
+</p>
+
+<div class="alert alert-danger" ng-show="haveError">
+  <p ng-bind-html="errorMessage"></p>
+</div>
+
+<form ng-show="!isComplete">
+
+<fieldset>
+  <legend>Personal Information</legend>
+  <div class="form-group">
+    <label for="signupEmail">Email address</label>
+    <input type="email"
+           class="form-control"
+           id="signupEmail"
+           name="email"
+           placeholder="Enter email"
+           ng-model="user.email"
+           >
+  </div>
+
+  <div class="form-group">
+    <label for="signupDisplayName">Display name</label>
+    <input type="text"
+           class="form-control"
+           id="signupDisplayName"
+           name="displayName"
+           placeholder="Enter display name (ex: Rob Colbert)"
+           ng-model="user.displayName"
+           >
+    <span class="help-block">
+      Your display name is the name others will read when they see you or your stuff online.
+      It doesn't need to be unique. But, if you're name-spoofing, people will just block you.
+    </span>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Password</legend>
+  <p>
+    Please take a moment and choose a password to keep your blog and content safe. It's best
+    to keep trying until "Very Strong". You won't be allowed to submit the form until the
+    passwords match.
+  </p>
+  
+  <div class="form-group">
+    <label for="signupPassword">Password</label>
+    <input type="password"
+           class="form-control"
+           id="signupPassword"
+           name="password"
+           placeholder="Enter password"
+           ng-model="user.password"
+           ng-change="checkPasswords()"
+           >
+    <span class="help-block">{{passwordStrengthLabel}}</span>
+  </div>
+
+  <div class="form-group">
+    <label for="signupPasswordVerify">Verify password</label>
+    <input type="password"
+           class="form-control"
+           id="signupPasswordVerify"
+           placeholder="Repeat password"
+           ng-model="passwordVerify"
+           ng-change="checkPasswords()">
+    <span class="help-block">{{passwordMatchResult}}</span>
+  </div>
+</fieldset>
+
+  <button class="btn btn-primary btn-lg" ng-click="createAccount()">Let's Do This</button>
+
+</form>
+
+<h2 ng-show="isComplete">Account Created Successfully</h2>
+<p ng-show="isComplete">
+  An email has been sent to {{user.email}}. Please check both your inbox and spam
+  folder for an email from Pulsar asking you to verify your email address. You can
+  not post content here until you verify your email address.
+</p>

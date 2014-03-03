@@ -3,23 +3,26 @@
 
 'use strict';
 
-angular.module('robcolbertApp')
-.service('Posts', [
+function PostsService ($resource, Configuration) {
+  var serviceUrl = Configuration.buildApiUrl('/posts/:postId');
+  var defaultParameters = null;
+  return $resource(serviceUrl, defaultParameters, {
+    'list': { 'method': 'GET', 'isArray': true },
+    'get': { 'method': 'GET' },
+    'create': { 'method': 'POST' },
+    'update': { 'method': 'PUT' },
+    'delete': { 'method': 'DELETE' },
+    'createComment': {
+      'url': Configuration.buildApiUrl('/posts/:postId/comments'),
+                   'method': 'POST'
+    }
+  });
+}
+
+PostsService.$inject = [
   '$resource',
-  'Configuration',
-  function Posts ($resource, Configuration) {
-    var serviceUrl = Configuration.buildApiUrl('/posts/:postId');
-    var defaultParameters = null;
-    return $resource(serviceUrl, defaultParameters, {
-      'list': { 'method': 'GET', 'isArray': true },
-      'get': { 'method': 'GET' },
-      'create': { 'method': 'POST' },
-      'update': { 'method': 'PUT' },
-      'delete': { 'method': 'DELETE' },
-      'createComment': {
-        'url': Configuration.buildApiUrl('/posts/:postId/comments'),
-        'method': 'POST'
-      }
-    });
-  }
-]);
+  'Configuration'
+];
+
+angular.module('robcolbertApp')
+.service('Posts', PostsService);

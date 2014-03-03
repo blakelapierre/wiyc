@@ -47,6 +47,7 @@ UsersController.prototype.create = function (req, res) {
 
     req.session.user = {
       '_id': user._id,
+      'created': user.created,
       'email': user.email,
       'displayName': user.displayName,
       'slug': user.slug

@@ -1,5 +1,5 @@
-<div ng-repeat="video in videos">
-  <h2>{{video.title}}</h2>
+<div ng-repeat="video in videos" style="margin-bottom:32px;">
+  <h1>{{video.title}}</h1>
   <p ng-bind-html="video.description"></p>
 
   <div class="video-container" ng-switch on="video.type">

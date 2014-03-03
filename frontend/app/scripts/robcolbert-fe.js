@@ -49,6 +49,10 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/signup.html',
     controller: 'SignupCtrl'
   })
+  .when('/verify', {
+    templateUrl: 'views/verify.html',
+    controller: 'VerifyCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });
