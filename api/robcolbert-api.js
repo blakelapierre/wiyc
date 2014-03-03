@@ -2,10 +2,8 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 var winston = require('winston');
-
-winston.cli();
 winston.add(winston.transports.File, { 'filename': 'robcolbert-api.log' });
-winston.info('api.robcolbert.com startup initiated');
+winston.cli();
 
 var app = require('express')();
 app.log = winston;
@@ -39,7 +37,7 @@ db.on('open', function ( ) {
   });
 
   require('./config/express')(app, config);
-  require('./config/routes')(app);
+  require('./config/routes')(app, config);
 
   var monitor = new robcolbert.monitor.Monitor(app, config);
 

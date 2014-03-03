@@ -8,19 +8,32 @@ log.info('model: Users');
 
 var UsersSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },
-  'email': { 'type': String, 'required': true },
-  'displayName': { 'type': String, 'required': true },
+  'email': { 'type': String, 'required': true, 'index': { 'unique': true, 'sparse': true } },
+  'emailVerified': { 'type': Boolean, 'default': false },
+  'emailVerifyKey': { 'type': String, 'required': false },
+  'displayName': { 'type': String, 'default': 'New User' },
   'password': { 'type': String, 'required': true },
-  'slug': { 'type': String, 'required': false },
+  'slug': { 'type': String, 'required': false, 'index': { 'unique': true, 'sparse': true } },
+  'lastLogin': { 'type': Date, 'required': false },
+  'loginCount': { 'type': Number, 'default': 0 },
   'about': { 'type': String, 'required': false },
   'website': { 'type': String, 'required': false },
   'friends': [{
-    'friendId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true },
-    'displayName': { 'type': String, 'required': true }
+    'friendId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true }
   }],
+  'friendCount': { 'type': Number, 'default': 0 },
   'ignored': [{
     'userId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true }
-  }]
+  }],
+  'ignoredCount': { 'type': Number, 'default': 0 },
+  'messages': [{
+    'status': { 'type': String, 'required': true },
+    'sent': { 'type': Date, 'default': Date.now },
+    'senderId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true },
+    'subject': { 'type': String, 'required': false },
+    'content': { 'type': String, 'required': false }
+  }],
+  'messageCount': { 'type': Number, 'default': 0 }
 });
 
 mongoose.model('Users', UsersSchema);
