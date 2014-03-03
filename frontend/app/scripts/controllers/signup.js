@@ -10,10 +10,14 @@ function SignupCtrl ($scope, $window, Users, Configuration) {
     'displayName': 'New User'
   };
 
+  //@TODO obviously, refactor this value upward!!
+  // -- snip --
   $scope.isComplete = false;
   $scope.haveError = false;
   $scope.errorMessage = null;
   $scope.passwordMatchResult = '';
+  $scope.bugReported = false;
+  // -- snip --
 
   var passwordStrengthLabels = [
     'Very Weak',
@@ -62,6 +66,11 @@ function SignupCtrl ($scope, $window, Users, Configuration) {
   };
 
   $scope.createAccount = function ( ) {
+    $scope.isComplete = false;
+    $scope.haveError = false;
+    $scope.errorMessage = null;
+    $scope.bugReported = false;
+
     Users.create(
       $scope.user,
       function onCreateSuccess (user) {
@@ -69,8 +78,10 @@ function SignupCtrl ($scope, $window, Users, Configuration) {
         $scope.isComplete = true;
       },
       function onCreateFuckedUp (error) {
-        console.log('Users.create is all fucked up & shit', error);
+        console.log('Users.create error', error);
         $scope.haveError = true;
+        $scope.errorMessage = error.data.msg;
+        $scope.errorData = error.data;
         switch (error.data.name) {
           case 'MongoError':
             switch (error.data.code) {
@@ -79,7 +90,13 @@ function SignupCtrl ($scope, $window, Users, Configuration) {
                 break;
             }
             break;
+
+          default:
+            $scope.bugReported = true;
+            // now absorbed into the back-end reporting
+            break;
         }
+        $window.scrollTo(0, 0);
       }
     );
   };

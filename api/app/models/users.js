@@ -8,7 +8,21 @@ log.info('model: Users');
 
 var UsersSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },
-  'email': { 'type': String, 'required': true, 'index': { 'unique': true, 'sparse': true } },
+  'email': {
+    'type': String,
+    'required': true,
+    'lowercase': true,
+    'trim': true,
+    'index': {
+      'unique': true
+    },
+    'validate': [
+      function notEmpty (value) {
+        return value && (value.length !== 0);
+      },
+      'Email address must not be empty'
+    ]
+  },
   'emailVerified': { 'type': Boolean, 'default': false },
   'emailVerifyKey': { 'type': String, 'required': false },
   'displayName': { 'type': String, 'default': 'New User' },

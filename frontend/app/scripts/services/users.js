@@ -17,7 +17,7 @@ function UsersService ($resource, Configuration) {
   });
 }
 
-PostsService.$inject = [
+UsersService.$inject = [
   '$resource',
   'Configuration'
 ];
