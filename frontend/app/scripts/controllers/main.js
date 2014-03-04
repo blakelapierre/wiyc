@@ -6,7 +6,8 @@
 
 function MainCtrl ($scope, $rootScope, $window, UserSession, Pulses) {
   $window.scrollTo(0, 0);
-  $scope.user = UserSession;
+  $scope.session = UserSession.session;
+  console.log('USER', $scope.user);
   $scope.$emit('setPageGroup', 'main');
   $scope.pulses = Pulses.list();
 

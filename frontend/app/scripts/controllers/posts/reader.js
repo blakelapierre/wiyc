@@ -25,6 +25,7 @@ function PostReaderCtrl ($scope, $route, $sce, $window, UserSession, Posts) {
   $scope.createComment = function ( ) {
     console.log('createComment', $scope.comment);
     Posts.createComment({'postId': $route.current.params.postId}, $scope.comment, function (newComment) {
+      console.log('comment created', newComment);
       $scope.post.interactions.comments.push(newComment);
       $scope.comment = { }; // empty it out
     });

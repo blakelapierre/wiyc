@@ -22,6 +22,12 @@ function UserSession($rootScope, Sessions) {
     self.session = defaultSession;
   });
 
+  self.logout = function ( ) {
+    Sessions.delete(function ( ) {
+      $rootScope.$broadcast('clearUserSession');
+    });
+  };
+
   Sessions.get(function (session) {
     $rootScope.$broadcast('setUserSession', session);
   });

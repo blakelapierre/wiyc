@@ -38,9 +38,8 @@
         <li class="dropdown" ng-show="user.session.authenticated.status">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">{{user.session.displayName}} <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li class="disabled"><a href="#">Messages</a></li>
+            <li class="disabled"><a href="#">Friends</a></li>
             <li class="divider"></li>
             <li><a href="" ng-click="clearUserSession()">Logout</a></li>
           </ul>

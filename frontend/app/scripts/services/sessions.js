@@ -9,7 +9,8 @@ function SessionsService ($resource, Configuration) {
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
     'get': { 'method': 'GET', 'withCredentials': true },
-    'create': { 'method': 'POST', 'withCredentials': true }
+    'create': { 'method': 'POST', 'withCredentials': true },
+    'delete': { 'method': 'DELETE', 'withCredentials': true }
   });
 }
 

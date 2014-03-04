@@ -77,4 +77,9 @@ SessionsController.prototype.get = function (req, res) {
   res.json(200, req.session);
 };
 
+SessionsController.prototype.delete = function (req, res) {
+  req.session.destroy();
+  res.json(200, {'message':'authenticated session destroyed successfully'});
+};
+
 module.exports = exports = SessionsController;

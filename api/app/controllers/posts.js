@@ -13,17 +13,24 @@ function PostsController (app, config) {
   this.config = config;
 }
 
-PostsController.prototype.create = function (req, res) {
-  log.debug('posts.create', req.route, req.query, req.body);
+PostsController.prototype.checkAuthentication = function (req, res, message) {
   if (!req.session.user || !req.session.authenticated.status) {
-    log.error('Posts.create called by unauthenticated client', req.session);
+    log.error('Posts.createComment called by unauthenticated client', req.session);
     res.json(
       500,
       {
         //@TODO: refactor this to a config file with internationalization
-        'message':'Post creation requires user authentication (non-negotiable).'
+        'message': message
       }
     );
+    return false;
+  }
+  return true;
+};
+
+PostsController.prototype.create = function (req, res) {
+  log.debug('posts.create', req.route, req.query, req.body);
+  if (!this.checkAuthentication(req, res, 'Posts can only be created by authenticated Pulsar users.')) {
     return;
   }
 
@@ -45,7 +52,7 @@ PostsController.prototype.list = function(req, res){
   var query =
   Posts
   .find({ }, '_creator created title content excerpt')
-  .lean(true);
+  .lean(false);
 
   var paginator = new Paginator(req);
   query = paginator.paginateQuery(query);
@@ -69,6 +76,10 @@ PostsController.prototype.get = function (req, res) {
   .findById(req.route.params.postId)
   .lean(true)
   .populate('_creator', '_id displayName')
+  .populate({
+    'path':'interactions.comments._creator',
+    'select': '_id displayName'
+  })
   .exec(function (err, post) {
     if (err) {
       log.error(err);
@@ -85,7 +96,12 @@ PostsController.prototype.get = function (req, res) {
 
 PostsController.prototype.update = function (req, res) {
   log.debug('posts.update', req.route, req.query, req.body);
+  if (!this.checkAuthentication(req, res, 'Posts can only be updated by authenticated Pulsar users.')) {
+    return;
+  }
+
   delete req.body._id;
+  req.body._creator = req.session.user._id;
 
   Posts
   .findByIdAndUpdate(req.route.params.postId, req.body)
@@ -107,6 +123,10 @@ PostsController.prototype.update = function (req, res) {
 
 PostsController.prototype.delete = function (req, res) {
   log.debug('posts.delete', req.route, req.query);
+  if (!this.checkAuthentication(req, res, 'Posts can only be deleted by authenticated Pulsar users.')) {
+    return;
+  }
+
   Posts.remove(req.body, function (err) {
     if (err) {
       log.error(err);
@@ -118,19 +138,11 @@ PostsController.prototype.delete = function (req, res) {
 };
 
 PostsController.prototype.createComment = function (req, res) {
-  if (!req.session.user || !req.session.authenticated.status) {
-    log.error('Posts.createComment called by unauthenticated client', req.session);
-    res.json(
-      500,
-      {
-        //@TODO: refactor this to a config file with internationalization
-        'message':'Post creation requires user authentication (non-negotiable).'
-      }
-    );
+  log.debug('posts.createComment', req.route, req.query, req.body);
+  if (!this.checkAuthentication(req, res, 'Post comments can only be created by authenticated Pulsar users.')) {
     return;
   }
 
-  log.debug('posts.createComment', req.route, req.query, req.body);
   Posts.findById(req.route.params.postId)
   .populate('_creator', '_id displayName')
   .exec(function (err, post) {
@@ -153,7 +165,21 @@ PostsController.prototype.createComment = function (req, res) {
         return;
       }
       var commentIdx = newPost.interactions.comments.length - 1;
-      res.json(200, newPost.interactions.comments[commentIdx]);
+      newPost.populate(
+        {
+          'path': 'interactions.comments._creator',
+          'select': '_id displayName'
+        },
+        function (err, populatedPost) {
+          if (err) {
+            log.error(err);
+            res.json(500, err);
+            return;
+          }
+          var comment = populatedPost.interactions.comments[commentIdx];
+          res.json(200, comment);
+        }
+      );
     });
   });
 };

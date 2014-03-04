@@ -49,7 +49,9 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
   };
 
   $scope.clearUserSession = function ( ) {
-    $scope.$emit('clearUserSession');
+    UserSession.logout(function ( ) {
+      $scope.$emit('clearUserSession');
+    });
   };
 
 }
