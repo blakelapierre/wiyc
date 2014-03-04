@@ -37,7 +37,7 @@
     </div>
 
     <h3>Add comment</h3>
-    <form role="form">
+    <form role="form" ng-show="session.authenticated.status">
       <div class="form-group">
         <label for="commentContent">Comment</label>
         <textarea class="form-control"
@@ -54,6 +54,13 @@
       </div>
     </form>
 
+    <div ng-show="!session.authenticated.status">
+      <p>
+        You must have a Pulsar account and be logged in to comment.
+      </p>
+      <a href="#/signup" class="btn btn-primary btn-lg">Let Me Publish!</a>
+    </div>
+    
     <div class="clearfix"></div>
 
   </div>

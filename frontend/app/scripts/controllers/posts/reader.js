@@ -5,7 +5,14 @@
 
 function PostReaderCtrl ($scope, $route, $sce, $window, UserSession, Posts) {
 
-  $scope.user = UserSession;
+  $scope.session = UserSession.session;
+  $scope.$on('setUserSession', function (event, session) {
+    $scope.session = UserSession.session;
+  });
+  $scope.$on('clearUserSession', function ( ) {
+    $scope.session = null;
+  });
+
   $scope.$emit('setPageGroup', 'blog');
 
   $scope.post = Posts.get({'postId': $route.current.params.postId}, null, function ( ) {

@@ -11,11 +11,18 @@ function FooterCtrl ($scope, $interval, Configuration, UserSession, PulseWire) {
   self.PulseWire = PulseWire;
 
   self.$scope = $scope;
-  self.$scope.user = UserSession;
+
+  $scope.session = UserSession.session;
+  $scope.$on('setUserSession', function (event, session) {
+    $scope.session = session;
+  });
+  $scope.$on('clearUserSession', function ( ) {
+    $scope.session = null;
+  });
 
   self.messageAdvanceInterval = null;
-  self.$scope.messages = [ ];
-  self.$scope.message = null;
+  $scope.messages = [ ];
+  $scope.message = null;
 
   self.pushMessage({
     'created': new Date(),

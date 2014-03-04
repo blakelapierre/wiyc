@@ -31,11 +31,24 @@ PulsesController.prototype.create = function (req, res) {
   req.body._creator = req.session.user._id;
   Pulses.create(req.body, function (err, pulse) {
     if (err) {
-      log.error(err);
+      log.error('pulses.create', err);
       res.json(500, err);
       return;
     }
-    res.json(200, pulse);
+    pulse.populate(
+      {
+        'path': '_creator',
+        'select': '_id displayName'
+      },
+      function (err, populatedPulse) {
+        if (err) {
+          log.error('pulses.populate', err);
+          res.json(500, err);
+          return;
+        }
+        res.json(200, populatedPulse);
+      }
+    );
   });
 };
 

@@ -4,7 +4,7 @@
 'use strict';
 /* global $: false */
 
-function AccountLoginCtrl ($scope, $window, Sessions) {
+function AccountLoginCtrl ($scope, $rootScope, $window, Sessions) {
   $scope.email = '';
   $scope.password = '';
 
@@ -22,7 +22,7 @@ function AccountLoginCtrl ($scope, $window, Sessions) {
         'password': $scope.password
       },
       function onSessionCreateSuccess (session) {
-        $scope.$emit('setUserSession', session);
+        $rootScope.$broadcast('setUserSession', session);
         $('#userLoginModal').modal('hide');
       },
       function onSessionCreateError (error) {
@@ -37,6 +37,7 @@ function AccountLoginCtrl ($scope, $window, Sessions) {
 
 AccountLoginCtrl.$inject = [
   '$scope',
+  '$rootScope',
   '$window',
   'Sessions'
 ];

@@ -1,7 +1,6 @@
 <div class="container-fluid">
   <div class="footer-wrap">
 
-    <div class="brand">PULSAR</div>
     <div class="message"
          ng-bind-html="message.content"
          >
@@ -10,19 +9,19 @@
     <div class="pull-right"
          title="Message Inbox"
          ng-click="clickInbox()"
-         ng-show="user.session.authenticated"
+         ng-show="session.authenticated.status"
          >
       <span class="icon glyphicon glyphicon-envelope"></span>
-      <span class="badge">{{user.session.inbox.count}}</span>
+      <span class="badge">{{session.user.inboxCount}}</span>
     </div>
 
     <div class="pull-right"
          title="Friends"
          ng-click="clickFriends()"
-         ng-show="user.session.authenticated"
+         ng-show="session.authenticated.status"
          >
       <span class="icon glyphicon glyphicon-user"></span>
-      <span class="badge">{{user.session.friends.onlineCount}}</span>
+      <span class="badge">{{session.user.friends.onlineCount}}</span>
     </div>
 
     <!-- spacer -->
@@ -31,7 +30,7 @@
     <div class="pull-right"
          title="Pulsar Settings"
          ng-click="clickSettings()"
-         ng-show="user.session.authenticated"
+         ng-show="session.authenticated.status"
          >
       <span class="glyphicon glyphicon-cog"></span>
     </div>
