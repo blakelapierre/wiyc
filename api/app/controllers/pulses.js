@@ -14,7 +14,7 @@ function PulsesController (app, config) {
 }
 
 PulsesController.prototype.create = function (req, res) {
-  log.info('pulses.create', req.route, req.query, req.body);
+  log.debug('pulses.create', req.route, req.query, req.body);
   if (!req.session.user || !req.session.authenticated.status) {
     log.error('Pulses.create called by unauthenticated client', req.session);
     res.json(
@@ -40,7 +40,7 @@ PulsesController.prototype.create = function (req, res) {
 };
 
 PulsesController.prototype.list = function(req, res){
-  log.info('pulses.list', req.route, req.query);
+  log.debug('pulses.list', req.route, req.query);
 
   var query =
   Pulses
@@ -61,7 +61,7 @@ PulsesController.prototype.list = function(req, res){
 };
 
 PulsesController.prototype.get = function (req, res) {
-  log.info('pulses.get', req.route, req.query);
+  log.debug('pulses.get', req.route, req.query);
   Pulses
   .findById(req.route.params.id)
   .lean(true)
@@ -77,7 +77,7 @@ PulsesController.prototype.get = function (req, res) {
 };
 
 PulsesController.prototype.update = function (req, res) {
-  log.info('pulses.update', req.route, req.query, req.body);
+  log.debug('pulses.update', req.route, req.query, req.body);
   delete req.body._id;
   Pulses.findOneAndUpdate(
     {'_id': req.route.params.id},

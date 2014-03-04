@@ -40,7 +40,7 @@ PostsController.prototype.create = function (req, res) {
 };
 
 PostsController.prototype.list = function(req, res){
-  log.info('posts.list', req.route, req.query);
+  log.debug('posts.list', req.route, req.query);
 
   var query =
   Posts
@@ -118,9 +118,20 @@ PostsController.prototype.delete = function (req, res) {
 };
 
 PostsController.prototype.createComment = function (req, res) {
+  if (!req.session.user || !req.session.authenticated.status) {
+    log.error('Posts.createComment called by unauthenticated client', req.session);
+    res.json(
+      500,
+      {
+        //@TODO: refactor this to a config file with internationalization
+        'message':'Post creation requires user authentication (non-negotiable).'
+      }
+    );
+    return;
+  }
+
   log.debug('posts.createComment', req.route, req.query, req.body);
   Posts.findById(req.route.params.postId)
-  .lean(true)
   .populate('_creator', '_id displayName')
   .exec(function (err, post) {
     if (err) {
@@ -132,6 +143,8 @@ PostsController.prototype.createComment = function (req, res) {
       res.json(404, {'msg':'post not found'});
       return;
     }
+
+    req.body._creator = req.session.user._id;
     post.interactions.comments.push(req.body);
     post.save(function (err, newPost) {
       if (err) {
