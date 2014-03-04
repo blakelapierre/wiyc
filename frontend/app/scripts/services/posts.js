@@ -14,7 +14,7 @@ function PostsService ($resource, Configuration) {
     'delete': { 'method': 'DELETE' },
     'createComment': {
       'url': Configuration.buildApiUrl('/posts/:postId/comments'),
-                   'method': 'POST'
+      'method': 'POST'
     }
   });
 }

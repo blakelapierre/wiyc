@@ -3,7 +3,7 @@
 
 'use strict';
 
-function SignupCtrl ($scope, $window, Users, Configuration) {
+function SignupCtrl ($scope, $window, Users) {
   $window.scrollTo(0, 0);
 
   $scope.user = {
@@ -77,7 +77,7 @@ function SignupCtrl ($scope, $window, Users, Configuration) {
         console.log('new user record', user);
         $scope.isComplete = true;
       },
-      function onCreateFuckedUp (error) {
+      function onCreateError (error) {
         console.log('Users.create error', error);
         $scope.haveError = true;
         $scope.errorMessage = error.data.msg;
@@ -105,8 +105,7 @@ function SignupCtrl ($scope, $window, Users, Configuration) {
 SignupCtrl.$inject = [
   '$scope',
   '$window',
-  'Users',
-  'Configuration'
+  'Users'
 ];
 
 angular.module('robcolbertApp')
