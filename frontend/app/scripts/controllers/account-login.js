@@ -4,32 +4,41 @@
 'use strict';
 /* global $: false */
 
-function AccountLoginCtrl ($scope, $window) {
-
+function AccountLoginCtrl ($scope, $window, Sessions) {
   $scope.email = '';
   $scope.password = '';
 
+  $scope.haveError = false;
+  $scope.error = null;
+  $scope.dismissError = function ( ) {
+    $scope.haveError = false;
+    $scope.error = null;
+  };
+
   $scope.userLogin = function ( ) {
-    if ($scope.password !== 'ionfrali') {
-      $('#userLoginModal').modal('hide');
-      $window.alert('wrong');
-      return;
-    }
-    var session = {
-      'authenticated': true,
-      'username': 'rcolbert',
-      'displayName': 'Rob',
-      'inbox': { 'count': 8 },
-      'friends': { 'onlineCount': 2 }
-    };
-    $scope.$emit('setUserSession', session);
-    $('#userLoginModal').modal('hide');
+    Sessions.create(
+      {
+        'email': $scope.email,
+        'password': $scope.password
+      },
+      function onSessionCreateSuccess (session) {
+        $scope.$emit('setUserSession', session);
+        $('#userLoginModal').modal('hide');
+      },
+      function onSessionCreateError (error) {
+        console.log('Sessions.create error', error);
+        $scope.haveError = true;
+        $scope.error = error;
+        $scope.$emit('clearUserSession');
+      }
+    );
   };
 }
 
 AccountLoginCtrl.$inject = [
   '$scope',
-  '$window'
+  '$window',
+  'Sessions'
 ];
 
 angular.module('robcolbertApp')

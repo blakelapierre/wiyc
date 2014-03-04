@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <a class="btn btn-default pull-right"
       href="#/posts/{{post._id}}/edit"
-      ng-show="user.session.authenticated">
+      ng-show="user.session.authenticated.status">
     Edit
   </a>
   <h1 ng-bind-html="post.title"></h1>

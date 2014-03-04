@@ -3,9 +3,13 @@
 
 'use strict';
 
-function PostsComposeCtrl ($scope, $rootScope, $location, $window, Configuration, Posts) {
+function PostsComposeCtrl ($scope, $rootScope, $location, $window, Configuration, UserSession, Posts) {
   $window.scrollTo(0, 0);
+
   $scope.$emit('setPageGroup', 'postComposer');
+  $scope.haveError = false;
+  $scope.errorMessage = '';
+
   $rootScope.$on('clearUserSession', function ( ) {
     $location.path('/');
   });
@@ -15,10 +19,17 @@ function PostsComposeCtrl ($scope, $rootScope, $location, $window, Configuration
   $scope.post = { };
 
   $scope.createPost = function ( ) {
-    Posts.create($scope.post, function (newPost) {
-      console.log('post created', newPost);
-      $location.path('/posts/' + newPost._id);
-    });
+    Posts.create(
+      $scope.post,
+      function onCreatePostSuccess (newPost) {
+        console.log('post created', newPost);
+        $location.path('/posts/' + newPost._id);
+      },
+      function onCreatePostError (error) {
+        $scope.haveError = true;
+        $scope.error = error;
+      }
+    );
   };
 
   $scope.refreshWidgets = function ( ) {
@@ -32,6 +43,7 @@ PostsComposeCtrl.$inject = [
   '$location',
   '$window',
   'Configuration',
+  'UserSession',
   'Posts'
 ];
 

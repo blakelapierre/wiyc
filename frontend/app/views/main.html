@@ -1,7 +1,5 @@
 <div>
-
   <div class="jumbotron">
-
     <h1>
       Welcome to Pulsar
       <small>
@@ -10,25 +8,73 @@
            >Learn&nbsp;more...</a>
       </small>
     </h1>
-
     <p>
-      Pulsar is going to be a new way to publish online. It's trying to solve simple
-      problems using interesting technology. It's also trying to prove a few points.
-      Welcome aboard. Enjoy the ride.
+      Pulsar is a new way to publish and share your stuff online. And, it's
+      trying to solve simple problems using interesting technology. It's also
+      trying to prove a few points, and you either care about that or not.
+      Either way, Welcome aboard!
     </p>
-
-    <a href="/#/signup" class="btn btn-primary btn-lg">Get Started</a>
-
+    <a href="/#/signup"
+       class="btn btn-primary btn-lg"
+       title="This is the button to push first!"
+       >
+      Let Me Publish!
+    </a>
   </div>
-
   <div class="clearfix"></div>
-
 </div>
 
-<div class="post" ng-repeat="post in posts">
-  <h1><a href="#/posts/{{post._id}}" title="{{post.title}}">{{post.title}}</a></h1>
-  <div ng-bind-html="post.excerpt"></div>
-  <p>
-    <a href="#/posts/{{post._id}}" title="{{post.title}}">Continue reading...</a>
-  </p>
+<div style="background-image:url('images/constellation-bg.jpg');background-size:cover; color:white; border-radius:16px; padding:8px;">
+  <h1 style="padding-top:0; margin-top:8px; margin-left:60px;">Constellation</h1>
+  <div style="margin:16px; border-radius:8px; padding:16px; background-color:rgba(255,255,255,0.9); color:black;">
+    Once Pulsar is more complete, Constellation will be launched. The
+    Constellation service wants to become the planet's first
+    decentralized social network. It is intended to be used by anyone
+    who wants to own their data <em>and</em> the conversation around it
+    instead of relying on monolithic companies like Facebook, Twitter
+    or anyone <em>but</em> themselves.
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <h2>When?</h2>
+    <p>
+      Pulsar is an Agile software product with continuous integration to
+      production. That pretty much means that, from this moment forward,
+      Pulsar just keeps becoming more of what is wanted, less of what isn't
+      wanted and you get the updates the very moment they pass tests and,
+      when possible, peer review.
+    </p>
+    <p>
+      It's usable right now, it'll never (ever) be done and don't expect a
+      Beta label. Those are outdated.
+    </p>
+  </div>
+  <div class="col-sm-4">
+    <h2>Who?</h2>
+    <p>
+      Families who want to own their data and the network that carries it.
+      Small, medium and large businesses that want a manageable web site
+      management system. Intercontinental enterprises that want something
+      that integrates well into their existing front end. A lot of people
+      will simply use the free online service and not host anything. But,
+      they'll all succeed at publishing content online in a way that works
+      for them.
+    </p>
+  </div>
+  <div class="col-sm-4">
+    <h2>Why?</h2>
+    <p>
+      You failed to explain the value of Facebook owning your data, and
+      would rather personally own that data. You also don't want or need to
+      build the whole system yourself. We do.
+    </p>
+    <p>
+      Also, there is a desire to prove that MongoDB and Node.js are, "Ready
+      for production." This buzzphrase is standing between people and their
+      continued good health. So, Pulsar partly exists to shove this
+      philosophical discussion out of the way of progress.
+    </p>
+  </div>
 </div>

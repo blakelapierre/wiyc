@@ -1,10 +1,10 @@
 // models/videos.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
-var mongoose = require('mongoose');
 var log = require('winston');
-
 log.info('model: Videos');
+
+var mongoose = require('mongoose');
 
 var VideosSchema = new mongoose.Schema({
   'created': { 'type': Date, 'default': Date.now },

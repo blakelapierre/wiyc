@@ -11,7 +11,8 @@ var listenPort = 10010;
 
 var corsConfig = {
   'allowOrigins': [
-    '*'
+    //'http://0.0.0.0:9000'
+    'http://robcolbert.com'
   ],
   'allowMethods': [
     'GET',

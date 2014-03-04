@@ -6,24 +6,35 @@
   </p>
 </div>
 
-<div ng-controller="ThoughtsCtrl">
+<div ng-controller="AnnouncementsCtrl">
+  <div class="announcement" ng-show="announcement">
+    <div class="heading">Announcements</div>
+    <div class="title">
+      <div class="pull-right" ng-click="nextAnnouncement()"><span class="glyphicon glyphicon-remove-circle"></span></div>
+      {{announcement.title}}
+    </div>
+    <div class="body" ng-bind-html="announcement.content"></div>
+  </div>
+</div>
+
+<div ng-controller="PulsesCtrl">
   <div class="heading">
     <button class="btn btn-default btn-xs pull-right"
-            ng-show="user.session.authenticated"
+            ng-show="user.session.authenticated.status"
             ng-click="showComposer = !showComposer"
             style="margin-right:16px; margin-top:4px;"
-            >+</button>
-    Pulses</h4>
+            ><span class="glyphicon glyphicon-plus"></span></button>
+    Pulses
   </div>
   <div ng-show="showComposer">
     <div class="form-group">
       <textarea class="form-control"
-                placeholder="Enter thought"
-                ng-model="newThought.thought"
+                placeholder="Enter pulse"
+                ng-model="newPulse.content"
                 >
       </textarea>
     </div>
-    <button class="btn btn-primary" ng-click="postThought()">Post Thought</button>
+    <button class="btn btn-primary" ng-click="createPulse()">Create Pulse</button>
   </div>
-  <div ng-include="'views/thoughts.html'"></div>
+  <div ng-include="'views/pulses.html'"></div>
 </div>

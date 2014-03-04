@@ -17,14 +17,6 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/main.html',
     controller: 'MainCtrl'
   })
-  .when('/about', {
-    templateUrl: 'views/about.html',
-    controller: 'AboutCtrl'
-  })
-  .when('/contact', {
-    templateUrl: 'views/contact.html',
-    controller: 'ContactCtrl'
-  })
   .when('/posts/compose', {
     templateUrl: 'views/posts/compose.html',
     controller: 'PostsComposeCtrl'
@@ -41,9 +33,9 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/videos.html',
     controller: 'VideosCtrl'
   })
-  .when('/hire-rob', {
-    templateUrl: 'views/hire-rob.html',
-    controller: 'HireRobCtrl'
+  .when('/about', {
+    templateUrl: 'views/about.html',
+    controller: 'AboutCtrl'
   })
   .when('/signup', {
     templateUrl: 'views/signup.html',
@@ -52,6 +44,21 @@ angular.module('robcolbertApp', [
   .when('/verify', {
     templateUrl: 'views/verify.html',
     controller: 'VerifyCtrl'
+  })
+
+  //
+  // LEGACY REDIRECTS AND CATCH-ALL
+  //
+  .when('/contact', {
+    templateUrl: 'views/contact.html',
+    controller: 'ContactCtrl'
+  })
+  .when('/hire-rob', {
+    redirectTo: '/about'
+  })
+  .when('/posts', {
+    templateUrl: 'views/posts.html',
+    controller: 'PostsCtrl'
   })
   .otherwise({
     redirectTo: '/'

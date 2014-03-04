@@ -3,8 +3,14 @@
 
 'use strict';
 
-function SignupCtrl ($scope, $window, Users) {
+function SignupCtrl ($scope, $rootScope, $window, Users) {
   $window.scrollTo(0, 0);
+
+  $rootScope.$broadcast('showAnnouncement', {
+    'title':'New Users!',
+    'content':'Welcome to Pulsar: The easy way to publish online. An email, display name and password is all you need for now. More to come later...',
+    'displayTime': 8000
+  });
 
   $scope.user = {
     'displayName': 'New User'
@@ -86,7 +92,7 @@ function SignupCtrl ($scope, $window, Users) {
           case 'MongoError':
             switch (error.data.code) {
               case 11000:
-                $scope.errorMessage = 'That email address is already registered on this Pulsar.';
+                $scope.errorMessage = 'The email address provided is already registered with Pulsar.';
                 break;
             }
             break;
@@ -104,6 +110,7 @@ function SignupCtrl ($scope, $window, Users) {
 
 SignupCtrl.$inject = [
   '$scope',
+  '$rootScope',
   '$window',
   'Users'
 ];

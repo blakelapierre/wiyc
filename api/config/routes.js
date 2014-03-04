@@ -34,17 +34,17 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'POST',    'uri': '/sessions',               'controllerMethod': function (req, res) { sessions.create(req,res); }});
   routes.add({ 'method': 'GET',     'uri': '/sessions',               'controllerMethod': sessions.get });
 
-  var thoughts = new (require('../app/controllers/thoughts'))(app, config);
+  var pulses = new (require('../app/controllers/pulses'))(app, config);
 
-  routes.add({ 'method': 'GET',     'uri': '/thoughts',               'controllerMethod': thoughts.list });
-  routes.add({ 'method': 'POST',    'uri': '/thoughts',               'controllerMethod': thoughts.create });
+  routes.add({ 'method': 'GET',     'uri': '/pulses',               'controllerMethod': pulses.list });
+  routes.add({ 'method': 'POST',    'uri': '/pulses',               'controllerMethod': pulses.create });
 
-  routes.add({ 'method': 'GET',     'uri': '/thoughts/:id',           'controllerMethod': thoughts.get });
-  routes.add({ 'method': 'PUT',     'uri': '/thoughts/:id',           'controllerMethod': thoughts.update });
-  routes.add({ 'method': 'DELETE',  'uri': '/thoughts/:id',           'controllerMethod': thoughts.delete });
+  routes.add({ 'method': 'GET',     'uri': '/pulses/:id',           'controllerMethod': pulses.get });
+  routes.add({ 'method': 'PUT',     'uri': '/pulses/:id',           'controllerMethod': pulses.update });
+  routes.add({ 'method': 'DELETE',  'uri': '/pulses/:id',           'controllerMethod': pulses.delete });
 
-  routes.add({ 'method': 'POST',    'uri': '/thoughts/:id/comments',  'controllerMethod': thoughts.createComment });
-  routes.add({ 'method': 'GET',     'uri': '/thoughts/:id/comments',  'controllerMethod': thoughts.getComments });
+  routes.add({ 'method': 'POST',    'uri': '/pulses/:id/comments',  'controllerMethod': pulses.createComment });
+  routes.add({ 'method': 'GET',     'uri': '/pulses/:id/comments',  'controllerMethod': pulses.getComments });
 
 
   var posts = new (require('../app/controllers/posts'))(app, config);

@@ -1,3 +1,10 @@
+<div class="alert alert-danger" ng-show="haveError">
+  <div class="pull-right" style="margin-left:16px;" ng-click="haveError = false">
+    <span class="glyphicon glyphicon-remove-circle"></span>
+  </div>
+  {{error.data.message}}
+</div>
+
 <form role="form" class="form">
   <div class="form-group">
     <label for="postTitle">Post Title</label>

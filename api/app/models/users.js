@@ -1,13 +1,17 @@
 // models/users.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
-var mongoose = require('mongoose');
 var log = require('winston');
-
 log.info('model: Users');
 
+var mongoose = require('mongoose');
+
 var UsersSchema = new mongoose.Schema({
-  'created': { 'type': Date, 'default': Date.now },
+  'created': {
+    'type': Date,
+    'default': Date.now,
+    'index': true
+  },
   'email': {
     'type': String,
     'required': true,

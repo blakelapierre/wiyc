@@ -3,13 +3,13 @@
 
 'use strict';
 
-function UserSession($rootScope) {
+function UserSession($rootScope, Sessions) {
 
   var self = this;
 
   self.$rootScope = $rootScope;
 
-  var defaultSession = { 'authenticated': false };
+  var defaultSession = { 'authenticated': { 'status': false } };
   self.session = defaultSession;
 
   self.$rootScope.$on('setUserSession', function (event, userSession) {
@@ -22,10 +22,14 @@ function UserSession($rootScope) {
     self.session = defaultSession;
   });
 
+  Sessions.get(function (session) {
+    $rootScope.$broadcast('setUserSession', session);
+  });
 }
 
 UserSession.$inject = [
-  '$rootScope'
+  '$rootScope',
+  'Sessions'
 ];
 
 angular.module('robcolbertApp')

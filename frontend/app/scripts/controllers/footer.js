@@ -35,21 +35,21 @@ function FooterCtrl ($scope, $interval, Configuration, UserSession, PulseWire) {
   });
 
   $scope.clickSettings = function ( ) {
-    if (!$scope.user.session.authenticated) {
+    if (!$scope.user.session.authenticated.status) {
       $('#userLoginModal').modal('show');
       return;
     }
   };
 
   $scope.clickFriends = function ( ) {
-    if (!$scope.user.session.authenticated) {
+    if (!$scope.user.session.authenticated.status) {
       $('#userLoginModal').modal('show');
       return;
     }
   };
 
   $scope.clickInbox = function ( ) {
-    if (!$scope.user.session.authenticated) {
+    if (!$scope.user.session.authenticated.status) {
       $('#userLoginModal').modal('show');
       return;
     }

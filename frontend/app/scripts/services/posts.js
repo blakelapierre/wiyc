@@ -7,14 +7,15 @@ function PostsService ($resource, Configuration) {
   var serviceUrl = Configuration.buildApiUrl('/posts/:postId');
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
-    'list': { 'method': 'GET', 'isArray': true },
-    'get': { 'method': 'GET' },
-    'create': { 'method': 'POST' },
-    'update': { 'method': 'PUT' },
-    'delete': { 'method': 'DELETE' },
+    'list': { 'method': 'GET', 'isArray': true, 'withCredentials':true },
+    'get': { 'method': 'GET', 'withCredentials':true },
+    'create': { 'method': 'POST', 'withCredentials':true },
+    'update': { 'method': 'PUT', 'withCredentials':true },
+    'delete': { 'method': 'DELETE', 'withCredentials':true },
     'createComment': {
       'url': Configuration.buildApiUrl('/posts/:postId/comments'),
-      'method': 'POST'
+      'method': 'POST',
+      'withCredentials':true
     }
   });
 }

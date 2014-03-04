@@ -36,7 +36,7 @@ angular.module('robcolbertApp')
     });
 
     $scope.updatePost = function ( ) {
-      if (!$scope.user.session.authenticated || (editor === null)) {
+      if (!$scope.user.session.authenticated.status || (editor === null)) {
         return;
       }
       $scope.post.content = editor.getContent();

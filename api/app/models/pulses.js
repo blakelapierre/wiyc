@@ -1,15 +1,16 @@
-// models/photos.js
+// models/pulses.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 var log = require('winston');
-log.info('model: Photos');
+log.info('model: Pulses');
 
 var mongoose = require('mongoose');
 
-var PhotosSchema = new mongoose.Schema({
+var PulsesSchema = new mongoose.Schema({
   '_creator': {
     'type': mongoose.Schema.Types.ObjectId,
     'required': true,
+    'ref': 'Users',
     'index': 'hashed'
   },
   'created': {
@@ -17,10 +18,8 @@ var PhotosSchema = new mongoose.Schema({
     'default': Date.now,
     'index': true
   },
-  'mimeType': { 'type': String, 'required': true },
-  'title': { 'type': String, 'required': true },
-  'description': { 'type': String, 'required': false },
+  'content': { 'type': String, 'required': true },
   'interactions': require('./partials/interactions.js')
 });
 
-mongoose.model('Photos', PhotosSchema);
+mongoose.model('Pulses', PulsesSchema);

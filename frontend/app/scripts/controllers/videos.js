@@ -23,6 +23,12 @@ angular.module('robcolbertApp')
     $scope.videos = [
       {
         'type':'youtube',
+        'title':'What if it already was enterprise grade?',
+        'description':'<a href="mailto:rob.isConnected@gmail.com">rob.isConnected@gmail.com</a> or <a href="https://twitter.com/robcolbert">@robcolbert</a>. I suck at every other way of keeping in touch, YouTube included.',
+        'videoId':'xQgpHzSru1Y'
+      },
+      {
+        'type':'youtube',
         'title':'Snowfall in Pittsburgh, 1080p',
         'description':'1080p video from my Galaxy S3 of some awesome snowfall in Cranberry Twp, PA. Pulsar\'s video player is fully responsive. This looks awesome from mobile to a 1080p TV and back by way of a phablet and a wristwatch. Gadget geeks beware: UNOGET2COMPLAIN!',
         'videoId':'nn0PcfR0Vtk'

@@ -13,24 +13,22 @@ function PostsController (app, config) {
   this.config = config;
 }
 
-PostsController.prototype.list = function(req, res){
-  log.debug('posts.list', req.route, req.query);
-  var query = Posts.find(req.query, 'created title content excerpt').lean(true);
-  var paginator = new Paginator(req);
-  paginator.paginateQuery(query).sort({'created':-1}).exec(function (err, posts) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
-      return;
-    }
-    res.json(200, posts);
-  });
-};
-
 PostsController.prototype.create = function (req, res) {
   log.debug('posts.create', req.route, req.query, req.body);
-  var post = new Posts(req.body);
-  post.save(function (err, newPost) {
+  if (!req.session.user || !req.session.authenticated.status) {
+    log.error('Posts.create called by unauthenticated client', req.session);
+    res.json(
+      500,
+      {
+        //@TODO: refactor this to a config file with internationalization
+        'message':'Post creation requires user authentication (non-negotiable).'
+      }
+    );
+    return;
+  }
+
+  req.body._creator = req.session.user._id;
+  Posts.create(req.body, function (err, newPost) {
     if (err) {
       log.error(err);
       res.json(500, err);
@@ -41,9 +39,37 @@ PostsController.prototype.create = function (req, res) {
   });
 };
 
+PostsController.prototype.list = function(req, res){
+  log.info('posts.list', req.route, req.query);
+
+  var query =
+  Posts
+  .find({ }, '_creator created title content excerpt')
+  .lean(true);
+
+  var paginator = new Paginator(req);
+  query = paginator.paginateQuery(query);
+
+  query
+  .sort({ 'created':-1 })
+  .populate('_creator', '_id displayName')
+  .exec(function (err, posts) {
+    if (err) {
+      log.error(err);
+      res.json(500, err);
+      return;
+    }
+    res.json(200, posts);
+  });
+};
+
 PostsController.prototype.get = function (req, res) {
   log.debug('posts.get', req.route, req.query);
-  Posts.findById(req.route.params.postId, function (err, post) {
+  Posts
+  .findById(req.route.params.postId)
+  .lean(true)
+  .populate('_creator', '_id displayName')
+  .exec(function (err, post) {
     if (err) {
       log.error(err);
       res.json(500, err);
@@ -60,7 +86,12 @@ PostsController.prototype.get = function (req, res) {
 PostsController.prototype.update = function (req, res) {
   log.debug('posts.update', req.route, req.query, req.body);
   delete req.body._id;
-  Posts.findByIdAndUpdate(req.route.params.postId, req.body, function (err, post) {
+
+  Posts
+  .findByIdAndUpdate(req.route.params.postId, req.body)
+  .lean(true)
+  .populate('_creator', '_id displayName')
+  .exec(function (err, post) {
     if (err) {
       log.error(err);
       res.json(500, err);
@@ -88,7 +119,10 @@ PostsController.prototype.delete = function (req, res) {
 
 PostsController.prototype.createComment = function (req, res) {
   log.debug('posts.createComment', req.route, req.query, req.body);
-  Posts.findById(req.route.params.postId, function (err, post) {
+  Posts.findById(req.route.params.postId)
+  .lean(true)
+  .populate('_creator', '_id displayName')
+  .exec(function (err, post) {
     if (err) {
       log.error(err);
       res.json(500, err);
@@ -114,8 +148,15 @@ PostsController.prototype.createComment = function (req, res) {
 PostsController.prototype.getComments = function (req, res) {
   log.debug('posts.getComments', req.route, req.query);
   var paginator = new Paginator(req);
-  var query = Posts.findById(req.route.params.postId, 'comments').lean(true);
-  paginator.paginateQuery(query).sort({'posted':1}).exec(function (err, post) {
+  var query =
+  Posts
+  .findById(req.route.params.postId, 'comments')
+  .lean(true);
+
+  paginator.paginateQuery(query)
+  .sort({'posted':1})
+  .populate('_creator', '_id displayName')
+  .exec(function (err, post) {
     if (err) {
       log.error(err);
       res.json(500, err);

@@ -13,18 +13,16 @@ function SessionsController (app, config) {
 }
 
 SessionsController.prototype.create = function (req, res) {
-  var failMsg = 'no account matches supplied email address and password.';
-
   log.info('sessions.create', req.body);
-  req.body.password = this.config.app.hashPassword(req.body.password);
 
-  var projection = {
-    'messages': 0,
-    'friends': 0,
-    'ignored': 0
-  };
+  var email = req.body.email.toString().toLowerCase();
+  var password = this.config.app.hashPassword(req.body.password);
+  var failMsg = 'No user account matches the supplied email address and password.';
 
-  Users.find({'email': req.body.email}, projection, function (err, users) {
+  Users
+  .find({'email': email})
+  .select({'emailVerifyKey': 0, 'messages': 0, 'friends': 0, 'ignored': 0})
+  .exec(function (err, users) {
     if (err) {
       log.error(err);
       res.json(500, err);
@@ -32,14 +30,17 @@ SessionsController.prototype.create = function (req, res) {
     }
 
     if (!users || (users.length !== 1)) {
-      res.json(404, { 'msg': failMsg });
+      log.info('Sessions.create failed: No user account');
+      res.json(404, { 'message': failMsg });
       return;
     }
-    if (users[0].password !== req.body.password) {
-      res.json(200, { 'msg': failMsg });
+    if (users[0].password !== password) {
+      log.info('Sessions.create failed: Failed password', users[0].password, password);
+      res.json(500, { 'message': failMsg });
       return;
     }
 
+    req.session.cookie.maxAge = 7 * 24 * 60 * 60 * 1000;
     req.session.authenticated = {
       'status': true,
       'login': new Date()
@@ -70,7 +71,7 @@ SessionsController.prototype.create = function (req, res) {
 SessionsController.prototype.get = function (req, res) {
   log.debug('sessions.getMySession', req.route);
   if (!req.session) {
-    res.json(500, {'msg':'no active session'});
+    res.json(500, {'message':'no active session'});
     return;
   }
   res.json(200, req.session);

@@ -1,0 +1,18 @@
+<p>
+  This is an aggregation of all posts created by all users across this Pulsar
+  instance. This is a public instance with open signup. Have a sip of some
+  Pulsar...
+</p>
+
+<div class="post" ng-repeat="post in posts">
+  <hr />
+  <h1 style="margin-bottom:0; padding-bottom:0;">
+    <a href="#/posts/{{post._id}}" title="{{post.title}}">{{post.title}}</a>
+  </h1>
+  <small>{{post._creator.displayName}}, {{calendarMoment(post.created).toLowerCase()}}</small>
+  <!--                                  I feel kinda dirty. Because ^ that's just sick -->
+  <div ng-bind-html="post.excerpt" style="margin-top:16px;"></div>
+  <p>
+    <a href="#/posts/{{post._id}}" title="{{post.title}}">Continue reading...</a>
+  </p>
+</div>

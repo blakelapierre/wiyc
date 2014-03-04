@@ -14,6 +14,9 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
   $scope.user = UserSession;
 
   $scope.pills = {
+    'main': {
+      'className': ''
+    },
     'blog': {
       'className': 'active'
     },
