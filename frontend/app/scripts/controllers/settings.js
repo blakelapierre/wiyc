@@ -23,7 +23,7 @@ function SettingsCtrl ($scope, $rootScope, $window, Configuration, Users, UserSe
       console.log('settings user object retrieved', $scope.user);
     },
     function onUserError (error) {
-      console.log('settings user object error', $scope.user);
+      console.log('settings user object error', error);
     }
   );
 

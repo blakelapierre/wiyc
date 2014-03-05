@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Building Pulsar AngularJS Front End"
+grunt
+
+rm -f ../robcolbert-fe.tar.gz
+tar -czf ../robcolbert-fe.tar.gz dist

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd api
+    ./build
+    cd ..
+
+cd frontend
+    ./build
+    cd ..
+
+echo "Pulsar deployment build is done"
