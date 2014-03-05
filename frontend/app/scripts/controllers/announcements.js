@@ -11,7 +11,7 @@ function AnnouncementsCtrl ($scope, $rootScope, $timeout) {
 
   function advanceToNext ( ) {
     $scope.announcement = $scope.announcements.shift();
-    if (angular.isDefined($scope.announcement) && angular.isDefined($scope.announcement.displayTime) && ($scope.announcement.displayTime != 'manual')) {
+    if (angular.isDefined($scope.announcement) && angular.isDefined($scope.announcement.displayTime) && ($scope.announcement.displayTime !== 'manual')) {
       advanceTimeoutPromise = $timeout(
         advanceToNext,
         $scope.announcement.displayTime || 10000

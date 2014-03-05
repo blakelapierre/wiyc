@@ -2,6 +2,8 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';
+/* global twttr:false */
+/* global moment:false */
 
 function PostsCtrl ($scope, Posts) {
   $scope.$emit('setPageGroup', 'blog');

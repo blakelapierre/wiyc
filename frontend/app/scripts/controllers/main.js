@@ -2,7 +2,6 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';
-/*global twttr:false */
 
 function MainCtrl ($scope, $rootScope, $window, UserSession, Pulses) {
   $window.scrollTo(0, 0);
