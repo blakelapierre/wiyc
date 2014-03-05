@@ -97,34 +97,29 @@ textarea {
   margin-bottom:20px;
 }
 
-.thought {
-  font-size:14px;
+.pulse {
+  font-size:12px;
   line-height:1.2em;
-  margin-bottom:8px;
+  margin-bottom:16px;
 }
 
-.thought .created {
+.pulse .created {
   padding:6px 8px;
-  border-top-left-radius:8px;
-  border-top-right-radius:8px;
-  background-color:@rjc-black;
+  background-color: darken(@rjc-gray, 60%);
   color:lighten(@rjc-gray, 5%);
 }
 
-.thought .body {
+.pulse .body {
   padding:8px;
-  border-left:solid 1px @rjc-black;
-  border-right:solid 1px @rjc-black;
-  border-bottom:solid 1px @rjc-black;
-  border-bottom-left-radius:8px;
-  border-bottom-right-radius:8px;
-  color: @rjc-black;
+  border-left:solid 1px darken(@rjc-gray, 60%);;
+  border-right:solid 1px darken(@rjc-gray, 60%);;
+  border-bottom:solid 1px darken(@rjc-gray, 60%);;
+  color: darken(@rjc-gray, 60%);;
 }
 
 .comments {
-  max-height:420px;
-  overflow:auto;
-  border:solid 1px darken(@rjc-gray, 5%);
+  border-left:solid 1px darken(@rjc-gray, 5%);
+  border-right:solid 1px darken(@rjc-gray, 5%);
 }
 
 .comment {
@@ -210,9 +205,23 @@ textarea {
 
 }
 
+.sidebar .widget {
+  margin-bottom:16px;
+  padding:16px;
+  background-color:lighten(@rjc-gray, 2%);
+  box-shadow:0 0 5px rgba(0,0,0,0.3) inset;
+}
+
+.sidebar .widget .crystal-ball {
+  max-height:480px;
+  overflow:auto;
+  border-top:solid 1px darken(@rjc-gray, 40%);
+  padding:16px 0;
+}
+
 .sidebar .heading {
   padding:8px 0;
-  margin:24px 0 8px 0;
+  margin:0 0 16px 0;
   font-family:"Share Tech";
   font-size:24px;
   line-height:1.2em;
@@ -221,6 +230,7 @@ textarea {
   background-color:@rjc-gray;
   color:@rjc-black;
   text-align:center;
+  box-shadow:0 0 5px rgba(0,0,0,0.3);
 }
 
 .sidebar .announcement {
@@ -231,8 +241,6 @@ textarea {
 
 .sidebar .announcement .title {
   padding:6px 8px;
-  border-top-left-radius:8px;
-  border-top-right-radius:8px;
   background-color:@rjc-black;
   color:lighten(@rjc-gray, 5%);
 }
@@ -266,6 +274,7 @@ textarea {
 .footer-wrap .brand {
   display:inline-block;
   padding:0;
+  margin-right:16px;
   font-size:16px;
   font-weight:bold;
   line-height:1.0em;

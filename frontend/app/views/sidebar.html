@@ -1,12 +1,4 @@
-<div>
-  <p>
-    <img class="img-responsive"
-          src="images/pulsar-profile.jpg"
-          title="Rob Colbert <rob.isConnected@gmail.com>" />
-  </p>
-</div>
-
-<div ng-controller="AnnouncementsCtrl">
+<div class="widget" ng-controller="AnnouncementsCtrl">
   <div class="announcement" ng-show="announcement">
     <div class="heading">Announcements</div>
     <div class="title">
@@ -17,13 +9,15 @@
   </div>
 </div>
 
-<div ng-controller="PulsesCtrl">
+<div class="widget" ng-controller="PulsesCtrl">
   <div class="heading">
     <button class="btn btn-default btn-xs pull-right"
             ng-show="user.session.authenticated.status"
             ng-click="showComposer = !showComposer"
             style="margin-right:16px; margin-top:4px;"
-            ><span class="glyphicon glyphicon-plus"></span></button>
+            >
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
     Pulses
   </div>
   <div ng-show="showComposer">
@@ -37,4 +31,17 @@
     <button class="btn btn-primary" ng-click="createPulse()">Create Pulse</button>
   </div>
   <div ng-include="'views/pulses.html'"></div>
+</div>
+
+<div class="widget">
+  <div class="heading">Featured Draft Post</div>
+  <p>
+    <small>
+      The news is so fresh on Pulsar that it's actually from the future. This is a
+      post in draft. It's not live, yet. It's author is working on it using a
+      Pulsar-powered blog. After a little more testing, you'll be able to share
+      <em>what you're working on</em> with your followers in real time.
+    </small>
+  </p>
+
 </div>

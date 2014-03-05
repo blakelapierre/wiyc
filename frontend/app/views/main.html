@@ -1,40 +1,43 @@
 <div>
-  <div class="jumbotron">
-    <h1>
-      Welcome to Pulsar
-      <small>
-        <a href="/#/posts/530b060b1c40eec960000007"
-           title="There. I used an &amp;nbsp; properly. Can we get over the style of the site, please?"
-           >Learn&nbsp;more...</a>
-      </small>
-    </h1>
-    <p>
-      Pulsar is a new way to publish and share your stuff online. And, it's
-      trying to solve simple problems using interesting technology. It's also
-      trying to prove a few points, and you either care about that or not.
-      Either way, Welcome aboard!
-    </p>
-    <a href="/#/signup"
-       class="btn btn-primary btn-lg"
-       title="This is the button to push first!"
-       ng-show="!session.authenticated.status"
-       >
-      Let Me Publish!
-    </a>
+  <div class="jumbotron" style="background-image:url('images/earth-bg.jpg'); background-size:cover; background-position:center center; box-shadow:0 0 8px rgba(0,0,0,0.8) inset;">
+
+    <div style="padding:16px; margin-bottom:32px; background-color:rgba(255,255,255,0.8); box-shadow:0 0 8px rgba(0,0,0,0.8);">
+      <h1>
+        Welcome to Pulsar
+        <small>
+          <a href="/#/posts/530b060b1c40eec960000007"
+            title="There. I used an &amp;nbsp; properly. Can we get over the style of the site, please?"
+            >Learn&nbsp;more...</a>
+        </small>
+      </h1>
+      <p>
+        Pulsar is a new way to publish and share your stuff online. It's just
+        trying to solve <strike>simple</strike> interesting problems using
+        interesting technology. It's also trying to prove a few sciencey points
+        here &amp; there, and you either care about that or not. Won't matter.
+      </p>
+      <p>
+        Welcome aboard! Let's go break some Internet.
+      </p>
+    </div>
+
+    <div>
+      <a href="/#/signup"
+        class="btn btn-primary btn-lg"
+        title="This is the button to push first!"
+        ng-show="!session.authenticated.status"
+        >
+        Shut Up and Let Me Publish!
+      </a>
+      <a class="pull-right" href="/#/signup"
+         style="margin-right: 2px;"
+         ng-show="!session.authenticated.status">
+        Create Account
+      </a>
+    </div>
+
   </div>
   <div class="clearfix"></div>
-</div>
-
-<div style="background-image:url('images/constellation-bg.jpg');background-size:cover; color:white; border-radius:16px; padding:8px;">
-  <h1 style="padding-top:0; margin-top:8px; margin-left:60px;">Constellation</h1>
-  <div style="margin:16px; border-radius:8px; padding:16px; background-color:rgba(255,255,255,0.9); color:black;">
-    Once Pulsar is more complete, Constellation will be launched. The
-    Constellation service wants to become the planet's first
-    decentralized social network. It is intended to be used by anyone
-    who wants to own their data <em>and</em> the conversation around it
-    instead of relying on monolithic companies like Facebook, Twitter
-    or anyone <em>but</em> themselves.
-  </div>
 </div>
 
 <div class="row">
@@ -79,3 +82,26 @@
     </p>
   </div>
 </div>
+
+<h2>Near Future</h2>
+<div style="margin-top:32px; background-image:url('images/constellation-bg.jpg');background-size:cover; color:white; padding:8px;">
+  <h1 style="padding-top:0; margin-top:8px; margin-left:60px;">Constellation</h1>
+  <div style="margin:16px; padding:16px; background-color:rgba(255,255,255,0.9); color:black;">
+    Once Pulsar is more complete, Constellation will be launched. The
+    Constellation service wants to become the planet's first
+    decentralized social network. It is intended to be used by anyone
+    who wants to own their data <em>and</em> the conversation around it
+    instead of relying on monolithic companies like Facebook, Twitter
+    or anyone <em>but</em> themselves.
+  </div>
+</div>
+
+<h2>Long-Term</h2>
+<p>
+  As the planet's first truly distributed, decentralized social network enabling
+  people to communicate in fun new ways while owning their data, Pulsar and
+  Constellation may or may not change all of our lives, but it might touch a
+  few. And, that's the hope. That's all there is to it. Touch a few lives and
+  help them make positive changes. Period. Anything else that happens along the
+  way will be considered an unitended but necessary step along the path.
+</p>

@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <a class="btn btn-default pull-right"
       href="#/posts/{{post._id}}/edit"
-      ng-show="user.session.authenticated.status">
+      ng-show="session.authenticated.status &amp;&amp; (post._creator._id === session.user._id)">
     Edit
   </a>
   <h1 ng-bind-html="post.title"></h1>
@@ -60,7 +60,7 @@
       </p>
       <a href="#/signup" class="btn btn-primary btn-lg">Let Me Publish!</a>
     </div>
-    
+
     <div class="clearfix"></div>
 
   </div>
