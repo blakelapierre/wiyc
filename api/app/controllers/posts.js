@@ -100,24 +100,75 @@ PostsController.prototype.update = function (req, res) {
     return;
   }
 
+  // In no way will the documentId ever be authoritative when coming from the
+  // client other than the route.
   delete req.body._id;
+
+  // In no way will the creator's userId be authoritaive when coming from the
+  // client period and ever. This value was read from the database and stored
+  // in memcache on trusted resources.
   req.body._creator = req.session.user._id;
 
-  Posts
-  .findByIdAndUpdate(req.route.params.postId, req.body)
-  .lean(true)
-  .populate('_creator', '_id displayName')
-  .exec(function (err, post) {
+  // In no way will meaningful information from a post be considered
+  // authoritative when (potentially) coming from the client with respect to
+  // subdocuments, comments, etc. These items are removed from input if they
+  // are presented (again, ours is not the only client that *can* access this
+  // server, and we're inviting the public to hit it (hard) (in the face) (on
+  // purpose) (I can't afford Symantec penetration testing).
+
+  delete req.body.created;
+  delete req.body.interactions;
+
+  // Slurp in the report from the db. We're ready to alter it.
+  // Do NOT populate _creator as that would be a waste of db resources. It is
+  // being overwritten and we're certainly not going past the userId as work
+  // in this unit.
+
+  Posts.findById(req.route.params.postId, function (err, post) {
     if (err) {
       log.error(err);
       res.json(500, err);
       return;
     }
-    if (!post) {
+    if (!post || (angular.isDefined(posts.length) && posts.length === 0)) {
       res.json(404, {'msg':'post not found'});
       return;
     }
-    res.json(200, post);
+
+    // if the authenticated user on this session is NOT the author of this
+    // document, then unlike on Maury Povich where the guy hears, "You are NOT
+    // the father," our hacker does not get to celebrate and the document
+    // doesn't have to run off stage with a camera crew following it.
+
+    if (post._creator !== req.session.user._id) {
+      post.populate('_creator', '_id displayName', function (err, populatedUser) {
+        log.error('unauthorized post edit', post._creator, req.session.user);
+        res.json(403, {'message':'you are not authorized to edit this post'});
+      });
+      return; // we're done
+    }
+
+    // Update the authorized fields by directly copying them from the input.
+    // @TODO: As ours is not the only client accessing Pulsar, some degree of
+    // content filtering is going to be required here. A little testing is
+    // needed, but some manner of filtering is going to be required here.
+
+    post.title = req.body.title;
+    post.excerpt = req.body.excerpt;
+    post.content = req.body.content;
+    post
+    .save()
+    .populate('_creator', '_id displayName')
+    .exec(
+      function (err, newPost) {
+        if (err) {
+          log.error(err);
+          res.json(500, err);
+          return;
+        }
+        res.json(200, newPost);
+      }
+    );
   });
 };
 

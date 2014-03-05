@@ -221,16 +221,22 @@ textarea {
 
 .sidebar .heading {
   padding:8px 0;
-  margin:0 0 16px 0;
+  margin-bottom:16px;
   font-family:"Share Tech";
   font-size:24px;
-  line-height:1.2em;
+  line-height:1em;
   border:solid 1px darken(@rjc-gray, 20%);
-  border-radius:8px;
   background-color:@rjc-gray;
   color:@rjc-black;
-  text-align:center;
   box-shadow:0 0 5px rgba(0,0,0,0.3);
+}
+
+.sidebar .heading .heading-wrap {
+  margin-left:8px;
+}
+
+.sidebar .heading .glyphicon {
+  font-size:0.8em;
 }
 
 .sidebar .announcement {
@@ -259,6 +265,7 @@ textarea {
   position:fixed;
   right:0; bottom:0; left:0;
   height:32px;
+  font-size:14px;
   padding:7px 0; margin:0;
   color: #777;
   border-top: 1px solid darken(@rjc-gray, 25%);
@@ -275,35 +282,28 @@ textarea {
   display:inline-block;
   padding:0;
   margin-right:16px;
-  font-size:16px;
   font-weight:bold;
   line-height:1.0em;
 }
 .footer-wrap .label {
   display:inline-block;
-  font-size:16px;
-  font-weight:bold;
-  line-height:1.0em;
   padding:8px 0;
   margin:0 4px;
+  font-weight:bold;
+  line-height:1.0em;
   color:#4a4a4a;
 }
 .footer-wrap .message {
   display:inline-block;
-  font-size:16px;
-  line-height:1.0em;
   margin:0;
+  line-height:1.0em;
   color:#202020;
-  -webkit-transition:1s ease-in-out all;
-  -moz-transition:1s ease-in-out all;
-  -o-transition:1s ease-in-out all;
-  transition:1s ease-in-out all;
 }
-.footer-wrap .icon {
-  font-size:18px;
+.footer-wrap div.icon {
+  display:inline-block;
   line-height:1em;
   width:18px; height:18px;
-  margin-left:4px;
+  margin-left:16px;
 }
 
 /*

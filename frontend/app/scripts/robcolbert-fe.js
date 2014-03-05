@@ -60,6 +60,10 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/posts.html',
     controller: 'PostsCtrl'
   })
+  .when('/settings', {
+    templateUrl: 'views/settings.html',
+    controller: 'SettingsCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

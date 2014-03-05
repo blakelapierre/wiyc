@@ -11,7 +11,13 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
   $scope.brand = 'PULSAR';
   $scope.subtitle = 'simplicity as a science';
 
-  $scope.user = UserSession;
+  $scope.session = UserSession.session;
+  $rootScope.$on('setUserSession', function (event, session) {
+    $scope.session = session;
+  });
+  $rootScope.$on('clearUserSession', function ( ) {
+    $scope.session = null;
+  });
 
   $scope.pills = {
     'main': {

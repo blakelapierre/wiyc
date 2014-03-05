@@ -1,7 +1,7 @@
 <div>
   <div class="jumbotron" style="background-image:url('images/earth-bg.jpg'); background-size:cover; background-position:center center; box-shadow:0 0 8px rgba(0,0,0,0.8) inset;">
 
-    <div style="padding:16px; margin-bottom:32px; background-color:rgba(255,255,255,0.8); box-shadow:0 0 8px rgba(0,0,0,0.8);">
+    <div style="padding:16px; background-color:rgba(255,255,255,0.8); box-shadow:0 0 8px rgba(0,0,0,0.8);">
       <h1>
         Welcome to Pulsar
         <small>
@@ -11,29 +11,28 @@
         </small>
       </h1>
       <p>
-        Pulsar is a new way to publish and share your stuff online. It's just
-        trying to solve <strike>simple</strike> interesting problems using
-        interesting technology. It's also trying to prove a few sciencey points
-        here &amp; there, and you either care about that or not. Won't matter.
+        Pulsar is a new way to publish and share online. Pulsar is trying to solve
+        <strike>simple</strike> interesting problems using interesting technology.
+        It's also trying to prove a few sciencey points here &amp; there, and you
+        either care about that or not. It's just a thing we do.
       </p>
       <p>
-        Welcome aboard! Let's go break some Internet.
+        Welcome aboard! Now, let's go break some Internet...
       </p>
     </div>
 
-    <div>
-      <a href="/#/signup"
-        class="btn btn-primary btn-lg"
-        title="This is the button to push first!"
-        ng-show="!session.authenticated.status"
-        >
-        Shut Up and Let Me Publish!
-      </a>
-      <a class="pull-right" href="/#/signup"
-         style="margin-right: 2px;"
-         ng-show="!session.authenticated.status">
-        Create Account
-      </a>
+    <div class="row" ng-show="!session.authenticated.status" style="margin-top:48px;">
+      <div class="col-sm-6 text-center">
+        <a href="/#/signup"
+          class="btn btn-primary btn-lg"
+          title="This is the button to push first!"
+          >
+          Shaddup! Lemme Publish!
+        </a>
+      </div>
+      <div class="col-sm-6 text-center">
+        <a href="/#/signup">Create Account</a>
+      </div>
     </div>
 
   </div>

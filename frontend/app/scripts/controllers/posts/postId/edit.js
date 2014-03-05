@@ -16,7 +16,7 @@ angular.module('robcolbertApp')
   'Posts',
   function ($rootScope, $scope, $route, $location, $sce, $timeout, Configuration, UserSession, Posts) {
 
-    $scope.user = UserSession;
+    $scope.session = UserSession.session;
 
     $scope.$emit('setPageGroup', 'blog');
     $scope.tinymceOptions = Configuration.tinymceOptions;
@@ -26,6 +26,10 @@ angular.module('robcolbertApp')
     $rootScope.$on('tinymceInitComplete', function (event) {
       editor = window.tinymce.editors[window.tinymce.editors.length - 1];
       Posts.get({'postId': $route.current.params.postId}, null, function (post) {
+        if (!$scope.session.authenticated.status || (post._creator._id !== $scope.session.user._id)) {
+          $location.path('/');  // send them home; and
+          return;               // refuse to provide an editable interface for the post data.
+        }
         $scope.post = post;
         editor.setContent(post.content);
         if (angular.isDefined(window.twttr)) {
@@ -36,7 +40,7 @@ angular.module('robcolbertApp')
     });
 
     $scope.updatePost = function ( ) {
-      if (!$scope.user.session.authenticated.status || (editor === null)) {
+      if (!$scope.session.authenticated.status || (editor === null)) {
         return;
       }
       $scope.post.content = editor.getContent();

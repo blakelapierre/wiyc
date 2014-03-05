@@ -6,6 +6,9 @@ log.info('model: Users');
 
 var mongoose = require('mongoose');
 
+function validateNotEmpty (value) {
+  return value && (value.length !== 0);
+}
 var UsersSchema = new mongoose.Schema({
   'created': {
     'type': Date,
@@ -20,12 +23,7 @@ var UsersSchema = new mongoose.Schema({
     'index': {
       'unique': true
     },
-    'validate': [
-      function notEmpty (value) {
-        return value && (value.length !== 0);
-      },
-      'Email address must not be empty'
-    ]
+    'validate': [ validateNotEmpty, 'Email address must not be empty' ]
   },
   'emailVerified': { 'type': Boolean, 'default': false },
   'emailVerifyKey': { 'type': String, 'required': false },
@@ -44,14 +42,26 @@ var UsersSchema = new mongoose.Schema({
     'userId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true }
   }],
   'ignoredCount': { 'type': Number, 'default': 0 },
-  'messages': [{
-    'status': { 'type': String, 'required': true },
-    'sent': { 'type': Date, 'default': Date.now },
-    'senderId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true },
-    'subject': { 'type': String, 'required': false },
-    'content': { 'type': String, 'required': false }
-  }],
-  'messageCount': { 'type': Number, 'default': 0 }
+  'messageCount': { 'type': Number, 'default': 0 },
+  'settings': {
+    'flags': {
+      'email': {
+        'directMessages': { 'type': Boolean, 'default': false },
+        'postComments': { 'type': Boolean, 'default': false },
+        'pulseComments': { 'type': Boolean, 'default': false },
+        'siteNews': { 'type': Boolean, 'default': true }
+      }
+    },
+    'defaults': {
+      'posts': {
+        'visibility': { 'type': String, 'default': 'friends' }
+      },
+      'pulses': {
+        'visibility': { 'type': String, 'default': 'friends' }
+      }
+    }
+  }
+
 });
 
 mongoose.model('Users', UsersSchema);

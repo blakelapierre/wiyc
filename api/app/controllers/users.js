@@ -14,22 +14,6 @@ function UsersController (app, config) {
   this.config = config;
 }
 
-// How about: This function is the entire process of creating a new user.
-//
-// It's not exactly 'hello, world', but it sort of is compared to the
-// shit I normally have to do to wire this up. Hell, I had enough time
-// left over to write this casual-ass comment. Because the code is so
-// easy to understand I don't have to be all anal retentive up here. We
-// just chill and have a chat, you know?
-//
-// This method creates a new user record in the database. Uniqueness is
-// on the user's email address sparesely. If that works, the method sends
-// an email to the user to verify their email address. And, if that works,
-// it writes a line to the log. Becasue this isn't fucking rocket science.
-// You're not actually a space cowboy. It's a CRUD service with some basic
-// features. When asked, it does its job. And, because it's so fucking simple,
-// it's easier to keep safe.
-//
 UsersController.prototype.create = function (req, res) {
   var verificationKey = this.config.app.generateRandomKey();
   log.debug('users.create', req.route, req.query, req.body);
@@ -54,17 +38,14 @@ UsersController.prototype.create = function (req, res) {
     };
     res.json(200, req.session); // dismiss the client.
 
+    if (user.email === 'testuser@robcolbert.com') {
+      log.info('skipping new user email for testuser@robcolbert.com');
+      return;
+    }
+
     //
     // send an email address verification email
     //
-
-    var transport = mailer.createTransport('SMTP', {
-      'service':'Gmail',
-      'auth': {
-        'user':'rob.isConnected@gmail.com',
-        'pass':'aC3-9b8cD?b3'
-      }
-    });
 
     var messageBody =
     'A user account was created on Pulsar using email address ' +
@@ -90,16 +71,27 @@ UsersController.prototype.create = function (req, res) {
     'Best regards,\n' +
     '-Rob <rob.isConnected@gmail.com>';
 
-    var email = {
-      'from':'rob.isConnected@gmail.com',
-      'to':req.body.email,
-      'subject':'Welcome to Pulsar, please verify your email address.',
-      'body':messageBody
-    };
+    self.sendEmail(req.body.email, messageBody); // I don't want the callback
 
-    transport.sendMail(email, function (err, responseStatus) {
-      log.info('sendMail response', err, responseStatus);
-    });
+  });
+};
+
+UsersController.prototype.sendEmail = function (message, callback) {
+  var transport = mailer.createTransport('SMTP', {
+    'service':'Gmail',
+    'auth': {
+      'user':'rob.isConnected@gmail.com',
+      'pass':'aC3-9b8cD?b3'
+    }
+  });
+  var email = {
+    'from':'rob.isConnected@gmail.com',
+    'to':toAddress ,
+    'subject':'Welcome to Pulsar, please verify your email address.',
+    'body':messageBody
+  };
+  transport.sendMail(email, function (err, responseStatus) {
+    log.info('sendMail response', err, responseStatus);
   });
 };
 
@@ -144,8 +136,8 @@ UsersController.prototype.getMyProfile = function (req, res) {
 
 UsersController.prototype.update = function (req, res) {
   log.debug('users.update', req.route, req.query, req.body);
-  delete req.body._id;
 
+  delete req.body._id;
   if (req.body.password) {
     req.body.password = this.config.app.hashPassword(req.body.password);
   }
@@ -225,6 +217,10 @@ UsersController.prototype.list = function(req, res){
     res.json(200, users);
   });
 };
+
+//
+// Feature-specific methods
+//
 
 UsersController.prototype.addFriend = function (req, res) {
   log.debug('users.addFriend', req.route, req.query);

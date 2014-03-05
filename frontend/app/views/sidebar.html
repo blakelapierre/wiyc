@@ -1,6 +1,11 @@
-<div class="widget" ng-controller="AnnouncementsCtrl">
-  <div class="announcement" ng-show="announcement">
-    <div class="heading">Announcements</div>
+<div class="widget" ng-controller="AnnouncementsCtrl" ng-show="announcement">
+  <div class="announcement">
+    <div class="heading">
+      <div class="heading-wrap">
+        <span class="glyphicon glyphicon-flash"></span> Announcements
+      </div>
+    </div>
+
     <div class="title">
       <div class="pull-right" ng-click="nextAnnouncement()"><span class="glyphicon glyphicon-remove-circle"></span></div>
       {{announcement.title}}
@@ -10,16 +15,21 @@
 </div>
 
 <div class="widget" ng-controller="PulsesCtrl">
+
   <div class="heading">
-    <button class="btn btn-default btn-xs pull-right"
-            ng-show="user.session.authenticated.status"
-            ng-click="showComposer = !showComposer"
-            style="margin-right:16px; margin-top:4px;"
-            >
-      <span class="glyphicon glyphicon-plus"></span>
-    </button>
-    Pulses
+    <div class="heading-wrap">
+      <button class="btn btn-default btn-xs pull-right"
+              ng-show="user.session.authenticated.status"
+              ng-click="showComposer = !showComposer"
+              style="margin-right:16px;"
+              >
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      <span class="glyphicon glyphicon-flash"></span> Pulses
+    </div>
+    <div class="clearfix"></div>
   </div>
+
   <div ng-show="showComposer">
     <div class="form-group">
       <textarea class="form-control"
@@ -34,14 +44,13 @@
 </div>
 
 <div class="widget">
-  <div class="heading">Featured Draft Post</div>
-  <p>
-    <small>
-      The news is so fresh on Pulsar that it's actually from the future. This is a
-      post in draft. It's not live, yet. It's author is working on it using a
-      Pulsar-powered blog. After a little more testing, you'll be able to share
-      <em>what you're working on</em> with your followers in real time.
-    </small>
-  </p>
+  <div class="heading">
+    <div class="heading-wrap">
+      <span class="glyphicon glyphicon-flash"></span> Featured Media
+    </div>
+  </div>
 
+  <p>
+    <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/135324268&amp;auto_play=false&amp;hide_related=false&amp;visual=true"></iframe>
+  </p>
 </div>
