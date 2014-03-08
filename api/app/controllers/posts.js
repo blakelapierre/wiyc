@@ -142,8 +142,11 @@ PostsController.prototype.update = function (req, res) {
     // the father," our hacker does not get to celebrate and the document
     // doesn't have to run off stage with a camera crew following it.
 
-    if (post._creator !== req.session.user._id) {
-      res.json(403, {'message':'you are not authorized to edit this post'});
+    if (post._creator.toString() !== req.session.user._id.toString()) {
+      post.populate('_creator', '_id displayName', function (err, populatedUser) {
+        console.log('unauthorized post edit', post._creator, req.session.user);
+        res.json(403, {'message':'you are not authorized to edit this post'});
+      });
       return; // we're done
     }
 
@@ -155,20 +158,23 @@ PostsController.prototype.update = function (req, res) {
     post.title = req.body.title;
     post.excerpt = req.body.excerpt;
     post.content = req.body.content;
-    post
-    .increment() // bump doc version number
-    .save()
-    .populate('_creator', '_id displayName')
-    .exec(
-      function (err, newPost) {
+    post.increment();
+
+    post.save(function (err, newPost) {
+      if (err) {
+        log.error(err);
+        res.json(500, err);
+        return;
+      }
+      newPost.populate('_creator', '_id displayName', function (err, populatedPost) {
         if (err) {
           log.error(err);
           res.json(500, err);
           return;
         }
-        res.json(200, newPost);
-      }
-    );
+        res.json(200, populatedPost);
+      })
+    });
   });
 };
 

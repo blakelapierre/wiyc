@@ -10,9 +10,9 @@ angular.module('robcolbertApp')
 
     var apiServer = {
       'scheme': 'http://',
-      //'host': 'localhost',
+      'host': 'localhost',
       //'host': '192.241.240.182',
-      'host': 'robcolbert.com',
+      //'host': 'robcolbert.com',
       'port': 10010
     };
 
