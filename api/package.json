@@ -13,7 +13,9 @@
     "socket.io": "~0.9.16",
     "connect-memcached": "0.0.6",
     "memcached": "~0.2.7",
-    "nodemailer": "~0.6.1"
+    "nodemailer": "~0.6.1",
+    "jshint-stylish": "~0.1.5",
+    "grunt-contrib-jshint": "~0.8.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

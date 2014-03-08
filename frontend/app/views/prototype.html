@@ -1,0 +1,306 @@
+<div ng-show="!ready">
+  <h1>Loading Protype Experience...</h1>
+</div>
+
+<div ng-show="cp > 22000 && cp < 66000" style="position:relative;">
+  <img class="img img-responsive" src="images/prototype/earth-space-001.jpg"
+        style="width:100%;"/>
+  <div style="overflow:hidden; position:absolute; top:0; right:0; bottom:0; left:0;">
+    <img id="waveformImage"
+        ng-src="{{currentSound.waveform_url}}"
+        style="width:8192px; height:100%; position:absolute;"
+        />
+  </div>
+</div>
+
+<h1 ng-show="cp > 44000 && cp < 66000"
+  style="margin:32px 0; font-size:80px; line-height:1em; color:red; text-align:center;"
+  >WELCOME TO PULSAR!</h1>
+
+<div id="introContainer" ng-show="ready && (cp < 11000)">
+  <h1>Stuff WordPress Doesn't Do</h1>
+  <p>
+    I'll keep it brief for now. Plenty of opportunity to elaborate as your
+    interest evolves. When you're ready to experience something new,press play
+    on the SoundCloud player below.
+  </p>
+</div>
+
+<div class="jumbotron" ng-show="(cp >= 66000 && cp < 110000) || (cp >= 132200)">
+  <div style="padding-bottom:16px; border-bottom:solid 4px #e0e0e0;">
+    <div class="pull-right"
+         style="width:300px; margin-bottom:24px; padding:16px; background-color:#e8e8e8; border-radius:16px; box-shadow:0 0 8px rgba(0,0,0,0.7) inset;"
+         ng-show="cp > 40000"
+      >
+      <p ng-show="cp >= 132200 && cp < 137837">
+        Did Kanye West just punk my demo? Did that just happen? I mean...wait...what?
+      </p>
+      <p ng-show="cp >= 137837 && cp < 143313">
+        And, right about now, at this point in the song, you're probably thinking...
+      </p>
+      <p ng-show="cp >= 143313 && cp < 154344">
+        ...this is an artist I'd like to follow. If only there was perhaps some
+        way to like and follow them on Facebook?
+      </p>
+      <div class="text-center" ng-show="cp >= 154344">
+        <div style="position:relative;">
+          <div class="fb-like-box"
+              data-href="https://www.facebook.com/THEPROTOTYPES"
+              data-colorscheme="dark"
+              data-show-faces="true"
+              data-header="false"
+              data-stream="false"
+              data-show-border="false"
+              style="position:relative;"
+              ></div>
+          <img class="img img-rounded pull-right"
+               src="images/prototype/zuckerberg.jpg"
+               style="position:absolute; top:0; right:0; width:90px;"
+               ng-show="(cp >= 159500) && (cp < 176500)"
+               />
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <h1>{{currentSound.title}}</h1>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="prototype">
+    <div class="meta-label">
+      {{currentSound.genre}}
+    </div>
+    <div class="meta-label">
+      <span class="glyphicon glyphicon-play"></span>{{currentSound.playback_count}}
+    </div>
+    <div class="meta-label">
+      <span class="glyphicon glyphicon-thumbs-up"></span>{{currentSound.likes_count}}
+    </div>
+    <div class="meta-label" ng-show="currentSound.downloadable">
+      <span class="glyphicon glyphicon-download"></span>{{currentSound.download_count}}
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <p class="text-center" ng-show="currentSound.downloadable">
+    <span class="glyphicon glyphicon-gift"></span>
+    <a ng-href="{{currentSound.download_url}}">FREE DOWNLOADABLE SOUND</a>
+  </p>
+
+  <p class="text-center" ng-show="currentSound.purchase_title.length > 0">
+    <span class="glyphicon glyphicon-"></span>
+    <a ng-href="{{currentSound.purchase_url}}">{{currentSound.purchase_title}}</a>
+  </p>
+
+</div>
+
+<div class="text-center"
+     style="margin:32px 0; min-height:240px;"
+     ng-show="cp >= 66100 && cp <= 88200"
+  >
+  <h1 style="font-size:3.2em;">
+    <span ng-show="cp < (71666 + (millsPerBeat * 8))">THE DROP!!!</span>
+    <small ng-show="(cp > 71666) && (cp < (71666 + (millsPerBeat * 8)))">
+      <br />get it? (sigh)...
+    </small>
+    <small ng-show="(cp > (71666 + (millsPerBeat * 8))) && (cp < (71666 + (millsPerBeat * 16)))">
+      it literally "dropped" on the page?<br />
+      grammar nazis: was that literal enough?
+    </small>
+    <small ng-show="(cp > (71666 + (millsPerBeat * 16))) && (cp < (71666 + (millsPerBeat * 24)))">
+      no? try harder? &gt;[T_T]&lt;
+    </small>
+    <small ng-show="cp > (71666 + (millsPerBeat * 24))">
+      I mean damn...these prompts are <strong>on beat</strong>. Think... think...
+    </small>
+  </h1>
+  <p ng-show="cp < 71666">
+    It's okay if you just fainted &amp; shit, because <em>this</em> is fucking
+    <strong>intense</strong>. Sorry, I <em>had</em> to hit you in the face with it.
+  </p>
+</div>
+
+<div class="text-center"
+     style="margin:32px 0; min-height:240px;"
+     ng-show="cp >= 88139 && cp < 110000"
+  >
+  <p ng-show="(cp < (88139 + (millsPerBeat * 8)))">listen closely.</p>
+  <p ng-show="(cp >= (88139 + (millsPerBeat * 8))) && (cp < (88139 + (millsPerBeat * 24)))"> do you hear that little thing revving up?</p>
+  <p ng-show="(cp >= (88139 + (millsPerBeat * 16))) && (cp < (88139 + (millsPerBeat * 24)))">
+    <span > Good! That's my little friend...</span>
+  </p>
+
+  <div class="text-center"
+    ng-show="(cp >= (88139 + (millsPerBeat * 24))) && (cp < (88139 + (millsPerBeat * 40)))"
+    style="width:60%; margin:0 auto;"
+    >
+    <img class="img img-rounded pull-left" src="images/prototype/zuckerberg.jpg" style="margin-right:16px;" />
+    <p class="text-align:right; margin-top:32px;">
+      yup...we're gonna roll with <em>this</em> creepy bastard for a minute.
+    </p>
+    <div class="clearfix"></div>
+  </div>
+
+  <h1 ng-show="(cp >= (88139 + (millsPerBeat * 40))) && (cp < 110000)" style="color:red;"
+    >!! BRACE FOR ZUCKERBERG IMPACT !!</h1>
+
+</div>
+
+<div ng-show="cp > 176000" style="margin:32px 0;">
+  <h1 class="text-center" style="font-size:48px;">
+    <span style="color:red;">PULSAR DISENGAGED</span><br />
+  </h1>
+  <h1>
+    <small>
+      The document-disruptive PULSAR real-time presentation engine has been disengaged, and this
+      web page now works like any <em>other</em> web page with a SoundCloud embed: You
+      may now read this article in peace. It doesn't "move" from here forward.<br />
+      <br/>
+      To return to any previous part of this performance,
+      just click along the waveform in the SoundCloud player. PULSAR is still listening to
+      information from the player, it just isn't doing anything with it if you can read this.
+    </small>
+  </h1>
+
+  <h1 class="text-center">
+    <small><strong>Can we give it up for the SoundCloud player and its Widget API, please?!!</strong></small>
+  </h1>
+</div>
+
+<div id="playerContainer" ng-show="ready">
+  <div>
+    <!-- iframe id="soundcloudPlayer" ng-init="attachToPlayer('soundcloudPlayer')" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/112518042&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"></iframe -->
+    <iframe id="soundcloudPlayer"
+            width="100%"
+            height="166"
+            scrolling="no"
+            frameborder="no"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/135324268&amp;color=5F5F5F&amp;show_user=false&amp;hide_related=true&amp;show_comments=false&amp;buying=false&amp;show_artwork=false"
+            ng-init="attachToPlayer('soundcloudPlayer')"
+            style="position:relative;"
+            >
+      </iframe>
+      <h1 class="text-center"
+          style="position:absolute; top:120px; right:0; bottom:0; left:0; font-size:4.0em; margin-top:32px; color:red;"
+          ng-show="cp >= 8000 && cp < 16000"
+          >
+          L<span class="glyphicon glyphicon-screenshot" style="font-size:0.75em;"></span>CKED
+      </h1>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div ng-show="cp > 176000" style="margin:32px 0;">
+  <h1>Pulsar Prototype: SoundCloud Integration</h1>
+  <p>
+    Thank you for putting up with that bit of mayhem. But, what really excites me (Rob) is that
+    I'm absolutely <em>not</em> the person who's going to create the best experiences on Pulsar.
+    Because that's going to be you. I am best at writing the kind of code that makes things do
+    things. And, well, the inventor of Poking with an unexpected Kanye West moment was the best
+    I could whip up for this. Just trying to get your attention and make a few points.
+  </p>
+  <p>
+    Yes, there is much JavaScript code behind this web page. But, you don't need to know how to
+    do anything more than maybe a little math to create experiences just like this one. And, to
+    prove it, here's the actual HTML code running on this page (right now). If you know HTML
+    and CSS (I've used a LOT of inline CSS to show HOW things are being done), then literally
+    all of this should make sense. And, if it does, I'm really not too far away from releasing
+    this module for public use. So, I hope in less than one week, anyone will be able to create
+    Pulses that are this deeply integrated with the SoundCloud AND YouTube player<strong>s</strong>.
+  </p>
+  <p>
+    This is a next-generation blog post. Period. If your blog doesn't turn your posts into
+    interactive stories, please ask yourself why you're still stuck in yesterday.
+  </p>
+</div>
+
+<div ng-show="(cp >= 110000) && (cp < 132200)" style="margin:32px 0;">
+  <h1>An Unexpected Moment of Kanye</h1>
+  <div class="pull-left" style="width:150px; margin-right:16px; margin-bottom:16px;">
+    <img class="img img-rounded" src="images/prototype/kanye-west.jpg"
+         style="box-shadow:4px 4px 8px rgba(0,0,0,0.3);"/>
+  </div>
+  <p>
+    Yo, Zuckerberg. I'mm'a letchu finish. But, first, I gotta give props and talk
+    about this Pulsar bidness a minute. And, yeah, that's right. I snuck in between
+    the player and it's computer shit down below because I'm Kanye and I can, bitch.
+  </p>
+  <p ng-show="cp > 121368">
+    Look, um, this Pulsar shit is the muh-fukkin' bidness, son.
+  </p>
+  <div ng-show="cp > 123500">
+    <p>
+      I ain't neva seen a muh-fukkin' web page do some shit like this. My damn
+      <strong>record label</strong> doesn't bring it like this. Get this on my fan page,
+      or I'm switching to Pulsar tomorrow, Mark. Tomorrow. You hear me?!!! TOMORROW.
+    </p>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<p ng-show="cp >= 514000">{{currentSound.description}}</p>
+
+<p ng-show="cp >= 2500 && cp < 5350">
+    <code>pulsar.attachToMedia('soundcloudPlayer');</code>
+</p>
+
+<div class="row" ng-show="cp >= 5350">
+  <div class="col-sm-4">
+    <strong>currentTime</strong><br />
+    {{playProgress.currentTime.h}}:{{playProgress.currentTime.m}}:{{playProgress.currentTime.s}}
+  </div>
+  <div class="col-sm-4">
+    <strong>relativePosition</strong><br />
+    {{playProgress.relativePosition}}
+  </div>
+  <div class="col-sm-4">
+    <strong>currentPosition</strong><br />
+    {{playProgress.currentPosition}}
+  </div>
+</div>
+
+<div ng-show="cp > 176000" style="margin:32px 0;">
+  <h2>How the ?</h2>
+  <p>
+    Okay, this isn't all that complicated. The SoundCloud player that anyone can embed
+    in any web page anywhere exposes a JavaScript API. PULSAR simply uses that API to
+    retrieve information about tracks on SoundCloud inside an AngularJS controller.
+    Then, it provides a whole new HTML5 experience by leveraging the information exposed
+    by SoundCloud to web programmers.
+  </p>
+  <p>
+    AngularJS extends the HTML language with a whole new suite of elements, attributes
+    and more that are intended to finally bring HTML up to par with modern web application
+    design and development. By leveraging exactly these features along some clean best
+    practices, I've been able to quickly and easily integrate <strong>all</strong> of the
+    SoundCloud Widget API with AngularJS.
+  </p>
+  <p>
+    The end result: Your HTML can actually respond to a piece of media playing on the
+    page using AngularJS directives such as ng-show, ng-click, ng-src and more. Have a
+    read of the source code for this page. You will be quite shocked to see just how
+    simple it really was to build this experience on Pulsar.
+  </p>
+  <p>
+    Please realize something: I am only getting started. This project is four weeks
+    old, is being built on the MEAN stack and will soon be open sourced under the MIT
+    license with a dowhatchalike policy. I've simply been very focused on achieving
+    these goals with the software and genuinely just haven't taken the time to finish
+    the documentation and get it online.
+  </p>
+  <p>
+    And, I would have more time to do that if I had some help. But, I'm doing this
+    entirely on my own. That's not by choice. I've asked for help. I just haven't
+    received any responses. I either don't know the right place to ask for help, or
+    I don't know how to correctly ask for help. And, I don't think I care anymore. If
+    people want to get involved, awesome. If not, awesome.
+  </p>
+  <p>
+    Thanks again for viewing this experience. It was a true pleasure to create. Now,
+    I can't wait to finish the timeline-based editor for these :)
+  </p>
+  <p>
+    Best regards,<br />
+    -Rob &lt;<a href="mailto:rob.isConnected@gmail.com">rob.isConnected@gmail.com</a>&gt;
+  </p>
+</div>

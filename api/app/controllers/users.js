@@ -1,6 +1,8 @@
 // controllers/users.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
+'use strict';
+
 var log = require('winston');
 log.info('controller: UsersController');
 
@@ -15,6 +17,7 @@ function UsersController (app, config) {
 }
 
 UsersController.prototype.create = function (req, res) {
+  var self = this;
   var verificationKey = this.config.app.generateRandomKey();
   log.debug('users.create', req.route, req.query, req.body);
 
@@ -76,7 +79,7 @@ UsersController.prototype.create = function (req, res) {
   });
 };
 
-UsersController.prototype.sendEmail = function (message, callback) {
+UsersController.prototype.sendEmail = function (addressTo, messageBody, callback) {
   var transport = mailer.createTransport('SMTP', {
     'service':'Gmail',
     'auth': {
@@ -86,12 +89,15 @@ UsersController.prototype.sendEmail = function (message, callback) {
   });
   var email = {
     'from':'rob.isConnected@gmail.com',
-    'to':toAddress ,
+    'to':addressTo,
     'subject':'Welcome to Pulsar, please verify your email address.',
     'body':messageBody
   };
   transport.sendMail(email, function (err, responseStatus) {
-    log.info('sendMail response', err, responseStatus);
+    log.info('sendmail', err, responseStatus);
+    if (callback && (typeof callback === 'function')) {
+      callback(err, responseStatus);
+    }
   });
 };
 

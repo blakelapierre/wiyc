@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="box-shadow:0 0 8px rgba(0,0,0,0.4);">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-navbar-collapse">
@@ -25,10 +25,11 @@
         </li>
 
         <li ng-class="pills.blog.className" ng-switch-default>
-          <a ng-href="#/posts">POSTS</a>
+          <a ng-href="#/posts"><span class="glyphicon glyphicon-flash"></span> POSTS</a>
         </li>
 
         <!-- li ng-class="pills.videos.className"><a ng-href="#/videos" title="YouTube integration demo">VIDEOS</a></li -->
+        <li ng-class="pills.prototype.className"><a ng-href="#/prototype" title="Get a sneak peek at something new..."><span class="glyphicon glyphicon-fire"></span> PROTOTYPE</a></li>
         <li ng-class="pills.about.className"><a ng-href="#/about" title="Learm more about Pulsar"><span class="glyphicon glyphicon-cloud"></span> ABOUT</a></li>
         <!-- li ng-class="pills.contact.className"><a ng-href="#/contact" title="Get in touch...">CONTACT</a></li -->
       </ul>

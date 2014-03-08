@@ -34,7 +34,20 @@ module.exports = function (grunt) {
         files: ['app/views/**/*.jade'],
         options: { livereload: reloadPort }
       }
-    }
+    },
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
+      },
+      all: [
+        'Gruntfile.js',
+        'robcolbert-api.js',
+        'app/models/*.js',
+        'app/controllers/*.js',
+        'config/*.js'
+      ]
+    },
   });
 
   grunt.config.requires('watch.js.files');
@@ -46,14 +59,15 @@ module.exports = function (grunt) {
     setTimeout(function () {
       request.get('http://localhost:' + reloadPort + '/changed?files=' + files.join(','),  function(err, res) {
           var reloaded = !err && res.statusCode === 200;
-          if (reloaded)
+          if (reloaded) {
             grunt.log.ok('Delayed live reload successful.');
-          else
+          } else {
             grunt.log.error('Unable to make a delayed live reload.');
+          }
           done(reloaded);
         });
     }, 500);
   });
 
-  grunt.registerTask('default', ['develop', 'watch']);
+  grunt.registerTask('default', ['jshint', 'develop', 'watch']);
 };

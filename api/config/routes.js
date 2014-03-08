@@ -1,17 +1,17 @@
 // config/routes.js
 // Copyright (C) Rob Colbert <rob.isConnected@gmail.com>
 
+'use strict';
+
 var RouteAssembler = require('robcolbert-utils').expressjs.RouteAssembler;
-var log = require('winston');
 
 function configureRoutes (app, config) {
 
   var routes = new RouteAssembler(app, config);
 
   //
-  // CONTROLLERS
+  // USERS
   //
-
   var users = new (require('../app/controllers/users'))(app, config);
 
   routes.add({ 'method': 'POST',    'uri': '/users',                  'controllerMethod': function (req, res) { users.create(req,res); }});
@@ -29,12 +29,18 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'POST',    'uri': '/users/:userId/friends',  'controllerMethod': function (req, res) { users.addFriend(req,res); }});
   routes.add({ 'method': 'DELETE',  'uri': '/users/:userId/friends/:friendId', 'controllerMethod': function (req, res) { users.removeFriend(req,res); }});
 
+  //
+  // SESSIONS
+  //
   var sessions = new (require('../app/controllers/sessions'))(app, config);
 
   routes.add({ 'method': 'POST',    'uri': '/sessions',               'controllerMethod': function (req, res) { sessions.create(req,res); }});
   routes.add({ 'method': 'GET',     'uri': '/sessions',               'controllerMethod': function (req, res) { sessions.get(req,res); }});
   routes.add({ 'method': 'DELETE',  'uri': '/sessions',               'controllerMethod': function (req, res) { sessions.delete(req,res); }});
 
+  //
+  // PULSES
+  //
   var pulses = new (require('../app/controllers/pulses'))(app, config);
 
   routes.add({ 'method': 'GET',     'uri': '/pulses',               'controllerMethod': function (req, res) { pulses.list(req, res); }});
@@ -47,7 +53,9 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'POST',    'uri': '/pulses/:id/comments',  'controllerMethod': function (req, res) { pulses.createComment(req, res); }});
   routes.add({ 'method': 'GET',     'uri': '/pulses/:id/comments',  'controllerMethod': function (req, res) { pulses.getComments(req, res); }});
 
-
+  //
+  // POSTS
+  //
   var posts = new (require('../app/controllers/posts'))(app, config);
 
   routes.add({ 'method': 'GET',     'uri': '/posts',                  'controllerMethod': function (req, res) { posts.list(req, res); }});
@@ -60,7 +68,9 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'POST',    'uri': '/posts/:postId/comments', 'controllerMethod': function (req, res) { posts.createComment(req, res); }});
   routes.add({ 'method': 'GET',     'uri': '/posts/:postId/comments', 'controllerMethod': function (req, res) { posts.getComments(req, res); }});
 
-
+  //
+  // VIDEOS
+  //
   var videos = new (require('../app/controllers/videos'))(app, config);
 
   routes.add({ 'method': 'POST',    'uri': '/videos',                 'controllerMethod': function (req, res) { videos.create(req, res); }});
@@ -70,6 +80,6 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'PUT',     'uri': '/videos/:videoId',        'controllerMethod': function (req, res) { videos.update(req, res); }});
   routes.add({ 'method': 'DELETE',  'uri': '/videos/:videoId',        'controllerMethod': function (req, res) { videos.delete(req, res); }});
 
-};
+}
 
 module.exports = exports = configureRoutes;

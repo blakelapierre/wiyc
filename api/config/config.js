@@ -1,6 +1,8 @@
 // config.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
+'use strict';
+
 var path = require('path');
 var crypto = require('crypto');
 
@@ -28,68 +30,67 @@ var corsConfig = {
 };
 
 var monitorConfig = {
-  enabled: true,
-  mountPoint: '/monitor',
-  maxHistoryLength: 3
+  'enabled': true,
+  'mountPoint': '/monitor',
+  'maxHistoryLength': 3
 };
 
-function _hashPassword (password) {
+function hashPassword (password) {
   var shasum = crypto.createHash('sha1');
-  shasum.update(this.passwordSalt + password);
+  shasum.update(exports.app.passwordSalt + password);
   return shasum.digest('hex');
-};
+}
 
-function _generateRandomKey ( ) {
+function generateRandomKey ( ) {
   var currentDate = (new Date()).valueOf().toString();
   var random = Math.random().toString();
-
   var shasum = crypto.createHash('sha1');
-  shasum.update(this.passwordSalt + currentDate + random);
+  shasum.update(exports.app.passwordSalt + currentDate + random);
   return shasum.digest('hex');
-};
+}
 
 var config = {
-  development: {
-    root: rootPath,
-    app: {
-      name: 'pulsar-api',
-      passwordSalt: 'sVlf3r!c',
-      hashPassword: _hashPassword,
-      generateRandomKey: _generateRandomKey
+  'development': {
+    'root': rootPath,
+    'app': {
+      'name': 'pulsar-api',
+      'passwordSalt': 'sVlf3r!c',
+      'hashPassword': hashPassword,
+      'generateRandomKey': generateRandomKey
     },
-    port: listenPort,
-    db: 'mongodb://localhost/robcolbert-development',
-    cors: corsConfig,
-    monitor: monitorConfig
+    'port': listenPort,
+    'db': 'mongodb://localhost/robcolbert-development',
+    'cors': corsConfig,
+    'monitor': monitorConfig
   },
 
-  test: {
-    root: rootPath,
-    app: {
-      name: 'pulsar-api',
-      passwordSalt: 'sVlf3r!c',
-      hashPassword: _hashPassword,
-      generateRandomKey: _generateRandomKey
+  'test': {
+    'root': rootPath,
+    'app': {
+      'name': 'pulsar-api',
+      'passwordSalt': 'sVlf3r!c',
+      'hashPassword': hashPassword,
+      'generateRandomKey': generateRandomKey
     },
-    port: listenPort,
-    db: 'mongodb://localhost/robcolbert-test',
-    cors: corsConfig,
-    monitor: monitorConfig
+    'port': listenPort,
+    'db': 'mongodb://localhost/robcolbert-test',
+    'cors': corsConfig,
+    'monitor': monitorConfig
   },
 
-  production: {
-    root: rootPath,
-    app: {
-      name: 'pulsar-api',
-      passwordSalt: 'sVlf3r!c',
-      hashPassword: _hashPassword,
-      generateRandomKey: _generateRandomKey
+  'production': {
+    'root': rootPath,
+    'app': {
+      'name': 'pulsar-api',
+      'passwordSalt': 'sVlf3r!c',
+      'hashPassword': hashPassword,
+      'generateRandomKey': generateRandomKey
     },
-    port: listenPort,
-    db: 'mongodb://localhost/robcolbert-production',
-    cors: corsConfig,
-    monitor: monitorConfig
+    'port': listenPort,
+    'db': 'mongodb://localhost/robcolbert-production',
+    'cors': corsConfig,
+    'monitor': monitorConfig
   }
 };
 
-module.exports = config[env];
+module.exports = exports = config[env];

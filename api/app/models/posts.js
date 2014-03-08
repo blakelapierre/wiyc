@@ -1,6 +1,8 @@
 // models/posts.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
+'use strict';
+
 var log = require('winston');
 log.info('model: Posts');
 

@@ -1,6 +1,8 @@
 // models/users.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
+'use strict';
+
 var log = require('winston');
 log.info('model: Users');
 
@@ -9,6 +11,12 @@ var mongoose = require('mongoose');
 function validateNotEmpty (value) {
   return value && (value.length !== 0);
 }
+
+var accountStandingStatuses = ['active', 'admin', 'banned'];
+function validateAccountStandingStatus (value) {
+  return accountStandingStatuses.indexOf(value) !== -1;
+}
+
 var UsersSchema = new mongoose.Schema({
   'created': {
     'type': Date,
@@ -27,6 +35,15 @@ var UsersSchema = new mongoose.Schema({
   },
   'emailVerified': { 'type': Boolean, 'default': false },
   'emailVerifyKey': { 'type': String, 'required': false },
+  'accountStanding': {
+    'status': {
+      'type': String,
+      'default': 'active',
+      'validate': [ validateAccountStandingStatus, 'Account standing fails validation' ]
+    },
+    'reason': { 'type': String },
+    'expires': { 'type': Date }
+  },
   'displayName': { 'type': String, 'default': 'New User' },
   'password': { 'type': String, 'required': true },
   'slug': { 'type': String, 'required': false, 'index': { 'unique': true, 'sparse': true } },

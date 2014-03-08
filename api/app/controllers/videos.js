@@ -1,6 +1,8 @@
 // controllers/videos.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
+'use strict';
+
 var log = require('winston');
 log.info('controller: VideosController');
 
@@ -58,7 +60,7 @@ VideosController.prototype.update = function (req, res) {
   Videos.findOneAndUpdate(
     {'_id': req.route.params.id},
     req.body,
-    function (thought) {
+    function (err, thought) {
       if (err) {
         log.error(err);
         res.json(500, err);

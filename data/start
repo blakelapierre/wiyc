@@ -7,8 +7,10 @@ rm -Rf logs/*
 echo "killall mongod"
 killall mongod
 
-echo "sleeping two seconds..."
-sleep 2
+echo "killall memcached"
+killall memcached
+
+sleep 1
 
 echo "starting local mongod"
 mongod --config=mongod.conf --smallfiles --fork

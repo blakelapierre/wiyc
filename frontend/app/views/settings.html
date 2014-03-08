@@ -9,6 +9,66 @@
 </p>
 
 <form role="form">
+  <div class="row">
+    <div class="col-sm-6">
+      <fieldset>
+        <legend>Pulsar User Identity</legend>
+        <div class="form-group">
+          <label for="signupEmail">Email address</label>
+          <input type="email"
+                  class="form-control"
+                  id="signupEmail"
+                  name="email"
+                  placeholder="Enter email"
+                  ng-model="user.email"
+                  />
+        </div>
+
+        <div class="form-group">
+          <label for="signupDisplayName">Display name</label>
+          <input type="text"
+                  class="form-control"
+                  id="signupDisplayName"
+                  name="displayName"
+                  placeholder="Enter display name (ex: Rob Colbert)"
+                  ng-model="user.displayName"
+                  />
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="col-sm-6">
+      <fieldset>
+        <legend>Login Password</legend>
+
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password"
+                  class="form-control"
+                  id="signupPassword"
+                  name="password"
+                  placeholder="Enter password"
+                  ng-model="user.password"
+                  ng-change="checkPasswords()"
+                  />
+          <span class="help-block">{{passwordStrengthLabel}}</span>
+        </div>
+
+        <div class="form-group">
+          <label for="signupPasswordVerify">Verify password</label>
+          <input type="password"
+                  class="form-control"
+                  id="signupPasswordVerify"
+                  placeholder="Repeat password"
+                  ng-model="passwordVerify"
+                  ng-change="checkPasswords()"
+                  />
+          <span class="help-block">{{passwordMatchResult}}</span>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
   <fieldset>
     <legend>Publishing Defaults</legend>
 
@@ -23,7 +83,8 @@
     <div class="form-group">
       <div class="col-sm-6">
         <label for="pulseVisibility">Pulse visibility</label>
-        <select ng-model="user.settings.defaults.pulses.visibility"
+        <select class="form-control"
+                ng-model="user.settings.defaults.pulses.visibility"
                 id="pulseVisibility"
                 ng-options="option.value as option.name group by option.type for option in visibilityOptions">
         </select>
@@ -33,7 +94,8 @@
     <div class="form-group">
       <div class="col-sm-6">
         <label for="postVisibility">Post visibility</label>
-        <select ng-model="user.settings.defaults.posts.visibility"
+        <select class="form-control"
+                ng-model="user.settings.defaults.posts.visibility"
                 id="postVisibility"
                 ng-options="option.value as option.name group by option.type for option in visibilityOptions">
         </select>

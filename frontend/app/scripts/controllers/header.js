@@ -32,6 +32,9 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
     'videos': {
       'className': ''
     },
+    'prototype': {
+      'className': ''
+    },
     'about': {
       'className': ''
     },

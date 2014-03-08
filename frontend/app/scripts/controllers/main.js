@@ -13,7 +13,7 @@ function MainCtrl ($scope, $rootScope, $window, UserSession, Pulses) {
   $rootScope.$broadcast('showAnnouncement', {
     'title':'Hello Early Adopters',
     'content':'New user signup and public blogging are live! Hit the "Let Me Publish!" button to get started, and welcome to Pulsar!',
-    'displayTime': 'manual'
+    'displayTime': '10000'
   });
 }
 

@@ -1,24 +1,38 @@
-// controllers/pulses.js
+// controllers/conversations.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';
 
 var log = require('winston');
-log.info('controller: PulsesController');
+log.info('controller: Conversations');
 
 var mongoose = require('mongoose');
-var Pulses = mongoose.model('Pulses');
+var Conversations = mongoose.model('Conversations');
 var Paginator = require('robcolbert-utils').expressjs.Paginator;
 
-function PulsesController (app, config) {
+function ConversationsController (app, config) {
   this.app = app;
   this.config = config;
 }
 
-PulsesController.prototype.create = function (req, res) {
-  log.debug('pulses.create', req.route, req.query, req.body);
+ConversationsController.prototype.checkAuthenciation = function (req, res) {
+  if (req.session.user && req.session && req.session.authenticated && req.session.authenticated.status) {
+    log.error('Conversations.create called by unauthenticated client', req.session);
+    res.json(
+      500,
+      {
+        //@TODO: refactor this to a config file with internationalization
+        'message':'Pulse transmission requires user authentication (non-negotiable).'
+      }
+    );
+    return;
+  }
+};
+
+ConversationsController.prototype.create = function (req, res) {
+  log.debug('conversations.create', req.body);
   if (!req.session.user || !req.session.authenticated.status) {
-    log.error('Pulses.create called by unauthenticated client', req.session);
+    log.error('Conversations.create called by unauthenticated client', req.session);
     res.json(
       500,
       {
@@ -31,20 +45,20 @@ PulsesController.prototype.create = function (req, res) {
 
   delete req.body._id;
   req.body._creator = req.session.user._id;
-  Pulses.create(req.body, function (err, pulse) {
+  Conversations.create(req.body, function (err, conversation) {
     if (err) {
-      log.error('pulses.create', err);
+      log.error('conversations.create', err);
       res.json(500, err);
       return;
     }
-    pulse.populate(
+    conversation.populate(
       {
         'path': '_creator',
         'select': '_id displayName'
       },
       function (err, populatedPulse) {
         if (err) {
-          log.error('pulses.populate', err);
+          log.error('conversations.populate', err);
           res.json(500, err);
           return;
         }
@@ -54,67 +68,67 @@ PulsesController.prototype.create = function (req, res) {
   });
 };
 
-PulsesController.prototype.list = function(req, res){
-  log.debug('pulses.list', req.route, req.query);
+ConversationsController.prototype.list = function(req, res){
+  log.debug('conversations.list', req.route, req.query);
 
   var query =
-  Pulses
+  Conversations
   .find({ }, '_creator created content', { 'sort': { 'created': -1 }})
   .lean(true);
 
   var paginator = new Paginator(req);
   paginator.paginateQuery(query)
   .populate('_creator', '_id displayName')
-  .exec(function (err, pulses) {
+  .exec(function (err, conversations) {
     if (err) {
       log.error(err);
       res.json(500, err);
       return;
     }
-    res.json(200, pulses);
+    res.json(200, conversations);
   });
 };
 
-PulsesController.prototype.get = function (req, res) {
-  log.debug('pulses.get', req.route, req.query);
-  Pulses
+ConversationsController.prototype.get = function (req, res) {
+  log.debug('conversations.get', req.route, req.query);
+  Conversations
   .findById(req.route.params.id)
   .lean(true)
   .populate('_creator', '_id displayName')
-  .exec(function (err, pulse) {
+  .exec(function (err, conversation) {
     if (err) {
       log.error(err);
       res.json(500, err);
       return;
     }
-    res.json(200, pulse);
+    res.json(200, conversation);
   });
 };
 
-PulsesController.prototype.update = function (req, res) {
-  log.debug('pulses.update', req.route, req.query, req.body);
+ConversationsController.prototype.update = function (req, res) {
+  log.debug('conversations.update', req.route, req.query, req.body);
   delete req.body._id;
-  Pulses.findOneAndUpdate(
+  Conversations.findOneAndUpdate(
     {'_id': req.route.params.id},
     req.body,
-    function (err, pulse) {
+    function (err, conversation) {
       if (err) {
         log.error(err);
         res.json(500, err);
         return;
       }
-      if (!pulse) {
-        res.json(404, {'msg':'pulse not found'});
+      if (!conversation) {
+        res.json(404, {'msg':'conversation not found'});
         return;
       }
-      res.json(200, pulse);
+      res.json(200, conversation);
     }
   );
 };
 
-PulsesController.prototype.delete = function (req, res) {
-  log.debug('pulses.delete', req.route, req.query);
-  Pulses.findOneAndRemove(
+ConversationsController.prototype.delete = function (req, res) {
+  log.debug('conversations.delete', req.route, req.query);
+  Conversations.findOneAndRemove(
     {'_id': req.route.params.id },
     function (err) {
       if (err) {
@@ -127,19 +141,19 @@ PulsesController.prototype.delete = function (req, res) {
   );
 };
 
-PulsesController.prototype.createComment = function (req, res) {
-  log.debug('pulses.createComment', req.route, req.query, req.body);
-  Pulses
+ConversationsController.prototype.createComment = function (req, res) {
+  log.debug('conversations.createComment', req.route, req.query, req.body);
+  Conversations
   .findById(req.route.params.id)
   .populate('_creator', '_id displayName')
-  .exec(function (err, pulse) {
+  .exec(function (err, conversation) {
     if (err) {
       log.error(err);
       res.json(500, err);
       return;
     }
-    pulse.comments.push(req.body);
-    pulse.save(function (err, commentedPulse) {
+    conversation.comments.push(req.body);
+    conversation.save(function (err, commentedPulse) {
       if (err) {
         log.error(err);
         res.json(500, err);
@@ -150,11 +164,11 @@ PulsesController.prototype.createComment = function (req, res) {
   });
 };
 
-PulsesController.prototype.getComments = function (req, res) {
+ConversationsController.prototype.getComments = function (req, res) {
   log.debug('thoughts.getComments', req.route, req.query);
   var paginator = new Paginator(req);
   var query =
-  Pulses
+  Conversations
   .findById(req.route.params.id, 'comments')
   .lean(true);
 
@@ -170,4 +184,4 @@ PulsesController.prototype.getComments = function (req, res) {
   });
 };
 
-module.exports = exports = PulsesController;
+module.exports = exports = ConversationsController;

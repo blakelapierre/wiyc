@@ -1,6 +1,8 @@
 // controllers/posts.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
+'use strict';
+
 var log = require('winston');
 log.info('controller: PostsController');
 
@@ -100,10 +102,6 @@ PostsController.prototype.update = function (req, res) {
     return;
   }
 
-  // In no way will the documentId ever be authoritative when coming from the
-  // client other than the route.
-  delete req.body._id;
-
   // In no way will the creator's userId be authoritaive when coming from the
   // client period and ever. This value was read from the database and stored
   // in memcache on trusted resources.
@@ -130,8 +128,12 @@ PostsController.prototype.update = function (req, res) {
       res.json(500, err);
       return;
     }
-    if (!post || (angular.isDefined(posts.length) && posts.length === 0)) {
-      res.json(404, {'msg':'post not found'});
+    if (!post) {
+      res.json(404, {'message':'post not found'});
+      return;
+    }
+    if (req.body.__v < post.__v) {
+      res.json(500, {'message':'A newer version of this post already exists'});
       return;
     }
 
@@ -141,10 +143,7 @@ PostsController.prototype.update = function (req, res) {
     // doesn't have to run off stage with a camera crew following it.
 
     if (post._creator !== req.session.user._id) {
-      post.populate('_creator', '_id displayName', function (err, populatedUser) {
-        log.error('unauthorized post edit', post._creator, req.session.user);
-        res.json(403, {'message':'you are not authorized to edit this post'});
-      });
+      res.json(403, {'message':'you are not authorized to edit this post'});
       return; // we're done
     }
 
@@ -157,6 +156,7 @@ PostsController.prototype.update = function (req, res) {
     post.excerpt = req.body.excerpt;
     post.content = req.body.content;
     post
+    .increment() // bump doc version number
     .save()
     .populate('_creator', '_id displayName')
     .exec(
