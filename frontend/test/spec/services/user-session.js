@@ -11,8 +11,8 @@ describe('Service: UserSession', function () {
     UserSession = _UserSession_;
   }));
 
-  it('should do something', function () {
-    expect(!!UserSession).toBe(true);
-  });
+//   it('should do something', function () {
+//     expect(!!UserSession).toBe(true);
+//   });
 
 });

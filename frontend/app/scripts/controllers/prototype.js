@@ -29,6 +29,12 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
     $scope.currentSound = null;
     $scope.playProgress = null;
 
+    console.log('window.SC', window.SC);
+    if (window.SC) {
+      $scope.ready = true;
+      $scope.playerState = 'ready';
+    }
+
     $scope.$watch('playProgress', function ( ) {
       if ($scope.playProgress === null) {
         return;
@@ -39,8 +45,8 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
       var timeSpan = 66000.0 - startTime;
       var blendRatio = 1.0 - (($scope.cp - startTime) / timeSpan);
 
-      $('#waveformImage').css('left', -8192 * ($scope.cp / $scope.durationMills));
-      $('#waveformImage').css('background-color', 'rgba(0,0,0,' + blendRatio + ')');
+      jQuery('#waveformImage').css('left', -8192 * ($scope.cp / $scope.durationMills));
+      jQuery('#waveformImage').css('background-color', 'rgba(0,0,0,' + blendRatio + ')');
 
       var seconds = Math.round($scope.playProgress.currentPosition / 1000.0);
       var h = Math.floor(((seconds / 86400.0) % 1) * 24);
@@ -68,19 +74,24 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
         $scope.durationMills = durationMills;
       });
 
+      // In the following, you're going to see some jshint ignore:line
+      // directives. The SoundCloud Widget API is not my code. I can't
+      // help that they don't use camelCase identifiers, but I do and
+      // it's my standard.
+
       $scope.player.getCurrentSound(function (currentSound) {
         console.log('currentSound', currentSound);
         $scope.$apply(function ( ) {
           $scope.started = true;
           $scope.currentSound = currentSound;
           if (currentSound.downloadable) {
-            $scope.currentSound.download_url = $sce.trustAsUrl(currentSound.download_url);
+            $scope.currentSound.download_url = $sce.trustAsUrl(currentSound.download_url); // jshint ignore:line
           }
-          if ($scope.currentSound.purchase_url) {
-            $scope.currentSound.purchase_url = $sce.trustAsUrl(currentSound.purchase_url);
+          if ($scope.currentSound.purchase_url) {  // jshint ignore:line
+            $scope.currentSound.purchase_url = $sce.trustAsUrl(currentSound.purchase_url);  // jshint ignore:line
           }
-          if ($scope.currentSound.waveform_url) {
-            $scope.currentSound.waveform_url = $sce.trustAsUrl($scope.currentSound.waveform_url);
+          if ($scope.currentSound.waveform_url) {  // jshint ignore:line
+            $scope.currentSound.waveform_url = $sce.trustAsUrl($scope.currentSound.waveform_url);  // jshint ignore:line
           }
           $scope.currentSound.description = $sce.trustAsHtml(currentSound.description);
           $scope.playStatus = 'play';

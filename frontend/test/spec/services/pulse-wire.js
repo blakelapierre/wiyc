@@ -11,8 +11,8 @@ describe('Service: PulseWire', function () {
     PulseWire = _PulseWire_;
   }));
 
-  it('should do something', function () {
-    expect(!!PulseWire).toBe(true);
-  });
+//   it('should do something', function () {
+//     expect(!!PulseWire).toBe(true);
+//   });
 
 });

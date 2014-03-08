@@ -3,7 +3,7 @@
 
 'use strict';
 
-function Videos($resource, Configuration) {
+function VideosService ($resource, Configuration) {
   var serviceUrl = Configuration.buildApiUrl('/videos/:videoId');
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
@@ -15,5 +15,9 @@ function Videos($resource, Configuration) {
   });
 }
 
-Videos.$inject = ['$resource', 'Configuration'];
-angular.module('robcolbertApp').service('Videos', Videos);
+VideosService.$inject = [
+  '$resource',
+  'Configuration'
+];
+
+angular.module('robcolbertApp').service('Videos', VideosService);
