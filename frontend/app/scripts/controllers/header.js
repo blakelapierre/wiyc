@@ -14,9 +14,11 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
   $scope.session = UserSession.session;
   $rootScope.$on('setUserSession', function (event, session) {
     $scope.session = session;
+    ga('send', 'event', 'Authentication', 'setUserSession', 1);
   });
   $rootScope.$on('clearUserSession', function ( ) {
     $scope.session = null;
+    ga('send', 'event', 'Authentication', 'clearUserSession', 1);
   });
 
   $scope.pills = {
@@ -54,6 +56,7 @@ function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
   });
 
   $scope.showLoginModal = function ( ) {
+    ga('send', 'event', 'Authentication', 'showLoginModal', 1);
     $('#userLoginModal').modal('show');
   };
 

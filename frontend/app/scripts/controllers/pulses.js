@@ -8,6 +8,7 @@ function PulsesCtrl ($scope, $rootScope, UserSession, Pulses) {
 
   $scope.user = UserSession;
   $scope.pulses = Pulses.list(function ( ) {
+    ga('send','event', 'Pulses', 'listed', $scope.pulses.length);
     console.log('pulses', $scope.pulses);
     if (angular.isDefined(window.twttr)) {
       setTimeout(window.twttr.widgets.load, 0);
@@ -30,6 +31,7 @@ function PulsesCtrl ($scope, $rootScope, UserSession, Pulses) {
       return;
     }
     Pulses.create($scope.newPulse, function (pulse) {
+      ga('send','event', 'Pulses', 'created', 1);
       $scope.pulses.unshift(pulse);
       $scope.showComposer = false;
       $scope.newPulse = { };

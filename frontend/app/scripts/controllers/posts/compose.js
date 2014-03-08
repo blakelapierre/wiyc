@@ -23,9 +23,12 @@ function PostsComposeCtrl ($scope, $rootScope, $location, $window, Configuration
       $scope.post,
       function onCreatePostSuccess (newPost) {
         console.log('post created', newPost);
+        ga('send','event', 'Posts', 'createSuccess', 1);
         $location.path('/posts/' + newPost._id);
       },
       function onCreatePostError (error) {
+        console.log('posts.create error', error);
+        ga('send','event', 'Posts', 'createError', 1);
         $scope.haveError = true;
         $scope.error = error;
       }

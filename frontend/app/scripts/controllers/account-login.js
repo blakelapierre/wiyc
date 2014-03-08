@@ -16,17 +16,20 @@ function AccountLoginCtrl ($scope, $rootScope, $window, Sessions) {
   };
 
   $scope.userLogin = function ( ) {
+    ga('send','event','Authentication','userLogin', 1);
     Sessions.create(
       {
         'email': $scope.email,
         'password': $scope.password
       },
       function onSessionCreateSuccess (session) {
+        ga('send','event','Authentication','userLoginSuccess',1);
         $rootScope.$broadcast('setUserSession', session);
         $('#userLoginModal').modal('hide');
       },
       function onSessionCreateError (error) {
         console.log('Sessions.create error', error);
+        ga('send','event','Authentication','userLoginError', 1);
         $scope.haveError = true;
         $scope.error = error;
         $scope.$emit('clearUserSession');

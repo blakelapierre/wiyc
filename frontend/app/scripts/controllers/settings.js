@@ -10,6 +10,10 @@ function SettingsCtrl ($scope, $rootScope, $window, Configuration, Users, UserSe
   }
 
   $window.scrollTo(0, 0);
+  ga('send', 'pageview');
+
+  $scope.haveError = false;
+  $scope.error = null;
 
   $scope.visibilityOptions = [
     {'name':'Public', 'value':'public', 'type':'Permissive'},
@@ -20,9 +24,11 @@ function SettingsCtrl ($scope, $rootScope, $window, Configuration, Users, UserSe
   $scope.user = Users.get(
     {'userId':UserSession.session.user._id},
     function onUserRetrieved ( ) {
+      ga('send','event', 'Settings', 'userLoadSuccess', 1);
       console.log('settings user object retrieved', $scope.user);
     },
     function onUserError (error) {
+      ga('send','event', 'Settings', 'userLoadError', {'error':error});
       console.log('settings user object error', error);
     }
   );
@@ -33,10 +39,14 @@ function SettingsCtrl ($scope, $rootScope, $window, Configuration, Users, UserSe
       $scope.user,
       function onUserUpdateSuccess (user) {
         console.log('user updated successfully', user);
+        ga('send','event', 'Settings', 'userUpdateSuccess', 1);
         $scope.user = user;
       },
       function onUserUpdateError (error) {
         console.log('user update failed', error);
+        ga('send','event', 'Settings', 'userUpdateError', 1);
+        $scope.error = error;
+        $scope.haveError = true;
       }
     );
   };

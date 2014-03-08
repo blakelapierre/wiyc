@@ -99,7 +99,8 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-6890824-26');
-      ga('send', 'pageview');
+      ga('set', 'appName', 'Pulsar');
+      ga('set', 'appVersion', '0.1.0');
     </script>
 
     <!--[if lt IE 9]>
@@ -109,6 +110,7 @@
 
     <!-- build:js scripts/vendor.js -->
     <script src="bower_components/tinymce/tinymce.min.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
     <!-- bower:js -->
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -118,8 +120,10 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-ui-tinymce/src/tinymce.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <script src="bower_components/momentjs/moment.js"></script>
     <!-- endbower -->
+    <script src="bower_components/angular-ui-ace/ui-ace.min.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -151,6 +155,7 @@
     <script src="scripts/controllers/posts.js"></script>
     <script src="scripts/controllers/settings.js"></script>
     <script src="scripts/controllers/prototype.js"></script>
+    <script src="scripts/controllers/prototype/source.js"></script>
     <!-- endbuild -->
 
 <!--    <script src="http://robcolbert.com:10010/socket.io/socket.io.js"

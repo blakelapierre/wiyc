@@ -9,6 +9,13 @@ function VerifyCtrl ($scope, $route, $interval, Users) {
 
   $scope.nodeIsDone = false;
   $scope.showLoginButton = false;
+  ga('send', 'pageview');
+
+  // this controller does not require (or accept) user interaction to
+  // begin the email verification process. It reads URL query variables
+  // to determine the userId and emailVerificationKey values to use in
+  // the HTTP service request.
+  ga('send', 'event', 'EmailVerify', 'attempted', 1);
 
   Users.verify(
     {
@@ -18,12 +25,14 @@ function VerifyCtrl ($scope, $route, $interval, Users) {
     null,
     function onVerifySuccess (response) {
       console.log('verify success', response);
+      ga('send', 'event', 'EmailVerify', 'verifySuccess', 1);
       $scope.nodeIsDone = true;
       $scope.showLoginButton = true;
       $scope.nodeStatusMessage = 'Damn, homie. You actually check out. Welcome aboard!';
     },
     function onVerifyFailed (error) {
       console.log('verify failed', error);
+      ga('send', 'event', 'EmailVerify', 'verifyError', {'error':error});
       $scope.nodeIsDone = true;
       $scope.percentComplete = 100;
       $scope.statusMessage = error.data.msg;

@@ -7,6 +7,7 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
 
   $window.scrollTo(0, 0);
   $scope.$emit('setPageGroup', 'prototype');
+  ga('send', 'pageview');
 
   $scope.ready = false;
   $scope.started = false;
@@ -16,14 +17,16 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
   $scope.millsPerBeat = Math.round((60.0 / $scope.bpm) * 1000.0);
 
   $scope.launchExperience = function ( ) {
+    ga('send','event', 'SoundCloudPrototype', 'launched', 1);
     $scope.started = true;
     $scope.player.play();
   };
 
   $scope.attachToPlayer = function (elementId) {
 
+    $scope.playerState = 'startup';
     $scope.player = window.SC.Widget(elementId);
-
+    $scope.currentSound = null;
     $scope.playProgress = null;
 
     $scope.$watch('playProgress', function ( ) {
@@ -50,15 +53,16 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
       };
     });
 
-    $scope.currentSound = null;
-
     $scope.player.bind(SC.Widget.Events.READY, function ( ) {
       console.log('SC.READY', JSON.stringify(arguments));
       $scope.ready = true;
+      $scope.playerState = 'ready';
     });
 
     $scope.player.bind(SC.Widget.Events.PLAY, function ( ) {
       console.log('SC.PLAY', arguments);
+      ga('send','event', 'SoundCloudPrototype', 'player.play', 1);
+      $scope.state = 'playing';
       $scope.player.getDuration(function (durationMills) {
         console.log('track duration (mills)', durationMills);
         $scope.durationMills = durationMills;
@@ -83,21 +87,31 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
         });
       });
     });
+
     $scope.player.bind(SC.Widget.Events.PAUSE, function ( ) {
       console.log('SC.PAUSE', arguments);
+      ga('send','event', 'SoundCloudPrototype', 'player.paused', 1);
+      $scope.state = 'paused';
       $scope.$apply(function ( ) { $scope.playStatus = 'pause'; });
     });
+
     $scope.player.bind(SC.Widget.Events.FINISH, function ( ) {
       console.log('SC.FINISH', arguments);
+      ga('send','event', 'SoundCloudPrototype', 'player.finished', 1);
+      $scope.state = 'finished';
       $scope.$apply(function ( ) { $scope.playStatus = 'finish'; });
     });
+
     $scope.player.bind(SC.Widget.Events.SEEK, function ( ) {
+      $scope.state = 'seeking';
+      ga('send','event', 'SoundCloudPrototype', 'player.seeked', 1);
       console.log('SC.SEEK', arguments);
     });
 
     $scope.player.bind(SC.Widget.Events.LOAD_PROGRESS, function ( ) {
       console.log('SC.LOAD_PROGRESS', arguments);
     });
+
     $scope.player.bind(SC.Widget.Events.PLAY_PROGRESS, function (progress) {
       // too noisy console.log('SC.PLAY_PROGRESS', arguments);
       $scope.$apply(function ( ) {
@@ -107,15 +121,24 @@ function PrototypeCtrl ($scope, $window, $interval, $sce) {
 
     $scope.player.bind(SC.Widget.Events.CLICK_DOWNLOAD, function ( ) {
       console.log('SC.CLICK_DOWNLOAD', arguments);
+      ga('send','event', 'SoundCloudPrototype', 'player.downloadClicked', 1);
     });
+
     $scope.player.bind(SC.Widget.Events.CLICK_BUY, function ( ) {
       console.log('SC.CLICK_BUY', arguments);
+      ga('send','event', 'SoundCloudPrototype', 'player.buyClicked', 1);
     });
+
     $scope.player.bind(SC.Widget.Events.OPEN_SHARE_PANEL, function ( ) {
       console.log('SC.OPEN_SHARE_PANEL', arguments);
+      ga('send','event', 'SoundCloudPrototype', 'player.shareClicked', 1);
     });
-    $scope.player.bind(SC.Widget.Events.ERROR, function ( ) {
-      console.log('SC.ERROR', arguments);
+
+    $scope.player.bind(SC.Widget.Events.ERROR, function (error) {
+      console.log('SC.ERROR', error);
+      ga('send','event', 'SoundCloudPrototype', 'player.error', {'error':error});
+      $scope.state = 'startup';
+      $scope.error = error;
     });
 
     console.log('prototype.attachToPlayer', elementId, $scope.player);

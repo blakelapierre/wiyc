@@ -42,6 +42,7 @@ function FooterCtrl ($scope, $interval, Configuration, UserSession, PulseWire) {
   });
 
   $scope.clickSettings = function ( ) {
+    ga('send', 'event', 'Footer', 'clickSettings', 1);
     if (!$scope.user.session.authenticated.status) {
       $('#userLoginModal').modal('show');
       return;
@@ -49,6 +50,7 @@ function FooterCtrl ($scope, $interval, Configuration, UserSession, PulseWire) {
   };
 
   $scope.clickFriends = function ( ) {
+    ga('send', 'event', 'Footer', 'clickFriends', 1);
     if (!$scope.user.session.authenticated.status) {
       $('#userLoginModal').modal('show');
       return;
@@ -56,6 +58,7 @@ function FooterCtrl ($scope, $interval, Configuration, UserSession, PulseWire) {
   };
 
   $scope.clickInbox = function ( ) {
+    ga('send', 'event', 'Footer', 'clickInbox', 1);
     if (!$scope.user.session.authenticated.status) {
       $('#userLoginModal').modal('show');
       return;

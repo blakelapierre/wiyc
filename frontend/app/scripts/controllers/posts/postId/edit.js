@@ -17,10 +17,14 @@ angular.module('robcolbertApp')
   function ($rootScope, $scope, $route, $location, $sce, $timeout, Configuration, UserSession, Posts) {
 
     $scope.session = UserSession.session;
+    ga('send','pageview');
 
     $scope.$emit('setPageGroup', 'blog');
+
     $scope.tinymceOptions = Configuration.tinymceOptions;
     $scope.postContent = '';
+    $scope.haveError = false;
+    $scope.error = '';
 
     var editor = null;
     $rootScope.$on('tinymceInitComplete', function (event) {
@@ -44,9 +48,18 @@ angular.module('robcolbertApp')
         return;
       }
       $scope.post.content = editor.getContent();
-      $scope.post.$update({'postId':$scope.post._id}, function ( ) {
-        $location.path('/posts/'+$scope.post._id);
-      });
+      $scope.post.$update(
+        {'postId':$scope.post._id},
+        function onPostUpdateSuccess ( ) {
+          ga('send','event', 'Posts', 'updateSuccess', 1);
+          $location.path('/posts/'+$scope.post._id);
+        },
+        function onPostUpdateError (error) {
+          ga('send','event', 'Posts', 'updateError', 1);
+          $scope.error = error;
+          $scope.haveError = true;
+        }
+      );
     };
   }
 ]);

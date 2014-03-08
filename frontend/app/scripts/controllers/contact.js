@@ -6,6 +6,7 @@
 function ContactCtrl ($scope, $window) {
   $window.scrollTo(0, 0);
   $scope.$emit('setPageGroup', 'contact');
+  ga('send', 'pageview');
 }
 
 ContactCtrl.$inject = [

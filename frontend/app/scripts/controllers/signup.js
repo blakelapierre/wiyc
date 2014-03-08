@@ -4,7 +4,9 @@
 'use strict';
 
 function SignupCtrl ($scope, $rootScope, $window, Users) {
+
   $window.scrollTo(0, 0);
+  ga('send', 'pageview');
 
   $rootScope.$broadcast('showAnnouncement', {
     'title':'New Users!',
@@ -77,14 +79,18 @@ function SignupCtrl ($scope, $rootScope, $window, Users) {
     $scope.errorMessage = null;
     $scope.bugReported = false;
 
+    ga('send', 'event', 'AccountSignup', 'accountCreateAttepted', 1);
+
     Users.create(
       $scope.user,
       function onCreateSuccess (user) {
         console.log('new user record', user);
+        ga('send', 'event', 'AccountSignup', 'accountCreateSuccess', 1);
         $scope.isComplete = true;
       },
       function onCreateError (error) {
         console.log('Users.create error', error);
+        ga('send', 'event', 'AccountSignup', 'accountCreateError', {'error':error});
         $scope.haveError = true;
         $scope.errorMessage = error.data.msg;
         $scope.errorData = error.data;

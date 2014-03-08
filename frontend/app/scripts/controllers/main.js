@@ -8,6 +8,8 @@ function MainCtrl ($scope, $rootScope, $window, UserSession, Pulses) {
   $scope.session = UserSession.session;
   console.log('USER', $scope.user);
   $scope.$emit('setPageGroup', 'main');
+  ga('send', 'pageview');
+
   $scope.pulses = Pulses.list();
 
   $rootScope.$broadcast('showAnnouncement', {

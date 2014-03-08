@@ -9,7 +9,8 @@ angular.module('robcolbertApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.tinymce'
+  'ui.tinymce',
+  'ui.ace'
 ])
 .config(function ($routeProvider) {
   $routeProvider
@@ -67,6 +68,10 @@ angular.module('robcolbertApp', [
   .when('/prototype', {
     templateUrl: 'views/prototype.html',
     controller: 'PrototypeCtrl'
+  })
+  .when('/prototype/source', {
+    templateUrl: 'views/prototype/source.html',
+    controller: 'PrototypeSourceCtrl'
   })
   .otherwise({
     redirectTo: '/'

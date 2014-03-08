@@ -12,6 +12,7 @@ angular.module('robcolbertApp')
 
     $window.scrollTo(0, 0);
     $scope.$emit('setPageGroup', 'videos');
+    ga('send', 'pageview');
 
     /*
      * 'type':'hosted',
@@ -50,10 +51,12 @@ angular.module('robcolbertApp')
     $scope.players = { };
 
     $scope.playVideo = function (videoId) {
+      ga('send', 'event', 'Videos', 'videoPlayed', 1);
       $scope.players[videoId].playVideo();
     };
 
     $scope.pauseVideo = function (videoId) {
+      ga('send', 'event', 'Videos', 'videoPaused', 1);
       $scope.players[videoId].pauseVideo();
     };
 
@@ -89,6 +92,7 @@ angular.module('robcolbertApp')
                         break;
                       case 0:
                         video.stateLabel = 'end';
+                        ga('send', 'event', 'Videos', 'videoFinished', 1);
                         break;
                       case 1:
                         video.stateLabel = 'play';

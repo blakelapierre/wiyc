@@ -5,9 +5,13 @@
 /* global twttr:false */
 /* global moment:false */
 
-function PostsCtrl ($scope, Posts) {
+function PostsCtrl ($scope, $window, Posts) {
+  $window.scrollTo(0, 0);
   $scope.$emit('setPageGroup', 'blog');
+  ga('send', 'pageview');
+
   $scope.posts = Posts.list(function ( ) {
+    ga('send','event', 'Posts', 'listed', $scope.posts.length);
     console.log('posts have arrived', $scope.posts);
     setTimeout(twttr.widgets.load, 0);
   });
@@ -19,6 +23,7 @@ function PostsCtrl ($scope, Posts) {
 
 PostsCtrl.$inject = [
   '$scope',
+  '$window',
   'Posts'
 ];
 

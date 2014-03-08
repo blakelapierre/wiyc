@@ -143,9 +143,9 @@ PostsController.prototype.update = function (req, res) {
     // doesn't have to run off stage with a camera crew following it.
 
     if (post._creator.toString() !== req.session.user._id.toString()) {
-      post.populate('_creator', '_id displayName', function (err, populatedUser) {
-        console.log('unauthorized post edit', post._creator, req.session.user);
-        res.json(403, {'message':'you are not authorized to edit this post'});
+      post.populate('_creator', '_id displayName', function (err, populatedPost) {
+        console.log('unauthorized post edit', populatedPost._creator, req.session.user, err);
+        res.json(403, { 'message':'you are not authorized to edit this post' });
       });
       return; // we're done
     }
@@ -173,7 +173,7 @@ PostsController.prototype.update = function (req, res) {
           return;
         }
         res.json(200, populatedPost);
-      })
+      });
     });
   });
 };

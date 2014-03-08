@@ -6,6 +6,7 @@
 function AboutCtrl ($scope, $window) {
   $window.scrollTo(0, 0);
   $scope.$emit('setPageGroup', 'about');
+  ga('send', 'pageview');
 }
 
 AboutCtrl.$inject = [
