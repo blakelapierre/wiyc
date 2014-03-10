@@ -31,13 +31,15 @@
     <![endif]-->
 
     <div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
+
     <div class="container-fluid">
       <div class="row-fluid content-section">
-        <div class="col-sm-9"><div ng-view=""></div></div>
-        <div class="col-sm-3 sidebar"><ng-include src="'views/sidebar.html'"></ng-include></div>
+        <div class="col-sm-8"><div ng-view=""></div></div>
+        <div class="col-sm-4 sidebar"><ng-include src="'views/sidebar.html'"></ng-include></div>
         <div class="clearfix"></div>
       </div>
     </div>
+
     <div class="footer" ng-include="'views/footer.html'" ng-controller="FooterCtrl"></div>
 
     <div class="modal fade bs-example-modal-sm"
@@ -111,6 +113,7 @@
     <!-- build:js scripts/vendor.js -->
     <script src="bower_components/tinymce/tinymce.min.js"></script>
     <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/theme-chrome.js"></script>
     <!-- bower:js -->
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>

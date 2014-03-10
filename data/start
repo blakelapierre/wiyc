@@ -12,5 +12,8 @@ killall memcached
 
 sleep 1
 
+echo "starting memcached"
+memcached -d
+
 echo "starting local mongod"
 mongod --config=mongod.conf --smallfiles --fork
