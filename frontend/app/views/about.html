@@ -55,12 +55,17 @@
   use it.
 </p>
 <p>
-  I am using Apache httpd. But, if "it" throws a file onto a wire when properly
-  asked to do so, it'll work. Pulsar's front end really is just a bunch of
-  static, cache-busted, concatenated, minified and crunched standard MIME-typed
-  assets. I'm serving this very site from atop a mountain in Pennsylvania using
-  ridiculously unstable DSL service with a 1Mbps upstream connection to you
-  when it decides to stay connected. So, yes. It's "tested" (daily).
+  I am using Apache httpd in dev and thttpd in prod. But, if whatever you like
+  throws a file onto a wire (quickly, please) when properly asked to do so,
+  it'll work. The front end has no state (at all) from the perspective of its
+  server. Pulsar's front end really is just a bunch of static, cache-busted,
+  concatenated, minified and crunched standard MIME-typed assets.
+</p>
+<p>
+  The public Pulsar instance running at robcolbert.com is hosted on donated
+  hosting in the cloud on the tiniest of VMs they offer. It hasn't gone down
+  once unless I've taken it down for an update. Everything stacked on one
+  anemic box, no issues at all.
 </p>
 
 <h2>Who Built Pulsar?</h2>

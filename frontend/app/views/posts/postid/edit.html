@@ -35,9 +35,13 @@
 
 </form>
 
+<div class="jumbotron">
+  <h1 ng-bind-html="post.title"></h1>
+  <p>Posted [soon] by [you]</p>
+</div>
+
 <div class="row post">
   <div class="col-sm-12">
-    <div class="title" ng-bind-html="post.title"></div>
     <div class="content">
       <blockquote ng-bind-html="post.excerpt"></blockquote>
     </div>
