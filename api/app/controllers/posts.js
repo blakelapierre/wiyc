@@ -68,7 +68,13 @@ PostsController.prototype.list = function(req, res){
       res.json(500, err);
       return;
     }
-    res.json(200, posts);
+
+    var response = {
+      'totalPages':20,
+      'posts': posts
+    };
+
+    res.json(200, response);
   });
 };
 

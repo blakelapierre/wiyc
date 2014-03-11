@@ -4,7 +4,7 @@
   Pulsar...
 </p>
 
-<div class="post" ng-repeat="post in posts">
+<div class="post" ng-repeat="post in posts.posts">
   <hr />
   <h1 style="margin-bottom:0; padding-bottom:0;">
     <a href="#/posts/{{post._id}}" title="{{post.title}}">{{post.title}}</a>
@@ -15,4 +15,18 @@
   <p>
     <a href="#/posts/{{post._id}}" title="{{post.title}}">Continue reading...</a>
   </p>
+</div>
+
+<div class="pager">
+  <ul>
+    <!-- conditional display of previous page (newer posts) link -->
+    <li ng-show="currentPage &gt; 1"><a ng-href="#/posts?p={{currentPage - 1}}">Newer</a></li>
+
+    <!-- repeat a link for each navigable page in the set -->
+    <li ng-repeat="page in posts.pages"><a ng-href="#/posts?p={{page}}">{{page}}</a></li>
+
+    <!-- conditional display of Next page (older posts) link -->
+    <li ng-show="currentPage &lt; posts.totalPages"><a ng-href="#/posts?p={{currentPage + 1}}">Older</a></li>
+
+  </ul>
 </div>

@@ -7,7 +7,7 @@ function PostsService ($resource, Configuration) {
   var serviceUrl = Configuration.buildApiUrl('/posts/:postId');
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
-    'list': { 'method': 'GET', 'isArray': true, 'withCredentials':true },
+    'list': { 'method': 'GET', 'withCredentials':true },
     'get': { 'method': 'GET', 'withCredentials':true },
     'create': { 'method': 'POST', 'withCredentials':true },
     'update': { 'method': 'PUT', 'withCredentials':true },

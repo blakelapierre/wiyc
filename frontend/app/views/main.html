@@ -1,62 +1,44 @@
-<div>
-  <div class="jumbotron" style="background-image:url('images/earth-bg.jpg'); background-size:cover; background-position:center center; box-shadow:0 0 8px rgba(0,0,0,0.8) inset;">
-
-    <div style="padding:16px; background-color:rgba(255,255,255,0.8); box-shadow:0 0 8px rgba(0,0,0,0.8);">
-      <h1>
-        Welcome to Pulsar
-        <small>
-          <a href="/#/posts/530b060b1c40eec960000007"
-            title="There. I used an &amp;nbsp; properly. Can we get over the style of the site, please?"
-            >Learn&nbsp;more...</a>
-        </small>
-      </h1>
-      <p>
-        Pulsar is a new way to publish and share online. Pulsar is also an experiment
-        trying to prove a few sciencey points here &amp; there about some of the
-        technology it uses. But, that won't probably matter much to you.
-      </p>
+<div class="jumbotron" style="background-image:url('images/earth-bg.jpg'); background-size:cover; background-position:center center; box-shadow:0 0 8px rgba(0,0,0,0.8) inset;">
+  <div style="padding:16px; background-color:rgba(255,255,255,0.8); box-shadow:0 0 8px rgba(0,0,0,0.8);">
+    <h1>
+      Welcome to Pulsar
+      <small>
+        <a href="/#/posts/530b060b1c40eec960000007"
+          title="There. I used an &amp;nbsp; properly. Can we get over the style of the site, please?"
+          >Learn&nbsp;more...</a>
+      </small>
+    </h1>
+    <p>
+      Pulsar is a new way to publish and share online. Pulsar is also an experiment
+      trying to prove a few sciencey points here &amp; there about some of the
+      technology it uses. But, that won't probably matter much to you.
+    </p>
+  </div>
+  <div class="row" ng-show="!session.authenticated.status" style="margin-top:48px;">
+    <div class="col-sm-6 text-center">
+      <a href="/#/signup"
+        class="btn btn-primary btn-lg"
+        title="This is the button to push first!"
+        >
+        Shaddup! Lemme Publish!
+      </a>
     </div>
-
-    <div class="row" ng-show="!session.authenticated.status" style="margin-top:48px;">
-      <div class="col-sm-6 text-center">
-        <a href="/#/signup"
-          class="btn btn-primary btn-lg"
-          title="This is the button to push first!"
-          >
-          Shaddup! Lemme Publish!
-        </a>
-      </div>
-      <div class="col-sm-6 text-center">
-        <a href="/#/signup">Create Account</a>
-      </div>
+    <div class="col-sm-6 text-center">
+      <a href="/#/signup">Create Account</a>
     </div>
+  </div>
+</div>
 
+<div class="row-fluid content-section">
+  <div class="col-sm-12">
+    <h1>How Is Pulsar Different or Better?</h1>
+    <p>
+      <a href="/#/prototype">Watch this</a>. Then, have a look
+      <a href="/#/prototype/source">at this</a>. When viewed by the right
+      people, those two links say everything that's needed for now.
+    </p>
   </div>
   <div class="clearfix"></div>
-</div>
-
-<div style="background-image:url('images/constellation-bg.jpg');background-size:cover; color:white; padding:16px;">
-  <div style="margin:16px; padding:16px; background-color:rgba(255,255,255,0.9); color:black;">
-    <h1>Constellation</h1>
-    <p>
-      Once Pulsar is more complete, Constellation will be launched. The
-      Constellation service wants to become the planet's first
-      decentralized social network. It is intended to be used by anyone
-      who wants to own their data <em>and</em> the conversation around it
-      instead of relying on monolithic companies like Facebook, Twitter
-      or anyone <em>but</em> themselves.
-    </p>
-    <p>
-      As the planet's first truly distributed, decentralized social network enabling
-      people to communicate in fun new ways while owning their data, Pulsar and
-      Constellation may or may not change all of our lives, but it might touch a
-      few. And, that's the hope. That's all there is to it. Touch a few lives and
-      help them make positive changes.
-    </p>
-  </div>
-</div>
-
-<div class="row">
   <div class="col-sm-4">
     <h2>Is This a Beta?</h2>
     <p>
@@ -74,13 +56,14 @@
   <div class="col-sm-4">
     <h2>Who Uses Pulsar?</h2>
     <p>
-      Families who want to own their data and the network that carries it.
-      Small, medium and large businesses that want a manageable web site
-      management system. Intercontinental enterprises that want something
-      that integrates well into their existing front end. A lot of people
-      will simply use the free online service and not host anything. But,
-      they'll all succeed at publishing content online in a way that works
-      for them.
+      Families who want to own their data and the network that privately
+      carries it. Small, medium and large businesses that want a manageable
+      web site management system. Intercontinental enterprises that want
+      usable technology that integrates well into their existing front end.
+      Many will use the free online service and not host anything. Some will
+      subscribe to the online service for enhanced features and a more
+      professional/custom online appearance. They'll all succeed at
+      publishing content online in a way that works for them.
     </p>
   </div>
   <div class="col-sm-4">
@@ -97,4 +80,68 @@
       philosophical discussion out of the way of progress.
     </p>
   </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="row-fluid content-section">
+  <div class="col-sm-12">
+    <h1>Project Goals</h1>
+    <p>
+      The idea to create Pulsar happened Sunday, Feb 9, 2014, after I'd finally
+      had enough of arguing for the use of Node.js and MongoDB using only words.
+      I am sick of trying to convince people that these tools are all of
+      enterprise grade and production ready. So, here it all is. I'm doing
+      enterprise development on the MEAN stack, and it's running in the cloud
+      on production servers separately from my development network at home.
+    </p>
+    <p>
+      Pulsar was created with the following primary goals:
+    </p>
+    <dl class="dl-horizontal">
+      <dt>Be Deployable</dt>
+      <dd>
+        Pulsar will be easy to deploy and maintain by IT professionals and
+        non-IT professionals alike.
+      </dd>
+      <dt>Be Easy</dt>
+      <dd>Pulsar will be easy to use as a content creator</dd>
+      <dd>Pulsar will be easy to use as a consumer</dd>
+      <dt>Be Prolific</dt>
+      <dd>
+        Pulsar must provide the most advanced content publishing capabilities
+        to the largest number of people. Constellation must connect people who
+        want to share with one another.
+      </dd>
+    </dl>
+    <p>
+      The end goal is to enable people to share content online while owning the
+      content they share. A Pulsar instance will be no more public than its
+      owner configures it to be. No Pulsar is mandated to participate in
+      Constellation and can always exist as its own island powering its own
+      private and highly secure community.
+    </p>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="row-fluid content-section">
+  <div class="col-sm-12">
+    <h1>Coming Soon: Constellation</h1>
+    <p>
+      Once Pulsar is more complete, Constellation will be launched. The
+      Constellation service wants to become the planet's first
+      decentralized social network. It is intended to be used by anyone
+      who wants to own their data <em>and</em> the conversation around it
+      instead of relying on monolithic companies like Facebook, Twitter
+      or anyone <em>but</em> themselves.
+    </p>
+    <p>
+      As the planet's first truly distributed, decentralized social network enabling
+      people to communicate in fun new ways while owning their data, Pulsar and
+      Constellation may or may not change all of our lives, but it might touch a
+      few. And, that's the hope. That's all there is to it. Touch a few lives and
+      help them make positive changes.
+    </p>
+  </div>
+  <div class="clearfix"></div>
 </div>

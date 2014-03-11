@@ -5,16 +5,35 @@
 /* global twttr:false */
 /* global moment:false */
 
-function PostsCtrl ($scope, $window, Posts) {
+function PostsCtrl ($scope, $route, $window, Posts) {
   $window.scrollTo(0, 0);
+
   $scope.$emit('setPageGroup', 'blog');
   ga('send', 'pageview');
 
-  $scope.posts = Posts.list(function ( ) {
-    ga('send','event', 'Posts', 'listed', $scope.posts.length);
-    console.log('posts have arrived', $scope.posts);
-    setTimeout(twttr.widgets.load, 0);
-  });
+  $scope.currentPage = parseInt($route.current.params.p) || 1;
+  $scope.postsPerPage = parseInt($route.current.params.cpp) || 3;
+
+  $scope.posts = Posts.list(
+    {
+      'p': $scope.currentPage,
+      'cpp':$scope.postsPerPage
+    },
+    function ( ) {
+      var idx, maxPages = $scope.posts.count / $scope.postsPerPage;
+
+      console.log('posts have arrived', $scope.posts);
+      setTimeout(twttr.widgets.load, 0);
+
+      $scope.pages = [ ];
+      for (idx = $scope.currentPage - 3; idx <= maxPages; ++idx) {
+        if (idx >= 1) {
+          $scope.pages.push(idx);
+        }
+      }
+      ga('send','event', 'Posts', 'listed', $scope.posts.length);
+    }
+  );
 
   $scope.calendarMoment = function (date) { return moment(date).calendar(); };
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
@@ -23,6 +42,7 @@ function PostsCtrl ($scope, $window, Posts) {
 
 PostsCtrl.$inject = [
   '$scope',
+  '$route',
   '$window',
   'Posts'
 ];

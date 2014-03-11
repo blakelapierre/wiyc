@@ -12,7 +12,7 @@ angular.module('robcolbertApp')
       'scheme': 'http://',
       //'host': 'localhost',
       //'host': '192.241.240.182',
-      'host': 'robcolbert.com',
+      'host': 'api.robcolbert.com',
       'port': 10010
     };
 
