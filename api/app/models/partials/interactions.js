@@ -9,6 +9,8 @@ module.exports = {
   'comments': [{
     '_creator': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users' },
     'created': { 'type': Date, 'default': Date.now },
-    'content': { 'type': String, 'required': true }
+    'likes': { 'type': Number, 'default': 0 },
+    'dislikes': { 'type': Number, 'default': 0 },
+    'content': { 'type': String, 'required': true },
   }]
 };

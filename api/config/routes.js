@@ -38,6 +38,11 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'GET',     'uri': '/sessions',               'controllerMethod': function (req, res) { sessions.get(req,res); }});
   routes.add({ 'method': 'DELETE',  'uri': '/sessions',               'controllerMethod': function (req, res) { sessions.delete(req,res); }});
 
+  var settings = new (require('../app/controllers/settings'))(app, config);
+
+  routes.add({ 'method': 'GET',     'uri': '/settings',               'controllerMethod': function (req, res) { settings.get(req, res); }});
+  routes.add({ 'method': 'PUT',     'uri': '/settings',               'controllerMethod': function (req, res) { settings.update(req, res); }});
+
   //
   // PULSES
   //

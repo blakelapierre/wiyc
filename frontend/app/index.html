@@ -105,6 +105,20 @@
       ga('set', 'appVersion', '0.1.0');
     </script>
 
+    <script src="https://www.youtube.com/iframe_api" type="text/javascript"></script>
+    <script type="text/javascript" src="scripts/sandbox/soundcloud-api.js"></script>
+
+    <!-- Twitter Widget API -->
+    <script src="http://platform.twitter.com/widgets.js"
+            async=""
+            type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- SWFObject API (heroin is hard, and YouTube won't switch to methodone) -->
+    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"
+            type="text/javascript"
+            charset="utf-8"></script>
+
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -160,25 +174,17 @@
     <script src="scripts/controllers/settings.js"></script>
     <script src="scripts/controllers/prototype.js"></script>
     <script src="scripts/controllers/prototype/source.js"></script>
+    <script src="scripts/controllers/admin.js"></script>
+    <script src="scripts/services/site-settings.js"></script>
+    <script src="scripts/services/sound-cloud.js"></script>
+    <script src="scripts/controllers/web-audio-demo.js"></script>
+    <script src="scripts/services/web-audio.js"></script>
     <!-- endbuild -->
 
 <!--    <script src="http://robcolbert.com:10010/socket.io/socket.io.js"
             type="text/javascript"
             >
     </script>-->
-
-    <script type="text/javascript" src="scripts/sandbox/soundcloud-api.js"></script>
-
-    <!-- Twitter Widget API -->
-    <script src="http://platform.twitter.com/widgets.js"
-            async=""
-            type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- SWFObject API (heroin is hard, and YouTube won't switch to methodone) -->
-    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"
-            type="text/javascript"
-            charset="utf-8"></script>
 
     <!-- TinyMCE WYSIWYG Editor -->
     <script type="text/javascript">

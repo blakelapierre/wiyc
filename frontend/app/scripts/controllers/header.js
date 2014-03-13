@@ -4,8 +4,10 @@
 'use strict';
 /* global $:false */
 
-function HeaderCtrl ($scope, $rootScope, UserSession, PulseWire) {
+function HeaderCtrl ($scope, $rootScope, UserSession, SiteSettings, PulseWire) {
 
+  $scope.site = SiteSettings.get();
+  
   $scope.pulsewire = PulseWire;
   $scope.title = 'robcolbert.com';
   $scope.brand = 'PULSAR';
@@ -72,6 +74,7 @@ HeaderCtrl.$inject = [
   '$scope',
   '$rootScope',
   'UserSession',
+  'SiteSettings',
   'PulseWire'
 ];
 

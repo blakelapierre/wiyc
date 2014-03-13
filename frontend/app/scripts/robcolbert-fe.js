@@ -73,6 +73,14 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/prototype/source.html',
     controller: 'PrototypeSourceCtrl'
   })
+  .when('/admin', {
+    templateUrl: 'views/admin.html',
+    controller: 'AdminCtrl'
+  })
+  .when('/web-audio-demo', {
+    templateUrl: 'views/web-audio-demo.html',
+    controller: 'WebAudioDemoCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

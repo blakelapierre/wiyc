@@ -1,0 +1,62 @@
+<h1>PULSAR Administration</h1>
+<p>
+  Welcome. This is the main control panel for your Pulsar instance. This is
+  where you set options, view reports, access online documentation and
+  moderate the discussion happening on your Pulsar instance.
+</p>
+<div class="row-fluid">
+
+  <div class="col-sm-4">
+    <ul class="nav nav-tabs nav-stacked">
+      <li><a href="#/admin/display">Display Options</a></li>
+      <li><a href="#/admin/user-access">User Access</a></li>
+      <li><a href="#/admin/community-tools">Community Tools</a></li>
+    </ul>
+  </div>
+
+  <div class="col-sm-8">
+    <form role="form">
+      <fieldset>
+        <legend>Site Information</legend>
+        <div class="form-group">
+          <label for="siteName">Site name</label>
+          <input type="text"
+                 class="form-control"
+                 id="siteName"
+                 name="siteName"
+                 placeholder="Enter site name (ex: Pulsar CMS)"
+                 ng-model="options.siteInformation.name"
+                 />
+        </div>
+
+        <div class="form-group">
+          <label for="siteBrand">Site brand</label>
+          <input type="text"
+                 class="form-control"
+                 id="siteBrand"
+                 name="siteBrand"
+                 placeholder="Enter site brand (ex: PULSAR)"
+                 ng-model="options.siteInformation.brand"
+                 />
+        </div>
+
+
+        <div class="form-group">
+          <label for="siteDescription">Site description</label>
+          <textarea id="siteDescription"
+                    name="siteDescription"
+                    data-ui-tinymce="tinymceOptions"
+                    data-ng-model="options.siteInformation.description"
+                    ></textarea>
+        </div>
+
+
+
+      </fieldset>
+    </form>
+    <p>
+      <button class="btn btn-primary btn-lg" ng-click="save()">Save Options</button>
+    </p>
+  </div>
+
+</div>

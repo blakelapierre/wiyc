@@ -1,0 +1,66 @@
+<div class="pulsar-media-sc">
+
+  <div style="margin-bottom:16px;">
+    <div class="pull-right" style="margin:0 8px;">
+      <small>created by:</small><br />
+      <a ng-href="{{trackData.user.permalink_url}}" target="_blank" title="Open {{trackData.user.username}}'s page on SoundCloud.com">
+        <img ng-src="{{trackData.user.avatar_url}}" style="width:24px;height:24px;" />
+        {{trackData.user.username}}
+      </a>
+    </div>
+    <h1>
+      {{trackData.title}}
+    </h1>
+    <p>featuring a Pulsar-powered remix of the animated action short, "RUIN 3D." Enjoy :)</p>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="video-container" style="margin-bottom:0;">
+    <div class="video-player" style="position:relative;">
+      <div id="youtubeVideo1"></div>
+      <div id="youtubeVideo2"></div>
+      <!-- iframe width="853" height="480" src="//www.youtube.com/embed/1UjEVnmXL0o" frameborder="0" allowfullscreen></iframe -->
+      <canvas id="visualizer" width="1024" height="128"
+              style="position:absolute; bottom:0; right:0; left:0; width:100%; height:128px; background:none;"
+        ></canvas>
+    </div>
+  </div>
+
+  <div style="position:relative; height:100px; margin-bottom:16px;">
+    <div style="position:absolute;top:0;right:0;left:100px;height:100px; background-color:black;">
+      <div id="progressBar"
+           style="position:absolute; top:0; bottom:0; left:0; width:0%; background-color:red;"
+        ></div>
+      <img ng-src="{{trackData.waveform_url}}"
+           style="position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%;"
+           />
+      </div>
+      <div style="position:absolute;top:0;left:0;width:100px;height:100px;">
+        <a ng-href="{{trackData.permalink_url}}" target="_blank" title="Open '{{trackData.title}}' on SoundCloud.com">
+          <img class="img img-responsive" ng-src="{{trackData.artwork_url}}" />
+        </a>
+      </div>
+  </div>
+
+  <!-- div style="margin-bottom:16px;">
+    <button class="btn btn-primary"
+            ng-disabled="!ready"
+            ng-click="isPlaying ? stop() : play()"
+      >
+      <span class="glyphicon glyphicon-play"></span>
+    </button> {{audio.currentTime}}
+  </div -->
+
+  <div style="max-height:240px; overflow:auto; margin-bottom:16px;">
+    <p ng-bind-html="trackData.description"></p>
+  </div>
+
+</div>
+
+<h1>Pulsar WebAudio Demo</h1>
+<p>
+  This page contains a YouTube iframe API instance. That is the only widget.
+  The SoundCloud player is no longer a widget. It is a Pulsar component, and
+  its entire UI is now being natively rendered by Pulsar. It is able to be
+  entirely skinned and will demonstrate this during the presentation.
+</p>
