@@ -46,10 +46,6 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/verify.html',
     controller: 'VerifyCtrl'
   })
-
-  //
-  // LEGACY REDIRECTS AND CATCH-ALL
-  //
   .when('/contact', {
     templateUrl: 'views/contact.html',
     controller: 'ContactCtrl'
@@ -77,9 +73,9 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/admin.html',
     controller: 'AdminCtrl'
   })
-  .when('/web-audio-demo', {
-    templateUrl: 'views/web-audio-demo.html',
-    controller: 'WebAudioDemoCtrl'
+  .when('/moving-parts', {
+    templateUrl: 'views/moving-parts.html',
+    controller: 'MovingPartsCtrl'
   })
   .otherwise({
     redirectTo: '/'

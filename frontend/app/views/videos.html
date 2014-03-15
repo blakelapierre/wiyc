@@ -24,7 +24,10 @@
     <button class="col-xs-2 btn btn-standard" ng-if="video.state !== 1" ng-click="playVideo(video.videoId)"><span class="glyphicon glyphicon-play"></span></button>
     <button class="col-xs-2 btn btn-standard" ng-if="video.state === 1" ng-click="pauseVideo(video.videoId)"><span class="glyphicon glyphicon-pause"></span></button>
     <div class="col-xs-2 text-center"><small>state:</small><br />{{video.stateLabel}}</div>
-    <div class="col-xs-2 text-center"><small>time:</small><br />{{video.currentTime}}</div>
+    <div class="col-xs-2 text-center"><small>time:</small><br />
+      {{video.currentTimeRaw}}<br />
+      <input type="number" ng-model="video.userDesiredTime"><button ng-click="setVideoTime(video)">Jump</button>
+    </div>
     <div class="col-xs-2 text-center"><small>duration:</small><br />{{video.duration}}</div>
     <div class="col-xs-2 text-center"><small>played:</small><br />{{video.playedFraction}}</div>
     <div class="col-xs-2 text-center"><small>loaded:</small><br />{{video.loadedFraction}}</div>

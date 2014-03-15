@@ -39,16 +39,14 @@
 'use strict';
 
 function WebAudioService ($window) {
-
+  var AudioContext = $window.AudioContext || $window.webkitAudioContext;
   this.context = null;
   this.gain = null;
   this.analyser = null;
   this.freqByteData = null;
   this.timeByteData = null;
   this.sources = [ ];
-
   try {
-    var AudioContext = $window.AudioContext || $window.webkitAudioContext;
     this.context = new AudioContext();
     this.gain = this.context.createGain();
     this.gain.connect(this.context.destination);
@@ -60,7 +58,6 @@ function WebAudioService ($window) {
   } catch (e) {
     console.log('PUASAR-WebAudio error', e);
   }
-
 }
 
 

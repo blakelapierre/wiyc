@@ -7,7 +7,7 @@
 function HeaderCtrl ($scope, $rootScope, UserSession, SiteSettings, PulseWire) {
 
   $scope.site = SiteSettings.get();
-  
+
   $scope.pulsewire = PulseWire;
   $scope.title = 'robcolbert.com';
   $scope.brand = 'PULSAR';
@@ -36,7 +36,7 @@ function HeaderCtrl ($scope, $rootScope, UserSession, SiteSettings, PulseWire) {
     'videos': {
       'className': ''
     },
-    'prototype': {
+    'demos': {
       'className': ''
     },
     'about': {

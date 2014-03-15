@@ -6,7 +6,7 @@
 function PrototypeCtrl ($scope, $window, $interval, $sce) {
 
   $window.scrollTo(0, 0);
-  $scope.$emit('setPageGroup', 'prototype');
+  $scope.$emit('setPageGroup', 'demos');
   ga('send', 'pageview');
 
   $scope.ready = false;

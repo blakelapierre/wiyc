@@ -32,7 +32,17 @@
         </li>
 
         <!-- li ng-class="pills.videos.className"><a ng-href="#/videos" title="YouTube integration demo">VIDEOS</a></li -->
-        <li ng-class="pills.prototype.className"><a ng-href="#/prototype" title="Get a sneak peek at something new..."><span class="glyphicon glyphicon-fire"></span> PROTOTYPE</a></li>
+
+        <li class="dropdown" ng-class="pills.demos.className">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-flash"></span> DEMOS <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a ng-href="#/moving-parts"><span class="glyphicon glyphicon-fire"></span> Moving Parts</a></li>
+            <li><a ng-href="#/prototype" title="Get a sneak peek at something new..."><span class="glyphicon glyphicon-fire"></span> SoundCloud Prototype</a></li>
+          </ul>
+        </li>
+
         <li ng-class="pills.about.className"><a ng-href="#/about" title="Learm more about Pulsar"><span class="glyphicon glyphicon-cloud"></span> ABOUT</a></li>
         <!-- li ng-class="pills.contact.className"><a ng-href="#/contact" title="Get in touch...">CONTACT</a></li -->
       </ul>
