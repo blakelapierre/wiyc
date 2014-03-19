@@ -1,3 +1,5 @@
+<h2>Pulsar Composer</h2>
+
 <div class="alert alert-danger" ng-show="haveError">
   <div class="pull-right" style="margin-left:16px;" ng-click="haveError = false">
     <span class="glyphicon glyphicon-remove-circle"></span>
@@ -7,7 +9,7 @@
 
 <form role="form" class="form">
   <div class="form-group">
-    <label for="pulseTitle">Pulse Title</label>
+    <label for="pulseTitle">Title</label>
     <input class="form-control"
            id="pulseTitle"
            ng-model="pulse.title"
@@ -15,7 +17,7 @@
            />
   </div>
   <div class="form-group">
-    <label for="pulseContent">Share Your Thoughts</label>
+    <label for="pulseContent">Pulse Content</label>
     <textarea id="pulseContent"
               data-ui-tinymce="tinymceOptions"
               data-ng-model="pulse.content"
@@ -23,18 +25,17 @@
   </div>
 
   <div class="form-group">
-    <label for="pulseExcerpt">Update Your Excerpt</label>
+    <label for="pulseExcerpt">Excerpt</label>
     <textarea id="pulseExcerpt" class="form-control"
               data-ng-model="pulse.excerpt"
               style="resize:vertical;"
               rows="4"
-              placeholder="Enter a quick summary that appears in lists of pulses."
+              placeholder="Enter a quick summary that appears in lists of pulses"
               ></textarea>
   </div>
 
   <div class="form-group">
     <button class="btn btn-primary" ng-click="createPulse()">Publish</button>
-    <button class="btn btn-default" ng-click="refreshWidgets()">Magicality</button>
   </div>
 </form>
 

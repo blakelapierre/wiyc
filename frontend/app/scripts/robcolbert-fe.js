@@ -71,6 +71,10 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/pulses/reader.html',
     controller: 'PulseReaderCtrl'
   })
+  .when('/pulses/:pulseId/edit', {
+    templateUrl: 'views/pulses/pulseId/edit.html',
+    controller: 'PulseEditCtrl'
+  })
   .when('/pulses', {
     templateUrl: 'views/pulses.html',
     controller: 'PulsesCtrl'

@@ -12,7 +12,12 @@ function PulsesService ($resource, Configuration) {
     'get': { 'method': 'GET', 'withCredentials': true },
     'create': { 'method': 'POST', 'withCredentials': true },
     'update': { 'method': 'PUT', 'withCredentials': true },
-    'delete': { 'method': 'DELETE', 'withCredentials': true }
+    'delete': { 'method': 'DELETE', 'withCredentials': true },
+    'createComment': {
+      'url': Configuration.buildApiUrl('/pulses/:pulseId/comments'),
+      'method': 'POST',
+      'withCredentials': true
+    }
   });
 }
 
