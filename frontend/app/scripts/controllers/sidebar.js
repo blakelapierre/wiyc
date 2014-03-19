@@ -1,20 +1,11 @@
+// controllers/sidebar.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+
 'use strict';
 
-function SidebarCtrl ($scope, PresentationEngine) {
+function SidebarCtrl ($scope) {
 
   $scope.className = '';
-
-  $scope.$on('setPresentationMode', function (event, mode) {
-    console.log('setPresentationMode', event, mode);
-    switch (mode) {
-      case 'standard':
-        $scope.className = '';
-        break;
-      case 'dimmed':
-        $scope.className = 'dimmed';
-        break;
-    }
-  });
 
 }
 

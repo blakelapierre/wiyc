@@ -4,12 +4,17 @@
 'use strict';
 /* global moment:false */
 
-function PulsesCtrl ($scope, $rootScope, UserSession, Pulses) {
+function PulsesCtrl ($scope, $rootScope, $sce, UserSession, Pulses) {
 
   $scope.user = UserSession;
-  $scope.pulses = Pulses.list(function ( ) {
-    ga('send','event', 'Pulses', 'listed', $scope.pulses.length);
-    console.log('pulses', $scope.pulses);
+
+  Pulses.list(function (pulses) {
+    ga('send','event', 'Pulses', 'listed', pulses.length);
+    pulses.forEach(function (pulse) {
+      pulse.content = $sce.trustAsHtml(pulse.content);
+    });
+    console.log('pulses', pulses);
+    $scope.pulses = pulses;
     if (angular.isDefined(window.twttr)) {
       setTimeout(window.twttr.widgets.load, 0);
     }
@@ -46,6 +51,7 @@ function PulsesCtrl ($scope, $rootScope, UserSession, Pulses) {
 PulsesCtrl.$inject = [
   '$scope',
   '$rootScope',
+  '$sce',
   'UserSession',
   'Pulses'
 ];

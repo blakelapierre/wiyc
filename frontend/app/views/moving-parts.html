@@ -1,6 +1,6 @@
 <div class="pulsar-media-sc">
 
-  <div class="no-theater">
+  <div class="pre-show">
     <h1>PULSAR-1: "Moving Parts"</h1>
     <a href="http://google.com/chrome" title="Get Google Chrome">
       <img class="img pull-right" src="images/google-chrome.png" alt="Google Chrome Icon" />
@@ -19,43 +19,67 @@
     <hr />
   </div>
 
-  <div id="gameContainer">
-    <div class="pull-right"><h4>{{videoStateLabel}} - {{nextEventTimer}}</h4></div>
-    <h1>{{nextEventLabel}}</h1>
-    <div class="clearfix"></div>
-
-    <div style="position:relative; height:48px; overflow:hidden;">
+  <div id="gameContainer"
+       class="container-fluid"
+       style="padding:16px; background-color:#efefef; border:solid 2px #dadada; border-radius:16px;">
+    <div class="idle-hide" style="position:relative; height:48px; overflow:hidden;">
       <canvas id="gameInfoCanvas" width="640" height="48"
-              style="width:100%; height:48px; margin:0; padding:0; background:white;"
+              style="position:absolute; top:0; left:0; right:0; width:100%; height:48px; margin:0; padding:0;"
       ></canvas>
     </div>
 
-    <div class="video-container" style="position:relative; margin-top:0; margin-bottom:0;"
+    <div class="video-container no-select" style="position:relative; margin-top:0; margin-bottom:0;"
          ng-mousemove="onMouseMove($event)"
          ng-mousedown="onMouseDown($event)"
          ng-mouseup="onMouseUp($event)"
          ng-keydown="onKeyDown($event)"
          ng-keyup="onKeyUp($event)"
          >
-      <div class="video-player" style="position:relative;">
+      <div class="video-player no-select" style="position:relative;">
         <div id="youtubeVideo1"></div>
-        <canvas id="gameCanvas" width="640" height="360"
+        <canvas class="idle-hide" id="gameCanvas"
+                width="640" height="360"
                 style="position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; background:none;"
                 ></canvas>
       </div>
-      <div id="promptCard"
-           style="position:absolute; right:0; bottom:0; width:40%; margin:16px; padding:16px; border:solid 2px #e8e8e8; border-radius:16px; background-color:rgba(0,0,0,0.75); color:#e8e8e8;">
+      <div class="no-select" id="promptCard"
+           style="position:absolute; right:0; bottom:0; width:40%; margin:16px; padding:16px; border:solid 2px #2a2a2a; border-radius:16px; background-color:rgba(239,239,239,0.75); color:#2a2a2a; display:hidden;">
         <div class="text-center"
-             style="font-size:18px; line-height:1.25em;">{{promptCard.prompt}}</div>
+             style="font-size:18px; line-height:1.25em;" ng-bind-html="promptCard.prompt"></div>
       </div>
-      <div id="titleCard"
-           style="position:absolute; top:0; right:0; bottom:0; left:0; background-color:rgba(0,0,0,0.75); color:#e8e8e8;">
-        <h1 class="text-center" style="margin-top:200px;">{{titleCard.title}}</h1>
-        <p class="lead text-center">{{titleCard.description}}</p>
+      <div class="no-select idle-hide" id="titleCard"
+           style="position:absolute; top:0; right:0; bottom:0; left:0; background-color:rgba(239,239,239,0.75); color:#2a2a2a; box-shadow:0 0 16px rgba(0,0,0,0.8) inset;">
+        <h1 class="text-center" style="margin-top:200px;" ng-bind-html="titleCard.title"></h1>
+        <p class="lead text-center" ng-bind-html="titleCard.description"></p>
       </div>
     </div>
 
-    <div style="position:relative; height:100px; margin-bottom:16px;">
+    <div class="row-fluid idle-hide"
+         id="engineStatus"
+         style="position:relative; height:40px; padding:4px 0; margin:0; background-color:#efefef;">
+
+      <div class="col-sm-6 text-left" style="padding-left:0;">
+        <button class="control-widget play-button" ng-click="play()"></button>
+        <button class="control-widget stop-button" ng-click="stop()"></button>
+        <div style="display:inline-block; margin-left:6px; font-size:24px;">{{videoStateLabel}}</div>
+      </div>
+      <div class="col-sm-2 small" style="line-height:1.2em;">
+        audio<br />
+        {{audioTimeLabel}}
+      </div>
+      <div class="col-sm-2 small" style="line-height:1.2em;">
+        video<br />
+        {{videoTimeLabel}}
+      </div>
+      <div class="col-sm-2 small" style="line-height:1.2em;">
+        <img src="favicon.ico" alt="Pulsar Favicon" style="position:relative; top:-1px;" /><br />
+        {{nextEventTimer}}
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="idle-hide"
+         style="position:relative; height:100px;">
       <div style="position:absolute;top:0;right:0;left:100px;height:100px; background-color:black;">
         <div id="progressBar"
             style="position:absolute; top:0; bottom:0; left:0; width:0%; background-color:red;"
@@ -71,13 +95,14 @@
         </div>
     </div>
 
-    <div style="margin-bottom:16px;">
+    <!-- div style="margin-bottom:16px;">
       <button class="btn btn-primary"
               ng-disabled="!ready"
               ng-click="isPlaying ? stop() : play()"
         >
         <span class="glyphicon glyphicon-play"></span>
       </button>
+
       <button class="btn btn-primary"
               ng-disabled="!ready"
               ng-click="pause()"
@@ -85,7 +110,6 @@
         <span class="glyphicon glyphicon-pause" ng-show="state === 'playing'"></span>
         <span class="glyphicon glyphicon-play" ng-show="state === 'paused'"></span>
       </button>
-
       <div>
         <input type="number" ng-model="newAudioTime">
         <button ng-click="jump()">JUMP</button>
@@ -98,7 +122,7 @@
           <span>{{audio.currentTime}}</span>
         </p>
       </div>
-    </div>
+    </div -->
   </div>
 
   <div class="no-theater">
@@ -171,27 +195,41 @@
       YouTube video players being synched to a SoundCloud audio stream for your
       personal entertainment by someone who does not give a fuck anymore.
     </p>
+    <p>
+      The display consists of a YouTube video base, a real-time audio frequency
+      spectrum analyzer, a &lt;canvas&gt; layer for drawing the targeting
+      reticles to scale over the video and indicating mouse clicks/taps and two
+      titling layers above that built in HTML.
+    </p>
 
     <h2>Conclusion</h2>
     <p>
-      One guy. Three weeks of code. A whole CMS and whatever you want to call the
-      stuff happening above. So, yes: I am going this way. And, you can certainly
-      choose to sit there stuck in yesterday. Or, you can come along for the ride
-      and own what you make. Legitimately own that which you make. More on that
-      in a bit...
-    </p>
-
-    <hr />
-
-    <h1>Licensing</h1>
-    <p>
-      Pulsar is becoming an MIT-licensed open source initiative giving people power
-      over their own data with a unique set of content publishing tools, services
-      and capabilities.
+      And, with that...I'm out. I won't do this anymore. I love it, but I am not
+      cut out for software development at modern American companies (at all). I
+      am <u>not</u> going to keep trying the same thing over and over while
+      expecting a different result.
     </p>
     <p>
-      <a class="btn btn-default" href="/" title="Visit the PULSAR-1 home page">Learn more...</a>
+      You are <strong>all</strong> a pile of punk-ass bitches who actually suck
+      and swallow compared to what I just did on this page. You're going to have
+      to stare at this for more than a week to just get your head around how I
+      did this. And, the way I want to create software is <em>never</em> going
+      to change. I do this shit by hand, it's fucking made in America and I
+      don't fuck up. Like...<strong>you</strong> suck. I don't. Stop treating me
+      like how you're used to treaing everyone else around you. I'm just not
+      "standard" enough for you. And, that's either because I don't suck and/or
+      I don't use bullshit from the 1950's anymore.
     </p>
+    <p>
+      I have fucking <u>had it</u> with the American Corporate Experience. So,
+      I've rejected it. I don't want it. I guess it's time to find something
+      else to do.
+    </p>
+    <p>
+      Best 'regards',<br />
+      -Rob
+    </p>
+
   </div>
 
 </div>

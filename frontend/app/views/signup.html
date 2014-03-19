@@ -1,10 +1,9 @@
 <h1 ng-show="!isComplete">Create New Pulsar Account</h1>
 <p ng-show="!isComplete">
-  Thanks for taking Pulsar out for a test drive. Your feedback is highly
-  anticipated and greatly appreciated. Over the coming weeks as more
-  features are added, the hope is for people to simply have a lot of fun
-  here proving that Node.js and MongoDB are, in fact, ready for production
-  deployments. Because, well, here they are!
+  Thanks for taking Pulsar out for a test drive. Your feedback is appreciated.
+  Just be aware that Pulsar is still in early days. Things like a full database
+  reset are still possible as this software is still in very heavy early
+  development.
 </p>
 
 <div class="alert alert-danger" ng-show="haveError">
@@ -84,7 +83,9 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <button class="btn btn-primary btn-lg" ng-click="createAccount()">Let's Do This</button>
+      <button class="btn btn-default btn-lg" ng-click="createAccount()">
+        <img src="favicon.ico" alt="Pulsar Favicon" style="position:relative;top:-2px;"/> Create Account
+      </button>
     </div>
   </div>
 
@@ -92,34 +93,7 @@
 
 <h2 ng-show="isComplete">Account Created Successfully</h2>
 <p ng-show="isComplete">
-  An email has been sent to {{user.email}}. Please check both your inbox and spam
+  An email has maybe been sent to {{user.email}} Please check both your inbox and spam
   folder for an email from Pulsar asking you to verify your email address. You can
   not post content here until you verify your email address.
-</p>
-
-<h2 ng-show="!isComplete">About Your Account</h2>
-<p ng-show="!isComplete">
-  Your email address is your Pulsar identity. While it isn't shown to anyone
-  or used for anything else you don't choose, it is the ID you must provide
-  along with your provided password to login and create content on Pulsar. An
-  email will be sent to the address provided. You will not be permitted to
-  create content on Pulsar until you've verified your email address.
-</p>
-<p ng-show="!isComplete">
-  Your display name is the name others will read when they see you online,
-  read your posts and comments and more. Basically, that's the name you want
-  people to read so we don't have to call you yourname@someservice.com (even
-  if that's not your email address, it's what we'd call you without a display
-  name). It doesn't even need to be unique. You can all be Oompa Loompa. But,
-  if you're name-spoofing, people will probably block you. It'll be interesting
-  to see if there can, in fact, only be one Ooompa Loompa, or if more than one
-  will be a real problem.
-</p>
-<p ng-show="!isComplete">
-  Please, though...take a moment and choose a password to keep your blog and
-  content safe. Treat it like a car buying experience. And, if you need a
-  little emotional support or perhaps spiritual guidance during the password
-  creation process, it's always best to keep trying until "Very Strong" is
-  displayed where "Very Weak" used to be as you started trying. You won't be
-  allowed to submit the form until the passwords at least match.
 </p>

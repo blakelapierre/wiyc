@@ -1,14 +1,45 @@
-@import url(http://fonts.googleapis.com/css?family=Share+Tech);
-@import url(http://fonts.googleapis.com/css?family=Duru+Sans);
-@import url(http://fonts.googleapis.com/css?family=Istok+Web:400,700,400italic);
+@import url('http://fonts.googleapis.com/css?family=Share+Tech');
+@import url('http://fonts.googleapis.com/css?family=Duru+Sans');
 
-@rjc-black:     #181818;
-@rjc-gray:      #f8f8f8;
-@rjc-lightgray: lighten(@rjc-gray, 10%);
-@rjc-darkgray:  darken(@rjc-gray, 60%);
+@import 'robcolbert-variables.less';
 
 body {
   padding: 68px 0 32px 0;
+  transition: background-color 2s;
+  &.theater {
+    background-color:#18181a;
+  }
+}
+
+@import 'robcolbert-header.less';
+@import 'robcolbert-sidebar.less';
+@import 'robcolbert-content-section.less';
+@import 'robcolbert-post.less';
+@import 'robcolbert-pulse.less';
+@import 'robcolbert-comments.less';
+@import 'robcolbert-credits.less';
+@import 'robcolbert-media-sc.less';
+@import 'robcolbert-footer.less';
+
+.prototype .meta-label {
+  float:left;
+  margin-right:16px;
+  margin-bottom:16px;
+}
+
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+
+.divider {
+  border-top:solid 1px darken(@rjc-gray, 25%);
+}
+
+textarea {
+  resize:vertical;
 }
 
 ::-webkit-scrollbar {
@@ -24,317 +55,4 @@ body {
   border:solid 1px rgba(0,0,16,0.1);
   border-radius: 4px;
   background-color:rgba(0,0,16,0.1);
-}
-
-textarea {
-  resize:vertical;
-}
-
-.header,
-.content-section,
-.footer {
-
-}
-
-.header {
-  border-bottom: 1px solid @rjc-gray;
-  font-family:"Share Tech";
-}
-
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
-}
-
-.content-section {
-  margin-bottom:32px;
-  border-top:solid 2px darken(@rjc-gray, 10%);
-}
-
-.post {
-  margin-bottom:24px;
-}
-
-.post .header {
-  display:block;
-  padding:8px 0;
-  margin-bottom:32px;
-  background-color:@rjc-gray;
-  color:@rjc-darkgray;
-  text-align:center;
-  box-shadow:-2px 2px 8px rgba(0,0,0,0.4);
-}
-
-.post .header .title {
-  display:block;
-  font-size:36px;
-  margin:0;
-  padding:0;
-}
-.post .header .title a {
-
-}
-
-.post .header .byline {
-  display:block;
-  font-size:18px;
-  padding:8px 0;
-}
-
-.post .body {
-
-}
-
-.post .body .content {
-  display:block;
-  font-size:14px;
-}
-.post .body .comment {
-  margin-bottom:20px;
-}
-
-.pulse {
-  font-size:12px;
-  line-height:1.2em;
-  margin-bottom:16px;
-}
-
-.pulse .created {
-  padding:6px 8px;
-  background-color: darken(@rjc-gray, 60%);
-  color:lighten(@rjc-gray, 5%);
-}
-
-.pulse .body {
-  padding:8px;
-  border-left:solid 1px darken(@rjc-gray, 60%);;
-  border-right:solid 1px darken(@rjc-gray, 60%);;
-  border-bottom:solid 1px darken(@rjc-gray, 60%);;
-  color: darken(@rjc-gray, 60%);;
-}
-
-.comments {
-  border-left:solid 1px darken(@rjc-gray, 5%);
-  border-right:solid 1px darken(@rjc-gray, 5%);
-}
-
-.comment {
-  margin-bottom:1.75em;
-}
-
-.comment .header {
-  padding-left:8px;
-  padding-right:0;
-  margin-bottom:2px;
-  border-bottom:none;
-  text-align:left;
-  margin-bottom:4px;
-}
-.comment .header .posted {
-  font-size:10px;
-}
-.comment .header .author {
-  font-weight:bold;
-}
-.comment .body {
-  padding-left:8px;
-  font-size:12px;
-}
-
-.credits {
-  margin-bottom:16px;
-}
-.credits .name {
-  float:left;
-  margin-right:16px;
-  margin-bottom:16px;
-  font-size:14px;
-  line-height:1.1em;
-  text-align:right;
-}
-.credits .links {
-  float:left;
-  margin-right:16px;
-  margin-bottom:16px;
-  font-size:12px;
-  line-height:1.2em;
-}
-
-.resume,
-.resume h1,
-.resume h2,
-.resume h3,
-.resume h4,
-.resume h5,
-.resume h6,
-.resume div,
-.resume p {
-  font-family:"Istok Web";
-}
-
-.resume,
-.resume div,
-.resume p {
-  font-size:14px;
-}
-
-.resume .section {
-  margin:1.5em 0 1.5em 3em;
-  padding-bottom:0.5em;
-  font-family:"Istok Web";
-}
-
-.resume .section .header {
-  margin-bottom:0.5em;
-  padding-bottom:0.5em;
-  font-family:"Istok Web";
-}
-
-.resume .section .header .title {
-  font-weight:bold;
-  font-family:"Istok Web";
-}
-
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  margin-bottom:16px;
-  height: 0; overflow: hidden;
-}
-.video-player {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0; overflow: hidden;
-}
-
-.video-container iframe,
-.video-container object,
-.video-container embed {
-  position: absolute;
-  top: 0; right:0; bottom:0; left:0;
-  width: 100%;
-  height: 100%;
-}
-
-.prototype .meta-label {
-  float:left;
-  margin-right:16px;
-  margin-bottom:16px;
-}
-
-.sidebar {
-
-}
-
-.sidebar .widget {
-  margin-bottom:16px;
-  padding:16px;
-  background-color:lighten(@rjc-gray, 2%);
-  box-shadow:0 0 5px rgba(0,0,0,0.3) inset;
-}
-
-.sidebar .widget .crystal-ball {
-  max-height:480px;
-  overflow:auto;
-  border-top:solid 1px darken(@rjc-gray, 40%);
-  padding:16px 0;
-}
-
-.sidebar .heading {
-  padding:8px 0;
-  margin-bottom:16px;
-  font-family:"Share Tech";
-  font-size:24px;
-  line-height:1em;
-  border:solid 1px darken(@rjc-gray, 20%);
-  background-color:@rjc-gray;
-  color:@rjc-black;
-  box-shadow:0 0 5px rgba(0,0,0,0.3);
-}
-
-.sidebar .heading .heading-wrap {
-  margin-left:8px;
-}
-
-.sidebar .heading .glyphicon {
-  font-size:0.8em;
-}
-
-.sidebar .announcement {
-  font-size:14px;
-  line-height:1.2em;
-  margin-bottom:8px;
-}
-
-.sidebar .announcement .title {
-  padding:6px 8px;
-  background-color: darken(@rjc-gray, 60%);
-  color:lighten(@rjc-gray, 5%);
-}
-
-.sidebar .announcement .body {
-  padding:8px;
-  border-left:solid 1px darken(@rjc-gray, 60%);
-  border-right:solid 1px darken(@rjc-gray, 60%);
-  border-bottom:solid 1px darken(@rjc-gray, 60%);
-  border-bottom-left-radius:8px;
-  border-bottom-right-radius:8px;
-  color: @rjc-black;
-}
-
-.footer {
-  position:fixed;
-  right:0; bottom:0; left:0;
-  height:32px;
-  font-size:14px;
-  padding:7px 0; margin:0;
-  color: #777;
-  border-top: 1px solid darken(@rjc-gray, 25%);
-  background-color:@rjc-gray;
-  box-shadow:0 -2px 8px rgba(0,0,0,0.4);
-}
-
-.footer .footer-wrap {
-  position:relative;
-  padding:0 15px;
-}
-
-.footer-wrap .brand {
-  display:inline-block;
-  padding:0;
-  margin-right:16px;
-  font-weight:bold;
-  line-height:1.0em;
-}
-.footer-wrap .label {
-  display:inline-block;
-  padding:8px 0;
-  margin:0 4px;
-  font-weight:bold;
-  line-height:1.0em;
-  color:#4a4a4a;
-}
-.footer-wrap .message {
-  display:inline-block;
-  margin:0;
-  line-height:1.0em;
-  color:#202020;
-}
-.footer-wrap div.icon {
-  display:inline-block;
-  line-height:1em;
-  width:18px; height:18px;
-  margin-left:16px;
-}
-
-/*
- * I do not give a shit if there's a better/more favorable way to position these.
- * This works very well.
- */
-.footer-wrap .badge {
-  position:relative;
-  top:-4px;
-  padding:2px 5px;
 }
