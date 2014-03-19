@@ -48,30 +48,30 @@ function configureRoutes (app, config) {
   //
   var pulses = new (require('../app/controllers/pulses'))(app, config);
 
-  routes.add({ 'method': 'GET',     'uri': '/pulses',               'controllerMethod': function (req, res) { pulses.list(req, res); }});
-  routes.add({ 'method': 'POST',    'uri': '/pulses',               'controllerMethod': function (req, res) { pulses.create(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/pulses',                   'controllerMethod': function (req, res) { pulses.list(req, res); }});
+  routes.add({ 'method': 'POST',    'uri': '/pulses',                   'controllerMethod': function (req, res) { pulses.create(req, res); }});
 
-  routes.add({ 'method': 'GET',     'uri': '/pulses/:id',           'controllerMethod': function (req, res) { pulses.get(req, res); }});
-  routes.add({ 'method': 'PUT',     'uri': '/pulses/:id',           'controllerMethod': function (req, res) { pulses.update(req, res); }});
-  routes.add({ 'method': 'DELETE',  'uri': '/pulses/:id',           'controllerMethod': function (req, res) { pulses.delete(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/pulses/:pulseId',          'controllerMethod': function (req, res) { pulses.get(req, res); }});
+  routes.add({ 'method': 'PUT',     'uri': '/pulses/:pulseId',          'controllerMethod': function (req, res) { pulses.update(req, res); }});
+  routes.add({ 'method': 'DELETE',  'uri': '/pulses/:pulseId',          'controllerMethod': function (req, res) { pulses.delete(req, res); }});
 
-  routes.add({ 'method': 'POST',    'uri': '/pulses/:id/comments',  'controllerMethod': function (req, res) { pulses.createComment(req, res); }});
-  routes.add({ 'method': 'GET',     'uri': '/pulses/:id/comments',  'controllerMethod': function (req, res) { pulses.getComments(req, res); }});
+  routes.add({ 'method': 'POST',    'uri': '/pulses/:pulseId/comments', 'controllerMethod': function (req, res) { pulses.createComment(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/pulses/:pulseId/comments', 'controllerMethod': function (req, res) { pulses.getComments(req, res); }});
 
   //
-  // POSTS
+  // SIDEBAR PULSES
   //
-  var posts = new (require('../app/controllers/posts'))(app, config);
+  var sidebarPulses = new (require('../app/controllers/sidebar-pulses'))(app, config);
 
-  routes.add({ 'method': 'GET',     'uri': '/posts',                  'controllerMethod': function (req, res) { posts.list(req, res); }});
-  routes.add({ 'method': 'POST',    'uri': '/posts',                  'controllerMethod': function (req, res) { posts.create(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses',               'controllerMethod': function (req, res) { sidebarPulses.list(req, res); }});
+  routes.add({ 'method': 'POST',    'uri': '/sidebar-pulses',               'controllerMethod': function (req, res) { sidebarPulses.create(req, res); }});
 
-  routes.add({ 'method': 'GET',     'uri': '/posts/:postId',          'controllerMethod': function (req, res) { posts.get(req, res); }});
-  routes.add({ 'method': 'PUT',     'uri': '/posts/:postId',          'controllerMethod': function (req, res) { posts.update(req, res); }});
-  routes.add({ 'method': 'DELETE',  'uri': '/posts/:postId',          'controllerMethod': function (req, res) { posts.delete(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses/:id',           'controllerMethod': function (req, res) { sidebarPulses.get(req, res); }});
+  routes.add({ 'method': 'PUT',     'uri': '/sidebar-pulses/:id',           'controllerMethod': function (req, res) { sidebarPulses.update(req, res); }});
+  routes.add({ 'method': 'DELETE',  'uri': '/sidebar-pulses/:id',           'controllerMethod': function (req, res) { sidebarPulses.delete(req, res); }});
 
-  routes.add({ 'method': 'POST',    'uri': '/posts/:postId/comments', 'controllerMethod': function (req, res) { posts.createComment(req, res); }});
-  routes.add({ 'method': 'GET',     'uri': '/posts/:postId/comments', 'controllerMethod': function (req, res) { posts.getComments(req, res); }});
+  routes.add({ 'method': 'POST',    'uri': '/sidebar-pulses/:id/comments',  'controllerMethod': function (req, res) { sidebarPulses.createComment(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses/:id/comments',  'controllerMethod': function (req, res) { sidebarPulses.getComments(req, res); }});
 
   //
   // VIDEOS

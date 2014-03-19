@@ -18,18 +18,6 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/main.html',
     controller: 'MainCtrl'
   })
-  .when('/posts/compose', {
-    templateUrl: 'views/posts/compose.html',
-    controller: 'PostsComposeCtrl'
-  })
-  .when('/posts/:postId', {
-    templateUrl: 'views/posts/reader.html',
-    controller: 'PostReaderCtrl'
-  })
-  .when('/posts/:postId/edit', {
-    templateUrl: 'views/posts/postid/edit.html',
-    controller: 'PostEditCtrl'
-  })
   .when('/videos', {
     templateUrl: 'views/videos.html',
     controller: 'VideosCtrl'
@@ -49,13 +37,6 @@ angular.module('robcolbertApp', [
   .when('/contact', {
     templateUrl: 'views/contact.html',
     controller: 'ContactCtrl'
-  })
-  .when('/hire-rob', {
-    redirectTo: '/about'
-  })
-  .when('/posts', {
-    templateUrl: 'views/posts.html',
-    controller: 'PostsCtrl'
   })
   .when('/settings', {
     templateUrl: 'views/settings.html',
@@ -77,6 +58,40 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/moving-parts.html',
     controller: 'MovingPartsCtrl'
   })
+
+  .when('/pulses/studio', {
+    templateUrl: 'views/pulses/studio.html',
+    controller: 'PulsarStudioCtrl'
+  })
+  .when('/pulses/composer', {
+    templateUrl: 'views/pulses/composer.html',
+    controller: 'PulsarComposerCtrl'
+  })
+  .when('/pulses/:pulseId', {
+    templateUrl: 'views/pulses/reader.html',
+    controller: 'PulseReaderCtrl'
+  })
+  .when('/pulses', {
+    templateUrl: 'views/pulses.html',
+    controller: 'PulsesCtrl'
+  })
+
+  .when('/posts/compose', {
+    redirectTo: '/pulses/composer'
+  })
+  .when('/posts/:postId', {
+    redirectTo: '/pulses/:postId'
+  })
+  .when('/posts/:postId/edit', {
+    redirectTo: '/pulses/:postId/edit'
+  })
+  .when('/posts', {
+    redirectTo: '/pulses'
+  })
+  .when('/hire-rob', {
+    redirectTo: '/about'
+  })
+
   .otherwise({
     redirectTo: '/'
   });

@@ -1,17 +1,32 @@
 .pulse {
-  font-size:12px;
-  line-height:1.2em;
-  margin-bottom:16px;
-  .created {
-    padding:6px 8px;
-    background-color: darken(@rjc-gray, 60%);
-    color:lighten(@rjc-gray, 5%);
+  margin-bottom:24px;
+  .header {
+    display:block;
+    padding:8px 0;
+    margin-bottom:32px;
+    background-color:@rjc-gray;
+    color:@rjc-darkgray;
+    text-align:center;
+    box-shadow:-2px 2px 8px rgba(0,0,0,0.4);
+    .title {
+      display:block;
+      font-size:36px;
+      margin:0;
+      padding:0;
+    }
+    .byline {
+      display:block;
+      font-size:18px;
+      padding:8px 0;
+    }
   }
   .body {
-    padding:8px;
-    border-left:solid 1px darken(@rjc-gray, 60%);;
-    border-right:solid 1px darken(@rjc-gray, 60%);;
-    border-bottom:solid 1px darken(@rjc-gray, 60%);;
-    color: darken(@rjc-gray, 60%);;
+    .content {
+      display:block;
+      font-size:14px;
+    }
+    .comment {
+      margin-bottom:20px;
+    }
   }
 }

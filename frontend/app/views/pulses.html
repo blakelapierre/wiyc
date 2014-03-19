@@ -1,7 +1,32 @@
-<div class="pulse" ng-repeat="pulse in pulses">
-  <div class="created">
-    <strong>{{dateAsMoment(pulse.created)}}</strong><br />
-    <small>by: <strong>{{pulse._creator.displayName}}</strong></small>
-  </div>
-  <div class="body" ng-bind-html="pulse.content"></div>
+<p>
+  This is an aggregation of all pulses created by all users across this Pulsar
+  instance. This is a public instance with open signup. Have a sip of some
+  Pulsar...
+</p>
+
+<div class="pulse" ng-repeat="pulse in pulses.pulses">
+  <hr />
+  <h1 style="margin-bottom:0; padding-bottom:0;">
+    <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
+  </h1>
+  <small>{{pulse._creator.displayName}}, {{calendarMoment(pulse.created).toLowerCase()}}</small>
+  <!--                                  I feel kinda dirty. Because ^ that's just sick -->
+  <div ng-bind-html="pulse.excerpt" style="margin-top:16px;"></div>
+  <p>
+    <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">Continue reading...</a>
+  </p>
+</div>
+
+<div class="pager">
+  <ul>
+    <!-- conditional display of previous page (newer pulses) link -->
+    <li ng-show="currentPage &gt; 1"><a ng-href="#/pulses?p={{currentPage - 1}}">Newer</a></li>
+
+    <!-- repeat a link for each navigable page in the set -->
+    <li ng-repeat="page in pulses.pages"><a ng-href="#/pulses?p={{page}}">{{page}}</a></li>
+
+    <!-- conditional display of Next page (older pulses) link -->
+    <li ng-show="currentPage &lt; pulses.totalPages"><a ng-href="#/pulses?p={{currentPage + 1}}">Older</a></li>
+
+  </ul>
 </div>

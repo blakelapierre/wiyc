@@ -1,9 +1,9 @@
-// controllers/posts/post-reader.js
+// controllers/pulses/reader.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';
 
-function PostReaderCtrl ($scope, $route, $sce, $window, UserSession, Posts) {
+function PulseReaderCtrl ($scope, $route, $sce, $window, UserSession, Pulses) {
 
   ga('send', 'pageview');
 
@@ -20,22 +20,22 @@ function PostReaderCtrl ($scope, $route, $sce, $window, UserSession, Posts) {
   $scope.haveError = false;
   $scope.error = null;
 
-  $scope.post = Posts.get(
-    {'postId': $route.current.params.postId},
+  $scope.pulse = Pulses.get(
+    {'pulseId': $route.current.params.pulseId},
     null,
-    function onPostsGetSuccess ( ) {
-      console.log('post loaded', $scope.post);
-      ga('send','event', 'Posts', 'loadSuccess', 1);
-      $scope.post.excerpt = $sce.trustAsHtml($scope.post.excerpt);
-      $scope.post.content = $sce.trustAsHtml($scope.post.content);
+    function onPulsesGetSuccess ( ) {
+      console.log('pulse loaded', $scope.pulse);
+      ga('send','event', 'Pulses', 'loadSuccess', 1);
+      $scope.pulse.excerpt = $sce.trustAsHtml($scope.pulse.excerpt);
+      $scope.pulse.content = $sce.trustAsHtml($scope.pulse.content);
       if (angular.isDefined(window.twttr)) {
         setTimeout(window.twttr.widgets.load, 0);
       }
       $window.scrollTo(0, 0);
     },
-    function onPostsGetError (error) {
-      console.log('Posts.get error', error);
-      ga('send', 'event', 'Posts', 'loadError', 1);
+    function onPulsesGetError (error) {
+      console.log('Pulses.get error', error);
+      ga('send', 'event', 'Pulses', 'loadError', 1);
       $scope.error = error;
       $scope.haveError = true;
     }
@@ -47,18 +47,18 @@ function PostReaderCtrl ($scope, $route, $sce, $window, UserSession, Posts) {
   $scope.comment = { }; // empty by default
   $scope.createComment = function ( ) {
     console.log('createComment', $scope.comment);
-    Posts.createComment(
-      {'postId': $route.current.params.postId},
+    Pulses.createComment(
+      {'pulseId': $route.current.params.pulseId},
       $scope.comment,
       function onCommentCreateSuccess (newComment) {
-        ga('send','event', 'Posts', 'commentCreateSuccess', 1);
+        ga('send','event', 'Pulses', 'commentCreateSuccess', 1);
         console.log('comment created', newComment);
-        $scope.post.interactions.comments.push(newComment);
+        $scope.pulse.interactions.comments.push(newComment);
         $scope.comment = { }; // empty it out
       },
       function onCommentCreateError (error) {
         console.log('createComment error', error);
-        ga('send','event', 'Posts', 'commentCreateError', 1);
+        ga('send','event', 'Pulses', 'commentCreateError', 1);
         $scope.error = error;
         $scope.haveError = true;
       }
@@ -66,14 +66,14 @@ function PostReaderCtrl ($scope, $route, $sce, $window, UserSession, Posts) {
   };
 }
 
-PostReaderCtrl.$inject = [
+PulseReaderCtrl.$inject = [
   '$scope',
   '$route',
   '$sce',
   '$window',
   'UserSession',
-  'Posts'
+  'Pulses'
 ];
 
 angular.module('robcolbertApp')
-.controller('PostReaderCtrl', PostReaderCtrl);
+.controller('PulseReaderCtrl', PulseReaderCtrl);

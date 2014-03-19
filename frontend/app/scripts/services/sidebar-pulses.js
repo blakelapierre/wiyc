@@ -1,14 +1,14 @@
-// services/pulses.js
+// services/sidebar-pulses.js
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 
 'use strict';
 
-function PulsesService ($resource, Configuration) {
-  var serviceUrl = Configuration.buildApiUrl('/pulses/:pulseId');
-  console.log('Pulses service endpoint', serviceUrl);
+function SidebarPulsesService ($resource, Configuration) {
+  var serviceUrl = Configuration.buildApiUrl('/sidebar-pulses/:id');
+  console.log('SidebarPulses service endpoint', serviceUrl);
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
-    'list': { 'method': 'GET', 'withCredentials': true },
+    'list': { 'method': 'GET', 'isArray': true, 'withCredentials': true },
     'get': { 'method': 'GET', 'withCredentials': true },
     'create': { 'method': 'POST', 'withCredentials': true },
     'update': { 'method': 'PUT', 'withCredentials': true },
@@ -16,10 +16,10 @@ function PulsesService ($resource, Configuration) {
   });
 }
 
-PulsesService.$inject = [
+SidebarPulsesService.$inject = [
   '$resource',
   'Configuration',
 ];
 
 angular.module('robcolbertApp')
-.service('Pulses', PulsesService);
+.service('SidebarPulses', SidebarPulsesService);
