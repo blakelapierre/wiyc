@@ -1,0 +1,52 @@
+@import 'robcolbert-variables.less';
+
+.sidebar {
+  .widget {
+    margin-bottom:16px;
+    padding:16px;
+    background-color:lighten(@rjc-gray, 2%);
+    box-shadow:0 0 5px rgba(0,0,0,0.3) inset;
+    .crystal-ball {
+      max-height:480px;
+      overflow:auto;
+      border-top:solid 1px darken(@rjc-gray, 40%);
+      padding:16px 0;
+    }
+  }
+  .heading {
+    padding:8px 0;
+    margin-bottom:16px;
+    font-family:"Share Tech";
+    font-size:24px;
+    line-height:1em;
+    border:solid 1px darken(@rjc-gray, 20%);
+    background-color:@rjc-gray;
+    color:@rjc-text;
+    box-shadow:0 0 5px rgba(0,0,0,0.3);
+    .heading-wrap {
+      margin-left:8px;
+    }
+    .glyphicon {
+      font-size:0.8em;
+    }
+  }
+  .announcement {
+    font-size:14px;
+    line-height:1.2em;
+    margin-bottom:8px;
+    .title {
+      padding:6px 8px;
+      background-color: darken(@rjc-gray, 60%);
+      color:lighten(@rjc-gray, 5%);
+    }
+    .body {
+      padding:8px;
+      border-left:solid 1px darken(@rjc-gray, 60%);
+      border-right:solid 1px darken(@rjc-gray, 60%);
+      border-bottom:solid 1px darken(@rjc-gray, 60%);
+      border-bottom-left-radius:8px;
+      border-bottom-right-radius:8px;
+      color: @rjc-text;
+    }
+  }
+}

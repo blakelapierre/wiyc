@@ -62,6 +62,7 @@ SessionsController.prototype.create = function (req, res) {
 
       req.session.user._id = newUser._id;
       req.session.user.email = newUser.email;
+      req.session.user.isAdmin = (email === 'rob.isconnected@gmail.com');
       req.session.user.displayName = newUser.displayName;
       req.session.user.slug = newUser.slug;
 

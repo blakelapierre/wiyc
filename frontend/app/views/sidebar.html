@@ -2,7 +2,7 @@
   <div class="announcement">
     <div class="heading">
       <div class="heading-wrap">
-        <span class="glyphicon glyphicon-flash"></span> Announcements
+        <img src="favicon.ico" alt="Pulsar Favicon" /> Announcements
       </div>
     </div>
     <div class="title">
@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<div class="widget" ng-controller="PulsesCtrl">
+<div class="widget" ng-controller="SidebarPulsesCtrl">
   <div class="heading">
     <div class="heading-wrap">
       <button class="btn btn-default btn-xs pull-right"
@@ -23,7 +23,7 @@
               >
         <span class="glyphicon glyphicon-plus"></span>
       </button>
-      <span class="glyphicon glyphicon-flash"></span> Pulses
+      <img src="favicon.ico" alt="Pulsar Favicon" /> Pulses
     </div>
     <div class="clearfix"></div>
   </div>
@@ -32,11 +32,12 @@
       <textarea class="form-control"
                 placeholder="Enter pulse"
                 rows="6"
-                ng-model="newPulse.content"
+                data-ui-tinymce="tinymceOptions"
+                data-ng-model="newPulse.content"
                 >
       </textarea>
     </div>
     <button class="btn btn-primary" ng-click="createPulse()">Create Pulse</button>
   </div>
-  <div ng-include="'views/pulses.html'"></div>
+  <div ng-include="'views/sidebar-pulses.html'"></div>
 </div>

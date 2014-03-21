@@ -1,0 +1,235 @@
+<div class="pulsar-media-sc">
+
+  <div class="pre-show">
+    <h1>PULSAR-1: "Moving Parts"</h1>
+    <a href="http://google.com/chrome" title="Get Google Chrome">
+      <img class="img pull-right" src="images/google-chrome.png" alt="Google Chrome Icon" />
+    </a>
+    <p class="lead">
+      Buckle up &amp; get ready to enter Moving Parts: A "Pulsar-Powered"
+      experience created by Rob Colbert on the MEAN stack.
+    </p>
+    <p>
+      This hand-crafted experience absolutely requires
+      <a href="http://google.com/chrome" title="Get Google Chrome">Google Chrome</a>.
+      It's a free Web browser that runs everywhere. Get it, or watch the video.
+    </p>
+    <div class="clearfix"></div>
+
+    <hr />
+  </div>
+
+  <div id="gameContainer"
+       class="container-fluid"
+       style="padding:16px; background-color:#efefef; border:solid 2px #dadada; border-radius:16px;">
+    <div class="idle-hide" style="position:relative; height:48px; overflow:hidden;">
+      <canvas id="gameInfoCanvas" width="640" height="48"
+              style="position:absolute; top:0; left:0; right:0; width:100%; height:48px; margin:0; padding:0;"
+      ></canvas>
+    </div>
+
+    <div class="video-container no-select" style="position:relative; margin-top:0; margin-bottom:0;"
+         ng-mousemove="onMouseMove($event)"
+         ng-mousedown="onMouseDown($event)"
+         ng-mouseup="onMouseUp($event)"
+         ng-keydown="onKeyDown($event)"
+         ng-keyup="onKeyUp($event)"
+         >
+      <div class="video-player no-select" style="position:relative;">
+        <div id="youtubeVideo1"></div>
+        <canvas class="idle-hide" id="gameCanvas"
+                width="640" height="360"
+                style="position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; background:none;"
+                ></canvas>
+      </div>
+      <div class="no-select" id="promptCard"
+           style="position:absolute; right:0; bottom:0; width:40%; margin:16px; padding:16px; border:solid 2px #2a2a2a; border-radius:16px; background-color:rgba(239,239,239,0.75); color:#2a2a2a; display:hidden;">
+        <div class="text-center"
+             style="font-size:18px; line-height:1.25em;" ng-bind-html="promptCard.prompt"></div>
+      </div>
+      <div class="no-select idle-hide" id="titleCard"
+           style="position:absolute; top:0; right:0; bottom:0; left:0; background-color:rgba(239,239,239,0.75); color:#2a2a2a; box-shadow:0 0 16px rgba(0,0,0,0.8) inset;">
+        <h1 class="text-center" style="margin-top:200px;" ng-bind-html="titleCard.title"></h1>
+        <p class="lead text-center" ng-bind-html="titleCard.description"></p>
+      </div>
+    </div>
+
+    <div class="row-fluid idle-hide"
+         id="engineStatus"
+         style="position:relative; height:40px; padding:4px 0; margin:0; background-color:#efefef;">
+
+      <div class="col-sm-6 text-left" style="padding-left:0;">
+        <button class="control-widget play-button" ng-click="play()"></button>
+        <button class="control-widget stop-button" ng-click="stop()"></button>
+        <div style="display:inline-block; margin-left:6px; font-size:24px;">{{videoStateLabel}}</div>
+      </div>
+      <div class="col-sm-2 small" style="line-height:1.2em;">
+        audio<br />
+        {{audioTimeLabel}}
+      </div>
+      <div class="col-sm-2 small" style="line-height:1.2em;">
+        video<br />
+        {{videoTimeLabel}}
+      </div>
+      <div class="col-sm-2 small" style="line-height:1.2em;">
+        <img src="favicon.ico" alt="Pulsar Favicon" style="position:relative; top:-1px;" /><br />
+        {{nextEventTimer}}
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="idle-hide"
+         style="position:relative; height:100px;">
+      <div style="position:absolute;top:0;right:0;left:100px;height:100px; background-color:black;">
+        <div id="progressBar"
+            style="position:absolute; top:0; bottom:0; left:0; width:0%; background-color:red;"
+          ></div>
+        <img ng-src="{{trackData.waveform_url}}"
+            style="position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%;"
+            />
+        </div>
+        <div style="position:absolute;top:0;left:0;width:100px;height:100px;">
+          <a ng-href="{{trackData.permalink_url}}" target="_blank" title="Open '{{trackData.title}}' on SoundCloud.com">
+            <img class="img img-responsive" ng-src="{{trackData.artwork_url}}" />
+          </a>
+        </div>
+    </div>
+
+    <!-- div style="margin-bottom:16px;">
+      <button class="btn btn-primary"
+              ng-disabled="!ready"
+              ng-click="isPlaying ? stop() : play()"
+        >
+        <span class="glyphicon glyphicon-play"></span>
+      </button>
+
+      <button class="btn btn-primary"
+              ng-disabled="!ready"
+              ng-click="pause()"
+              >
+        <span class="glyphicon glyphicon-pause" ng-show="state === 'playing'"></span>
+        <span class="glyphicon glyphicon-play" ng-show="state === 'paused'"></span>
+      </button>
+      <div>
+        <input type="number" ng-model="newAudioTime">
+        <button ng-click="jump()">JUMP</button>
+        <p>
+          mouse: <span>({{gameData.mouse.x}},{{gameData.mouse.y}})</span>
+          ratio: <span>({{gameData.mouse.ratioX}},{{gameData.mouse.ratioY}})</span>
+          iz: <span>({{indicatorZone.x}},{{indicatorZone.y}},{{indicatorZone.width}},{{indicatorZone.height}})</span>
+        </p>
+        <p>
+          <span>{{audio.currentTime}}</span>
+        </p>
+      </div>
+    </div -->
+  </div>
+
+  <div class="no-theater">
+    <h1>Featured Music</h1>
+    <div>
+      <div class="pull-right" style="margin:0 8px;">
+        <small>created by:</small><br />
+        <a ng-href="{{trackData.user.permalink_url}}" target="_blank" title="Open {{trackData.user.username}}'s page on SoundCloud.com">
+          <img ng-src="{{trackData.user.avatar_url}}" style="width:24px;height:24px;" />
+          {{trackData.user.username}}
+        </a>
+      </div>
+      <h2>
+        <a ng-href="{{trackData.permalink_url}}"
+           title="Open on SoundCloud"
+           target="_blank"
+           >
+          {{trackData.title}}
+        </a>
+      </h2>
+      <div class="clearfix"></div>
+    </div>
+
+    <div style="max-height:240px; overflow:auto; margin-bottom:16px;">
+      <p ng-bind-html="trackData.description"></p>
+    </div>
+
+    <hr />
+
+    <h2>About the Moving Parts Demo</h2>
+    <p>
+      This is a Pulsar-driven livemix of the animated action short, "RUIN 3D."
+      Several different components are being synchronized by Pulsar to create
+      a unified presentation here on the page for the viewer to experience.
+    </p>
+
+    <h3>YouTube Videos</h3>
+      The video is being streamed from YouTube in an &lt;iframe&gt;. A script
+      on this page is controlling the current position and playback speed of
+      a <em>pair</em> of YouTube video players along the time domain of the
+      streaming audio file.
+    </p>
+
+    <h3>SoundCloud Streaming Audio</h3>
+    <p>
+      The audio is being streamed from SoundCloud via the JavaScript API now
+      that Pulsar is a registered application there. The SoundCloud widget only
+      issues metadata update events four times per second. Internally, it only
+      updates its metadata views at the same frequency. So, even if developers
+      call it at higher frequencies to get updated metadata, it's not always
+      as fresh as possible. And, for real-time visuals, that is weak sauce.
+    </p>
+
+    <h3>WebAudio API</h3>
+    <p>
+      I do not use weak sauce in my recipes. So, I stream the SoundCloud audio
+      directly from their servers using valid APIs into a WebAudio API context
+      here on this page. The MediaStream source is then fed into an Analyser
+      node where the audio is brutalized by Agent Smith from The Matrix into a
+      couple of bags of numbers. I use those numbers to draw what is known as
+      the spectrum analyzer and real-time waveform analyzer
+      <strong>over</strong> the YouTube video as part of the video game's
+      display.
+    </p>
+
+    <h3>A Video Game</h3>
+    <p>
+      As a finishing touch, I added a fully playable video game with a high score
+      table backed by Pulsar's database. The game is overlaid above the pair of
+      YouTube video players being synched to a SoundCloud audio stream for your
+      personal entertainment by someone who does not give a fuck anymore.
+    </p>
+    <p>
+      The display consists of a YouTube video base, a real-time audio frequency
+      spectrum analyzer, a &lt;canvas&gt; layer for drawing the targeting
+      reticles to scale over the video and indicating mouse clicks/taps and two
+      titling layers above that built in HTML.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+      And, with that...I'm out. I won't do this anymore. I love it, but I am not
+      cut out for software development at modern American companies (at all). I
+      am <u>not</u> going to keep trying the same thing over and over while
+      expecting a different result.
+    </p>
+    <p>
+      You are <strong>all</strong> a pile of punk-ass bitches who actually suck
+      and swallow compared to what I just did on this page. You're going to have
+      to stare at this for more than a week to just get your head around how I
+      did this. And, the way I want to create software is <em>never</em> going
+      to change. I do this shit by hand, it's fucking made in America and I
+      don't fuck up. Like...<strong>you</strong> suck. I don't. Stop treating me
+      like how you're used to treaing everyone else around you. I'm just not
+      "standard" enough for you. And, that's either because I don't suck and/or
+      I don't use bullshit from the 1950's anymore.
+    </p>
+    <p>
+      I have fucking <u>had it</u> with the American Corporate Experience. So,
+      I've rejected it. I don't want it. I guess it's time to find something
+      else to do.
+    </p>
+    <p>
+      Best 'regards',<br />
+      -Rob
+    </p>
+
+  </div>
+
+</div>

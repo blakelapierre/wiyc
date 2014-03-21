@@ -8,14 +8,6 @@ angular.module('robcolbertApp')
   '$rootScope',
   function Configuration ($rootScope) {
 
-    var apiServer = {
-      'scheme': 'http://',
-      //'host': 'localhost',
-      //'host': '192.241.240.182',
-      'host': 'api.robcolbert.com',
-      'port': 10010
-    };
-
     this.tinymceOptions = {
       'script_url': 'bower_components/tinymce/tinymce.min.js',
       'skin': 'lightgray',
@@ -32,6 +24,20 @@ angular.module('robcolbertApp')
       'oninit': function ( ) {
         $rootScope.$broadcast('tinymceInitComplete');
       }
+    };
+
+    var feServer = {
+      'scheme': 'http://',
+      //'host': 'localhost'
+      'host': 'robcolbert.com'
+    };
+    this.getFrontEndHost = function ( ) { return feServer.host; };
+
+    var apiServer = {
+      'scheme': 'http://',
+      //'host': 'localhost',
+      'host': 'api.robcolbert.com',
+      'port': 10010
     };
 
     this.buildApiUrl = function (endpoint) {

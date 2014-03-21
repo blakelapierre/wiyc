@@ -24,6 +24,12 @@ angular.module('robcolbertApp')
     $scope.videos = [
       {
         'type':'youtube',
+        'title':'RUIN 3D',
+        'description':'',
+        'videoId':'1UjEVnmXL0o'
+      },
+      {
+        'type':'youtube',
         'title':'What if it already was enterprise grade?',
         'description':'<a href="mailto:rob.isConnected@gmail.com">rob.isConnected@gmail.com</a> or <a href="https://twitter.com/robcolbert">@robcolbert</a>. I suck at every other way of keeping in touch, YouTube included.',
         'videoId':'xQgpHzSru1Y'
@@ -99,6 +105,7 @@ angular.module('robcolbertApp')
                         $scope.videoUpdateIntervalId = $interval(function ( ) {
                           var player = $scope.players[video.videoId];
                           video.currentTime = Math.round(player.getCurrentTime());
+                          video.currentTimeRaw = player.getCurrentTime();
                           video.duration = Math.round(player.getDuration().toFixed(2));
                           video.playedFraction = (video.currentTime / video.duration).toFixed(2);
                           video.loadedFraction = (player.getVideoLoadedFraction()).toFixed(2);
@@ -123,19 +130,28 @@ angular.module('robcolbertApp')
       }
     }
 
+    $scope.setVideoTime = function (video) {
+      console.log('setVideoTime', video.userDesiredTime);
+      var player = $scope.players[video.videoId];
+      player.seekTo(video.userDesiredTime, true);
+    };
+
     function createPlayers ( ) {
       $scope.videos.forEach(initializeVideo);
     }
 
     $window.onYouTubeIframeAPIReady = function ( ) {
       console.log('YouTube <iframe> API ready');
-      $scope.playerReady = true;
       createPlayers();
+      $scope.playerReady = true;
     };
 
     $window.onYouTubePlayerReady = function (/*playerId*/) {
       console.log('YouTube Player API ready');
     };
+
+    createPlayers();
+    $scope.playerReady = true;
 
   }
 ]);

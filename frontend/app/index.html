@@ -30,11 +30,11 @@
     </p>
     <![endif]-->
 
-    <div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
+    <div id="topBar" ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="col-sm-8"><div ng-view=""></div></div>
+        <div class="col-sm-8 main-view"><div ng-view=""></div></div>
         <div class="col-sm-4 sidebar"><ng-include src="'views/sidebar.html'"></ng-include></div>
         <div class="clearfix"></div>
       </div>
@@ -105,6 +105,20 @@
       ga('set', 'appVersion', '0.1.0');
     </script>
 
+    <script src="https://www.youtube.com/iframe_api" type="text/javascript"></script>
+    <script type="text/javascript" src="scripts/sandbox/soundcloud-api.js"></script>
+
+    <!-- Twitter Widget API -->
+    <script src="http://platform.twitter.com/widgets.js"
+            async=""
+            type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- SWFObject API (heroin is hard, and YouTube won't switch to methodone) -->
+    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"
+            type="text/javascript"
+            charset="utf-8"></script>
+
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -134,51 +148,45 @@
     <script src="scripts/robcolbert-fe.js"></script>
 
     <script src="scripts/services/configuration.js"></script>
+    <script src="scripts/services/sessions.js"></script>
     <script src="scripts/services/users.js"></script>
     <script src="scripts/services/user-session.js"></script>
+    <script src="scripts/services/site-settings.js"></script>
     <script src="scripts/services/pulse-wire.js"></script>
-    <script src="scripts/services/posts.js"></script>
+    <script src="scripts/services/presentation-engine.js"></script>
     <script src="scripts/services/pulses.js"></script>
+    <script src="scripts/services/sidebar-pulses.js"></script>
+    <script src="scripts/services/web-audio.js"></script>
+    <script src="scripts/services/sound-cloud.js"></script>
     <script src="scripts/services/videos.js"></script>
-    <script src="scripts/services/sessions.js"></script>
 
-    <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/header.js"></script>
-    <script src="scripts/controllers/account-login.js"></script>
-    <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/controllers/contact.js"></script>
-    <script src="scripts/controllers/pulses.js"></script>
-    <script src="scripts/controllers/posts/compose.js"></script>
-    <script src="scripts/controllers/posts/reader.js"></script>
-    <script src="scripts/controllers/posts/postId/edit.js"></script>
-    <script src="scripts/controllers/videos.js"></script>
+    <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/footer.js"></script>
     <script src="scripts/controllers/signup.js"></script>
     <script src="scripts/controllers/verify.js"></script>
+    <script src="scripts/controllers/account-login.js"></script>
     <script src="scripts/controllers/announcements.js"></script>
-    <script src="scripts/controllers/posts.js"></script>
     <script src="scripts/controllers/settings.js"></script>
+    <script src="scripts/controllers/admin.js"></script>
+    <script src="scripts/controllers/pulses.js"></script>
+    <script src="scripts/controllers/pulses/composer.js"></script>
+    <script src="scripts/controllers/pulses/studio.js"></script>
+    <script src="scripts/controllers/pulses/reader.js"></script>
+    <script src="scripts/controllers/pulses/pulseId/edit.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/contact.js"></script>
+    <script src="scripts/controllers/videos.js"></script>
+    <script src="scripts/controllers/sidebar.js"></script>
+    <script src="scripts/controllers/sidebar-pulses.js"></script>
     <script src="scripts/controllers/prototype.js"></script>
     <script src="scripts/controllers/prototype/source.js"></script>
+    <script src="scripts/controllers/moving-parts.js"></script>
     <!-- endbuild -->
 
-<!--    <script src="http://robcolbert.com:10010/socket.io/socket.io.js"
-            type="text/javascript"
-            >
-    </script>-->
-
-    <script type="text/javascript" src="scripts/sandbox/soundcloud-api.js"></script>
-
-    <!-- Twitter Widget API -->
-    <script src="http://platform.twitter.com/widgets.js"
-            async=""
-            type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- SWFObject API (heroin is hard, and YouTube won't switch to methodone) -->
-    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"
-            type="text/javascript"
-            charset="utf-8"></script>
+    <!-- script src="http://robcolbert.com:10010/socket.io/socket.io.js"
+            type="text/javascript">
+    </script -->
 
     <!-- TinyMCE WYSIWYG Editor -->
     <script type="text/javascript">
