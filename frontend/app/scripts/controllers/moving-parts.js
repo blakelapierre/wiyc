@@ -795,11 +795,7 @@ function MovingPartsCtrl (
     $scope.gameEvents.push({
       'offset': 303.000,
       'callback': function ( ) {
-        $('.no-theater').fadeIn(2000.0, function ( ) {
-          $('.main-view').removeClass('col-sm-12').addClass('col-sm-8');
-          $('.sidebar').addClass('col-sm-4');
-          $('.sidebar').fadeIn(1000);
-        }); // .no-theater fadeOut
+        PresentationEngine.setDisplayMode(PresentationEngine.DisplayModes.STANDARD);
         return false;
       }
     });
