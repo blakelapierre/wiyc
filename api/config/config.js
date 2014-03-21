@@ -8,7 +8,6 @@ var crypto = require('crypto');
 
 var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
-console.log('ENV', env);
 var listenPort = 10010;
 
 var corsConfig = {

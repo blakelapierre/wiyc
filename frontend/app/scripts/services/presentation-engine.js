@@ -10,6 +10,8 @@
 
 function PresentationEngine ( ) {
 
+  var self = this;
+
   // One way or another, I'm getting these damn constants on this object and
   // everything it knows how to be so I can use them universally everywhere
   // with a syntax that resembles what I call "normal".
@@ -19,8 +21,8 @@ function PresentationEngine ( ) {
     'TRANSITION': 'transition'
   };
 
-  this.displayMode = PresentationEngine.DisplayModes.STANDARD;
-  this.sidebarMode = PresentationEngine.DisplayModes.STANDARD;
+  self.displayMode = PresentationEngine.DisplayModes.STANDARD;
+  self.sidebarMode = PresentationEngine.DisplayModes.STANDARD;
 
 }
 
@@ -39,7 +41,7 @@ PresentationEngine.prototype.setDisplayMode = function (mode) {
       $('.pre-show, .sidebar, #topBar').fadeOut(1000, function ( ) {
         $('.sidebar').removeClass('col-sm-4');
         $('.main-view').removeClass('col-sm-8').addClass('col-sm-12');
-        $('body, .pulsar-media-sc').addClass('theater');
+        $('body, .pulsar-media-sc, .footer').addClass('theater');
         $('.idle-hide').fadeIn(1000, function ( ) {
           self.displayMode = PresentationEngine.DisplayModes.THEATER;
         });
@@ -52,7 +54,7 @@ PresentationEngine.prototype.setDisplayMode = function (mode) {
       }
       self.displayMode = PresentationEngine.DisplayModes.TRANSITION;
       $('.idle-hide').hide();
-      $('body, .pulsar-media-sc').removeClass('theater');
+      $('body, .pulsar-media-sc, .footer').removeClass('theater');
       $('.main-view').removeClass('col-sm-12').addClass('col-sm-8');
       $('.sidebar').addClass('col-sm-4');
       $('.sidebar, .pre-show, #topBar').fadeIn(500, function ( ) {

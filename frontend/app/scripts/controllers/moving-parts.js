@@ -53,6 +53,7 @@ function MovingPartsCtrl (
 
   var self = this;
   $('.idle-hide, .no-theater').hide();
+  ga('send', 'pageview');
 
   var gameContext = document.getElementById('gameCanvas').getContext('2d');
   var gameContextWidth = gameContext.canvas.width;
@@ -70,7 +71,9 @@ function MovingPartsCtrl (
   $scope.currentViewMode = 'standard';
 
   $scope.$emit('setPageGroup', 'demos');
-  ga('send', 'pageview');
+  $scope.$on('$routeChangeStart', function ( ) {
+    $scope.stop();
+  });
 
   var titleCard = $('#titleCard');
   $scope.titleCard = {

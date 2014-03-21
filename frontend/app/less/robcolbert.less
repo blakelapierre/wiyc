@@ -5,8 +5,11 @@
 
 body {
   padding: 68px 0 32px 0;
-  transition: background-color 2s;
+  background-position:center center;
+  background-size:cover;
+  transition: background 1s;
   &.theater {
+    background-image:url('/images/theater-bg.jpg');
     background-color:#18181a;
   }
 }
@@ -22,6 +25,7 @@ body {
 @import 'robcolbert-comments.less';
 @import 'robcolbert-credits.less';
 @import 'robcolbert-media-sc.less';
+@import 'robcolbert-theater.less';
 
 .prototype .meta-label {
   float:left;

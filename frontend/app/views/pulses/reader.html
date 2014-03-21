@@ -30,7 +30,7 @@
               <span class="author">{{comment._creator.displayName}}</span>
               <span class="created">{{fromNow(comment.created)}}</span>
             </div>
-            <div class="body">{{comment.content}}</div>
+            <div class="body" ng-bind-html="comment.content"></div>
           </div>
         </div>
       </div>

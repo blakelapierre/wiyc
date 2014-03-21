@@ -4,14 +4,15 @@
 'use strict';
 /* global moment:false */
 
-function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses) {
+function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses, Configuration) {
 
   $scope.user = UserSession;
+  $scope.tinymceOptions = Configuration.tinymceOptions;
 
   SidebarPulses.list(function (pulses) {
     ga('send','event', 'Pulses', 'listed', pulses.length);
     pulses.forEach(function (pulse) {
-      pulse.content = $sce.trustAsHtml(pulse.content);
+      pulse.content = $sce.trustAsHtml('<p>' + pulse.content.replace(/\n+/g, '</p><p>') + '</p>');
     });
     console.log('sidebar pulses have arrived', pulses);
     $scope.pulses = pulses;
@@ -53,7 +54,8 @@ SidebarPulsesCtrl.$inject = [
   '$rootScope',
   '$sce',
   'UserSession',
-  'SidebarPulses'
+  'SidebarPulses',
+  'Configuration'
 ];
 
 angular.module('robcolbertApp')
