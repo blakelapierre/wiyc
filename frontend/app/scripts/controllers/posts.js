@@ -12,7 +12,7 @@ function PostsCtrl ($scope, $route, $window, Posts) {
   ga('send', 'pageview');
 
   $scope.currentPage = parseInt($route.current.params.p) || 1;
-  $scope.postsPerPage = parseInt($route.current.params.cpp) || 3;
+  $scope.postsPerPage = parseInt($route.current.params.cpp) || 10;
 
   $scope.posts = Posts.list(
     {

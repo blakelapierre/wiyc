@@ -4,20 +4,7 @@ echo "Building Pulsar AngularJS Front End"
 grunt build
 
 # Patch in the shit I just don't manage with Grunt (prototype stuff)
-cd frontend
-	cd dist
-		cp -R ../app/source .
-		cp -R ../app/scripts/sandbox .
-		cd ..
+cd dist
+	cp -R ../app/source .
+	cp -R ../app/scripts/sandbox ./scripts
 	cd ..
-
-# tar that shit up, yo. Fling it to prod during the next maintenance window
-# if IT approves the request and you've dotted all your I's and crossed all your
-# T's and submitted the requisite DNA sample and submitted to the requisite
-# retinal scan you fucking infant.
-# - typical IT attitude
-
-rm -f ../robcolbert-fe.tar.gz
-tar -czf ../robcolbert-fe.tar.gz dist
-
-# ^ shut up, bitch. It's like two lines out of my day. Press your Easy button.
