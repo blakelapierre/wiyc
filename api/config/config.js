@@ -31,13 +31,12 @@
 
 var path = require('path');
 var crypto = require('crypto');
+var localConfig = require('./config.local');
+console.log('localConfig', localConfig);
 
 var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
 var listenPort = 10010;
-
-var emailUser = 'ENTER GMAIL USERNAME HERE';
-var emailPassword = 'ENTER GMAIL PASSWORD HERE';
 
 var corsConfig = {
   'allowOrigins': [
@@ -82,11 +81,11 @@ var config = {
     'root': rootPath,
     'app': {
       'name': 'pulsar-api',
-      'passwordSalt': 'sVlf3r!c',
+      'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
-      'emailUser': emailUser,
-      'emailPassword': emailPassword
+      'emailUser': localConfig.emailUser,
+      'emailPassword': localConfig.emailPassword
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-development',
@@ -98,11 +97,11 @@ var config = {
     'root': rootPath,
     'app': {
       'name': 'pulsar-api',
-      'passwordSalt': 'sVlf3r!c',
+      'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
-      'emailUser': emailUser,
-      'emailPassword': emailPassword
+      'emailUser': localConfig.emailUser,
+      'emailPassword': localConfig.emailPassword
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-test',
@@ -114,11 +113,11 @@ var config = {
     'root': rootPath,
     'app': {
       'name': 'pulsar-api',
-      'passwordSalt': 'sVlf3r!c',
+      'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
-      'emailUser': emailUser,
-      'emailPassword': emailPassword
+      'emailUser': localConfig.emailUser,
+      'emailPassword': localConfig.emailPassword
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-production',
