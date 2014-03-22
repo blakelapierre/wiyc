@@ -1,6 +1,6 @@
 /*
  * FILE
- *  services/site-settings.js
+ *  controllers/user/user-profile.js
  *
  * PURPOSE
  *
@@ -29,18 +29,17 @@
 
 'use strict';
 
-function SiteSettingsService ($resource, Configuration) {
-  var serviceUrl = Configuration.buildApiUrl('/settings');
-  var defaultParameters = null;
-  return $resource(serviceUrl, defaultParameters, {
-    'get': { 'method': 'GET', 'withCredentials': true },
-    'update': { 'method': 'PUT', 'withCredentials': true }
-  });
+function UserUseridCtrl ($scope) {
+  $scope.awesomeThings = [
+    'HTML5 Boilerplate',
+    'AngularJS',
+    'Karma'
+  ];
 }
 
-SiteSettingsService.$inject = [
-  '$resource',
-  'Configuration'
+UserUseridCtrl.$inject = [
+  '$scope'
 ];
 
-angular.module('robcolbertApp').service('SiteSettings', SiteSettingsService);
+angular.module('robcolbertApp')
+.controller('UserUseridCtrl', UserUseridCtrl);

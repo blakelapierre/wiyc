@@ -1,6 +1,6 @@
 /*
  * FILE
- *  services/site-settings.js
+ *  models/pulse-categories.js
  *
  * PURPOSE
  *
@@ -29,18 +29,34 @@
 
 'use strict';
 
-function SiteSettingsService ($resource, Configuration) {
-  var serviceUrl = Configuration.buildApiUrl('/settings');
-  var defaultParameters = null;
-  return $resource(serviceUrl, defaultParameters, {
-    'get': { 'method': 'GET', 'withCredentials': true },
-    'update': { 'method': 'PUT', 'withCredentials': true }
+var log = require('winston');
+log.info('model: PulseCategories');
+
+var mongoose = require('mongoose');
+
+var PulseCategoriesSchema = new mongoose.Schema({
+  'category': { 'type': String, 'required': true, 'unique': true },
+  'slug': { 'type': String, 'required': true, 'unique': true },
+  'description': { 'type': String, 'required': false }
+});
+
+var PulseCategories = mongoose.model('PulseCategories', PulseCategoriesSchema);
+PulseCategories.find({'category': 'blog'}, function (err, blogCategory) {
+  if (err) {
+    log.error('pulsecategories.find', err);
+    throw err;
+  }
+  if (blogCategory) {
+    return;
+  }
+
+  blogCategory = {
+    'category':'blog',
+    'description':'The Pulsar main blog page category to support the blogging module.'
+  };
+  PulseCategories.create(blogCategory, function (err, savedCategory) {
+    if (err) {
+    }
+    log.info('PULSAR: new pulse category', savedCategory);
   });
-}
-
-SiteSettingsService.$inject = [
-  '$resource',
-  'Configuration'
-];
-
-angular.module('robcolbertApp').service('SiteSettings', SiteSettingsService);
+});

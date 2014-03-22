@@ -1,22 +1,22 @@
 'use strict';
 
-describe('Controller: PostsStudioCtrl', function () {
+describe('Controller: UserUseridCtrl', function () {
 
   // load the controller's module
   beforeEach(module('robcolbertApp'));
 
-  var PostsStudioCtrl,
+  var UserUseridCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    PostsStudioCtrl = $controller('PostsStudioCtrl', {
+    UserUseridCtrl = $controller('UserUseridCtrl', {
       $scope: scope
     });
   }));
 
-//   it('should attach a list of awesomeThings to the scope', function () {
-//     expect(scope.awesomeThings.length).toBe(3);
-//   });
+  it('should attach a list of awesomeThings to the scope', function () {
+    expect(scope.awesomeThings.length).toBe(3);
+  });
 });

@@ -6,7 +6,7 @@ Bringing Pulsar online:
 MongoDB:
 
 cd data
-	./start
+  ./start
 
 This will kill any running mongod and start a new one with the configuration
 found in this directory. It's just a mongod.
@@ -15,7 +15,7 @@ found in this directory. It's just a mongod.
 Pulsar API Server:
 
 cd api
-	./start
+  ./start
 
 Starts the API server directly in node. Grunt can also be used to start the
 server and is useful for live-hacking...but not ideal (at all).
@@ -31,7 +31,7 @@ It is expected to be running on 127.0.0.1:11211 and not bound to 0.0.0.0.
 HTML5 SPA Front End:
 
 cd frontend
-	grunt build
+  grunt build
 
 Grunt builds the HTML5 SPA client to /opt/robcolbert/frontend/dist. It is a
 cache-busted, packed and optimized build of the default client. Simply point an
