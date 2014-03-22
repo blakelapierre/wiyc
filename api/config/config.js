@@ -36,6 +36,9 @@ var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
 var listenPort = 10010;
 
+var emailUser = 'ENTER GMAIL USERNAME HERE';
+var emailPassword = 'ENTER GMAIL PASSWORD HERE';
+
 var corsConfig = {
   'allowOrigins': [
     //'http://0.0.0.0:9000'
@@ -81,7 +84,9 @@ var config = {
       'name': 'pulsar-api',
       'passwordSalt': 'sVlf3r!c',
       'hashPassword': hashPassword,
-      'generateRandomKey': generateRandomKey
+      'generateRandomKey': generateRandomKey,
+      'emailUser': emailUser,
+      'emailPassword': emailPassword
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-development',
@@ -95,7 +100,9 @@ var config = {
       'name': 'pulsar-api',
       'passwordSalt': 'sVlf3r!c',
       'hashPassword': hashPassword,
-      'generateRandomKey': generateRandomKey
+      'generateRandomKey': generateRandomKey,
+      'emailUser': emailUser,
+      'emailPassword': emailPassword
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-test',
@@ -109,7 +116,9 @@ var config = {
       'name': 'pulsar-api',
       'passwordSalt': 'sVlf3r!c',
       'hashPassword': hashPassword,
-      'generateRandomKey': generateRandomKey
+      'generateRandomKey': generateRandomKey,
+      'emailUser': emailUser,
+      'emailPassword': emailPassword
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-production',

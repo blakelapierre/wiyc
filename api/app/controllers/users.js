@@ -109,8 +109,8 @@ UsersController.prototype.sendEmail = function (addressTo, messageBody, callback
   var transport = mailer.createTransport('SMTP', {
     'service':'Gmail',
     'auth': {
-      'user':'rob.isConnected@gmail.com',
-      'pass':'aC3-9b8cD?b3'
+      'user':this.config.emailUser,
+      'pass':this.config.emailPassword
     }
   });
   var email = {
