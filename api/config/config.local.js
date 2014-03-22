@@ -1,6 +1,6 @@
 /*
  * FILE
- *  config.js
+ *  config.local.js
  *
  * PURPOSE
  *  You put things here you don't want the world to know. Then, you never commit
