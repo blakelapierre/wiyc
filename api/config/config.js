@@ -32,7 +32,6 @@
 var path = require('path');
 var crypto = require('crypto');
 var localConfig = require('./config.local');
-console.log('localConfig', localConfig);
 
 var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
