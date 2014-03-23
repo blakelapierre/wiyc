@@ -62,7 +62,5 @@ cd pulsarcms/frontend
   grunt build
 ```
 
-Grunt builds the HTML5 SPA client to /opt/robcolbert/frontend/dist. It is a
-cache-busted, packed and optimized build of the default client. Simply point an
-httpd at that directory as the web root exposed publicly as TCP/80, and it's
+Grunt builds the HTML5 SPA client to pulsarcms/frontend/dist. It is a cache-busted, packed and optimized build of the default client. Simply point an httpd at that directory as the web root exposed publicly as TCP/80, and it's
 online.
