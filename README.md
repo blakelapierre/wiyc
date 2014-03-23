@@ -53,7 +53,9 @@ Sales, marketing, management and all of their associated buzzwords all live in t
 
 Remember: When you present to management, you *only* talk about the frontend directory. And, when you present to your IT department, you try as hard as possible to *only* talk about the API server. Application developers go in the frontend directory. Data architects go in the API directory. CSS design gods? That's right! The frontend directory! (you're getting good at this).
 
-End any argument by saying, "The API server doesn't output or care about pixels and colors. It is very boring, and just handles the logins and stuff. Everything else happens in the Angular app." It's a lie. But, they lie. So, keep my API server out of their hands or you're fired.
+End any argument by saying, "The API server doesn't output or care about pixels and colors. It is very boring, and just handles the logins and stuff. Everything else happens in the Angular app." It's a lie. But, they lie. And, that's a carefully hand-crafted lie. You said, "...and stuff." It's probably all they need to know.
+
+I am aware these files are publicly readable. The above is and is not humor. Just keep my API server out of management's hands or enjoy your fork.
 
 ```
 cd pulsarcms/frontend
