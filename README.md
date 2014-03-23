@@ -42,7 +42,7 @@ cd pulsarcms/api
   grunt
 ```
 
-## Notes
+#### Notes
 - If you run the API server under Grunt and perform a "git pull origin master" on your box, you probably just restarted your API server. Hope everyone's okay with that!
 - The API server's Winston log file needs manually rotated. cron is your friend.
 - API client sessions are managed with signed cookies in memcached.
