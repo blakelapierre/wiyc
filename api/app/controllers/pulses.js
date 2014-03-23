@@ -1,5 +1,31 @@
-// controllers/pulses.js
-// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+/*
+ * FILE
+ *  controllers/pulses.js
+ *
+ * PURPOSE
+ *
+ *
+ * LICENSE
+ *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to
+ *  deal in the Software without restriction, including without limitation the
+ *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ *  sell copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in
+ *  all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ *  IN THE SOFTWARE.
+ */
 
 'use strict';
 
@@ -8,7 +34,7 @@ log.info('controller: PulsesController');
 
 var mongoose = require('mongoose');
 var Pulses = mongoose.model('Pulses');
-var Paginator = require('robcolbert-utils').expressjs.Paginator;
+var Paginator = require('pulsar-api-framework').expressjs.Paginator;
 
 function PulsesController (app, config) {
   this.app = app;
@@ -17,14 +43,8 @@ function PulsesController (app, config) {
 
 PulsesController.prototype.checkAuthentication = function (req, res, message) {
   if (!req.session.user || !req.session.authenticated.status) {
-    log.error('Pulses.createComment called by unauthenticated client', req.session);
-    res.json(
-      500,
-      {
-        //@TODO: refactor this to a config file with internationalization
-        'message': message
-      }
-    );
+    log.error('pulses.checkAuthentication failed', req.session, message);
+    res.json(500, { 'message': message });
     return false;
   }
   return true;
