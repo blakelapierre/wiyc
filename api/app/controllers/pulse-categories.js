@@ -34,7 +34,7 @@ log.info('controller: PulseCategoriesController');
 
 var mongoose = require('mongoose');
 var PulseCategories = mongoose.model('PulseCategories');
-var Paginator = require('robcolbert-utils').expressjs.Paginator;
+var Paginator = require('pulsar-api-framework').expressjs.Paginator;
 
 function PulseCategoriesController (app, config) {
   this.app = app;

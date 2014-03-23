@@ -1,4 +1,5 @@
 *.log
+~node_modules/pulsar-api-framework
 node_modules
 dist
 .tmp

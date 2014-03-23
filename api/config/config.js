@@ -38,10 +38,7 @@ var env = process.env.NODE_ENV || 'development';
 var listenPort = 10010;
 
 var corsConfig = {
-  'allowOrigins': [
-    //'http://0.0.0.0:9000'
-    'http://robcolbert.com'
-  ],
+  'allowOrigins': [ localConfig.allowOrigin ],
   'allowMethods': [
     'GET',
     'PUT',

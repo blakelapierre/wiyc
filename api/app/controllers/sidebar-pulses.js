@@ -34,7 +34,7 @@ log.info('controller: SidebarPulsesController');
 
 var mongoose = require('mongoose');
 var SidebarPulses = mongoose.model('SidebarPulses');
-var Paginator = require('robcolbert-utils').expressjs.Paginator;
+var Paginator = require('pulsar-api-framework').expressjs.Paginator;
 
 function SidebarPulsesController (app, config) {
   this.app = app;

@@ -1,9 +1,9 @@
 /*
  * FILE
- *  robcolbert-api.js
+ *  pulsar-api.js
  *
  * PURPOSE
- *
+ *  Initializes the Pulsar API server as configured and implemented.
  *
  * LICENSE
  *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
@@ -30,7 +30,7 @@
 'use strict';
 
 var winston = require('winston');
-winston.add(winston.transports.File, { 'filename': 'robcolbert-api.log' });
+winston.add(winston.transports.File, { 'filename': 'pulsar-api.log' });
 winston.cli();
 
 var app = require('express')();
@@ -64,7 +64,7 @@ var monitor = null;
 var mongoose = require('mongoose');
 var fs = require('fs');
 var config = require('./config/config');
-var robcolbert = require('robcolbert-utils');
+var pulsar = require('pulsar-api-framework');
 
 winston.info('connecting to database at ' + config.db);
 mongoose.connect(config.db);
@@ -89,7 +89,7 @@ db.on('open', function ( ) {
   require('./config/express')(app, config);
   require('./config/routes')(app, config);
 
-  monitor = new robcolbert.monitor.Monitor(app, config);
+  monitor = new pulsar.monitor.Monitor(app, config);
   io.sockets.on('connection', function (socket) {
     socket.emit('hello', {
       'service':'PulseWire Real-Time Messaging',

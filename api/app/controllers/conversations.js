@@ -34,7 +34,7 @@ log.info('controller: Conversations');
 
 var mongoose = require('mongoose');
 var Conversations = mongoose.model('Conversations');
-var Paginator = require('robcolbert-utils').expressjs.Paginator;
+var Paginator = require('pulsar-api-framework').expressjs.Paginator;
 
 function ConversationsController (app, config) {
   this.app = app;

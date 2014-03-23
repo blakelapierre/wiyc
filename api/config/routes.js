@@ -29,7 +29,7 @@
 
 'use strict';
 
-var RouteAssembler = require('robcolbert-utils').expressjs.RouteAssembler;
+var RouteAssembler = require('pulsar-api-framework').expressjs.RouteAssembler;
 
 function configureRoutes (app, config) {
 

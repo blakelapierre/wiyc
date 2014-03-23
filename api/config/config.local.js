@@ -1,6 +1,6 @@
 /*
  * FILE
- *  config.local.js
+ *  config.js
  *
  * PURPOSE
  *  You put things here you don't want the world to know. Then, you never commit
@@ -34,9 +34,10 @@
 'use strict';
 
 module.exports = exports = {
-  'userPasswordSalt' : 'CREATE A UNIQUE PASSWORD SALT FOR YOUR USERS',
-  'emailUser'        : 'ENTER YOUR GMAIL USERNAME',
-  'emailPassword'    : 'ENTER YOUR GMAIL PASSWORD'
+  'allowOrigin'      : 'http(s)://theDomainYouAccessFrom.com',
+  'emailUser'        : 'ENTER GMAIL USERNAME',
+  'emailPassword'    : 'ENGER GMAIL PASSWORD',
+  'userPasswordSalt' : 'CREATE A UNIQUE PASSWORD SALT'
 };
 
 // AND DON'T EVER SHARE THIS FILE! IF YOU DO, CHANGE EVERYTHING AND MIGRATE

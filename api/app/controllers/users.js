@@ -35,7 +35,7 @@ log.info('controller: UsersController');
 var mongoose = require('mongoose');
 var mailer = require('nodemailer');
 var Users = mongoose.model('Users');
-var Paginator = require('robcolbert-utils').expressjs.Paginator;
+var Paginator = require('pulsar-api-framework').expressjs.Paginator;
 
 function UsersController (app, config) {
   this.app = app;

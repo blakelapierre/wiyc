@@ -14,7 +14,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     develop: {
       server: {
-        file: 'robcolbert-api.js'
+        file: 'pulsar-api.js'
       }
     },
     watch: {
@@ -24,7 +24,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: [
-          'robcolbert-api.js',
+          'pulsar-api.js',
           'app/**/*.js',
           'config/*.js'
         ],
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        'robcolbert-api.js',
+        'pulsar-api.js',
         'app/models/*.js',
         'app/controllers/*.js',
         'config/*.js'
