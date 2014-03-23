@@ -49,9 +49,9 @@ cd pulsarcms/api
 - If a single request to http://api.yourserver.com:10010/sessions, for example, takes about 30 seconds and then logs "ECONNREFUSED" or similar - you need to start memcached. It is not optional, and is expected to be running on 127.0.0.1:11211 (not 0.0.0.0).
 
 ### HTML5 SPA Front End
-Sales, marketing, management and all of their associated buzzwords all live in the frontend directory. In fact, they are confined to the frontend directory. They aren't allowed in the API directory and, depending on where you work, probably shouldn't be told the API server exists.
+Sales, marketing, management and all of their associated buzzwords all live in the frontend directory. In fact, they are confined to the frontend directory. They aren't allowed in the API directory and, depending on where you work, management, sales and marketing probably shouldn't be told the API server exists. They might decide to go have a look at it to see what additional value or profit they can extract from it. And, that's when I behead them with a Samurai sword. Pull request rejected. Stuff like that.
 
-Remember: When you present to management, you *only* talk about the frontend directory. And, when you present to your IT department, you try as hard as possible to *only* talk about the API server.
+Remember: When you present to management, you *only* talk about the frontend directory. And, when you present to your IT department, you try as hard as possible to *only* talk about the API server. Application developers go in the frontend directory. Data architects go in the API directory. CSS design gods? That's right! The frontend directory! (you're getting good at this). How about: 
 
 Crossing these two streams is just as illegal is it is in the movie Ghostbusters. Do not cross the streams.
 
