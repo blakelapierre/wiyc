@@ -1,7 +1,10 @@
 # Pulsar
 
-I whipped this together on a moment's notice to gain access to more bandwidth
-during a popular post's outburst.
+Pulsar is an advanced content management system. Its main goals are to offer the best online content creation tools atop a completely decentralized social network. It exists as a dedicated JSON data-on-wire API service and an AngularJS single-page application front end. The AngularJS client is to be regarded as the reference client. It shows you how to implement every available feature of the Pulsar API.
+
+By adhering to a rigid set of rules guaranteeing an appropriate separation of concerns, domain owners can simply "theme" the reference client or build an entire client of their own. If, for example, you need a search engine optimized version of Pulsar that presents on the server, have at it! A supported use of Pulsar would be to build a Web application that calls the Pulsar API, presents its data and returns presented HTML.
+
+Another supported use of the Pulsar platform is as the backing store for mobile apps. A very wide array of mobile applications can be entirely implemented with the Pulsar API as their online service.
 
 ## Installation
 
@@ -12,14 +15,15 @@ git clone https://github.com/robcolbert/pulsarcms.git
 ## Usage
 
 
-### MongoDB
+### MongoDB and Memcache
 
-To kill any running mongod and start a new one with the configuration
-found in this directory:
+The Pulsar API server requires MongoDB and memcached. To help automate the proper startup of these components, the ./data directory is provided.
+
+It contains a script "start" that will Kill all running mongod and memcached processes, then start a new pair with the configuration found in the ./data directory:
 
 ```
 cd pulsarcms/data
-./start
+  ./start
 ```
 
 ### Pulsar API Server
@@ -27,7 +31,7 @@ To start the API server directly in node:
 
 ```
 cd pulsarcms/api
-./start
+  ./start
 ```
 
 Grunt can also be used to start the server and is useful for live-hacking...but not ideal at all.
@@ -43,7 +47,7 @@ It is expected to be running on 127.0.0.1:11211 and not bound to 0.0.0.0.
 
 ```
 cd pulsarcms/frontend
-grunt build
+  grunt build
 ```
 
 Grunt builds the HTML5 SPA client to /opt/robcolbert/frontend/dist. It is a
