@@ -49,6 +49,15 @@ cd pulsarcms/api
 - If a single request to http://api.yourserver.com:10010/sessions, for example, takes about 30 seconds and then logs "ECONNREFUSED" or similar - you need to start memcached. It is not optional, and is expected to be running on 127.0.0.1:11211 (not 0.0.0.0).
 
 ### HTML5 SPA Front End
+
+```
+cd pulsarcms/frontend
+  grunt build
+```
+Grunt builds the HTML5 SPA client to pulsarcms/frontend/dist. It is a cache-busted, packed and optimized build of the default client. Simply point an httpd at that directory as the web root exposed publicly as TCP/80, and it's
+online.
+
+## Presenting Pulsar to Others
 Sales, marketing, management and all of their associated buzzwords all live in the frontend directory. In fact, they are confined to the frontend directory. They aren't allowed in the API directory and, depending on where you work, management, sales and marketing probably shouldn't be told the API server exists. They might decide to go have a look at it to see what additional value or profit they can extract from it. And, that's when I behead them with a Samurai sword. Pull request rejected. Stuff like that.
 
 Remember: When you present to management, you *only* talk about the frontend directory. And, when you present to your IT department, you try as hard as possible to *only* talk about the API server. Application developers go in the frontend directory. Data architects go in the API directory. CSS design gods? That's right! The frontend directory! (you're getting good at this).
@@ -56,11 +65,3 @@ Remember: When you present to management, you *only* talk about the frontend dir
 End any argument by saying, "The API server doesn't output or care about pixels and colors. It is very boring, and just handles the logins and stuff. Everything else happens in the Angular app." It's a lie. But, they lie. And, that's a carefully hand-crafted lie. You said, "...and stuff." It's probably all they need to know.
 
 I am aware these files are publicly readable. The above is and is not humor. Just keep my API server out of management's hands or enjoy your fork.
-
-```
-cd pulsarcms/frontend
-  grunt build
-```
-
-Grunt builds the HTML5 SPA client to pulsarcms/frontend/dist. It is a cache-busted, packed and optimized build of the default client. Simply point an httpd at that directory as the web root exposed publicly as TCP/80, and it's
-online.
