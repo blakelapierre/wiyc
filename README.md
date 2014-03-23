@@ -51,9 +51,9 @@ cd pulsarcms/api
 ### HTML5 SPA Front End
 Sales, marketing, management and all of their associated buzzwords all live in the frontend directory. In fact, they are confined to the frontend directory. They aren't allowed in the API directory and, depending on where you work, management, sales and marketing probably shouldn't be told the API server exists. They might decide to go have a look at it to see what additional value or profit they can extract from it. And, that's when I behead them with a Samurai sword. Pull request rejected. Stuff like that.
 
-Remember: When you present to management, you *only* talk about the frontend directory. And, when you present to your IT department, you try as hard as possible to *only* talk about the API server. Application developers go in the frontend directory. Data architects go in the API directory. CSS design gods? That's right! The frontend directory! (you're getting good at this). How about: 
+Remember: When you present to management, you *only* talk about the frontend directory. And, when you present to your IT department, you try as hard as possible to *only* talk about the API server. Application developers go in the frontend directory. Data architects go in the API directory. CSS design gods? That's right! The frontend directory! (you're getting good at this).
 
-Crossing these two streams is just as illegal is it is in the movie Ghostbusters. Do not cross the streams.
+End any argument by saying, "The API server doesn't output or care about pixels and colors. It is very boring, and just handles the logins and stuff. Everything else happens in the Angular app." It's a lie. But, they lie. So, keep my API server out of their hands or you're fired.
 
 ```
 cd pulsarcms/frontend
