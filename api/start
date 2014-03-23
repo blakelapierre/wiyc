@@ -1,2 +1,2 @@
 #!/bin/bash
-node robcolbert-api.js
+node pulsar-api.js
