@@ -19,7 +19,7 @@ git clone https://github.com/robcolbert/pulsarcms.git
 
 The Pulsar API server requires MongoDB and memcached. To help automate the proper startup of these components, the ./data directory is provided.
 
-It contains a script "start" that will Kill all running mongod and memcached processes, then start a new pair with the configuration found in the ./data directory:
+It contains a script "start" that will Kill all running mongod and memcached processes, then start a new pair with the configuration found in the ./data directory. If you choose not to run MongoDB as root (advised), then you *must* kill any existing mongod and memcached services that are started by the system at boot or by the administrator as permission to kill them will be denied otherwise.
 
 ```
 cd pulsarcms/data
@@ -27,23 +27,33 @@ cd pulsarcms/data
 ```
 
 ### Pulsar API Server
-To start the API server directly in node: 
+The Pulsar API server is what "does" everything in Pulsar. It is where pulses, user accounts and everything else in Pulsar are stored and processed.
+
+To start the API server: 
 
 ```
 cd pulsarcms/api
   ./start
 ```
 
-Grunt can also be used to start the server and is useful for live-hacking...but not ideal at all.
+Grunt can also be used to start the server and is useful for live-hacking (but absolutely not acceptable for production service):
+```
+cd pulsarcms/api
+  grunt
+```
 
-The API server's winston log file needs manually cleaned/rotated.
-
-API client sessions are managed with signed cookies in memcached. If a single
-request directly to http://robcolbert.com:10010/posts, for example, takes about
-30 seconds then logs, "ECONNREFUSED" or similar, you forgot to start memcached.
-It is expected to be running on 127.0.0.1:11211 and not bound to 0.0.0.0.
+## Notes
+- If you run the API server under Grunt and perform a "git pull origin master" on your box, you probably just restarted your API server. Hope everyone's okay with that!
+- The API server's Winston log file needs manually rotated. cron is your friend.
+- API client sessions are managed with signed cookies in memcached.
+- If a single request to http://api.yourserver.com:10010/sessions, for example, takes about 30 seconds and then logs "ECONNREFUSED" or similar - you need to start memcached. It is not optional, and is expected to be running on 127.0.0.1:11211 (not 0.0.0.0).
 
 ### HTML5 SPA Front End
+Sales, marketing, management and all of their associated buzzwords all live in the frontend directory. In fact, they are confined to the frontend directory. They aren't allowed in the API directory and, depending on where you work, probably shouldn't be told the API server exists.
+
+Remember: When you present to management, you *only* talk about the frontend directory. And, when you present to your IT department, you try as hard as possible to *only* talk about the API server.
+
+Crossing these two streams is just as illegal is it is in the movie Ghostbusters. Do not cross the streams.
 
 ```
 cd pulsarcms/frontend
