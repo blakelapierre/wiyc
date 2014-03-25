@@ -1,0 +1,25 @@
+{
+    "name": "PulseWire",
+    "description": "Real-time communications for Pulsar powered by socket.io",
+    "version": "0.0.1",
+    "license": "MIT",
+    "main": "./src/pulsewire.js",
+    "author": "Rob Colbert <rob.isConnected@gmail.com>",
+    "keywords": ["Pulsar","blog","CMS","socket.io","blogging","plugins","Node.js"],
+    "homepage": "https://github.com/robcolbert/pulsarcms/tree/master/api/app/plugins/pulsewire",
+    "repository": {
+        "type":"git",
+        "url":"https://github.com/robcolbert/pulsarcms"
+    },
+    "bugs": {
+        "url": "https://github.com/robcolbert/pulsarcms/issues",
+        "email":"rob.isConnected@gmail.com"
+    },
+    "pulsar": {
+      "accessLevel": "admin",
+      "socketio": {
+        "enabled": true,
+        "channel": "f1172fba-e553-4975-8da4-022bce1cf227"
+      }
+    }
+}

@@ -35,6 +35,15 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
   $scope.user = UserSession;
   $scope.tinymceOptions = Configuration.tinymceOptions;
 
+  $scope.composer = {
+    'visible': false,
+    'newPulse': function ( ) {
+      $scope.composer.pulse = {
+        'content': ''
+      };
+    }
+  };
+
   SidebarPulses.list(function (pulses) {
     ga('send','event', 'Pulses', 'listed', pulses.length);
     pulses.forEach(function (pulse) {
@@ -48,13 +57,12 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
   });
 
   $rootScope.$on('clearUserSession', function ( ) {
-    $scope.showComposer = false;
-    $scope.newPulse = { };
+    $scope.composer.visible = false;
+    $scope.composer.newPulse();
   });
 
   $scope.dateAsMoment = function (date) { return moment(date).calendar(); };
 
-  $scope.newPulse = { };
   $scope.createPulse = function ( ) {
     if (!$scope.user.session.authenticated.status) {
       // Not authenticated, don't even know how you got here, but...no.
@@ -62,11 +70,11 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
       // to accept the pulse even if submitted via curl, though.
       return;
     }
-    SidebarPulses.create($scope.newPulse, function (pulse) {
+    SidebarPulses.create($scope.composer.pulse, function (pulse) {
       ga('send','event', 'Pulses', 'created', 1);
       $scope.pulses.unshift(pulse);
-      $scope.showComposer = false;
-      $scope.newPulse = { };
+      $scope.composer.visible = false;
+      $scope.composer.newPulse();
       if (angular.isDefined(window.twttr)) {
         setTimeout(window.twttr.widgets.load, 0);
       }

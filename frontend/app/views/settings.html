@@ -91,17 +91,6 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="col-sm-6">
-        <label for="postVisibility">Post visibility</label>
-        <select class="form-control"
-                ng-model="user.settings.defaults.posts.visibility"
-                id="postVisibility"
-                ng-options="option.value as option.name group by option.type for option in visibilityOptions">
-        </select>
-      </div>
-    </div>
-
   </fieldset>
 
   <fieldset>
@@ -116,38 +105,83 @@
       grow and improve this service.
     </p>
 
-    <div class="form-group">
-      <div class="col-sm-3">
-        <div class="checkbox" title="Receive comments on your posts as email messages">
-          <label>
-            <input type="checkbox" ng-model="user.settings.flags.email.postComments" />
-            Post comments
-          </label>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="checkbox" title="Receive comments on your pulses as email messages">
+            <label>
+              <input type="checkbox" ng-model="user.settings.flags.email.pulseComments" />
+              Pulse comments
+            </label>
+          </div>
         </div>
       </div>
-      <div class="col-sm-3">
-        <div class="checkbox" title="Receive comments on your pulses as email messages">
-          <label>
-            <input type="checkbox" ng-model="user.settings.flags.email.pulseComments" />
-            Pulse comments
-          </label>
+      <div class="col-sm-8">
+        <p class="help-block">
+          blah.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="checkbox" title="Receive direct messages from others as email messages">
+            <label>
+              <input type="checkbox" ng-model="user.settings.flags.email.conversations" />
+              Conversation messages
+            </label>
+          </div>
         </div>
       </div>
-      <div class="col-sm-3">
-        <div class="checkbox" title="Receive direct messages from others as email messages">
-          <label>
-            <input type="checkbox" ng-model="user.settings.flags.email.directMessages" />
-            Direct messages
-          </label>
+      <div class="col-sm-8">
+        <p class="help-block">
+          Receive notifications when you receive a new conversation message in
+          any ongoing conversation.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="checkbox" title="Infrequent site updates and announcements (zero spam)">
+            <label>
+              <input type="checkbox" ng-model="user.settings.flags.email.siteNews" />
+              The Pulse
+            </label>
+          </div>
         </div>
       </div>
-      <div class="col-sm-3">
-        <div class="checkbox" title="Infrequent site updates and announcements (zero spam)">
-          <label>
-            <input type="checkbox" ng-model="user.settings.flags.email.siteNews" />
-            The Pulse (site news)
-          </label>
+      <div class="col-sm-8">
+        <p class="help-block">
+          "The Pulse" is the Pulsar community newsletter. As major new features are
+          finished and other news happens in the Pulsar online community, we'll let
+          you know.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="checkbox" title="Desktop notification support">
+            <label>
+              <input type="checkbox"
+                    ng-change="onDesktopNotificationsChange()"
+                    ng-model="user.settings.flags.desktopNotifications.enabled" />
+              Desktop notifications
+            </label>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-8">
+        <p class="help-block">
+          Pulsar desktop notifications free you from having to keep the Pulsar window
+          open at all times. If you enable desktop notifications and grant Pulsar
+          permission, it can display system notifications from Pulsar on your desktop
+          while the Pulsar browser tab/window is minimized.
+        </p>
       </div>
     </div>
 

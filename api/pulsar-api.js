@@ -38,7 +38,7 @@ app.log = winston;
 
 app.checkAuthentication = function (req, res, message) {
   if (!req.session.user || !req.session.authenticated.status) {
-    winston.error('authentication check failed', req.session, message);
+    app.log.error('authentication check failed', req.session, message);
     res.json(500, { 'message': message });
     return false;
   }
@@ -50,7 +50,7 @@ app.checkAdmin = function (req, res, message) {
     return false;
   }
   if (!req.session.user.isAdmin) {
-    winston.error('admin rights failed', req.session, message);
+    app.log.error('admin rights failed', req.session, message);
     res.json(500, { 'message': message });
     return false;
   }
@@ -58,27 +58,29 @@ app.checkAdmin = function (req, res, message) {
 };
 
 var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
 var monitor = null;
 
 var mongoose = require('mongoose');
 var fs = require('fs');
 var config = require('./config/config');
+
 var pulsar = require('pulsar-api-framework');
 
-winston.info('connecting to database at ' + config.db);
+app.log.info('connecting to database at ' + config.db);
 mongoose.connect(config.db);
 
 var db = mongoose.connection;
 db.on('error', function (err) {
   if (err) {
-    winston.error('db connect', err);
+    app.log.error('db connect', err);
   }
   throw new Error('unable to connect to database');
 });
 
 db.on('open', function ( ) {
-  winston.info('connected to database');
+  app.log.info('connected to database');
+
+  // Data Models
   var modelsPath = __dirname + '/app/models';
   fs.readdirSync(modelsPath).forEach(function (file) {
     if (file.indexOf('.js') >= 0) {
@@ -86,20 +88,48 @@ db.on('open', function ( ) {
     }
   });
 
+  // ExpressJS REST API
   require('./config/express')(app, config);
   require('./config/routes')(app, config);
 
+  // Pulsar Monitor Service
   monitor = new pulsar.monitor.Monitor(app, config);
-  io.sockets.on('connection', function (socket) {
-    socket.emit('hello', {
-      'service':'PulseWire Real-Time Messaging',
-      'version':'0.0.1'
-    });
-    socket.on('goodbye', function (data) {
-      winston.info('socket.goodbye', data);
-    });
+
+  app.log.info('API server listening on port', config.port);
+  server.listen(config.port, '0.0.0.0');
+
+  // socket.io instance and startup
+  var socketioConfig = config.app.socketio;
+  var io = null;
+  if (socketioConfig.enabled) {
+    io = require('socket.io').listen(server);
+    io.set('origins', config.cors.allowOrigins.join(','));
+
+    if (socketioConfig.client.minify) {
+      io.enable('browser client minification');
+    }
+    if (socketioConfig.client.etag) {
+      io.enable('browser client etag');
+    }
+    if (socketioConfig.client.gzip) {
+      io.enable('browser client gzip');
+    }
+    if (socketioConfig.logLevel) {
+      io.set('log level', socketioConfig.logLevel);
+    }
+  }
+
+  // Pulsar API plugins
+  app.plugins = require(__dirname + '/app/plugins');
+  app.plugins.forEach(function (Plugin) {
+    app.log.info(
+      'starting plugin',
+      Plugin.packageMeta.name,
+      '/ socketio',
+      Plugin.packageMeta.pulsar.socketio
+    );
+    Plugin.instance = new Plugin(app, server, config);
+    Plugin.instance.start(io === null ? null : io.of(Plugin.packageMeta.pulsar.socketio.channel));
   });
 
-  winston.info('API server listening on port', config.port);
-  server.listen(config.port, '0.0.0.0');
 });

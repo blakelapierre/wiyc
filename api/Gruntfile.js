@@ -26,6 +26,7 @@ module.exports = function (grunt) {
         files: [
           'pulsar-api.js',
           'app/**/*.js',
+          'app/plugins/**/*.js',
           'config/*.js'
         ],
         tasks: ['develop', 'delayed-livereload']

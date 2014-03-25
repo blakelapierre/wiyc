@@ -88,11 +88,16 @@ var UsersSchema = new mongoose.Schema({
   'messageCount': { 'type': Number, 'default': 0 },
   'settings': {
     'flags': {
+      'desktopNotifications': {
+        'enabled': { 'type': Boolean, 'default': false },
+        'conversations': { 'type': Boolean, 'default': true },
+        'comments': { 'type': Boolean, 'default': true },
+        'requests': { 'type': Boolean, 'default': true },
+      },
       'email': {
-        'directMessages': { 'type': Boolean, 'default': false },
-        'postComments': { 'type': Boolean, 'default': false },
-        'pulseComments': { 'type': Boolean, 'default': false },
-        'siteNews': { 'type': Boolean, 'default': true }
+        'conversations': { 'type': Boolean, 'default': false },
+        'comments': { 'type': Boolean, 'default': false },
+        'requests': { 'type': Boolean, 'default': true }
       }
     },
     'defaults': {

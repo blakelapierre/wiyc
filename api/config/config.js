@@ -52,6 +52,16 @@ var corsConfig = {
   'allowCredentials': true
 };
 
+var socketIoOptions = {
+  'enabled': true,
+  'logLevel': 2,
+  'client': {
+    'minify': true,
+    'etag': true,
+    'gzip': true
+  }
+};
+
 var monitorConfig = {
   'enabled': true,
   'mountPoint': '/monitor',
@@ -81,7 +91,8 @@ var config = {
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
       'emailUser': localConfig.emailUser,
-      'emailPassword': localConfig.emailPassword
+      'emailPassword': localConfig.emailPassword,
+      'socketio': socketIoOptions
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-development',
@@ -97,7 +108,8 @@ var config = {
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
       'emailUser': localConfig.emailUser,
-      'emailPassword': localConfig.emailPassword
+      'emailPassword': localConfig.emailPassword,
+      'socketio': socketIoOptions
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-test',
@@ -113,7 +125,8 @@ var config = {
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
       'emailUser': localConfig.emailUser,
-      'emailPassword': localConfig.emailPassword
+      'emailPassword': localConfig.emailPassword,
+      'socketio': socketIoOptions
     },
     'port': listenPort,
     'db': 'mongodb://localhost/robcolbert-production',

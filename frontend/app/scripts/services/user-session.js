@@ -4,7 +4,7 @@
  *
  * PURPOSE
  *
- * 
+ *
  * LICENSE
  *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
  *
@@ -29,8 +29,9 @@
 
 'use strict';
 
-function UserSession($rootScope, $location, Sessions) {
+function UserSession($rootScope, $location, Sessions, Notifications) {
 
+  console.log('In UserSession, Notifications is', Notifications);
   var self = this;
 
   //
@@ -102,7 +103,8 @@ function UserSession($rootScope, $location, Sessions) {
 UserSession.$inject = [
   '$rootScope',
   '$location',
-  'Sessions'
+  'Sessions',
+  'Notifications'
 ];
 
 //

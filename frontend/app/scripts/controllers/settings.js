@@ -29,14 +29,26 @@
 
 'use strict';
 
-function SettingsCtrl ($scope, $rootScope, $window, Configuration, Users, UserSession) {
-
+function SettingsCtrl ($scope, $rootScope, $window, Configuration, Users, UserSession, Notifications) {
   if (!UserSession.checkAuthentication(UserSession.WITH_REDIRECT)) {
     return; // immediately abort all further processing
   }
 
   $window.scrollTo(0, 0);
   ga('send', 'pageview');
+
+  $scope.notifications = { };
+  $scope.onDesktopNotificationsChange = function ( ) {
+    if (!$scope.user.settings.flags.desktopNotifications.enabled) {
+      return;
+    }
+    Notifications.requestPermission(function (permission) {
+      if (permission !== 'granted') {
+        $scope.user.settings.flags.desktopNotifications.enabled = false;
+        return;
+      }
+    });
+  };
 
   $scope.haveError = false;
   $scope.error = null;
@@ -67,6 +79,10 @@ function SettingsCtrl ($scope, $rootScope, $window, Configuration, Users, UserSe
         console.log('user updated successfully', user);
         ga('send','event', 'Settings', 'userUpdateSuccess', 1);
         $scope.user = user;
+        Notifications.showNotification('Pulsar System Message', {
+          'tag':'pulsar_System',
+          'body':'User settings saved successfully.'
+        });
       },
       function onUserUpdateError (error) {
         console.log('user update failed', error);
@@ -85,7 +101,8 @@ SettingsCtrl.$inject = [
   '$window',
   'Configuration',
   'Users',
-  'UserSession'
+  'UserSession',
+  'Notifications'
 ];
 
 angular.module('robcolbertApp')

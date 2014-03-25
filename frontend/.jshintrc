@@ -19,9 +19,10 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
-    "jQuery": false,  // jQuery, leave me alone. Tell me about '$' though.
-    "angular": false, // AngularJS, leave me alone.
-    "ga": false,      // Google Analytics, leave me alone.
-    "SC": false       // SoundCloud Widget API, leave me alone.
+    "jQuery": false,
+    "angular": false,
+    "ga": false,
+    "SC": false,
+    "Notification": false
   }
 }

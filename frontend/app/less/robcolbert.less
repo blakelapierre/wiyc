@@ -27,6 +27,11 @@ body {
 @import 'robcolbert-media-sc.less';
 @import 'robcolbert-theater.less';
 
+.main-view {
+  -webkit-transform-style:preserve-3d;
+  -webkit-perspective:500px;
+}
+
 .prototype .meta-label {
   float:left;
   margin-right:16px;
@@ -42,6 +47,21 @@ body {
 
 .divider {
   border-top:solid 1px darken(@rjc-gray, 25%);
+}
+
+.cta-button {
+  position:relative;
+  margin:8px;
+  padding:16px;
+  box-shadow: none;
+  border-radius:8px;
+  transform-origin: center;
+  transition:all 0.5s;
+  &:hover {
+    background-color:@rjc-gray;
+    transform: translate3d(-10px,-5px,15px) rotateY(-15deg);
+    box-shadow:0 2px 4px rgba(0,0,0,0.8);
+  }
 }
 
 textarea {
