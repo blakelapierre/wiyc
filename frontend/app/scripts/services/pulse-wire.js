@@ -30,21 +30,44 @@
 'use strict';
 /* global io:false */
 
-function PulseWire($rootScope, Configuration, UserSession) {
+function PulseWire($rootScope, $resource, Configuration, UserSession) {
+
   this.$rootScope = $rootScope;
   this.Configuration = Configuration;
   this.UserSession = UserSession;
-  this.channel = 'f1172fba-e553-4975-8da4-022bce1cf227';
 
   this.open = false;
+
+  this.pulsewireSessions = $resource(
+    Configuration.buildApiUrl('/pulsewire/sessions'),
+    null,
+    {
+      'get': { 'method': 'GET' },
+      'create': { 'method': 'POST' }
+    }
+  );
+
   this.connect();
 }
 
 PulseWire.prototype.connect = function ( ) {
-  var connectUrl = this.Configuration.buildApiUrl('/' + this.channel.toString());
-  console.log('socket.io connecting to', connectUrl);
-  this.socket = io.connect(connectUrl);
-  this.attach();
+  var self = this;
+
+  if (!angular.isDefined(window.io)) {
+    return;
+  }
+
+  self.pulsewireSessions.create(
+    null,
+    function onSessionCreateSuccess (session) {
+      console.log('socket.io connecting to', session.channelUrl);
+      self.socket = io.connect(session.channelUrl);
+      self.attach();
+    },
+    function onSessionCreateError (error) {
+      console.log('failed to connect to PulseWire', error);
+    }
+  );
 };
 
 PulseWire.prototype.emit = function (eventName, eventData) {
@@ -79,6 +102,7 @@ PulseWire.prototype.attach = function ( ) {
 
 PulseWire.$inject = [
   '$rootScope',
+  '$resource',
   'Configuration',
   'UserSession'
 ];

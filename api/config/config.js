@@ -35,6 +35,8 @@ var localConfig = require('./config.local');
 
 var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
+
+var bindAddress = '127.0.0.1';
 var listenPort = 10010;
 
 var corsConfig = {
@@ -54,7 +56,7 @@ var corsConfig = {
 
 var socketIoOptions = {
   'enabled': true,
-  'logLevel': 2,
+  'logLevel': 1,
   'client': {
     'minify': true,
     'etag': true,
@@ -94,7 +96,10 @@ var config = {
       'emailPassword': localConfig.emailPassword,
       'socketio': socketIoOptions
     },
-    'port': listenPort,
+    'bind': {
+      'address': bindAddress,
+      'port': listenPort
+    },
     'db': 'mongodb://localhost/robcolbert-development',
     'cors': corsConfig,
     'monitor': monitorConfig
@@ -111,7 +116,10 @@ var config = {
       'emailPassword': localConfig.emailPassword,
       'socketio': socketIoOptions
     },
-    'port': listenPort,
+    'bind': {
+      'address': bindAddress,
+      'port': listenPort
+    },
     'db': 'mongodb://localhost/robcolbert-test',
     'cors': corsConfig,
     'monitor': monitorConfig
@@ -128,7 +136,10 @@ var config = {
       'emailPassword': localConfig.emailPassword,
       'socketio': socketIoOptions
     },
-    'port': listenPort,
+    'bind': {
+      'address': bindAddress,
+      'port': listenPort
+    },
     'db': 'mongodb://localhost/robcolbert-production',
     'cors': corsConfig,
     'monitor': monitorConfig

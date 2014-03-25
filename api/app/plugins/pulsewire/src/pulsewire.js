@@ -51,16 +51,18 @@ function PulseWire (app, http, config) {
  */
 PulseWire.prototype.start = function (io) {
   var self = this;
-  io
-  .on('connection', function (socket) {
-    self.onPulseWireConnection(socket);
-  })
+  io.on('connection', function (socket) { self.onClientConnection(socket); });
 
   var routeAssembler = new RouteAssembler(this.app, this.config);
   routeAssembler.add({
     'uri'             : '/pulsewire/sessions',
     'method'          : 'POST',
     'controllerMethod': function (req, res) { return self.onSessionsCreate(req,res); }
+  });
+  routeAssembler.add({
+    'uri'             : '/pulsewire/sessions',
+    'method'          : 'GET',
+    'controllerMethod': function (req, res) { return self.getUserSession(req, res); }
   });
 };
 
@@ -105,10 +107,11 @@ PulseWire.prototype.onSessionsCreate = function (req, res) {
    *    the user is granted access. Otherwise, the socket is closed.
    */
 
-  var session = {
-    'sessionToken': guid()
+  req.session.pulsewire = {
+    'channelUrl': 'http://'+this.config.bind.address+':'+this.config.bind.port+'/'+PulseWire.packageMeta.pulsar.socketio.channel,
+    'authToken': guid()
   };
-  res.json(200, session);
+  res.json(200, req.session.pulsewire);
 };
 
 /*
@@ -121,6 +124,7 @@ PulseWire.prototype.onSessionsCreate = function (req, res) {
  * @TODO refactor to PulseWireClient
  */
 PulseWire.prototype.onClientConnection = function (socket) {
+  console.log('NEW CLIENT CONNECTION');
   var client = new PulseWireClient(this, socket);
   this.clients.push(client);
 

@@ -95,8 +95,8 @@ db.on('open', function ( ) {
   // Pulsar Monitor Service
   monitor = new pulsar.monitor.Monitor(app, config);
 
-  app.log.info('API server listening on port', config.port);
-  server.listen(config.port, '0.0.0.0');
+  app.log.info('API server listening on '+config.bind.address+':'+config.bind.port);
+  server.listen(config.bind.port, config.bind.address);
 
   // socket.io instance and startup
   var socketioConfig = config.app.socketio;
@@ -120,6 +120,7 @@ db.on('open', function ( ) {
   }
 
   // Pulsar API plugins
+  var ioChannel;
   app.plugins = require(__dirname + '/app/plugins');
   app.plugins.forEach(function (Plugin) {
     app.log.info(
@@ -129,7 +130,12 @@ db.on('open', function ( ) {
       Plugin.packageMeta.pulsar.socketio
     );
     Plugin.instance = new Plugin(app, server, config);
-    Plugin.instance.start(io === null ? null : io.of(Plugin.packageMeta.pulsar.socketio.channel));
+
+    ioChannel = null;
+    if (socketioConfig.enabled) {
+      ioChannel = io.of(Plugin.packageMeta.pulsar.socketio.channel);
+    }
+    Plugin.instance.start(ioChannel);
   });
 
 });

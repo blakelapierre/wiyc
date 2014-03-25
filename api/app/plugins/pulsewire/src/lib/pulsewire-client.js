@@ -15,6 +15,8 @@ function PulseWireClient (container, socket) {
   .on('hello', function onClientHello(authToken) { return self.onHello(authToken); })
   .on('goodbye', function onClientGoodbye (data) { return self.onGoodbye(data); });
 
+  this.sendHelloMessage();
+
 }
 
 /*
@@ -27,13 +29,13 @@ function PulseWireClient (container, socket) {
  */
 
 PulseWireClient.prototype.sendHelloMessage = function ( ) {
+  container.app.log.info('sending HELLO message');
   this.socket.emit('hello', {
     'pulsewire': PulseWire.packageMeta
   });
 };
 
 PulseWireClient.prototype.onHello = function (authToken) {
-  this.
   this.socket.emit('hello', {
     'pulsewire': PulseWire.packageMeta
   });
