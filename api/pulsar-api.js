@@ -64,7 +64,7 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 var config = require('./config/config');
 
-var pulsar = require('pulsar-api-framework');
+var PulsarApiFramework = require('pulsar-api-framework');
 
 app.log.info('connecting to database at ' + config.db);
 mongoose.connect(config.db);
@@ -93,13 +93,14 @@ db.on('open', function ( ) {
   require('./config/routes')(app, config);
 
   // Pulsar Monitor Service
-  monitor = new pulsar.monitor.Monitor(app, config);
+  monitor = new PulsarApiFramework.monitor.Monitor(app, config);
 
   app.log.info('API server listening on '+config.bind.address+':'+config.bind.port);
   server.listen(config.bind.port, config.bind.address);
 
   // socket.io instance and startup
   var socketioConfig = config.app.socketio;
+  app.log.info('socket.io', socketioConfig);
   var io = null;
   if (socketioConfig.enabled) {
     io = require('socket.io').listen(server);
@@ -120,22 +121,27 @@ db.on('open', function ( ) {
   }
 
   // Pulsar API plugins
-  var ioChannel;
   app.plugins = require(__dirname + '/app/plugins');
+  app.channels = [ ];
+
+  app.log.info('loading plugins');
   app.plugins.forEach(function (Plugin) {
-    app.log.info(
-      'starting plugin',
-      Plugin.packageMeta.name,
-      '/ socketio',
-      Plugin.packageMeta.pulsar.socketio
-    );
+    app.log.info('++', Plugin.packageMeta.name, 'socket.io', Plugin.packageMeta.pulsar.socketio);
     Plugin.instance = new Plugin(app, server, config);
 
-    ioChannel = null;
+    var channel = null, channelUuid;
     if (socketioConfig.enabled) {
-      ioChannel = io.of(Plugin.packageMeta.pulsar.socketio.channel);
+      channelUuid = Plugin.packageMeta.pulsar.socketio.channelUuid;
+      channel = io.of('/'+channelUuid);
+      app.channels.push({
+        'channelUuid': channelUuid,
+        'Plugin': Plugin,
+        'socketioChannel': channel
+      });
     }
-    Plugin.instance.start(ioChannel);
+    Plugin.instance.start(channel);
   });
+
+  app.log.info('Pulsar online with', app.plugins.length, 'plugins and', app.channels.length, 'socket.io channels');
 
 });

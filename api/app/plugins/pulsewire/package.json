@@ -14,12 +14,5 @@
     "bugs": {
         "url": "https://github.com/robcolbert/pulsarcms/issues",
         "email":"rob.isConnected@gmail.com"
-    },
-    "pulsar": {
-      "accessLevel": "admin",
-      "socketio": {
-        "enabled": true,
-        "channel": "f1172fba-e553-4975-8da4-022bce1cf227"
-      }
     }
 }

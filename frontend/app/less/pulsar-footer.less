@@ -1,12 +1,20 @@
+// less/pulsar-footer.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+//
+// REFERENCE:
+// https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
+
 .footer {
   position:fixed;
   right:0; bottom:0; left:0;
   height:32px;
   font-size:14px;
-  padding:7px 0; margin:0;
-  color: #777;
-  border-top: 1px solid darken(@rjc-gray, 25%);
-  background-color:@rjc-gray;
+  padding:7px 0;
+  margin:0;
+  border-top:1px solid darken(@pulsarFooterBgColor, 25%);
+  background-color:@pulsarFooterBgColor;
+  color:@pulsarFooterTextColor;
   box-shadow:0 -2px 8px rgba(0,0,0,0.4);
   transition:background 1s;
   .footer-wrap {
@@ -25,18 +33,19 @@
       margin:0 4px;
       font-weight:bold;
       line-height:1.0em;
-      color:#4a4a4a;
+      color:@pulsarFooterTextColor;
     }
     .message {
       display:inline-block;
       margin:0;
       line-height:1.0em;
-      color:#202020;
+      color:@pulsarFooterTextColor;
     }
     div.icon {
       display:inline-block;
       line-height:1em;
-      width:18px; height:18px;
+      width:18px;
+      height:18px;
       margin-left:16px;
     }
     .badge {

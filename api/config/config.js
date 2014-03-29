@@ -89,6 +89,7 @@ var config = {
     'root': rootPath,
     'app': {
       'name': 'pulsar-api',
+      'cookieSecret': localConfig.cookieSecret,
       'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,

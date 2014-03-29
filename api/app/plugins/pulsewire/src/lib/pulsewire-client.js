@@ -8,14 +8,12 @@ function PulseWireClient (container, socket) {
 
   var self = this;
 
-  this.container = container;
-  this.socket = socket;
+  self.container = container;
+  self.socket = socket;
 
-  this.socket
-  .on('hello', function onClientHello(authToken) { return self.onHello(authToken); })
-  .on('goodbye', function onClientGoodbye (data) { return self.onGoodbye(data); });
-
-  this.sendHelloMessage();
+  self.socket
+  .on('hello', function onClientHello(hello) { return self.onHello(hello); })
+  .on('goodbye', function onClientGoodbye (goodbye) { return self.onGoodbye(goodbye); });
 
 }
 
@@ -29,16 +27,19 @@ function PulseWireClient (container, socket) {
  */
 
 PulseWireClient.prototype.sendHelloMessage = function ( ) {
-  container.app.log.info('sending HELLO message');
+  this.container.app.log.info('sending HELLO message');
   this.socket.emit('hello', {
-    'pulsewire': PulseWire.packageMeta
+    'pulsewire': this.container.packageMeta
   });
 };
 
-PulseWireClient.prototype.onHello = function (authToken) {
-  this.socket.emit('hello', {
-    'pulsewire': PulseWire.packageMeta
-  });
+PulseWireClient.prototype.onHello = function (hello) {
+  this.container.app.log.info('HELLO received', hello.authToken);
+};
+
+PulseWireClient.prototype.onGoodbye = function ( ) {
+  this.socket.close();
+  this.container
 };
 
 module.exports = exports = PulseWireClient;

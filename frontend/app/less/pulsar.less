@@ -1,0 +1,115 @@
+// less/pulsar.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+//
+// REFERENCE:
+// https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
+
+@import url('http://fonts.googleapis.com/css?family=Share+Tech');
+@import url('http://fonts.googleapis.com/css?family=Duru+Sans');
+
+@import 'pulsar-variables.less';
+
+body {
+  padding: 68px 0 32px 0;
+  background-position:center center;
+  background-size:cover;
+  background-color:@pulsarBgColor;
+  transition: background 1s;
+  &.theater {
+    background-image:url('/images/theater-bg.jpg');
+    background-color:@pulsarTheaterBgColor;
+    color:@pulsarTheaterTextColor;
+  }
+}
+
+a:link {
+  color:@pulsarAnchorLinkColor;
+  text-decoration:@pulsarAnchorLinkDecoration;
+}
+a:hover {
+  color:@pulsarAnchorHoverColor;
+  text-decoration:@pulsarAnchorHoverDecoration;
+}
+a:active {
+  color:@pulsarAnchorActiveColor;
+  text-decoration:@pulsarAnchorActiveDecoration;
+}
+a:visited {
+  color:@pulsarAnchorVisitedColor;
+  text-decoration:@pulsarAnchorVisitedDecoration;
+}
+
+@import 'pulsar-footer.less';
+@import 'pulsar-sidebar.less';
+@import 'pulsar-content-section.less';
+
+@import 'pulsar-pulse.less';
+@import 'pulsar-sidebar-pulse.less';
+
+@import 'pulsar-comments.less';
+@import 'pulsar-credits.less';
+@import 'pulsar-media-sc.less';
+@import 'pulsar-theater.less';
+
+.main-view {
+  -webkit-transform-style:preserve-3d;
+  -webkit-perspective:500px;
+}
+
+.prototype .meta-label {
+  float:left;
+  margin-right:16px;
+  margin-bottom:16px;
+}
+
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+
+.divider {
+  border-top:solid 1px darken(@pulsarBaseColor, 25%);
+}
+
+.cta-button-container {
+  position:relative;
+  & .cta-button {
+    box-shadow: none;
+    transform-origin: center;
+    transition: all 0.75s;
+    &.hover {
+      background-color: @pulsarBaseColor;
+      color: darken(@pulsarBaseColor, 40%);
+      transform: translate3d(0,40px,90px) rotateX(-360deg);
+      box-shadow: 0 2px 12px rgba(0,0,140,0.5);
+    }
+  }
+}
+
+textarea {
+  resize:vertical;
+}
+
+.jumbotron {
+  & h1 {
+    margin-top:0;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow:0 0 6px rgba(0,0,0,0.25) inset;
+  border-radius:4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border:solid 1px rgba(0,0,16,0.1);
+  border-radius: 4px;
+  background-color:rgba(0,0,16,0.1);
+}

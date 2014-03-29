@@ -1,37 +1,28 @@
-<div class="video-container">
-  <div class="video-player">
-    <iframe width="853" height="480" src="//www.youtube.com/embed/8KIra6y9by8" frameborder="0" allowfullscreen></iframe>
+<div class="jumbotron">
+  <h1>What Is This?</h1>
+  <p>
+    Pulsar is <a href="/#/about">Rob Colbert</a>'s personal CMS project. Have a
+    look around and learn more about what this software can do.
+  </p>
+  <div class="cta-button-container text-center">
+    <a href="/#/signup"
+       class="btn btn-primary btn-lg cta-button"
+       >
+      Create Profile
+    </a>
   </div>
 </div>
 
-<div class="cta-button pull-right">
-  <a href="/#/signup"
-      class="btn btn-primary btn-lg"
-      >
-    Create Test Account
-  </a>
-</div>
-
-<h2>What Is This?</h2>
-
 <p>
-  You are on a web site operated by
-  <a href="http://www.linkedin.com/in/robcolbert">Rob Colbert</a>, a veteran
-  full-stack to low-level network and "Web" software developer. It is running
-  his personal software project: Pulsar. The YouTube video above shows Pulsar
-  doing what it does. If you have Google Chrome, find it under
-  Demos -> Moving Parts.
+  The fastest and most helpful way to help is to create an account/profile and
+  post content here. I don't care what it is within reason. As you do, feel free
+  to share any feedback you might have. Another way to get involved is to install
+  Pulsar and run your own instance. A valid use of Pulsar would be as a family's
+  personal server to share photos with friends and family without the advertising
+  and privacy violations and incessant game invites of Facebook.
 </p>
 
-<p>
-  The public is welcomed to participate on a variety of levels. The fastest and
-  most helpful way is to create a test account and post content here. As you do,
-  feel free to share any feedback you might have. Another way to get involved is
-  to install Pulsar and run your own instance. A valid use of Pulsar would be as
-  a family's personal server to share photos with friends and family without the
-  advertising and privacy violations and incessant game invites of Facebook.
-</p>
-
+<h2><img src="favicon.ico"> How It Works</h2>
 <p>
   Pulsar is similar to blogging software. But, instead of posts, Pulsar
   creates pulses. Pulses range from static documents similar to standard
@@ -44,14 +35,6 @@
 </p>
 
 <p>
-  Pulsar is distributed under the
-  <a href="http://opensource.org/licenses/MIT">MIT</a> open source license.
-  You are entirely free to have and use Pulsar in whatever way you see fit.
-  Build your own applications that run directly in Pulsar against using
-  nothing more than your web browser and Pulsar Composer or Pulsar Studio.
-</p>
-
-<p>
   From personal blogs to news sites to music sites to online games to
   web applications of all types, Pulsar wants to be a technology you can use to
   quickly meet your content creation and website management goals. It is easy to
@@ -60,8 +43,21 @@
   technology that money <em>can't</em> buy.
 </p>
 
+<h2><img src="favicon.ico"> Availability</h2>
 <p>
-  Pulsar even has a Dislike button. You just can't see it, yet, because I'm
-  still building the earliest of features in the UI. If it's too early, I
-  understand. But, stop back each week. You'll see :)
+  Pulsar is is hosted on
+  <a href="https://github.com/robcolbert/pulsarcms" alt="Fork me on github!">github</a>
+  and is being distributed under the
+  <a href="http://opensource.org/licenses/MIT">MIT</a> open source license.
+  Build your own applications that run directly in Pulsar using nothing more than your
+  web browser, Pulsar Composer and Pulsar Studio.
 </p>
+
+<script type="text/javascript">
+  var container = $('.jumbotron');
+  var button = $('.cta-button');
+  container.hover(
+    function ( ) { console.log('hover!'); button.addClass('hover'); },
+    function ( ) { console.log('hover end'); button.removeClass('hover'); }
+  );
+</script>

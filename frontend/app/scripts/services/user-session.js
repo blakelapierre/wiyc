@@ -31,7 +31,6 @@
 
 function UserSession($rootScope, $location, Sessions, Notifications) {
 
-  console.log('In UserSession, Notifications is', Notifications);
   var self = this;
 
   //
@@ -47,6 +46,7 @@ function UserSession($rootScope, $location, Sessions, Notifications) {
   self.error = null;
 
   self.$rootScope.$on('setUserSession', function (event, userSession) {
+    console.log('USER SESSION', userSession);
     self.session = userSession;
     if (!angular.isDefined(self.session.authenticated)) {
       self.session.authenticated = { 'status': false };

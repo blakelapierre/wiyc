@@ -1,0 +1,45 @@
+// less/pulsar-sidebar.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+//
+// REFERENCE:
+// https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
+
+.sidebar {
+  background-color:@pulsarSidebarBgColor;
+  color:@pulsarSidebarTextColor;
+  .widget {
+    margin-bottom:16px;
+    padding:16px;
+    background-color:@pulsarSidebarWidgetBgColor;
+    color:@pulsarSidebarWidgetTextColor;
+    box-shadow:0 0 5px rgba(0,0,0,0.3) inset;
+    .heading {
+      padding:8px 0;
+      margin-bottom:16px;
+      font-family:"Share Tech";
+      font-size:24px;
+      line-height:1em;
+      background-color:@pulsarSidebarWidgetHeadingBgColor;
+      color:@pulsarSidebarWidgetHeadingTextColor;
+      box-shadow:0 0 5px rgba(0,0,0,0.3);
+      border:solid 1px darken(@pulsarSidebarWidgetHeadingBgColor, 20%);
+      .heading-wrap {
+        margin-left:8px;
+      }
+      .glyphicon {
+        font-size:0.8em;
+      }
+    }
+    .body {
+      padding:8px;
+      border-left:solid 1px @pulsarSidebarWidgetHeadingBgColor;
+      border-right:solid 1px @pulsarSidebarWidgetHeadingBgColor;
+      border-bottom:solid 1px @pulsarSidebarWidgetHeadingBgColor;
+      border-bottom-left-radius:8px;
+      border-bottom-right-radius:8px;
+      background-color:@pulsarSidebarWidgetBgColor;
+      color: @pulsarSidebarWidgetTextColor;
+    }
+  }
+}

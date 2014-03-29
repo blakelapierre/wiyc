@@ -43,6 +43,7 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
       };
     }
   };
+  $scope.composer.newPulse();
 
   SidebarPulses.list(function (pulses) {
     ga('send','event', 'Pulses', 'listed', pulses.length);

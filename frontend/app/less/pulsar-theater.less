@@ -1,0 +1,41 @@
+// less/pulsar-theater.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+//
+// REFERENCE:
+// https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
+
+.theater {
+  background-color:@pulsarTheaterBgColor;
+  color:@pulsarTheaterTextColor;
+  .pulsar-media-sc {
+    margin-top:32px;
+  }
+  .footer {
+    margin-top:32px;
+    background-color:@pulsarTheaterFooterBgColor;
+    border-top: 1px solid darken(@pulsarTheaterFooterBgColor, 60%);
+    color:@pulsarTheaterFooterTextColor;
+    /*
+    .brand, .label, .message, div.icon {
+      color:@pulsarTheaterFooterTextColor;
+    }
+    */
+    a:link {
+      color: @pulsarTheaterFooterAnchorLinkColor;
+      text-decoration: @pulsarTheaterFooterAnchorLinkDecoration;
+    }
+    a:hover {
+      color: @pulsarTheaterFooterAnchorHoverColor;
+      text-decoration: @pulsarTheaterFooterAnchorHoverDecoration;
+    }
+    a:active {
+      color: @pulsarTheaterFooterAnchorActiveColor;
+      text-decoration: @pulsarTheaterFooterAnchorActiveDecoration;
+    }
+    a:visited {
+      color: @pulsarTheaterFooterAnchorVisitedColor;
+      text-decoration: @pulsarTheaterFooterAnchorVisitedDecoration;
+    }
+  }
+}

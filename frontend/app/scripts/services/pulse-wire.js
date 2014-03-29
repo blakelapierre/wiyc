@@ -30,15 +30,16 @@
 'use strict';
 /* global io:false */
 
-function PulseWire($rootScope, $resource, Configuration, UserSession) {
+function PulseWire($rootScope, $resource, Configuration) {
 
-  this.$rootScope = $rootScope;
-  this.Configuration = Configuration;
-  this.UserSession = UserSession;
+  var self = this;
 
-  this.open = false;
+  self.$rootScope = $rootScope;
+  self.Configuration = Configuration;
+  self.userSession = null;
+  self.open = false;
 
-  this.pulsewireSessions = $resource(
+  self.pulsewireSessions = $resource(
     Configuration.buildApiUrl('/pulsewire/sessions'),
     null,
     {
@@ -47,7 +48,11 @@ function PulseWire($rootScope, $resource, Configuration, UserSession) {
     }
   );
 
-  this.connect();
+  $rootScope.$on('setUserSession', function (event, userSession) {
+    self.userSession = userSession;
+    self.connect();
+  });
+
 }
 
 PulseWire.prototype.connect = function ( ) {
@@ -57,10 +62,14 @@ PulseWire.prototype.connect = function ( ) {
     return;
   }
 
+  console.log('requesting new PulseWire user session');
   self.pulsewireSessions.create(
     null,
     function onSessionCreateSuccess (session) {
+      console.log('PulseWire user session', session);
       console.log('socket.io connecting to', session.channelUrl);
+      self.session = session;
+      self.session.connected = false;
       self.socket = io.connect(session.channelUrl);
       self.attach();
     },
@@ -77,24 +86,33 @@ PulseWire.prototype.emit = function (eventName, eventData) {
 PulseWire.prototype.attach = function ( ) {
   var self = this;
 
-  this.socket.on('hello', function (data) {
+  self.socket.on('connect', function ( ) {
+    self.session.connected = true;
+    console.log('PulseWire connected, sending hello');
+    self.socket.emit('hello', {
+      'userId': self.userSession.user._id,
+      'authToken': self.session.authToken
+    });
+  });
+
+  self.socket.on('hello', function (data) {
     console.log('pulsewire.hello', data);
     self.server = data;
     self.open = true;
     self.$rootScope.$broadcast('pulsewire.hello', data);
   });
 
-  this.socket.on('post', function (data) {
+  self.socket.on('post', function (data) {
     console.log('pulsewire.post', data);
     self.$rootScope.$broadcast('pulsewire.post', data);
   });
 
-  this.socket.on('comment', function (data) {
+  self.socket.on('comment', function (data) {
     console.log('pulsewire.comment', data);
     self.$rootScope.$broadcast('pulsewire.comment', data);
   });
 
-  this.socket.on('message', function (data) {
+  self.socket.on('message', function (data) {
     console.log('pulsewire.message', data);
     self.$rootScope.$broadcast('pulsewire.message', data);
   });

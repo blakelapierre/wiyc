@@ -5,13 +5,13 @@
 </p>
 
 <div class="pulse" ng-repeat="pulse in pulses.pulses">
-  <hr />
-  <h1 style="margin-bottom:0; padding-bottom:0;">
-    <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
-  </h1>
-  <small>{{pulse._creator.displayName}}, {{calendarMoment(pulse.created).toLowerCase()}}</small>
-  <!--                                  I feel kinda dirty. Because ^ that's just sick -->
-  <div ng-bind-html="pulse.excerpt" style="margin-top:16px;"></div>
+  <div class="header">
+    <div class="title">
+      <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
+    </div>
+    <div class="byline">{{pulse._creator.displayName}}, {{calendarMoment(pulse.created).toLowerCase()}}</div>
+  </div>
+  <div class="body" ng-bind-html="pulse.excerpt"></div>
   <p>
     <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">Continue reading...</a>
   </p>

@@ -1,0 +1,23 @@
+// less/pulsar-sidebar-pulse.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+//
+// REFERENCE:
+// https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
+
+.sidebar-pulse {
+  font-size:12px;
+  line-height:1.2em;
+  margin-bottom:16px;
+  background-color:@pulsarSidebarPulseBgColor;
+  color:@pulsarSidebarPulseTextColor;
+  .created {
+    padding:6px 8px;
+  }
+  .body {
+    padding:8px;
+    border-left:solid 1px darken(@pulsarSidebarPulseBgColor, 40%);
+    border-right:solid 1px darken(@pulsarSidebarPulseBgColor, 40%);
+    border-bottom:solid 1px darken(@pulsarSidebarPulseBgColor, 40%);
+  }
+}

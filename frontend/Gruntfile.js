@@ -164,8 +164,8 @@ module.exports = function (grunt) {
           'app/bower_components/bootstrap/dist/css/bootstrap.css': [
             'app/bower_components/bootstrap/less/bootstrap.less'
           ],
-          'app/styles/robcolbert.css': [
-            'app/less/robcolbert.less'
+          'app/styles/pulsar.css': [
+            'app/less/pulsar.less'
           ]
         }
       }

@@ -47,7 +47,7 @@ module.exports = function(app, config) {
     app.use(express.logger('dev'));
     app.use(express.cookieParser('itsFullOfStars'));
     app.use(express.session({
-      'secret':'7890f124-ca66-46f5-8299-9ca14defd93f',
+      'secret': config.app.cookieSecret,
       'store': new MemcachedStore({
         'hosts': [ '127.0.0.1:11211' ]
       })
@@ -57,7 +57,10 @@ module.exports = function(app, config) {
     app.use(app.router);
 
     app.use(function(req, res) {
-      res.json(404, {'msg':'get that completely invalid request out of my face. thanks.'});
+      res.json(404, {
+        'status': 404,
+        'humor': 'The number you have dialed is no longer in service. Please hang up, check the number you are trying to reach and try your call again. [click]'
+      });
     });
 
   });

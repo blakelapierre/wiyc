@@ -1,235 +1,84 @@
-<div class="row-fluid content-section">
+<div class="content-section" style="padding-top:50px;">
 
-  <div class="col-sm-12">
-
-    <h2><img src="favicon.ico" /> Who Built Pulsar and Why?</h2>
-    <div class="credits">
-      <div class="name">
-        <strong>Rob Colbert</strong><br />
-        <small>creator</small>
+  <div class="credits" style="position:relative;">
+    <div class="profile-photo" style="background-image:url('/images/rob-profile-dark.jpg');"></div>
+    <div class="biography-wrap">
+      <div class="biography-content">
+        <div class="name">
+          <p><strong>Rob Colbert</strong></p>
+        </div>
+        <div class="summary">
+          <p>
+            I am a veteran software developer with over 20 years in games,
+            extremely low-level networking, systems and embedded programming.
+            I've written TCP/IP stacks from scratch in C++ that ran in user
+            space on RHEL5 directly talking to the NIC with its own ARP module
+            and more, memory heap managers for PlayStation&reg;, and 2D/3D
+            graphics, presentation frameworks and audio processing for anything
+            with a CPU and audio chip from the phone in your pocket to very
+            advanced training simulations built for the Office of Naval Research
+            that runs on actual Naval submarines.
+          </p>
+          <p>
+            I am a full-stack Web developer who's done things like hack the
+            TIME_WAIT state out of spent sockets in a custom Linux-based
+            distributed test harness and framework and generally done whatever
+            it takes to make things work and get work done. And, when doing that,
+            I prefer to use the right tools for the job.
+          </p>
+          <p>
+            True, MEAN may not be the perfect tool for every job. But, I argue it
+            is perfectly acceptable for use when I say it is and when I'm the
+            one building the requested solution instead of you. You...get to learn
+            and host it when it's done. And, if you're saying anything other than
+            asking me how, I'm going to let you figure it out on your own...or
+            quit. I do not care which.
+          </p>
+        </div>
       </div>
-      <div class="links">
-        &lt;<a href="mailto:rob.isConnected@gmail.com">rob.isConnected@gmail.com</a>&gt;<br />
-        <a href="http://www.linkedin.com/in/robcolbert">http://www.linkedin.com/in/robcolbert</a>
-      </div>
-      <div class="clearfix"></div>
-
-      <p>
-        A computer programmer (Rob Colbert, me) has snapped. After two straight
-        decades in software development, I decided to end my permanent, full-time
-        corporate experience. After more than a decade of fighting with various
-        "IT Professionals" over this &amp; that at various companies, I decided
-        to stop trying to succeed along my current path and changed the
-        <em>questions</em> instead:
-      </p>
-      <blockquote>
-        <p>
-          Why is this always a fight? Am I perhaps the one who
-          is flawed in my constant pursuit of progress and innovation?
-        </p>
-      </blockquote>
-      <p>
-        With this new mantra in mind, I set off on a journey to find the answer.
-        Pulsar <em>is</em> that journey. And, it's a personal journey in open
-        source community membership, modern technology stacks and personal
-        patience. Because today, the page you're reading is being served by
-        Pulsar, an application of my own creation sitting atop the MEAN stack.
-        And, it's running in production without issues.
-      </p>
     </div>
-
-    <h2><img src="favicon.ico" /> Project Goals</h2>
-    <p>
-      These aren't pipe dreams. I know how to build all of this, and intend to
-      do exactly that as quickly as possible.
-    </p>
-    <ol>
-      <li>
-        Grow
-      </li>
-      <li>
-        Achieve growth by keeping the public Pulsar service available without
-        paying for it on donated hosting
-      </li>
-      <li>
-        Achieve donations by simply being a compelling enough technology
-        to attract them
-      </li>
-      <li>
-        Achieve additional growth by attracting new system operators and other
-        clients to stand up their own Pulsar instances (world-wide)
-      </li>
-      <li>
-        Link the planetary Pulsars into the first Constellation: The world's
-        first fully decentralized, privately owned and privately managed social
-        network with the most advanced content publishing and presentation tools
-        available on Earth.
-      </li>
-    </ol>
-    <p>
-      Open issues and the product backlog are being tracked
-      <a href="https://github.com/robcolbert/pulsarcms/issues">on github</a>.
-    </p>
-
-    <h2><img src="favicon.ico" /> Adoption Goals</h2>
-    <p>
-      I don't have specific number. Use it if you want to. It's subject to
-      change, quite early in development and might break if you use it in a way
-      I didn't predict or said wouldn't work :)
-    </p>
-
-    <h2><img src="favicon.ico" /> API Stack</h2>
-    <p>
-      <a href="http://www.mongodb.org/">MongoDB</a>,
-      <a href="http://memcached.org/">memcached</a>,
-      <a href="http://nodejs.org/">Node.js</a>,
-      <a href="http://expressjs.com/">ExpressJS</a> and
-      <a href="http://mongoosejs.com/">Mongoose</a> are the API stack.
-      <a href="https://github.com/flatiron/winston">Winston</a> is used as the logger,
-      <a href="http://www.nodemailer.com/">nodemailer</a> sends email and
-      <a href="http://socket.io/">socket.io</a> provides persistent TCP.
-    </p>
-    <p>
-      <a href="http://yeoman.io/">Yeoman</a>,
-      <a href="http://gruntjs.com/">Grunt</a>,
-      <a href="https://www.npmjs.org/">npm</a> and
-      <a href="http://git-scm.com/">git</a> are used for scaffolding, builds, dependency
-      maintenance and revision control, respectively.
-    </p>
-
-    <h2><img src="favicon.ico" /> Front-End Stack</h2>
-    <p>
-      <a href="http://www.lighttpd.net/">Lighttpd</a> is serving up a static
-      <a href="http://angularjs.org/">AngularJS</a> client through
-      <a href="https://www.cloudflare.com/">CloudFlare</a> as a CDN. All business logic is written in
-      JavaScript and executes in the browser. The client is an HTML5 Single-Page
-      Application that does not care about SEO.
-    </p>
-    <p>
-      <a href="http://yeoman.io/">Yeoman</a>,
-      <a href="http://gruntjs.com/">Grunt</a>,
-      <a href="http://bower.io/">Bower</a>,
-      <a href="https://www.npmjs.org/">npm</a> and
-      <a href="">git</a> are using for scaffolding, builds, project dependency
-      maintenance (Bower and npm) and revision control, respectively.
-    </p>
-
-    <h3>Search Engine Optimization (SEO)</h3>
-    <p>
-      Search is not my problem. It's Google's problem. Maybe Ask.com will be first
-      to index SPA's? Who cares?
-    </p>
-    <p>
-      AngularJS is Google's front-end framework. The potential for an automatic
-      search solution is there, and is one of the main reasons I'm on Angular. If
-      Google wants to index Pulsar's default client's presented content, they can
-      figure that problem out. Or, I'll get to it, "Eventually." (read: Not likely
-      any day soon at all, not on the roadmap).
-    </p>
-    <p>
-      If you want to be using tech that stands up a heavily-optimized landing page
-      per current expectations, WordPress or any solution that serves presented
-      content is a much better option. Pulsar will eventually serve presented
-      pages through Node.js as an <em>optional</em> configuration using Jade
-      templates.
-    </p>
-
-    <h2><img src="favicon.ico" /> Deployment Gory Details</h2>
-    <pre>
-hosts: robcolbert.com
-       api.robcolbert.com
-ip   : 192.241.240.182
-
-uname -a:
-Linux robcolbert 3.8.0-29-generic #42~precise1-Ubuntu SMP Wed Aug 14 16:19:23 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
-
-processor        : 0
-vendor_id        : GenuineIntel
-cpu family       : 6
-model            : 2
-model name       : QEMU Virtual CPU version 1.0
-stepping         : 3
-microcode        : 0x1
-cpu MHz          : 1999.999
-cache size       : 4096 KB
-fpu              : yes
-fpu_exception    : yes
-cpuid level      : 4
-wp               : yes
-flags            : fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pse36 clflush mmx fxsr sse sse2 syscall nx lm rep_good nopl pni vmx cx16 popcnt hypervisor lahf_lm
-bogomips         : 3999.99
-clflush size     : 64
-cache_alignment  : 64
-address sizes    : 40 bits physical, 48 bits virtual
-power management :
-
-MemTotal         : 1018820 kB
-MemFree          : 249476 kB
-Buffers          : 123644 kB
-Cached           : 422528 kB
-SwapCached       :      0 kB
-Active           : 488004 kB
-Inactive         : 191532 kB
-Active(anon)     : 133404 kB
-Inactive(anon)   :    504 kB
-Active(file)     : 354600 kB
-Inactive(file)   : 191028 kB
-Unevictable      :      0 kB
-Mlocked          :      0 kB
-SwapTotal        :      0 kB
-SwapFree         :      0 kB
-
-S    PID  PPID  C PRI  NI   RSS    SZ      TIME CMD
-S   3758     1  0  80   0  3496 12217  00:02:32 lighttpd
-S   5250  5249  0  80   0 75196 245983 00:00:07 node
-S  24418     1  0  80   0  5448 79723  00:00:49 memcached
-S            1  0  80   0 39068 82146  02:26:02 mongod
-
-324K  ./scripts           &lt;-- JavaScript
-108K  ./styles            &lt;-- CSS
-124K  ./views             &lt;-- HTML
-2.0M  ./images            &lt;-- Images
-
-</pre>
-    <p>
-      It's all running on one little VM in the cloud somwhere. But, it is
-      <em>easily</em> broken out and scaled both horizontally and vertically at all
-      tiers. MongoDB shards up nicely. Memcached pools as needed. Node.js gets
-      ridiculous with multiple vertical instances per host and as many horizontal hosts
-      as are required divided into high-availability and content-balanced pools as
-      desired. In fact, I am looking forward to figuring out how to start
-      <em>paying</em> for expanded levels of service profitably as or if demand grows.
-    </p>
-
-    <h2><img src="favicon.ico" /> Hosting</h2>
-    <p>
-      I'm building Pulsar, Pulsar Composer, Pulsar Studio and Constellation for free
-      and giving them away. All of them. All features, end-to-end, no limitations and
-      completely open source under the MIT license. That...has value.
-    </p>
-    <p>
-      To be compensated, I am only asking not to host all of this as a public service
-      for free. I can build it, but I need help affording the hosting. Scaled out
-      hosting can only be afforded if provided by the community in some way. We'll
-      figure it out when/if the time comes. Not worried. It scales. That's all I need
-      to know (and I do) for now.
-    </p>
-    <p>
-      I'm staying focused on feature development. It's not like I wanted to
-      build a CMS and decentralized social network. I'm seriously just doing
-      this to prove or disprove the underlying technologies in a peer-reviewable
-      way.
-    </p>
-
-
+    <div class="clearfix"></div>
   </div>
-  <div class="clearfix"></div>
+
+  <p>
+    After more than a decade of fighting with various "IT Professionals" over
+    this &amp; that, I decided to stop trying to succeed along that path and
+    changed the <em>questions</em> I was asking.
+  </p>
+  <p>
+    I've stopped asking, "How do I show them this is the best way?" Today, I'm
+    only asking this:
+  </p>
+  <blockquote>
+    <p>
+      Why is this always a fight? Am I perhaps the one who
+      is flawed in my constant pursuit of progress and innovation?
+    </p>
+  </blockquote>
+  <p>
+    With this new mantra in mind, I set off on a journey to find the answer.
+    Pulsar <em>is</em> that journey. And, it's a personal journey in open
+    source community membership, modern technology stacks and personal
+    patience. Because today, the page you're reading is being served by
+    Pulsar, an application of my own creation sitting atop the MEAN stack.
+  </p>
+  <p>
+    And, it's running in production without issues. Ever. So, to all the
+    ridiculousness that was, "That'll never work/never happen!" I simply
+    offer: "Here it is. How's <u>yesterday</u> treatin' ya?"
+  </p>
+
+  <h2><img src="favicon.ico" /> Adoption Goals</h2>
+  <p>
+    I don't have specific number. Use it if you want to. It's subject to
+    change, quite early in development and might break if you use it in a way
+    I didn't predict or said wouldn't work :)
+  </p>
 </div>
 <a href="https://github.com/robcolbert/pulsarcms" target="_blank">
-  <img style="position: absolute; top: 0; right: 0; border: 0;"
+  <img style="position: absolute; top: -24px; right: -15px; border: 0;"
        src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67"
        alt="Fork me on GitHub"
-       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
-       >
-    </a>
+       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
+</a>
 

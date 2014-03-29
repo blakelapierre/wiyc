@@ -4,4 +4,4 @@ dist
 .sass-cache
 app/bower_components
 app/videos
-app/styles/robcolbert.css
+app/styles/pulsar.css

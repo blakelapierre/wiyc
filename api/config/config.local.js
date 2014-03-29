@@ -34,10 +34,11 @@
 'use strict';
 
 module.exports = exports = {
-  'allowOrigin'      : 'http(s)://theDomainYouAccessFrom.com',
-  'emailUser'        : 'ENTER GMAIL USERNAME',
-  'emailPassword'    : 'ENGER GMAIL PASSWORD',
-  'userPasswordSalt' : 'CREATE A UNIQUE PASSWORD SALT'
+  'allowOrigin'       : 'http(s)://TheDomainYouAccessTheApiFrom.whatever',
+  'emailUser'         : 'ENTER YOUR GMAIL USERNAME',
+  'emailPassword'     : 'ENGER YOUR GMAIL PASSWORD',
+  'userPasswordSalt'  : 'CREATE A UNIQUE PASSWORD SALT', // use a UUID
+  'cookieSecret'      : 'CREATE A UNIQUE COOKIE SECRET'  // use a UUID
 };
 
 // AND DON'T EVER SHARE THIS FILE! IF YOU DO, CHANGE EVERYTHING AND MIGRATE
