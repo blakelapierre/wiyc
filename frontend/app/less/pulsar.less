@@ -40,12 +40,21 @@ a:visited {
   text-decoration:@pulsarAnchorVisitedDecoration;
 }
 
+/*
+ * Probably the single most useful fix anyone can apply to a default Bootstrap
+ * deployment: Rip the margin off of the last paragraph of any div.
+ */
+div p:last-child {
+  margin-bottom:0;
+}
+
 @import 'pulsar-footer.less';
 @import 'pulsar-sidebar.less';
 @import 'pulsar-content-section.less';
 
 @import 'pulsar-pulse.less';
 @import 'pulsar-sidebar-pulse.less';
+@import 'pulsar-sidebar-announcement.less';
 
 @import 'pulsar-comments.less';
 @import 'pulsar-credits.less';
@@ -80,10 +89,12 @@ a:visited {
     box-shadow: none;
     transform-origin: center;
     transition: all 0.75s;
+    background-color: darken(@pulsarBaseColor, 80%);
+    color: @pulsarBaseColor;
     &.hover {
       background-color: @pulsarBaseColor;
-      color: darken(@pulsarBaseColor, 40%);
-      transform: translate3d(0,40px,90px) rotateX(-360deg);
+      color: darken(@pulsarBaseColor, 80%);
+      transform: translate3d(0,40px,90px) rotateX(-350deg);
       box-shadow: 0 2px 12px rgba(0,0,140,0.5);
     }
   }
@@ -97,6 +108,12 @@ textarea {
   & h1 {
     margin-top:0;
   }
+}
+
+.pager {
+  margin-top:32px;
+  padding-top:16px;
+  border-top:solid 1px darken(@pulsarBgColor, 20%);
 }
 
 ::-webkit-scrollbar {

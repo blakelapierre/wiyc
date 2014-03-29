@@ -29,7 +29,7 @@
 
 'use strict';
 
-function UserSession($rootScope, $location, Sessions, Notifications) {
+function UserSession($rootScope, $location, Sessions) {
 
   var self = this;
 
@@ -103,8 +103,7 @@ function UserSession($rootScope, $location, Sessions, Notifications) {
 UserSession.$inject = [
   '$rootScope',
   '$location',
-  'Sessions',
-  'Notifications'
+  'Sessions'
 ];
 
 //

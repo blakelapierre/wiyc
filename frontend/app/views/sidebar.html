@@ -1,10 +1,10 @@
 <div class="widget" ng-controller="AnnouncementsCtrl" ng-show="announcement">
-  <div class="announcement">
-    <div class="heading">
-      <div class="heading-wrap">
-        <img src="favicon.ico" alt="Pulsar Favicon" /> Announcements
-      </div>
+  <div class="heading">
+    <div class="heading-wrap">
+      <img src="favicon.ico" alt="Pulsar Favicon" /> Announcements
     </div>
+  </div>
+  <div class="announcement">
     <div class="title">
       <div class="pull-right" ng-click="nextAnnouncement()"><span class="glyphicon glyphicon-remove-circle"></span></div>
       {{announcement.title}}
@@ -18,7 +18,7 @@
     <div class="heading-wrap">
       <button class="btn btn-default btn-xs pull-right"
               ng-show="user.session.authenticated.status"
-              ng-click="composer.visible = !composer.visible"
+              ng-click="composer.visible = !composer.visible;"
               style="margin-right:16px;"
               >
         <span class="glyphicon glyphicon-plus"></span>
@@ -33,7 +33,7 @@
                 placeholder="Enter pulse"
                 rows="6"
                 data-ui-tinymce="tinymceOptions"
-                data-ng-model="composer.pulse.content"
+                data-ng-model="composer.content"
                 >
       </textarea>
     </div>

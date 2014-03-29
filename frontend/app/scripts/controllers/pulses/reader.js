@@ -29,10 +29,11 @@
 
 'use strict';
 
-function PulseReaderCtrl ($scope, $route, $sce, $window, UserSession, Pulses) {
+function PulseReaderCtrl ($scope, $route, $sce, $window, UserSession, Pulses, Configuration) {
 
   ga('send', 'pageview');
 
+  $scope.tinymceOptions = Configuration.tinymceOptions;
   $scope.session = UserSession.session;
   $scope.$on('setUserSession', function (event, session) {
     $scope.session = UserSession.session;
@@ -80,7 +81,7 @@ function PulseReaderCtrl ($scope, $route, $sce, $window, UserSession, Pulses) {
         ga('send','event', 'Pulses', 'commentCreateSuccess', 1);
         console.log('comment created', newComment);
         $scope.pulse.interactions.comments.push(newComment);
-        $scope.comment = { }; // empty it out
+        $scope.comment.content = '';
       },
       function onCommentCreateError (error) {
         console.log('createComment error', error);
@@ -98,7 +99,8 @@ PulseReaderCtrl.$inject = [
   '$sce',
   '$window',
   'UserSession',
-  'Pulses'
+  'Pulses',
+  'Configuration'
 ];
 
 angular.module('robcolbertApp')

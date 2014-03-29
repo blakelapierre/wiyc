@@ -33,15 +33,12 @@
 function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses, Configuration) {
 
   $scope.user = UserSession;
-  $scope.tinymceOptions = Configuration.tinymceOptions;
+  $scope.tinymceOptions = Configuration.sidebarTinymceOptions;
 
   $scope.composer = {
     'visible': false,
-    'newPulse': function ( ) {
-      $scope.composer.pulse = {
-        'content': ''
-      };
-    }
+    'content': '',
+    'newPulse': function ( ) { this.content = ''; }
   };
   $scope.composer.newPulse();
 
@@ -71,15 +68,21 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
       // to accept the pulse even if submitted via curl, though.
       return;
     }
-    SidebarPulses.create($scope.composer.pulse, function (pulse) {
-      ga('send','event', 'Pulses', 'created', 1);
-      $scope.pulses.unshift(pulse);
-      $scope.composer.visible = false;
-      $scope.composer.newPulse();
-      if (angular.isDefined(window.twttr)) {
-        setTimeout(window.twttr.widgets.load, 0);
+    SidebarPulses.create(
+      {'content':$scope.composer.content},
+      function onPulseCreateSuccess (pulse) {
+        ga('send','event', 'Pulses', 'created', 1);
+        $scope.pulses.unshift(pulse);
+        $scope.composer.newPulse();
+        $scope.composer.visible = false;
+        if (angular.isDefined(window.twttr)) {
+          setTimeout(window.twttr.widgets.load, 0);
+        }
+      },
+      function onPulseCreateError (error) {
+        console.log('pulse create error', error);
       }
-    });
+    );
   };
 
 }

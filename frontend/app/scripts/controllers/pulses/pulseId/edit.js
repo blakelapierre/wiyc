@@ -46,14 +46,18 @@ function PulseEditCtrl (
 
   $scope.$emit('setPageGroup', 'blog');
 
-  $scope.tinymceOptions = Configuration.tinymceOptions;
+  $scope.tinymceOptionsContent = angular.copy(Configuration.tinymceOptions);
+  $scope.tinymceOptionsExcerpt = angular.copy(Configuration.tinymceOptions);
+
   $scope.pulseContent = '';
   $scope.haveError = false;
   $scope.error = '';
 
-  var editor = null;
+  var contentEditor = null;
+  var excerptEditor = null;
   $rootScope.$on('tinymceInitComplete', function (event) {
-    editor = window.tinymce.editors[window.tinymce.editors.length - 1];
+    contentEditor = window.tinymce.editors[window.tinymce.editors.length - 2];
+    excerptEditor = window.tinymce.editors[window.tinymce.editors.length - 1];
     Pulses.get({'pulseId': $route.current.params.pulseId}, null, function (pulse) {
       if (!$scope.session.authenticated.status || (pulse._creator._id !== $scope.session.user._id)) {
         console.log('BONK');
@@ -61,7 +65,8 @@ function PulseEditCtrl (
         return;               // refuse to provide an editable interface for the pulse data.
       }
       $scope.pulse = pulse;
-      editor.setContent(pulse.content);
+      contentEditor.setContent(pulse.content);
+      excerptEditor.setContent(pulse.excerpt);
       if (angular.isDefined(window.twttr)) {
         //setTimeout(window.twttr.widgets.load, 0);
         window.twttr.widgets.load();

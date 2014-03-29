@@ -11,8 +11,8 @@
   <div class="form-group">
     <label for="pulseContent">Update Your Pulse</label>
     <textarea id="pulseContent"
-              data-ui-tinymce="tinymceOptions"
-              ng-model="pulse.content"
+              data-ui-tinymce="tinymceOptionsContent"
+              data-ng-model="pulse.content"
               ></textarea>
   </div>
 
@@ -21,7 +21,8 @@
     <textarea class="form-control"
               id="pulseExcerpt"
               name="pulseExcerpt"
-              ng-model="pulse.excerpt"
+              data-ui-tinymce="tinymceOptionsExcerpt"
+              data-ng-model="pulse.excerpt"
               style="resize:vertical;"
               rows="4"
               placeholder="Enter a quick summary that appears in lists of pulses."
@@ -34,32 +35,29 @@
 
 </form>
 
-<div class="jumbotron">
-  <h1 ng-bind-html="pulse.title"></h1>
-  <p>Created [soon] by [you]</p>
-</div>
-
-<div class="row pulse">
-  <div class="col-sm-12">
-    <div class="content">
-      <blockquote ng-bind-html="pulse.excerpt"></blockquote>
-    </div>
+<div class="pulse">
+  <div class="jumbotron">
+    <h1 ng-bind-html="pulse.title"></h1>
+    <p>Created soon by you</p>
+  </div>
+  <div class="body">
+    <div class="excerpt" ng-bind-html="pulse.excerpt"></div>
     <div class="content" ng-bind-html="pulse.content"></div>
-    <h3>Comments</h3>
-    <div ng-switch on="pulse.comments.length">
-      <div ng-switch-when="0">
-        <p>No comments, yet. Share your thoughts and start the conversation.</p>
-      </div>
-      <div ng-switch-default="">
-        <div class="row comment" ng-repeat="comment in pulse.comments">
-          <div class="header">
-            <div class="col-sm-8 author">{{comment.author}}</div>
-            <div class="col-sm-4 created">{{comment.created}}</div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="content col-sm-12">{{comment.content}}</div>
+  </div>
+  <h3>Comments</h3>
+  <div ng-switch on="pulse.comments.length">
+    <div ng-switch-when="0">
+      <p>No comments, yet. Share your thoughts and start the conversation.</p>
+    </div>
+    <div ng-switch-default="">
+      <div class="row comment" ng-repeat="comment in pulse.comments">
+        <div class="header">
+          <div class="col-sm-8 author">{{comment.author}}</div>
+          <div class="col-sm-4 created">{{comment.created}}</div>
           <div class="clearfix"></div>
         </div>
+        <div class="content col-sm-12">{{comment.content}}</div>
+        <div class="clearfix"></div>
       </div>
     </div>
   </div>

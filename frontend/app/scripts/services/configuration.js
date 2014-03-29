@@ -33,24 +33,6 @@ angular.module('robcolbertApp')
   '$rootScope',
   function Configuration ($rootScope) {
 
-    this.tinymceOptions = {
-      'script_url': 'bower_components/tinymce/tinymce.min.js',
-      'skin': 'lightgray',
-      'theme': 'modern',
-      'resize': false,
-      'height': 320,
-      'fixed_toolbar_container': '#editor-toolbar',
-      plugins: [
-        'advlist autolink lists link image charmap print preview hr anchor',
-        'pagebreak searchreplace wordcount visualblocks visualchars code',
-        'fullscreen insertdatetime media nonbreaking save table contextmenu',
-        'directionality emoticons template paste textcolor'
-      ],
-      'oninit': function ( ) {
-        $rootScope.$broadcast('tinymceInitComplete');
-      }
-    };
-
     var feServer = {
       'scheme': 'http://',
       'host': 'localhost'
@@ -68,5 +50,44 @@ angular.module('robcolbertApp')
     this.buildApiUrl = function (endpoint) {
       return apiServer.scheme + apiServer.host + ':' + apiServer.port + endpoint;
     };
+
+    this.tinymceOptions = {
+      'script_url': 'bower_components/tinymce/tinymce.min.js',
+      'skin': 'lightgray',
+      'theme': 'modern',
+      'resize': false,
+      'height': 320,
+      'fixed_toolbar_container': '#editor-toolbar',
+      plugins: [
+        'advlist autolink lists link image charmap hr anchor',
+        'pagebreak searchreplace wordcount visualblocks visualchars code',
+        'insertdatetime media nonbreaking table contextmenu',
+        'directionality emoticons paste textcolor'
+        // disabled: 'save template fullscreen print preview'
+      ],
+      'oninit': function ( ) {
+        $rootScope.$broadcast('tinymceInitComplete');
+      }
+    };
+
+    this.sidebarTinymceOptions = {
+      'script_url': 'bower_components/tinymce/tinymce.min.js',
+      'skin': 'lightgray',
+      'theme': 'modern',
+      'resize': false,
+      'height': 200,
+      'fixed_toolbar_container': '#editor-toolbar',
+      plugins: [
+        'advlist autolink lists link image charmap hr anchor',
+        'pagebreak searchreplace wordcount visualblocks visualchars code',
+        'insertdatetime media nonbreaking save table contextmenu',
+        'directionality emoticons paste textcolor'
+      ],
+      'oninit': function ( ) {
+        $rootScope.$broadcast('tinymceInitComplete');
+      }
+    };
+
+
   }
 ]);

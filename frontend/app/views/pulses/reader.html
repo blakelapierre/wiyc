@@ -1,67 +1,63 @@
-<div class="jumbotron">
-  <a class="btn btn-default pull-right"
-      href="#/pulses/{{pulse._id}}/edit"
-      ng-show="session.authenticated.status &amp;&amp; (pulse._creator._id === session.user._id)">
-    Edit
-  </a>
-  <h1 ng-bind-html="pulse.title"></h1>
-  <p>Created {{calendarMoment(pulse.created)}}</p>
-</div>
+<div class="pulse">
 
-<div class="row-fluid">
-  <div class="pulse">
-
-    <div class="body">
-      <div class="content">
-        <blockquote ng-bind-html="pulse.excerpt"></blockquote>
-      </div>
-      <div class="content" ng-bind-html="pulse.content"></div>
-    </div>
-
-    <h3><span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments</h3>
-    <div class="comments">
-      <div ng-switch on="pulse.interactions.comments.length">
-        <div ng-switch-when="0">
-          <p>No comments, yet. Share your thoughts and start the conversation.</p>
-        </div>
-        <div ng-switch-default="">
-          <div class="comment" ng-repeat="comment in pulse.interactions.comments">
-            <div class="header">
-              <span class="author">{{comment._creator.displayName}}</span>
-              <span class="created">{{fromNow(comment.created)}}</span>
-            </div>
-            <div class="body" ng-bind-html="comment.content"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <h3><span class="glyphicon glyphicon-plus" style="font-size:0.8em;"></span> Add comment</h3>
-    <form role="form" ng-show="session.authenticated.status">
-      <div class="form-group">
-        <label for="commentContent">Comment</label>
-        <textarea class="form-control"
-                  id="commentContent"
-                  name="commentContent"
-                  ng-model="comment.content"
-                  placeholder="Enter comment here. Or, enter your comment elsewhere if you can. Be like that."
-                  rows="4"
-                  style="resize:vertical;"
-                  ></textarea>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" ng-click="createComment()">Add Comment</button>
-      </div>
-    </form>
-
-    <div ng-show="!session.authenticated.status">
-      <p>
-        You must have a Pulsar account and be logged in to comment.
-      </p>
-      <a href="#/signup" class="btn btn-primary btn-lg">Let Me Publish!</a>
-    </div>
-
-    <div class="clearfix"></div>
-
+  <div class="jumbotron">
+    <a class="btn btn-default pull-right"
+       href="#/pulses/{{pulse._id}}/edit"
+       ng-show="session.authenticated.status &amp;&amp; (pulse._creator._id === session.user._id)">
+      Edit
+    </a>
+    <h1 ng-bind-html="pulse.title"></h1>
+    <p>Created {{calendarMoment(pulse.created)}}</p>
   </div>
+
+  <div class="body">
+    <div class="excerpt" ng-bind-html="pulse.excerpt"></div>
+    <div class="content" ng-bind-html="pulse.content"></div>
+  </div>
+
+  <h3><span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments</h3>
+  <div class="comments">
+    <div ng-switch on="pulse.interactions.comments.length">
+      <div ng-switch-when="0">
+        <p>No comments, yet. Share your thoughts and start the conversation.</p>
+      </div>
+      <div ng-switch-default="">
+        <div class="comment" ng-repeat="comment in pulse.interactions.comments">
+          <div class="header">
+            <span class="author">{{comment._creator.displayName}}</span>
+            <span class="created">{{fromNow(comment.created)}}</span>
+          </div>
+          <div class="body" ng-bind-html="comment.content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="glyphicon glyphicon-plus" style="font-size:0.8em;"></span> Add comment</h3>
+  <form role="form" ng-show="session.authenticated.status">
+    <div class="form-group">
+      <textarea class="form-control"
+                id="commentContent"
+                name="commentContent"
+                data-ui-tinymce="tinymceOptions"
+                data-ng-model="comment.content"
+                placeholder="Enter comment here. Or, enter your comment elsewhere if you can. Be like that."
+                rows="4"
+                style="resize:vertical;"
+                ></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" ng-click="createComment()">Add Comment</button>
+    </div>
+  </form>
+
+  <div ng-show="!session.authenticated.status">
+    <p>
+      You must have a Pulsar account and be logged in to comment.
+    </p>
+    <a href="#/signup" class="btn btn-primary btn-lg">Let Me Publish!</a>
+  </div>
+
+  <div class="clearfix"></div>
+
 </div>

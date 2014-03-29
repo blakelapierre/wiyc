@@ -5,19 +5,28 @@
 // REFERENCE:
 // https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
 
-.sidebar-pulse {
-  font-size:12px;
-  line-height:1.2em;
-  margin-bottom:16px;
-  background-color:@pulsarSidebarPulseBgColor;
-  color:@pulsarSidebarPulseTextColor;
-  .created {
-    padding:6px 8px;
-  }
-  .body {
-    padding:8px;
-    border-left:solid 1px darken(@pulsarSidebarPulseBgColor, 40%);
-    border-right:solid 1px darken(@pulsarSidebarPulseBgColor, 40%);
-    border-bottom:solid 1px darken(@pulsarSidebarPulseBgColor, 40%);
+.sidebar {
+  .pulse {
+    font-size:12px;
+    line-height:1.2em;
+    margin-bottom:16px;
+    background-color:@pulsarSidebarWidgetBgColor;
+    color:@pulsarSidebarWidgetTextColor;
+    .created {
+      margin-top:8px;
+      padding:8px;
+      background-color:@pulsarSidebarWidgetElementTitleBgColor;
+      color:@pulsarSidebarWidgetElementTitleTextColor;
+    }
+    .body {
+      border:none;
+      padding:8px;
+      margin:0;
+      background-color:@pulsarSidebarWidgetElementBodyBgColor;
+      color:@pulsarSidebarWidgetElementBodyTextColor;
+      h1, h2, h3, h4, h5, h6 {
+        margin-top:0;
+      }
+    }
   }
 }

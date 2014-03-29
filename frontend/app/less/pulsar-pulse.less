@@ -6,7 +6,7 @@
 // https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
 
 .pulse {
-  margin-bottom:24px;
+  margin-top:32px;
   .header {
     display:block;
     padding:8px 0;
@@ -28,21 +28,27 @@
     }
   }
   .body {
-    margin-top:16px;
-    background-color:@pulsarPulseBodyBgColor;
-    color:@pulsarPulseBodyTextColor;
+    border:none;
     .excerpt {
+      padding:16px;
+      margin-top:0;
+      margin-bottom:16px;
       background-color:@pulsarPulseBodyExcerptBgColor;
       color:@pulsarPulseBodyExcerptTextColor;
     }
     .content {
       display:block;
-      font-size:14px;
+      padding:16px;
+      margin-bottom:16px;
       background-color:@pulsarPulseBodyContentBgColor;
       color:@pulsarPulseBodyContentTextColor;
     }
-    .comment {
-      margin-bottom:20px;
-    }
   }
+  .jumbotron {
+    margin-bottom:0;
+  }
+}
+
+div .pulse:first-child {
+  margin-top:0;
 }
