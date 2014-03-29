@@ -36,7 +36,7 @@ var localConfig = require('./config.local');
 var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
 
-var bindAddress = '127.0.0.1';
+var bindAddress = '0.0.0.0';
 var listenPort = 10010;
 
 var corsConfig = {
