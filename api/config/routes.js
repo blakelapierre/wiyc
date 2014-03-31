@@ -104,12 +104,12 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses', 'controllerMethod': function (req, res) { sidebarPulses.list(req, res); }});
   routes.add({ 'method': 'POST',    'uri': '/sidebar-pulses', 'controllerMethod': function (req, res) { sidebarPulses.create(req, res); }});
 
-  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses/:id', 'controllerMethod': function (req, res) { sidebarPulses.get(req, res); }});
-  routes.add({ 'method': 'PUT',     'uri': '/sidebar-pulses/:id', 'controllerMethod': function (req, res) { sidebarPulses.update(req, res); }});
-  routes.add({ 'method': 'DELETE',  'uri': '/sidebar-pulses/:id', 'controllerMethod': function (req, res) { sidebarPulses.delete(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses/:pulseId', 'controllerMethod': function (req, res) { sidebarPulses.get(req, res); }});
+  routes.add({ 'method': 'PUT',     'uri': '/sidebar-pulses/:pulseId', 'controllerMethod': function (req, res) { sidebarPulses.update(req, res); }});
+  routes.add({ 'method': 'DELETE',  'uri': '/sidebar-pulses/:pulseId', 'controllerMethod': function (req, res) { sidebarPulses.delete(req, res); }});
 
-  routes.add({ 'method': 'POST',    'uri': '/sidebar-pulses/:id/comments', 'controllerMethod': function (req, res) { sidebarPulses.createComment(req, res); }});
-  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses/:id/comments', 'controllerMethod': function (req, res) { sidebarPulses.getComments(req, res); }});
+  routes.add({ 'method': 'POST',    'uri': '/sidebar-pulses/:pulseId/comments', 'controllerMethod': function (req, res) { sidebarPulses.createComment(req, res); }});
+  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses/:pulseId/comments', 'controllerMethod': function (req, res) { sidebarPulses.getComments(req, res); }});
 
   //
   // VIDEOS

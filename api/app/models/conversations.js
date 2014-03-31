@@ -34,27 +34,16 @@ log.info('model: Conversations');
 
 var mongoose = require('mongoose');
 var ConversationsSchema = new mongoose.Schema({
-  'creator': {
-    'type': mongoose.Schema.Types.ObjectId,
-    'required': true,
-    'ref': 'Users',
-    'index': 'hashed'
-  },
+  'creator': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users', 'index': 'hashed' },
   'created': { 'type': Date, 'default': Date.now, 'index': true },
   'subject': { 'type': String },
   'members': [{
-    'type': mongoose.Schema.Types.ObjectId,
-    'required': true,
-    'ref': 'Users',
-    'index': true
+    'user': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users', 'index': true},
+    'joined': { 'type': Date, 'default': Date.now, 'index': true },
+    'withHistory': { 'type': Boolean, 'default': true }
   }],
   'messages': [{
-    'sender': {
-      'type': mongoose.Schema.Types.ObjectId,
-      'required': true,
-      'ref': 'Users',
-      'index': 'hashed'
-    },
+    'sender': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users', 'index': 'hashed' },
     'created': { 'type': Date, 'default': Date.now },
     'content': { 'type': String }
   }],

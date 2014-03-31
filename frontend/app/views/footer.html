@@ -1,22 +1,17 @@
-<div class="container-fluid">
+<div class="container-fluid" style="position:relative;">
   <div class="footer-wrap">
-
     <!-- div class="brand">
       <a href="https://twitter.com/search?q=%23OccupyNodejs">#OccupyNodejs</a>
     </div -->
 
-    <div class="message"
-        ng-bind-html="message.content"
-        >
-    </div>
+    <div class="message" ng-bind-html="message.content"></div>
 
     <div class="pull-right" ng-show="session.authenticated.status">
-      <div class="icon"
-           title="Message Inbox"
-           ng-click="clickInbox()"
-           >
-        <span class="icon glyphicon glyphicon-envelope"></span>
-        <span class="badge">{{session.user.inboxCount}}</span>
+      <div class="icon">
+        <a href="/#/conversations" title="Conversations">
+          <span class="icon glyphicon glyphicon-envelope"></span>
+          <span class="badge">{{session.user.inboxCount}}</span>
+        </a>
       </div>
 
       <div class="icon"
@@ -35,6 +30,11 @@
         </a>
       </div>
     </div>
-
   </div>
+
+  <!-- div style="position:absolute; top:-256px; right:8px; width:320px; height:240px; background-color:black;">
+    <div style="background-color:white; color:black;">
+      <p>PULSAR Messaging Center</p>
+    </div>
+  </div -->
 </div>

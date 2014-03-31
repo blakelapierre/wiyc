@@ -38,8 +38,11 @@ app.log = winston;
 
 app.checkAuthentication = function (req, res, message) {
   if (!req.session.user || !req.session.authenticated.status) {
-    app.log.error('authentication check failed', req.session, message);
-    res.json(500, { 'message': message });
+    app.log.error(message);
+    res.json(500, {
+      'error': 'Authentication Failed',
+      'message': message
+    });
     return false;
   }
   return true;
@@ -55,6 +58,19 @@ app.checkAdmin = function (req, res, message) {
     return false;
   }
   return true;
+};
+
+app.checkError = function (err, res, label) {
+  if (err) {
+    if (label) {
+      app.log.log(label, err);
+    } else {
+      app.log.error(err);
+    }
+    res.json(500, err);
+    return true;
+  }
+  return false;
 };
 
 var server = require('http').createServer(app);

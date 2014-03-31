@@ -1,26 +1,36 @@
-<div class="pulse" ng-repeat="pulse in pulses.pulses">
-  <div class="header">
-    <div class="title">
-      <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
+<div ng-show="pulses.pulses.length &gt; 0">
+
+  <div class="pulsar-widget pulse" ng-repeat="pulse in pulses.pulses">
+    <div class="heading">
+      <div class="heading-wrap">
+        <div class="title">
+          <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
+        </div>
+        <div class="byline">
+          <img src="favicon.ico" style="position:relative; top:-2px;"/> {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}
+        </div>
+      </div>
     </div>
-    <div class="byline">{{pulse._creator.displayName}}, {{calendarMoment(pulse.created).toLowerCase()}}</div>
+    <div class="body" ng-bind-html="pulse.excerpt"></div>
+    <p>
+      <a href="/#/pulses/{{pulse._id}}" title="{{pulse.title}}">Continue reading...</a>
+    </p>
   </div>
-  <div class="body" ng-bind-html="pulse.excerpt"></div>
-  <p>
-    <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">Continue reading...</a>
-  </p>
+
+  <div class="pager">
+    <ul>
+      <li ng-show="currentPage &gt; 1"><a ng-href="/#/pulses?p={{currentPage - 1}}">Newer</a></li>
+      <li ng-repeat="page in pulses.pages"><a ng-href="/#/pulses?p={{page}}">{{page}}</a></li>
+      <li ng-show="currentPage &lt; pulses.totalPages"><a ng-href="/#/pulses?p={{currentPage + 1}}">Older</a></li>
+    </ul>
+  </div>
+
 </div>
 
-<div class="pager">
-  <ul>
-    <!-- conditional display of previous page (newer pulses) link -->
-    <li ng-show="currentPage &gt; 1"><a ng-href="#/pulses?p={{currentPage - 1}}">Newer</a></li>
-
-    <!-- repeat a link for each navigable page in the set -->
-    <li ng-repeat="page in pulses.pages"><a ng-href="#/pulses?p={{page}}">{{page}}</a></li>
-
-    <!-- conditional display of Next page (older pulses) link -->
-    <li ng-show="currentPage &lt; pulses.totalPages"><a ng-href="#/pulses?p={{currentPage + 1}}">Older</a></li>
-
-  </ul>
+<div ng-show="pulses.pulses.length === 0">
+  <p>
+    Sadly, this Pulsar is empty. It has no pulse. It needs people like you to
+    <a href="/#/signup" alt="Create a Pulsar profile now">create a profile</a>
+    and publish something cool for others to read.
+  </p>
 </div>

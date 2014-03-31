@@ -1,27 +1,11 @@
-<div class="pulsar-media-sc">
+<div class="page">
 
   <div class="pre-show">
     <h1>PULSAR-1: "Moving Parts"</h1>
-    <a href="http://google.com/chrome" title="Get Google Chrome">
-      <img class="img pull-right" src="images/google-chrome.png" alt="Google Chrome Icon" />
-    </a>
-    <p class="lead">
-      Buckle up &amp; get ready to enter Moving Parts: A "Pulsar-Powered"
-      experience created by Rob Colbert on the MEAN stack.
-    </p>
-    <p>
-      This hand-crafted experience absolutely requires
-      <a href="http://google.com/chrome" title="Get Google Chrome">Google Chrome</a>.
-      It's a free Web browser that runs everywhere. Get it, or watch the video.
-    </p>
-    <div class="clearfix"></div>
-
-    <hr />
+    <p>Google Chrome users can press play on this experience when ready.</p>
   </div>
 
-  <div id="gameContainer"
-       class="container-fluid"
-       style="padding:16px; background-color:#efefef; border:solid 2px #dadada; border-radius:16px;">
+  <div id="gameContainer" class="container-fluid pulsar-media-sc">
     <div class="idle-hide" style="position:relative; height:48px; overflow:hidden;">
       <canvas id="gameInfoCanvas" width="640" height="48"
               style="position:absolute; top:0; left:0; right:0; width:100%; height:48px; margin:0; padding:0;"
@@ -29,12 +13,12 @@
     </div>
 
     <div class="video-container no-select" style="position:relative; margin-top:0; margin-bottom:0;"
-         ng-mousemove="onMouseMove($event)"
-         ng-mousedown="onMouseDown($event)"
-         ng-mouseup="onMouseUp($event)"
-         ng-keydown="onKeyDown($event)"
-         ng-keyup="onKeyUp($event)"
-         >
+          ng-mousemove="onMouseMove($event)"
+          ng-mousedown="onMouseDown($event)"
+          ng-mouseup="onMouseUp($event)"
+          ng-keydown="onKeyDown($event)"
+          ng-keyup="onKeyUp($event)"
+          >
       <div class="video-player no-select" style="position:relative;">
         <div id="youtubeVideo1"></div>
         <canvas class="idle-hide" id="gameCanvas"
@@ -43,20 +27,20 @@
                 ></canvas>
       </div>
       <div class="no-select" id="promptCard"
-           style="position:absolute; right:0; bottom:0; width:40%; margin:16px; padding:16px; border:solid 2px #2a2a2a; border-radius:16px; background-color:rgba(239,239,239,0.75); color:#2a2a2a; display:hidden;">
+            style="position:absolute; right:0; bottom:0; width:40%; margin:16px; padding:16px; border:solid 2px #2a2a2a; border-radius:16px; background-color:rgba(239,239,239,0.75); color:#2a2a2a; display:hidden;">
         <div class="text-center"
-             style="font-size:18px; line-height:1.25em;" ng-bind-html="promptCard.prompt"></div>
+              style="font-size:18px; line-height:1.25em;" ng-bind-html="promptCard.prompt"></div>
       </div>
       <div class="no-select idle-hide" id="titleCard"
-           style="position:absolute; top:0; right:0; bottom:0; left:0; background-color:rgba(239,239,239,0.75); color:#2a2a2a; box-shadow:0 0 16px rgba(0,0,0,0.8) inset;">
+            style="position:absolute; top:0; right:0; bottom:0; left:0; background-color:rgba(239,239,239,0.75); color:#2a2a2a; box-shadow:0 0 16px rgba(0,0,0,0.8) inset;">
         <h1 class="text-center" style="margin-top:200px;" ng-bind-html="titleCard.title"></h1>
         <p class="lead text-center" ng-bind-html="titleCard.description"></p>
       </div>
     </div>
 
     <div class="row-fluid idle-hide"
-         id="engineStatus"
-         style="position:relative; height:40px; padding:4px 0; margin:0; background-color:#efefef;">
+          id="engineStatus"
+          style="position:relative; height:40px; padding:4px 0; margin:0; background-color:#efefef;">
 
       <div class="col-sm-6 text-left" style="padding-left:0;">
         <button class="control-widget play-button" ng-click="play()"></button>
@@ -79,7 +63,7 @@
     </div>
 
     <div class="idle-hide"
-         style="position:relative; height:100px;">
+          style="position:relative; height:100px;">
       <div style="position:absolute;top:0;right:0;left:100px;height:100px; background-color:black;">
         <div id="progressBar"
             style="position:absolute; top:0; bottom:0; left:0; width:0%; background-color:red;"
@@ -137,9 +121,9 @@
       </div>
       <h2>
         <a ng-href="{{trackData.permalink_url}}"
-           title="Open on SoundCloud"
-           target="_blank"
-           >
+            title="Open on SoundCloud"
+            target="_blank"
+            >
           {{trackData.title}}
         </a>
       </h2>
@@ -221,4 +205,4 @@
 
   </div>
 
-</div>
+</div><!-- page -->

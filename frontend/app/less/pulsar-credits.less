@@ -8,21 +8,21 @@
 .credits {
   margin-bottom:16px;
   .profile-photo {
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:0;
+    float:right;
     width:35%;
-    background-size:cover;
-    background-repeat:no-repeat;
-    background-position:center 10%;
+    max-width:256px;
+    margin-left:16px;
+    margin-bottom:8px;
     border:solid 3px darken(@pulsarBgColor, 40%);
   }
   .biography-wrap {
-    float:right;
-    width:65%;
+    background-image:url('/images/masters-in-it.jpg');
+    background-size:cover;
+    background-position: center bottom;
     .biography-content {
-      margin-left:16px;
+      padding:16px;
+      background-color:rgba(255,255,255,0.90);
+      border:solid 1px darken(@pulsarBgColor, 25%);
     }
   }
   .name {

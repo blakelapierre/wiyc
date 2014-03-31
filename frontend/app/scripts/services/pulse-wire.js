@@ -1,31 +1,6 @@
-/*
- * FILE
- *  services/pulse-wire.js
- *
- * PURPOSE
- *
- *
- * LICENSE
- *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
+// services/pulse-wire.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
 
 'use strict';
 /* global io:false */
@@ -85,10 +60,12 @@ PulseWire.prototype.emit = function (eventName, eventData) {
 
 PulseWire.prototype.attach = function ( ) {
   var self = this;
+  var $rootScope = self.$rootScope;
 
   self.socket.on('connect', function ( ) {
     self.session.connected = true;
     console.log('PulseWire connected, sending hello');
+    $rootScope.$broadcast('displayMessage', 'PulseWire authenticating');
     self.socket.emit('hello', {
       'userId': self.userSession.user._id,
       'authToken': self.session.authToken
@@ -99,22 +76,23 @@ PulseWire.prototype.attach = function ( ) {
     console.log('pulsewire.hello', data);
     self.server = data;
     self.open = true;
-    self.$rootScope.$broadcast('pulsewire.hello', data);
+    $rootScope.$broadcast('pulsewire.hello', data);
+    $rootScope.$broadcast('displayMessage', 'PulseWire <strong>online</strong>');
   });
 
   self.socket.on('post', function (data) {
     console.log('pulsewire.post', data);
-    self.$rootScope.$broadcast('pulsewire.post', data);
+    $rootScope.$broadcast('pulsewire.post', data);
   });
 
   self.socket.on('comment', function (data) {
     console.log('pulsewire.comment', data);
-    self.$rootScope.$broadcast('pulsewire.comment', data);
+    $rootScope.$broadcast('pulsewire.comment', data);
   });
 
   self.socket.on('message', function (data) {
     console.log('pulsewire.message', data);
-    self.$rootScope.$broadcast('pulsewire.message', data);
+    $rootScope.$broadcast('pulsewire.message', data);
   });
 };
 

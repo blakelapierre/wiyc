@@ -1,10 +1,4 @@
-<h1 ng-show="!isComplete">Create New Pulsar Account</h1>
-<p ng-show="!isComplete">
-  Thanks for taking Pulsar out for a test drive. Your feedback is appreciated.
-  Just be aware that Pulsar is still in early days. Things like a full database
-  resets are still possible as this software is still in very heavy early
-  development. Do not (yet) use this service for any serious work.
-</p>
+<h1 ng-show="!isComplete">New Profile</h1>
 
 <div class="alert alert-danger" ng-show="haveError">
   <h2>This Just Happened</h2>
@@ -32,7 +26,7 @@
                 class="form-control"
                 id="signupEmail"
                 name="email"
-                placeholder="Enter email"
+                placeholder="Enter email address"
                 ng-model="user.email"
                 >
         </div>
@@ -79,17 +73,14 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-12">
-      <button class="btn btn-default btn-lg" ng-click="createAccount()">
-        <img src="favicon.ico" alt="Pulsar Favicon" style="position:relative;top:-2px;"/> Create Account
-      </button>
-    </div>
+  <div style="margin-top:16px;">
+    <button class="btn btn-default btn-lg" ng-click="createAccount()">
+      <img src="favicon.ico" alt="Pulsar Favicon" style="position:relative;top:-2px;"/> Create Profile
+    </button>
   </div>
-
 </form>
 
-<h2 ng-show="isComplete">Account Created Successfully</h2>
+<h2 ng-show="isComplete">Profile Created Successfully</h2>
 <p ng-show="isComplete">
   An email has maybe been sent to {{user.email}} Please check both your inbox and spam
   folder for an email from Pulsar asking you to verify your email address. You can

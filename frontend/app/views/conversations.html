@@ -1,0 +1,49 @@
+<!-- div class="row message-center">
+
+  <div class="col-sm-6 col-lg-4">
+    <div class="pulsar-widget conversations">
+
+      <div class="heading">
+        <div class="heading-wrap">
+          Conversations
+        </div>
+      </div>
+
+      <div class="conversation" ng-repeat="conversation in conversations">
+        <div class="topic">{{conversation.topic}}</div>
+        <div class="participants">
+          <div class="participant" ng-repeat="participant in conversation.participants">
+            <img class="profile-photo" ng-src="{{participant.profileImageUrl}}" />
+            <div class="display-name">{{participant.name}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-8">
+    <div class="pulsar-widget messages">
+      <div class="heading">
+        <div class="heading-wrap">
+          Messages
+        </div>
+      </div>
+      <div class="message" ng-repeat="message in conversation.messages">
+        <div class="timestamp">{{message.timestamp}}</div>
+        <div class="content" ng-bind-html="message.content"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+</div -->
+
+<div class="pulsar-widget">
+  <p>
+    You haven't done anything wrong. You aren't going insane. This won't be
+    how this view is for long. This is here primarily for testing purposes
+    right now. Conversations are available on a very limited basis for early
+    testing of the feature.
+  </p>
+</div>

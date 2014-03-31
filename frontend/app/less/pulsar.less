@@ -9,6 +9,7 @@
 @import url('http://fonts.googleapis.com/css?family=Duru+Sans');
 
 @import 'pulsar-variables.less';
+@import 'pulsar-effects.less';
 
 body {
   padding: 68px 0 32px 0;
@@ -48,13 +49,18 @@ div p:last-child {
   margin-bottom:0;
 }
 
+@import 'pulsar-widget.less';
 @import 'pulsar-footer.less';
 @import 'pulsar-sidebar.less';
 @import 'pulsar-content-section.less';
 
 @import 'pulsar-pulse.less';
+@import 'pulsar-feature-block.less';
 @import 'pulsar-sidebar-pulse.less';
 @import 'pulsar-sidebar-announcement.less';
+
+@import 'pulsar-message-center.less';
+@import 'pulsar-message-center/conversations.less';
 
 @import 'pulsar-comments.less';
 @import 'pulsar-credits.less';
@@ -64,6 +70,7 @@ div p:last-child {
 .main-view {
   -webkit-transform-style:preserve-3d;
   -webkit-perspective:500px;
+  margin-bottom:32px;
 }
 
 .prototype .meta-label {
@@ -94,7 +101,7 @@ div p:last-child {
     &.hover {
       background-color: @pulsarBaseColor;
       color: darken(@pulsarBaseColor, 80%);
-      transform: translate3d(0,40px,90px) rotateX(-350deg);
+      transform: translate3d(0,60px,180px) rotateX(-350deg);
       box-shadow: 0 2px 12px rgba(0,0,140,0.5);
     }
   }
@@ -102,6 +109,15 @@ div p:last-child {
 
 textarea {
   resize:vertical;
+}
+
+hr {
+  display:block;
+  height:2px;
+  border:0;
+  border-top:1px solid darken(@pulsarBgColor, 20%);
+  margin:1em 0;
+  padding:0;
 }
 
 .jumbotron {

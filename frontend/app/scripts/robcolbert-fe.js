@@ -1,36 +1,28 @@
-/*
- * FILE
- *  robcolbert-app.js
- *
- * PURPOSE
- *  Pulsar application module:
- *  1. Establishes global dependencies
- *  2. Builds the application's routes and handlers.
- *
- * LICENSE
- *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
+// pulsar-fe.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
 
 'use strict';
 
+/*
+ * I call this wonderful bit:
+ * THE SORT OF SHIT THAT COULD BE IN JAVASCRIPT BUT ISN'T
+ */
+Array.prototype.contains = function (element) {
+  return (this.indexOf(element) !== -1); //<< It's not hard
+};
+
+/*
+ * The pulsarApp application instance is created here as per Yeoman Standards
+ * Reference Manual page 2911, section 8, subsection 12, which clearly states:
+ * "Thou shalt declare thy AngularJS 'app' and define thy route in the only
+ * script to be found in the root of the scripts directory."
+ *
+ * Compliance has been properly verified by Democratic socialist union workers
+ * on corporate welfare in the United States of America. Ironically, the
+ * function itself was <em>also</em> written in America by a natural born
+ * citizen.
+ */
 angular.module('robcolbertApp', [
   'ngCookies',
   'ngResource',
@@ -45,9 +37,13 @@ angular.module('robcolbertApp', [
     templateUrl: 'views/main.html',
     controller: 'MainCtrl'
   })
-  .when('/videos', {
-    templateUrl: 'views/videos.html',
-    controller: 'VideosCtrl'
+//  .when('/videos', {
+//    templateUrl: 'views/videos.html',
+//    controller: 'VideosCtrl'
+//  })
+  .when('/conversations', {
+    templateUrl: 'views/conversations.html',
+    controller: 'ConversationsCtrl'
   })
   .when('/about', {
     templateUrl: 'views/about.html',
@@ -76,10 +72,6 @@ angular.module('robcolbertApp', [
   .when('/prototype/source', {
     templateUrl: 'views/prototype/source.html',
     controller: 'PrototypeSourceCtrl'
-  })
-  .when('/admin', {
-    templateUrl: 'views/admin.html',
-    controller: 'AdminCtrl'
   })
   .when('/moving-parts', {
     templateUrl: 'views/moving-parts.html',
@@ -126,6 +118,11 @@ angular.module('robcolbertApp', [
   })
   .when('/hire-rob', {
     redirectTo: '/about'
+  })
+
+  .when('/admin', {
+    templateUrl: 'views/admin.html',
+    controller: 'AdminCtrl'
   })
 
   .otherwise({

@@ -1,39 +1,6 @@
-/*
- * FILE
- *  services/sound-cloud.js
- *
- * PURPOSE
- *  The Pulsar client application uses SoundCloudService to fetch metadata and
- *  sound stream information from SoundCloud (api.soundcloud.com) as a
- *  registered SoundCloud API client. It then passes the stream information to
- *  the WebAudioService for interactive audio playback connected to the Pulsar
- *  presentation service instead of using the SoundCloud "widget" as an iframe.
- *
- *  This deeper integration is what allows Pulsar to achieve that which other
- *  content management systems do not: The richest, most deeply integrated and
- *  entirely engaging experiences possible.
- *
- * LICENSE
- *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
+// services/sound-cloud.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
 
 'use strict';
 

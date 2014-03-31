@@ -42,25 +42,18 @@ function SidebarPulsesController (app, config) {
 }
 
 SidebarPulsesController.prototype.create = function (req, res) {
-  log.debug('sidebar-pulses.create', req.route, req.query, req.body);
-  if (!req.session.user || !req.session.authenticated.status) {
-    log.error('SidebarPulses.create called by unauthenticated client', req.session);
-    res.json(
-      500,
-      {
-        //@TODO: refactor this to a config file with internationalization
-        'message':'Pulse transmission requires user authentication (non-negotiable).'
-      }
-    );
+  var self = this;
+
+  if (!this.app.checkAuthentication(req,res,'Only authenticated users can create sidebar pulses')) {
     return;
   }
+  log.info('sidebar-pulses.create', req.session.user);
 
   delete req.body._id;
   req.body._creator = req.session.user._id;
+
   SidebarPulses.create(req.body, function (err, pulse) {
-    if (err) {
-      log.error('sidebar-pulses.create', err);
-      res.json(500, err);
+    if (self.app.checkError(err, res, 'sidebar-pulses.create')) {
       return;
     }
     pulse.populate(
@@ -69,9 +62,7 @@ SidebarPulsesController.prototype.create = function (req, res) {
         'select': '_id displayName'
       },
       function (err, populatedPulse) {
-        if (err) {
-          log.error('sidebar-pulses.populate', err);
-          res.json(500, err);
+        if (self.app.checkError(err, res, 'sidebar-pulses.create')) {
           return;
         }
         res.json(200, populatedPulse);
@@ -81,7 +72,9 @@ SidebarPulsesController.prototype.create = function (req, res) {
 };
 
 SidebarPulsesController.prototype.list = function(req, res){
-  log.debug('sidebar-pulses.list', req.route, req.query);
+  var self = this;
+
+  log.info('sidebar-pulses.list');
 
   var query =
   SidebarPulses
@@ -92,9 +85,7 @@ SidebarPulsesController.prototype.list = function(req, res){
   paginator.paginateQuery(query)
   .populate('_creator', '_id displayName')
   .exec(function (err, pulses) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err, res, 'sidebar-pulses.list')) {
       return;
     }
     res.json(200, pulses);
@@ -102,15 +93,16 @@ SidebarPulsesController.prototype.list = function(req, res){
 };
 
 SidebarPulsesController.prototype.get = function (req, res) {
-  log.debug('sidebar-pulses.get', req.route, req.query);
+  var self = this;
+
+  log.info('sidebar-pulses.get', 'pulseId', {'pulseId':req.route.params.pulseId});
+
   SidebarPulses
-  .findById(req.route.params.id)
+  .findById(req.route.params.pulseId)
   .lean(true)
   .populate('_creator', '_id displayName')
   .exec(function (err, pulse) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err, res, 'sidebar-pulses.get')) {
       return;
     }
     res.json(200, pulse);
@@ -118,81 +110,124 @@ SidebarPulsesController.prototype.get = function (req, res) {
 };
 
 SidebarPulsesController.prototype.update = function (req, res) {
-  log.debug('sidebar-pulses.update', req.route, req.query, req.body);
+  var self = this;
+
+  if (!self.app.checkAuthentication(req,res,'Only authenticated users can update sidebar pulses')) {
+    return;
+  }
+  log.info('sidebar-pulses.update', req.session.user, req.route.params.pulseId);
+
   delete req.body._id;
-  SidebarPulses.findOneAndUpdate(
-    {'_id': req.route.params.id},
-    req.body,
-    function (err, pulse) {
-      if (err) {
-        log.error(err);
-        res.json(500, err);
-        return;
-      }
-      if (!pulse) {
-        res.json(404, {'msg':'pulse not found'});
-        return;
-      }
-      res.json(200, pulse);
+
+  SidebarPulses
+  .findById(req.route.params.pulseId)
+  .exec(function (err, pulse) {
+    if (self.app.checkError(err, res, 'sidebar-pulses.update')) {
+      return;
     }
-  );
+    if (!pulse) {
+      res.json(404, {'message':'Pulse not found'});
+      return;
+    }
+    if (pulse._creator.toString() !== req.session.user._id.toString()) {
+      res.json(403, {'message':'Pulse update forbidden'});
+      return;
+    }
+
+    pulse.content = req.body.content;
+    pulse.save(function (err, newPulse) {
+      if (self.app.checkError(err, res, 'sidebar-pulses.update')) {
+        return;
+      }
+      newPulse.populate('_creator', function (err, populatedPulse) {
+        if (self.app.checkError(err, res, 'sidebar-pulses.update')) {
+          return;
+        }
+        res.json(200, populatedPulse);
+      });
+    });
+  });
 };
 
 SidebarPulsesController.prototype.delete = function (req, res) {
-  log.debug('sidebar-pulses.delete', req.route, req.query);
-  SidebarPulses.findOneAndRemove(
-    {'_id': req.route.params.id },
-    function (err) {
-      if (err) {
-        log.error(err);
-        res.json(500, err);
+  var self = this;
+
+  if (!self.app.checkAuthentication(req, res, 'Only authenticated users can delete a sidebar pulse')) {
+    return;
+  }
+  log.info('sidebar-pulses.delete', req.session.user, req.route.params.pulseId);
+
+  SidebarPulses
+  .findById(req.route.params.pulseId)
+  .lean(true)
+  .exec(function (err, pulse) {
+    if (self.app.checkError(err, res, 'sidebar-pulses.delete')) {
+      return;
+    }
+    if (pulse._creator.toString() !== req.session.user._id.toString()) {
+      res.json(403, {
+        'guard':'Pulse Ownership',
+        'message':'Only the creator of this pulse or an administrator can delete a pulse'
+      });
+      return;
+    }
+    pulse.remove(function (err) {
+      if (self.app.checkError(err, res, 'sidebar-pulses.delete')) {
         return;
       }
-      res.json(200);
-    }
-  );
+      res.json(200, {'message':'Sidebar pulse successfully removed'});
+    });
+  });
 };
 
 SidebarPulsesController.prototype.createComment = function (req, res) {
-  log.debug('sidebar-pulses.createComment', req.route, req.query, req.body);
+  var self = this;
+
+  if (!self.app.checkAuthentication(req,res,'Only authenticated users can create comments')) {
+    return;
+  }
+  log.info('sidebar-pulses.createComment', req.session.user, req.route.params.pulseId);
+
   SidebarPulses
-  .findById(req.route.params.id)
+  .findById(req.route.params.pulseId)
   .populate('_creator', '_id displayName')
   .exec(function (err, pulse) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err, res, 'sidebar-pulses.createComment')) {
       return;
     }
-    pulse.comments.push(req.body);
+    pulse.interactions.comments.push(req.body);
     pulse.save(function (err, commentedPulse) {
-      if (err) {
-        log.error(err);
-        res.json(500, err);
+      if (self.app.checkError(err, res, 'sidebar-pulses.createComment')) {
         return;
       }
-      res.json(200, commentedPulse);
+      commentedPulse.populate('_creator', function (err, populatedPulse) {
+        if (self.app.checkError(err, res, 'sidebar-pulses.createComment')) {
+          return;
+        }
+        res.json(200, populatedPulse);
+      });
     });
   });
 };
 
 SidebarPulsesController.prototype.getComments = function (req, res) {
-  log.debug('sidebar-pulses.getComments', req.route, req.query);
-  var paginator = new Paginator(req);
+  var self = this;
+
+  log.info('sidebar-pulses.getComments', req.route.params.pulseId);
+
   var query =
   SidebarPulses
-  .findById(req.route.params.id, 'comments')
+  .findById(req.route.params.pulseId, 'comments')
   .lean(true);
 
+  var paginator = new Paginator(req);
   paginator.paginateQuery(query)
   .populate('_creator', '_id displayName')
-  .exec(function (err, thought) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+  .exec(function (err, pulse) {
+    if (self.app.checkError(err, res, 'sidebar-pulses.getComments')) {
       return;
     }
-    res.json(200, thought.comments);
+    res.json(200, pulse.comments);
   });
 };
 

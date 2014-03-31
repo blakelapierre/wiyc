@@ -7,7 +7,7 @@
       Edit
     </a>
     <h1 ng-bind-html="pulse.title"></h1>
-    <p>Created {{calendarMoment(pulse.created)}}</p>
+    <p><img src="favicon.ico" style="position:relative; top:-2px;"/> {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}</p>
   </div>
 
   <div class="body">

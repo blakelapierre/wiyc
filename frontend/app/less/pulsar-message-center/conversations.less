@@ -1,0 +1,30 @@
+// less/message-center/conversations.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+//
+// REFERENCE:
+// https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
+
+.message-center {
+  .conversations, .messages {
+    background-color : @pulsarWidgetBgColor;
+    color : @pulsarWidgetTextColor;
+    height : 240px;
+    .conversation {
+      .topic {
+        font-family : @pulsarWidgetHeadingFontFamily;
+        font-size : @pulsarWidgetHeadingFontSize;
+        background-color : @pulsarWidgetHeadingBgColor;
+        color : @pulsarWidgetHeadingTextColor;
+      }
+      .participants {
+        .participant {
+          .profile-photo {
+            width : 32px;
+            height : 32px;
+          }
+        }
+      }
+    }
+  }
+}

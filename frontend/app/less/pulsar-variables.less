@@ -31,6 +31,20 @@
 @pulsarAnchorVisitedDecoration              : none;
 
 /*
+ * WIDGET
+ */
+
+@pulsarWidgetBgColor                        : darken(@pulsarBgColor, 4%);
+@pulsarWidgetTextColor                      : lighten(@pulsarTextColor, 4%);
+@pulsarWidgetFontFamily                     : "Share Tech";
+@pulsarWidgetFontSize                       : 18px;
+
+@pulsarWidgetHeadingBgColor                 : #f8f8f8;
+@pulsarWidgetHeadingTextColor               : #2a2a2a;
+@pulsarWidgetHeadingFontFamily              : "Share Tech";
+@pulsarWidgetHeadingFontSize                : 24px;
+
+/*
  * PULSES
  */
 @pulsarPulseHeaderBgColor                   : darken(@pulsarBgColor, 4%);
@@ -44,6 +58,15 @@
 
 @pulsarPulseBodyContentBgColor              : @pulsarBgColor;
 @pulsarPulseBodyContentTextColor            : lighten(@pulsarTextColor, 2%);
+
+/*
+ * FEATURE BLOCK
+ */
+@pulsarFeatureBlockBgColor                  : rgba(0,0,0,0.8);
+@pulsarFeatureBlockTextColor                : #2a2a2a;
+
+@pulsarFeatureBlockContentBgColor           : rgba(255,255,235,0.9);
+@pulsarFeatureBlockContentTextColor         : #2a2a2a;
 
 /*
  * COMMENTS
@@ -66,8 +89,8 @@
 @pulsarSidebarBgColor                       : @pulsarBgColor;
 @pulsarSidebarTextColor                     : lighten(@pulsarTextColor, 4%);
 
-@pulsarSidebarWidgetHeadingBgColor          : #f8f8f8;
-@pulsarSidebarWidgetHeadingTextColor        : #2a2a2a;
+@pulsarSidebarWidgetHeadingBgColor          : @pulsarWidgetHeadingBgColor;
+@pulsarSidebarWidgetHeadingTextColor        : @pulsarWidgetHeadingTextColor;
 
 @pulsarSidebarWidgetBgColor                 : darken(@pulsarBgColor, 2%);
 @pulsarSidebarWidgetTextColor               : lighten(@pulsarTextColor, 2%);
@@ -92,25 +115,14 @@
 @pulsarTheaterBgColor                       : #2a2a2a;
 @pulsarTheaterTextColor                     : #e8e8e8;
 
-/*
- * THEATER FOOTER
- */
-
 @pulsarTheaterFooterBgColor                 : #2a2a2a;
 @pulsarTheaterFooterTextColor               : #e8e8e8;
 
-/*
- * THEATER FOOTER LINKS
- */
-
 @pulsarTheaterFooterAnchorLinkColor         : #e8e800;
 @pulsarTheaterFooterAnchorLinkDecoration    : none;
-
 @pulsarTheaterFooterAnchorHoverColor        : #e8e800;
 @pulsarTheaterFooterAnchorHoverDecoration   : underline;
-
 @pulsarTheaterFooterAnchorActiveColor       : #e80000;
 @pulsarTheaterFooterAnchorActiveDecoration  : underline;
-
 @pulsarTheaterFooterAnchorVisitedColor      : #e8e800;
 @pulsarTheaterFooterAnchorVisitedDecoration : none;

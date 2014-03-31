@@ -1,0 +1,40 @@
+// less/pulsar-widget.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+
+.pulsar-widget {
+
+  margin-bottom:16px;
+  padding:16px;
+  background-color:@pulsarWidgetBgColor;
+  color:@pulsarWidgetTextColor;
+  font-family: @pulsarWidgetFontFamily;
+  font-size: @pulsarWidgetFontSize;
+  box-shadow:0 0 5px rgba(0,0,0,0.3) inset;
+  .heading {
+    padding:8px 0;
+    margin-bottom:16px;
+    font-family: @pulsarWidgetHeadingFontFamily;
+    font-size: @pulsarWidgetHeadingFontSize;
+    line-height:1em;
+    background-color:@pulsarWidgetHeadingBgColor;
+    color:@pulsarWidgetHeadingTextColor;
+    box-shadow:0 0 5px rgba(0,0,0,0.3);
+    border:solid 1px darken(@pulsarWidgetHeadingBgColor, 20%);
+    .heading-wrap {
+      margin-left:8px;
+    }
+    .glyphicon {
+      font-size:0.8em;
+    }
+  }
+  .body {
+    padding:16px;
+    border-left:solid 1px @pulsarWidgetHeadingBgColor;
+    border-right:solid 1px @pulsarWidgetHeadingBgColor;
+    border-bottom:solid 1px @pulsarWidgetHeadingBgColor;
+    background-color:@pulsarWidgetBgColor;
+    color: @pulsarWidgetTextColor;
+  }
+}
+

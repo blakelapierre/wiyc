@@ -41,57 +41,39 @@ function ConversationsController (app, config) {
   this.config = config;
 }
 
-ConversationsController.prototype.checkAuthenciation = function (req, res) {
-  if (req.session.user && req.session && req.session.authenticated && req.session.authenticated.status) {
-    log.error('Conversations.create called by unauthenticated client', req.session);
-    res.json(
-      500,
-      {
-        //@TODO: refactor this to a config file with internationalization
-        'message':'Pulse transmission requires user authentication (non-negotiable).'
-      }
-    );
-    return;
-  }
-};
-
 ConversationsController.prototype.create = function (req, res) {
-  log.debug('conversations.create', req.body);
-  if (!req.session.user || !req.session.authenticated.status) {
-    log.error('Conversations.create called by unauthenticated client', req.session);
-    res.json(
-      500,
-      {
-        //@TODO: refactor this to a config file with internationalization
-        'message':'Pulse transmission requires user authentication (non-negotiable).'
-      }
-    );
-    return;
+  if (!this.app.checkAuthentication(req,res,'Only authenticated users can start new conversations')) {
+    return false;
   }
 
+  log.debug('conversations.create', req.body);
   delete req.body._id;
   req.body._creator = req.session.user._id;
-  Conversations.create(req.body, function (err, conversation) {
-    if (err) {
-      log.error('conversations.create', err);
-      res.json(500, err);
-      return;
-    }
-    conversation.populate(
-      {
-        'path': '_creator',
-        'select': '_id displayName'
-      },
-      function (err, populatedPulse) {
-        if (err) {
-          log.error('conversations.populate', err);
-          res.json(500, err);
-          return;
-        }
-        res.json(200, populatedPulse);
+
+  Conversations.create(
+    req.body,
+    function (err, conversation) {
+      if (err) {
+        log.error('conversations.create', err);
+        res.json(500, err);
+        return;
       }
-    );
-  });
+      conversation.populate(
+        {
+          'path': '_creator',
+          'select': '_id displayName'
+        },
+        function (err, populatedConversation) {
+          if (err) {
+            log.error('conversations.create.populate', err);
+            res.json(500, err);
+            return;
+          }
+          res.json(200, populatedConversation);
+        }
+      );
+    }
+  );
 };
 
 ConversationsController.prototype.list = function(req, res){

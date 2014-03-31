@@ -7,39 +7,31 @@
 
 .pulse {
   margin-top:32px;
-  .header {
+  .heading {
     display:block;
-    padding:8px 0;
-    margin-bottom:32px;
-    background-color:@pulsarPulseHeaderBgColor;
-    color:@pulsarPulseHeaderTextColor;
-    text-align:center;
-    box-shadow:-2px 2px 8px rgba(0,0,0,0.4);
+    padding:8px 16px;
     .title {
       display:block;
-      font-size:36px;
-      margin:0;
-      padding:0;
+      margin-top:8px;
+      margin-bottom:8px;
+      font-size:32px;
     }
     .byline {
       display:block;
-      font-size:18px;
-      padding:8px 0;
+      font-size:16px;
     }
   }
   .body {
     border:none;
+    padding:0;
     .excerpt {
-      padding:16px;
-      margin-top:0;
-      margin-bottom:16px;
+      margin-bottom:30px;
+      padding:30px;
       background-color:@pulsarPulseBodyExcerptBgColor;
       color:@pulsarPulseBodyExcerptTextColor;
     }
     .content {
       display:block;
-      padding:16px;
-      margin-bottom:16px;
       background-color:@pulsarPulseBodyContentBgColor;
       color:@pulsarPulseBodyContentTextColor;
     }
@@ -47,8 +39,4 @@
   .jumbotron {
     margin-bottom:0;
   }
-}
-
-div .pulse:first-child {
-  margin-top:0;
 }

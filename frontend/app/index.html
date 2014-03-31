@@ -34,8 +34,8 @@
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="col-sm-8 main-view"><div ng-view=""></div></div>
-        <div class="col-sm-4 sidebar"><ng-include src="'views/sidebar.html'"></ng-include></div>
+        <div class="col-sm-8 col-lg-9 main-view"><div ng-view=""></div></div>
+        <div class="col-sm-4 col-lg-3 sidebar"><ng-include src="'views/sidebar.html'"></ng-include></div>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -184,6 +184,7 @@
     <script src="scripts/controllers/moving-parts.js"></script>
     <script src="scripts/controllers/user/user-profile.js"></script>
     <script src="scripts/services/notifications.js"></script>
+    <script src="scripts/controllers/conversations.js"></script>
     <!-- endbuild -->
 
     <script src="http://0.0.0.0:10010/socket.io/socket.io.js"

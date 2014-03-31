@@ -41,35 +41,33 @@ function PulsesController (app, config) {
   this.config = config;
 }
 
-PulsesController.prototype.checkAuthentication = function (req, res, message) {
-  if (!req.session.user || !req.session.authenticated.status) {
-    log.error('pulses.checkAuthentication failed', req.session, message);
-    res.json(500, { 'message': message });
-    return false;
-  }
-  return true;
-};
-
 PulsesController.prototype.create = function (req, res) {
-  log.debug('pulses.create', req.route, req.query, req.body);
-  if (!this.checkAuthentication(req, res, 'Pulses can only be created by authenticated Pulsar users.')) {
+  var self = this;
+
+  if (!this.app.checkAuthentication(req, res, 'Only authenticated users can create pulses.')) {
     return;
   }
+  log.info('pulses.create', req.session.user);
 
   req.body._creator = req.session.user._id;
+
   Pulses.create(req.body, function (err, newPulse) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
-      log.error('pulses.create error', err);
+    if (self.app.checkError(err,res,'pulses.create')) {
       return;
     }
-    res.json(200, newPulse);
+    newPulse.populate('_creator', function (err, populatedPulse) {
+      if (self.app.checkError(err,res,'pulses.create')) {
+        return;
+      }
+      res.json(200, populatedPulse);
+    });
   });
 };
 
 PulsesController.prototype.list = function(req, res){
-  log.debug('pulses.list', req.route, req.query);
+  var self = this;
+
+  log.info('pulses.list', req.route, req.query);
 
   var query =
   Pulses
@@ -80,26 +78,25 @@ PulsesController.prototype.list = function(req, res){
   query = paginator.paginateQuery(query);
 
   query
-  .sort({ 'created':-1 })
+  .sort({ 'created': -1 })
   .populate('_creator', '_id displayName')
   .exec(function (err, pulses) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err,res,'pulses.list')) {
       return;
     }
-
     var response = {
       'totalPages':20,
       'pulses': pulses
     };
-
     res.json(200, response);
   });
 };
 
 PulsesController.prototype.get = function (req, res) {
-  log.info('pulses.get', req.route, req.query);
+  var self = this;
+
+  log.info('pulses.get');
+
   Pulses
   .findById(req.route.params.pulseId)
   .lean(true)
@@ -109,9 +106,7 @@ PulsesController.prototype.get = function (req, res) {
     'select': '_id displayName'
   })
   .exec(function (err, pulse) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err,res,'pulses.get')) {
       return;
     }
     if (!pulse) {
@@ -123,10 +118,12 @@ PulsesController.prototype.get = function (req, res) {
 };
 
 PulsesController.prototype.update = function (req, res) {
-  log.debug('pulses.update', req.route, req.query, req.body);
-  if (!this.checkAuthentication(req, res, 'Pulses can only be updated by authenticated Pulsar users.')) {
+  var self = this;
+
+  if (!this.app.checkAuthentication(req, res, 'Pulses can only be updated by authenticated Pulsar users.')) {
     return;
   }
+  log.info('pulses.update', req.session.user, req.route.params.pulseId);
 
   // In no way will the creator's userId be authoritaive when coming from the
   // client period and ever. This value was read from the database and stored
@@ -149,9 +146,7 @@ PulsesController.prototype.update = function (req, res) {
   // in this unit.
 
   Pulses.findById(req.route.params.pulseId, function (err, pulse) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err,res,'pulses.update')) {
       return;
     }
     if (!pulse) {
@@ -159,7 +154,7 @@ PulsesController.prototype.update = function (req, res) {
       return;
     }
     if (req.body.__v < pulse.__v) {
-      res.json(500, {'message':'A newer version of this pulse already exists'});
+      res.json(403, {'message':'A newer version of this pulse already exists'});
       return;
     }
 
@@ -169,10 +164,7 @@ PulsesController.prototype.update = function (req, res) {
     // doesn't have to run off stage with a camera crew following it.
 
     if (pulse._creator.toString() !== req.session.user._id.toString()) {
-      pulse.populate('_creator', '_id displayName', function (err, populatedPulse) {
-        console.log('unauthorized pulse edit', populatedPulse._creator, req.session.user, err);
-        res.json(403, { 'message':'you are not authorized to edit this pulse' });
-      });
+      res.json(403, { 'message':'Pulse update forbidden' });
       return; // we're done
     }
 
@@ -187,15 +179,11 @@ PulsesController.prototype.update = function (req, res) {
     pulse.increment();
 
     pulse.save(function (err, newPulse) {
-      if (err) {
-        log.error(err);
-        res.json(500, err);
+      if (self.app.checkError(err,res,'pulses.update')) {
         return;
       }
       newPulse.populate('_creator', '_id displayName', function (err, populatedPulse) {
-        if (err) {
-          log.error(err);
-          res.json(500, err);
+        if (self.app.checkError(err,res,'pulses.update')) {
           return;
         }
         res.json(200, populatedPulse);
@@ -205,33 +193,50 @@ PulsesController.prototype.update = function (req, res) {
 };
 
 PulsesController.prototype.delete = function (req, res) {
-  log.debug('pulses.delete', req.route, req.query);
-  if (!this.checkAuthentication(req, res, 'Pulses can only be deleted by authenticated Pulsar users.')) {
+  var self = this;
+
+  if (!self.app.checkAuthentication(req, res, 'Pulses can only be deleted by authenticated Pulsar users.')) {
     return;
   }
+  log.info('pulses.delete', req.session.user, req.route.params.pulseId);
 
-  Pulses.remove(req.body, function (err) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+  Pulses
+  .findById(req.route.params.pulseId)
+  .lean(true)
+  .exec(function (err, pulse) {
+    if (self.app.checkError(err,res,'pulses.delete')) {
       return;
     }
-    res.json(200);
+    if (!pulse) {
+      res.json(404, {'message':'Pulse not found'});
+      return;
+    }
+    if (pulse._creator.toString() !== req.session.user._id.toString()) {
+      res.json(403, {'message':'you are not authorized to edit this pulse'});
+      return;
+    }
+    pulse.remove(function (err) {
+      if (self.app.checkError(err,res,'pulses.delete')) {
+        return;
+      }
+      res.json(200, {'message':'Pulse deleted successfully'});
+    });
   });
 };
 
 PulsesController.prototype.createComment = function (req, res) {
-  log.debug('pulses.createComment', req.route, req.query, req.body);
-  if (!this.checkAuthentication(req, res, 'Pulse comments can only be created by authenticated Pulsar users.')) {
+  var self = this;
+
+  if (!self.app.checkAuthentication(req, res, 'Pulse comments can only be created by authenticated Pulsar users.')) {
     return;
   }
+  log.info('pulses.createComment', req.route, req.query, req.body);
 
-  Pulses.findById(req.route.params.pulseId)
+  Pulses
+  .findById(req.route.params.pulseId)
   .populate('_creator', '_id displayName')
   .exec(function (err, pulse) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err,res,'pulses.createComment')) {
       return;
     }
     if (!pulse) {
@@ -242,9 +247,7 @@ PulsesController.prototype.createComment = function (req, res) {
     req.body._creator = req.session.user._id;
     pulse.interactions.comments.push(req.body);
     pulse.save(function (err, newPulse) {
-      if (err) {
-        log.error(err);
-        res.json(500, err);
+      if (self.app.checkError(err,res,'pulses.createComment')) {
         return;
       }
       var commentIdx = newPulse.interactions.comments.length - 1;
@@ -254,9 +257,7 @@ PulsesController.prototype.createComment = function (req, res) {
           'select': '_id displayName'
         },
         function (err, populatedPulse) {
-          if (err) {
-            log.error(err);
-            res.json(500, err);
+          if (self.app.checkError(err,res,'pulses.createComment')) {
             return;
           }
           var comment = populatedPulse.interactions.comments[commentIdx];
@@ -268,7 +269,10 @@ PulsesController.prototype.createComment = function (req, res) {
 };
 
 PulsesController.prototype.getComments = function (req, res) {
-  log.debug('pulses.getComments', req.route, req.query);
+  var self = this;
+
+  log.info('pulses.getComments', req.route, req.query);
+
   var paginator = new Paginator(req);
   var query =
   Pulses
@@ -279,9 +283,7 @@ PulsesController.prototype.getComments = function (req, res) {
   .sort({'created': 1})
   .populate('_creator', '_id displayName')
   .exec(function (err, pulse) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
+    if (self.app.checkError(err,res,'pulses.getComments')) {
       return;
     }
     res.json(200, pulse.interactions.comments);
