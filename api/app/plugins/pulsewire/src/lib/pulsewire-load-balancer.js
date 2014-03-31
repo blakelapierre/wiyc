@@ -28,7 +28,7 @@ PulseWireLoadBalancer.prototype.addHost = function (hostDefinition) {
 PulseWireLoadBalancer.prototype.selectHostForChannel = function (req, res, channel) {
 
   var host = {
-    'address': this.container.config.bind.address,
+    'address': 'api.robcolbert.com',//this.container.config.bind.address,
     'port': this.container.config.bind.port
   };
   this.log.info('lb.selectHostForChannel', host);

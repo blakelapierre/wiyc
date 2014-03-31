@@ -7,9 +7,9 @@ var GUID = require('pulsar-api-framework').tools.GUID;
 function PulseWireHost (container, address, port, capacity) {
 
   this.container = container;
-  this.address = '127.0.0.1';
-  this.port = 10010;
-  this.capacity = 200;
+  this.address = address;
+  this.port = port;
+  this.capacity = capacity;
   this.clientSessions = [ ];
 
 }

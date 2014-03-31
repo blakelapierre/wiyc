@@ -120,7 +120,7 @@ db.on('open', function ( ) {
   var io = null;
   if (socketioConfig.enabled) {
     io = require('socket.io').listen(server);
-    io.set('origins', config.cors.allowOrigins.join(','));
+    io.set('origins', 'http://api.robcolbert.com:10010');//config.cors.allowOrigins.join(','));
 
     if (socketioConfig.client.minify) {
       io.enable('browser client minification');

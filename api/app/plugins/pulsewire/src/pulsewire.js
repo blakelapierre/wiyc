@@ -29,7 +29,7 @@ function PulseWire (app, http, config) {
 
   this.loadBalancer = new PulseWireLoadBalancer(this);
   this.loadBalancer.addHost({
-    'address':'127.0.0.1',
+    'address':'api.robcolbert.com',
     'port':10010,
     'capacity':200
   });
