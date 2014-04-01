@@ -72,11 +72,11 @@ function MovingPartsCtrl (
   function YouTubeVideo (elementId, videoId) {
     var self = this;
     self.player = new $window.YT.Player(elementId, {
-      'height': '390',
-      'width': '640',
+      'height': '720',
+      'width': '1280',
       'playerVars': {
         'origin': Configuration.getFrontEndHost(),
-        'html5': 1,
+        'html5': 0,
         'controls': 0,
         'disablekb': 1,
         'enablejsapi': 1,
