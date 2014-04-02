@@ -49,7 +49,7 @@ module.exports = function(app, config) {
     app.use(express.session({
       'secret': config.app.cookieSecret,
       'store': new MemcachedStore({
-        'hosts': [ '127.0.0.1:11211' ]
+        'hosts': config.app.memcache.sessionCacheHosts
       })
     }));
     app.use(express.bodyParser());

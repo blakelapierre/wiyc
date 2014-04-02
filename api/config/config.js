@@ -32,43 +32,10 @@
 var path = require('path');
 var crypto = require('crypto');
 var localConfig = require('./config.local');
+console.log('LOCAL CONFIG', localConfig);
 
 var rootPath = path.normalize(__dirname + '/..');
 var env = process.env.NODE_ENV || 'development';
-
-var bindAddress = '0.0.0.0';
-var listenPort = 10010;
-
-var corsConfig = {
-  'allowOrigins': [ localConfig.allowOrigin ],
-  'allowMethods': [
-    'GET',
-    'PUT',
-    'POST',
-    'DELETE'
-  ],
-  'allowHeaders': [
-    'Content-Type',
-    'Authorization'
-  ],
-  'allowCredentials': true
-};
-
-var socketIoOptions = {
-  'enabled': true,
-  'logLevel': 1,
-  'client': {
-    'minify': true,
-    'etag': true,
-    'gzip': true
-  }
-};
-
-var monitorConfig = {
-  'enabled': true,
-  'mountPoint': '/monitor',
-  'maxHistoryLength': 3
-};
 
 function hashPassword (password) {
   var shasum = crypto.createHash('sha1');
@@ -88,62 +55,62 @@ var config = {
   'development': {
     'root': rootPath,
     'app': {
-      'name': 'pulsar-api',
+      'name': 'pulsar-api-dev',
       'cookieSecret': localConfig.cookieSecret,
       'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
       'emailUser': localConfig.emailUser,
       'emailPassword': localConfig.emailPassword,
-      'socketio': socketIoOptions
+      'memcache': localConfig.memcache,
+      'socketio': localConfig.socketIo
     },
-    'bind': {
-      'address': bindAddress,
-      'port': listenPort
-    },
-    'db': 'mongodb://localhost/robcolbert-development',
-    'cors': corsConfig,
-    'monitor': monitorConfig
+    'bind': localConfig.bind,
+    'db': 'mongodb://localhost/pulsar-api-development',
+    'cors': localConfig.corsOptions,
+    'monitor': localConfig.monitorOptions
   },
 
   'test': {
     'root': rootPath,
     'app': {
-      'name': 'pulsar-api',
+      'name': 'pulsar-api-test',
       'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
       'emailUser': localConfig.emailUser,
       'emailPassword': localConfig.emailPassword,
-      'socketio': socketIoOptions
+      'memcache': {
+        'sessionCacheHosts': localConfig.sessionCacheHosts,
+        'dataCacheHosts': localConfig.dataCacheHosts
+      },
+      'socketio': localConfig.socketIo
     },
-    'bind': {
-      'address': bindAddress,
-      'port': listenPort
-    },
-    'db': 'mongodb://localhost/robcolbert-test',
-    'cors': corsConfig,
-    'monitor': monitorConfig
+    'bind': localConfig.bind,
+    'db': 'mongodb://localhost/pulsar-api-test',
+    'cors': localConfig.corsOptions,
+    'monitor': localConfig.monitorOptions
   },
 
   'production': {
     'root': rootPath,
     'app': {
-      'name': 'pulsar-api',
+      'name': 'pulsar-api-prod',
       'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
       'emailUser': localConfig.emailUser,
       'emailPassword': localConfig.emailPassword,
-      'socketio': socketIoOptions
+      'memcache': {
+        'sessionCacheHosts': localConfig.sessionCacheHosts,
+        'dataCacheHosts': localConfig.dataCacheHosts
+      },
+      'socketio': localConfig.socketIo
     },
-    'bind': {
-      'address': bindAddress,
-      'port': listenPort
-    },
-    'db': 'mongodb://localhost/robcolbert-production',
-    'cors': corsConfig,
-    'monitor': monitorConfig
+    'bind': localConfig.bind,
+    'db': 'mongodb://localhost/pulsar-api-production',
+    'cors': localConfig.corsOptions,
+    'monitor': localConfig.monitorOptions
   }
 };
 

@@ -18,23 +18,40 @@ var PulseWireClient       = require('./lib/pulsewire-client');
  * PURPOSE
  *  Implement the Pulsar real-time communications protocol PulseWire using
  *  socket.io.
+ *
+ * PROCESS
+ * 1. Client HTTP requests a session on PulseWire using Pulsar API
+ * 2. The PulseWireLoadBalancer selects a host.
+ * 3. PulseWire connects to the selected host and requests a session.
+ * 4. Host, if possible, reserves a session and generates an auth token.
+ * 5. PulseWire passes the host's address, port and auth token back to client.
+ *
+ * 6. Client connects to selected PulseWire host using socket.io
+ * 7. Client presents auth token
+ * 8. Host checks token against the token it generated for the session
+ *    a. If token matches, proceed to step 9
+ *    b. If token does not match, the host closes the socket. [end process]
+ * 9. Client enables messaging on PulseWire and configures any loaded plugins
+ *    for use with the PulseWire service (it's an event in the reference Pulsar
+ *    HTML5 Single-Page Application).
  */
 function PulseWire (app, http, config) {
 
-  this.packageMeta = PulseWire.packageMeta;
-  this.app = app;
-  this.log = app.log;
-  this.http = http;
-  this.config = config;
+  var self = this;
 
-  this.loadBalancer = new PulseWireLoadBalancer(this);
-  this.loadBalancer.addHost({
-    'address':'api.robcolbert.com',
-    'port':10010,
-    'capacity':200
+  self.packageMeta = PulseWire.packageMeta;
+  self.config = config;
+  self.app = app;
+  self.log = app.log;
+  self.http = http;
+  self.config = config;
+
+  self.clients = [ ];
+
+  self.loadBalancer = new PulseWireLoadBalancer(self);
+  self.packageMeta.pulsar.socketio.hosts.forEach(function (host) {
+    self.loadBalancer.addHost(host);
   });
-
-  this.clients = [ ];
 
 }
 
@@ -95,35 +112,24 @@ PulseWire.prototype.stop = function ( ) {
  *  to PulseWire to gain message-passing access to the server.
  */
 PulseWire.prototype.createUserSession = function (req, res) {
-  var channelUuid = PulseWire.packageMeta.pulsar.socketio.channelUuid; // alias
-  var channelUrl = this.getChannelUrl(req, res, channelUuid);
-
-  /*
-   * 1. Create a UUID
-   * 2. Store the UUID in memcached keyed to the user's _id
-   * 3. Return the UUID to the client
-   * 4. Client connects using socket.io
-   * 5. Server sends 'hello' message
-   * 6. Client responds with 'hello' of its own containing userId and session
-   *    token UUID
-   * 7. If the UUID value matches what was sent to that user by this handler,
-   *    the user is granted access. Otherwise, the socket is closed.
-   */
-
-  var sessionGuid = GUID();
-  req.session.pulsewire = {
-    'channelUrl': channelUrl,
-    'authToken': sessionGuid
-  };
-  res.json(200, req.session.pulsewire);
+  var self = this;
+  var channelUuid = PulseWire.packageMeta.pulsar.socketio.channelUuid;
+  self.loadBalancer.createSessionOnChannel(
+    channelUuid,
+    function (err, session) {
+      if (err) {
+        res.json(500, err);
+        return;
+      }
+      session.channel = channelUuid;
+      req.session.pulsewire = session;
+      res.json(200, req.session.pulsewire);
+    }
+  );
 };
 
 PulseWire.prototype.getChannelUrl = function (req, res, channel) {
-  var host = this.loadBalancer.selectHostForChannel(req, res, channel);
-  if (!host) {
-    return false;
-  }
-  var channelUrl = 'http://' + host.address + ':' + host.port + '/' + channel;
+  var self = this;
   return channelUrl;
 };
 

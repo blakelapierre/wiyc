@@ -34,7 +34,8 @@ PulseWireClient.prototype.sendHelloMessage = function ( ) {
 };
 
 PulseWireClient.prototype.onHello = function (hello) {
-  this.container.app.log.info('HELLO received', hello.authToken);
+  this.container.app.log.info('HELLO received', hello.accessToken);
+  this.sendHelloMessage();
 };
 
 PulseWireClient.prototype.onGoodbye = function ( ) {

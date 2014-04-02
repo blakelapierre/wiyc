@@ -115,24 +115,24 @@ db.on('open', function ( ) {
   server.listen(config.bind.port, config.bind.address);
 
   // socket.io instance and startup
-  var socketioConfig = config.app.socketio;
-  app.log.info('socket.io', socketioConfig);
+  var socketIoConfig = config.app.socketio;
+  app.log.info('socket.io config', socketIoConfig);
   var io = null;
-  if (socketioConfig.enabled) {
+  if (socketIoConfig.enabled) {
     io = require('socket.io').listen(server);
-    io.set('origins', 'http://robcolbert.com:80');//config.cors.allowOrigins.join(','));
+    io.set('origins', socketIoConfig.allowOrigin);
 
-    if (socketioConfig.client.minify) {
+    if (socketIoConfig.client.minify) {
       io.enable('browser client minification');
     }
-    if (socketioConfig.client.etag) {
+    if (socketIoConfig.client.etag) {
       io.enable('browser client etag');
     }
-    if (socketioConfig.client.gzip) {
+    if (socketIoConfig.client.gzip) {
       io.enable('browser client gzip');
     }
-    if (socketioConfig.logLevel) {
-      io.set('log level', socketioConfig.logLevel);
+    if (socketIoConfig.logLevel) {
+      io.set('log level', socketIoConfig.logLevel);
     }
   }
 
@@ -146,7 +146,7 @@ db.on('open', function ( ) {
     Plugin.instance = new Plugin(app, server, config);
 
     var channel = null, channelUuid;
-    if (socketioConfig.enabled) {
+    if (socketIoConfig.enabled) {
       channelUuid = Plugin.packageMeta.pulsar.socketio.channelUuid;
       channel = io.of('/'+channelUuid);
       app.channels.push({

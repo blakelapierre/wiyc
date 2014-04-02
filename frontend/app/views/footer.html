@@ -1,34 +1,32 @@
-<div class="container-fluid" style="position:relative;">
-  <div class="footer-wrap">
-    <!-- div class="brand">
-      <a href="https://twitter.com/search?q=%23OccupyNodejs">#OccupyNodejs</a>
-    </div -->
+<div class="footer-wrap">
+  <!-- div class="brand">
+    <a href="https://twitter.com/search?q=%23OccupyNodejs">#OccupyNodejs</a>
+  </div -->
 
-    <div class="message" ng-bind-html="message.content"></div>
+  <div class="message" ng-bind-html="message.content"></div>
 
-    <div class="pull-right" ng-show="session.authenticated.status">
-      <div class="icon">
-        <a href="/#/conversations" title="Conversations">
-          <span class="icon glyphicon glyphicon-envelope"></span>
-          <span class="badge">{{session.user.inboxCount}}</span>
-        </a>
-      </div>
+  <div class="pull-right" ng-show="session.authenticated.status">
+    <div class="icon">
+      <a href="/#/conversations" title="Conversations">
+        <span class="icon glyphicon glyphicon-envelope"></span>
+        <span class="badge">{{session.user.inboxCount}}</span>
+      </a>
+    </div>
 
-      <div class="icon"
-           title="Friends"
-           ng-click="clickFriends()"
-           >
-        <span class="icon glyphicon glyphicon-user"></span>
-        <span class="badge">{{session.user.friends.onlineCount}}</span>
-      </div>
-
-      <div class="icon">
-        <a href="/#/settings"
-          title="Pulsar Settings"
+    <div class="icon"
+          title="Friends"
+          ng-click="clickFriends()"
           >
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-      </div>
+      <span class="icon glyphicon glyphicon-user"></span>
+      <span class="badge">{{session.user.friends.onlineCount}}</span>
+    </div>
+
+    <div class="icon">
+      <a href="/#/settings"
+        title="Pulsar Settings"
+        >
+        <span class="glyphicon glyphicon-cog"></span>
+      </a>
     </div>
   </div>
 

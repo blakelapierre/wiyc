@@ -3,7 +3,6 @@
 // License: MIT
 
 .pulsar-widget {
-
   margin-bottom:16px;
   padding:16px;
   background-color:@pulsarWidgetBgColor;
@@ -22,19 +21,37 @@
     box-shadow:0 0 5px rgba(0,0,0,0.3);
     border:solid 1px darken(@pulsarWidgetHeadingBgColor, 20%);
     .heading-wrap {
-      margin-left:8px;
+      padding:8px 16px;
     }
     .glyphicon {
       font-size:0.8em;
     }
   }
   .body {
-    padding:16px;
-    border-left:solid 1px @pulsarWidgetHeadingBgColor;
-    border-right:solid 1px @pulsarWidgetHeadingBgColor;
-    border-bottom:solid 1px @pulsarWidgetHeadingBgColor;
     background-color:@pulsarWidgetBgColor;
     color: @pulsarWidgetTextColor;
+  }
+  &.left {
+    float:left;
+    width:40%;
+    margin-right:16px;
+    margin-bottom:8px;
+  }
+  &.three-col {
+    float:left;
+    width:30%;
+    margin:1.5%;
+  }
+  &.four-col {
+    float:left;
+    width:20%;
+    margin:2.5%;
+  }
+  &.right {
+    float:right;
+    width:40%;
+    margin-left:16px;
+    margin-bottom:8px;
   }
 }
 

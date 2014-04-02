@@ -5,38 +5,107 @@
 // REFERENCE:
 // https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
 
-.pulse {
-  margin-top:32px;
-  .heading {
+.pulsar-widget {
+  z-index:200;
+  .pulse {
     display:block;
-    padding:8px 16px;
-    .title {
+    position:relative;
+    .heading {
       display:block;
-      margin-top:8px;
-      margin-bottom:8px;
-      font-size:32px;
+      padding:8px 16px;
+      .heading-wrap {
+        padding:0;
+      }
+      .title {
+        display:block;
+        margin-top:8px;
+        margin-bottom:8px;
+        font-size:32px;
+      }
+      .byline {
+        display:block;
+        font-size:16px;
+      }
     }
-    .byline {
-      display:block;
-      font-size:16px;
+    .body {
+      padding:0;
+      margin-bottom:16px;
+      .excerpt {
+        padding:16px;
+        background-color:@pulsarPulseBodyExcerptBgColor;
+        color:@pulsarPulseBodyExcerptTextColor;
+      }
+      .content {
+        display:block;
+        padding:16px;
+        background-color:@pulsarPulseBodyContentBgColor;
+        color:@pulsarPulseBodyContentTextColor;
+      }
+    }
+    .jumbotron {
+      margin-bottom:0;
     }
   }
-  .body {
-    border:none;
-    padding:0;
-    .excerpt {
-      margin-bottom:30px;
-      padding:30px;
-      background-color:@pulsarPulseBodyExcerptBgColor;
-      color:@pulsarPulseBodyExcerptTextColor;
-    }
-    .content {
-      display:block;
-      background-color:@pulsarPulseBodyContentBgColor;
-      color:@pulsarPulseBodyContentTextColor;
-    }
+}
+
+.pulse-list {
+  -webkit-transform-style:preserve-3d;
+  transform-style:preserve-3d;
+  -webkit-transform-origin:center center;
+  transform-origin:center center;
+  -webkit-perspective-origin:50% 50%;
+  perspective-origin: 50% 50%;
+  -webkit-perspective:500px;
+  perspective:500px;
+  .flip-container {
+    box-shadow:0 0 12px rgba(0,0,0,0.8) inset;
+    background:none;
   }
-  .jumbotron {
-    margin-bottom:0;
+  .pulsar-widget {
+    position:relative;
+    transform-origin: center;
+    transition: all 0.25s;
+    &.hover {
+      transform: translate3d(0,0,10px);
+    }
+    &.chosen {
+      transform: translate3d(-2000px, 0, 10px);
+    }
+    .pulse {
+      p {
+        line-height:1.1em;
+      }
+      min-height:320px;
+      .heading {
+        display:block;
+        position:relative;
+        padding:0;
+        height:120px;
+        .title {
+          display:block;
+          position:absolute;
+          top:8px; right:8px; left:8px;
+          margin:0;
+          padding:0;
+          display:block;
+          font-size:24px;
+          line-height:1em;
+        }
+        .byline {
+          display:block;
+          position:absolute;
+          right:8px; bottom:8px; left:8px;
+          margin:0;
+          padding:0;
+          padding-top:8px;
+          border-top:solid 1px @pulsarTextColor;
+          font-size:16px;
+          line-height:1em;
+        }
+      }
+      .excerpt {
+        margin-bottom:16px;
+      }
+    }
   }
 }

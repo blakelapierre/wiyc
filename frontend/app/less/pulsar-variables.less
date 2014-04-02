@@ -53,17 +53,20 @@
 @pulsarPulseBodyBgColor                     : darken(@pulsarBgColor, 2%);
 @pulsarPulseBodyTextColor                   : lighten(@pulsarTextColor, 2%);
 
-@pulsarPulseBodyExcerptBgColor              : darken(@pulsarBgColor, 3%);
-@pulsarPulseBodyExcerptTextColor            : lighten(@pulsarTextColor, 3%);
+@pulsarPulseBodyExcerptBgColor              : @pulsarBgColor;
+@pulsarPulseBodyExcerptTextColor            : @pulsarTextColor;
 
 @pulsarPulseBodyContentBgColor              : @pulsarBgColor;
-@pulsarPulseBodyContentTextColor            : lighten(@pulsarTextColor, 2%);
+@pulsarPulseBodyContentTextColor            : @pulsarTextColor;
 
 /*
  * FEATURE BLOCK
  */
 @pulsarFeatureBlockBgColor                  : rgba(0,0,0,0.8);
 @pulsarFeatureBlockTextColor                : #2a2a2a;
+
+@pulsarFeatureBlockHeadingBgColor           : @pulsarWidgetHeadingBgColor;
+@pulsarFeatureBlockHeadingTextColor         : @pulsarWidgetHeadingTextColor;
 
 @pulsarFeatureBlockContentBgColor           : rgba(255,255,235,0.9);
 @pulsarFeatureBlockContentTextColor         : #2a2a2a;

@@ -230,7 +230,7 @@ PulsesController.prototype.createComment = function (req, res) {
   if (!self.app.checkAuthentication(req, res, 'Pulse comments can only be created by authenticated Pulsar users.')) {
     return;
   }
-  log.info('pulses.createComment', req.route, req.query, req.body);
+  log.info('pulses.createComment', req.route.params.pulseId);
 
   Pulses
   .findById(req.route.params.pulseId)

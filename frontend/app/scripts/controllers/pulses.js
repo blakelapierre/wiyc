@@ -6,7 +6,7 @@
 /* global twttr:false */
 /* global moment:false */
 
-function PulsesCtrl ($scope, $route, $window, Pulses) {
+function PulsesCtrl ($scope, $route, $location, $window, Pulses) {
   $window.scrollTo(0, 0);
 
   $scope.$emit('setPageGroup', 'blog');
@@ -39,11 +39,17 @@ function PulsesCtrl ($scope, $route, $window, Pulses) {
   $scope.calendarMoment = function (date) { return moment(date).calendar(); };
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
 
+  $scope.loadPulse = function (pulseId) {
+    console.log('loading pulse', pulseId.toString());
+    $location.path('/pulses/'+pulseId.toString());
+  };
+
 }
 
 PulsesCtrl.$inject = [
   '$scope',
   '$route',
+  '$location',
   '$window',
   'Pulses'
 ];

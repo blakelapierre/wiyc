@@ -12,6 +12,8 @@ function PulseWire($rootScope, $resource, Configuration) {
   self.$rootScope = $rootScope;
   self.Configuration = Configuration;
   self.userSession = null;
+
+  self.socket = null;
   self.open = false;
 
   self.pulsewireSessions = $resource(
@@ -25,7 +27,14 @@ function PulseWire($rootScope, $resource, Configuration) {
 
   $rootScope.$on('setUserSession', function (event, userSession) {
     self.userSession = userSession;
-    self.connect();
+    if (userSession.authenticated.status) {
+      self.connect();
+    } else {
+      if (self.socket !== null) {
+        self.socket.close();
+        self.socket = null;
+      }
+    }
   });
 
 }
@@ -42,10 +51,13 @@ PulseWire.prototype.connect = function ( ) {
     null,
     function onSessionCreateSuccess (session) {
       console.log('PulseWire user session', session);
-      console.log('socket.io connecting to', session.channelUrl);
+
       self.session = session;
       self.session.connected = false;
-      self.socket = io.connect(session.channelUrl);
+
+      self.session.channelUrl = 'http://'+session.host.address.toString()+':'+session.host.port.toString()+'/'+session.channel;
+      console.log('socket.io connecting to', self.session);
+      self.socket = io.connect(self.session.channelUrl);
       self.attach();
     },
     function onSessionCreateError (error) {
@@ -68,7 +80,7 @@ PulseWire.prototype.attach = function ( ) {
     $rootScope.$broadcast('displayMessage', 'PulseWire authenticating');
     self.socket.emit('hello', {
       'userId': self.userSession.user._id,
-      'authToken': self.session.authToken
+      'accessToken': self.session.accessToken
     });
   });
 

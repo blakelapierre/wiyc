@@ -1,23 +1,33 @@
-<div class="pulse">
+<div class="pulsar-widget">
+  <div class="pulse">
 
-  <div class="jumbotron">
-    <a class="btn btn-default pull-right"
-       href="#/pulses/{{pulse._id}}/edit"
-       ng-show="session.authenticated.status &amp;&amp; (pulse._creator._id === session.user._id)">
-      Edit
-    </a>
-    <h1 ng-bind-html="pulse.title"></h1>
-    <p><img src="favicon.ico" style="position:relative; top:-2px;"/> {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}</p>
-  </div>
+    <div class="heading">
+      <div class="heading-wrap">
+        <button class="btn btn-xs btn-default pull-right" style="color:#2a2a2a; margin-left:8px;"
+                ng-click="confirmDeletePulse(pulse._id)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <a class="btn btn-xs btn-default pull-right" href="/#/pulses/{{pulse._id}}/edit" style="color:#2a2a2a;">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <div class="title" ng-bind-html="pulse.title"></div>
+        <p><img src="favicon.ico" style="position:relative; top:-2px;"/> {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}</p>
+      </div>
+    </div>
 
-  <div class="body">
-    <div class="excerpt" ng-bind-html="pulse.excerpt"></div>
-    <div class="content" ng-bind-html="pulse.content"></div>
-  </div>
+    <div class="body">
+      <div class="excerpt" ng-bind-html="pulse.excerpt"></div>
+      <div class="content" ng-bind-html="pulse.content"></div>
+      <div class="clearfix"></div>
+    </div>
 
-  <h3><span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments</h3>
-  <div class="comments">
-    <div ng-switch on="pulse.interactions.comments.length">
+    <div class="heading">
+      <div class="heading-wrap">
+        <span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments
+      </div>
+    </div>
+
+    <div class="comments" ng-switch on="pulse.interactions.comments.length">
       <div ng-switch-when="0">
         <p>No comments, yet. Share your thoughts and start the conversation.</p>
       </div>
@@ -31,33 +41,96 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <h3><span class="glyphicon glyphicon-plus" style="font-size:0.8em;"></span> Add comment</h3>
-  <form role="form" ng-show="session.authenticated.status">
-    <div class="form-group">
-      <textarea class="form-control"
-                id="commentContent"
-                name="commentContent"
-                data-ui-tinymce="tinymceOptions"
-                data-ng-model="comment.content"
-                placeholder="Enter comment here. Or, enter your comment elsewhere if you can. Be like that."
-                rows="4"
-                style="resize:vertical;"
-                ></textarea>
-    </div>
-    <div class="form-group">
-      <button class="btn btn-primary" ng-click="createComment()">Add Comment</button>
-    </div>
-  </form>
-
-  <div ng-show="!session.authenticated.status">
-    <p>
-      You must have a Pulsar account and be logged in to comment.
+    <div style="margin:16px 0;">
+      <button class="btn btn-large btn-default"
+              ng-show="session.authenticated.status"
+              ng-init="commentEditorVisible = false"
+              ng-click="commentEditorVisible = !commentEditorVisible">
+        <span class="glyphicon glyphicon-plus" style="font-size:0.8em;"></span> Add comment
+      </button>
     </p>
-    <a href="#/signup" class="btn btn-primary btn-lg">Let Me Publish!</a>
-  </div>
 
-  <div class="clearfix"></div>
+    <form role="form" ng-show="session.authenticated.status &amp;&amp; commentEditorVisible">
+      <div class="form-group">
+        <textarea class="form-control"
+                  id="commentContent"
+                  name="commentContent"
+                  data-ui-tinymce="tinymceOptions"
+                  data-ng-model="comment.content"
+                  placeholder="Enter comment here. Or, enter your comment elsewhere if you can. Be like that."
+                  rows="4"
+                  style="resize:vertical;"
+                  ></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="createComment()">Add Comment</button>
+      </div>
+    </form>
 
-</div>
+    <div ng-show="!session.authenticated.status">
+      <p>
+        You must have a Pulsar account and be logged in to comment.
+      </p>
+      <a href="#/signup" class="btn btn-default btn-lg">Let Me Publish!</a>
+    </div>
+
+    <div class="clearfix"></div>
+
+  </div><!-- pulse -->
+
+</div><!-- pulsar-widget -->
+
+
+
+<div class="modal fade"
+     id="pulseDeleteConfirmModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="mySmallModalLabel"
+     aria-hidden="true"
+     ng-controller="AccountLoginCtrl">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" ng-show="haveError">
+          <div class="pull-right" ng-click="dismissError()" style="cursor:pointer;">
+            <span class="glyphicon glyphicon-remove-circle"></span>
+          </div>
+          {{error.data.message}}
+        </div>
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="loginUsernameInput">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="loginUsernameInput" ng-model="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="loginPasswordInput">Password</label>
+              <div class="col-sm-10">
+                <input type="password" class="form-control" id="loginPasswordInput" ng-model="password">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                        Remember me
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" ng-click="userLogin()">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>

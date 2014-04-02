@@ -1,20 +1,33 @@
-<div ng-show="pulses.pulses.length &gt; 0">
+<div class="container-fluid pulse-list" ng-show="pulses.pulses.length &gt; 0">
 
-  <div class="pulsar-widget pulse" ng-repeat="pulse in pulses.pulses">
-    <div class="heading">
-      <div class="heading-wrap">
-        <div class="title">
-          <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
-        </div>
-        <div class="byline">
-          <img src="favicon.ico" style="position:relative; top:-2px;"/> {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}
+  <div class="row">
+    <div class="col-lg-3" ng-repeat="pulse in pulses.pulses">
+      <div class="flip-container" ng-mouseover="pulse.hover = true" ng-mouseleave="pulse.hover = false">
+        <div class="pulsar-widget"
+             ng-class="pulse.hover ? 'hover' : ''"
+             ng-click="loadPulse(pulse._id)"
+             style="cursor:pointer;">
+          <div class="pulse">
+            <div class="heading">
+              <div class="heading-wrap">
+                <div class="title">
+                  <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
+                </div>
+                <div class="byline">
+                  {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}
+                </div>
+              </div>
+            </div>
+            <div class="body" ng-bind-html="pulse.excerpt"></div>
+            <div class="clearfix"></div>
+            <p>
+              <a href="/#/pulses/{{pulse._id}}" title="{{pulse.title}}">Continue reading...</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="body" ng-bind-html="pulse.excerpt"></div>
-    <p>
-      <a href="/#/pulses/{{pulse._id}}" title="{{pulse.title}}">Continue reading...</a>
-    </p>
+    <div class="clearfix"></div>
   </div>
 
   <div class="pager">
@@ -28,9 +41,10 @@
 </div>
 
 <div ng-show="pulses.pulses.length === 0">
+  <h1>Tumbleweeds</h1>
   <p>
     Sadly, this Pulsar is empty. It has no pulse. It needs people like you to
     <a href="/#/signup" alt="Create a Pulsar profile now">create a profile</a>
-    and publish something cool for others to read.
+    and publish some pulses for others to read.
   </p>
 </div>

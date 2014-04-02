@@ -5,34 +5,36 @@
 // REFERENCE:
 // https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
 
-.comments {
-/*background-color:@pulsarCommentsBgColor; */
-  color:@pulsarCommentsTextColor;
-  .comment {
-    margin-bottom:1.75em;
-/*  background-color:@pulsarCommentsBgColor; */
+.pulsar-widget {
+  .comments {
+  /*background-color:@pulsarCommentsBgColor; */
     color:@pulsarCommentsTextColor;
-    .header {
-      box-shadow:none;
-      padding-right:0;
-      padding-bottom:0;
-      padding-left:8px;
-      margin-bottom:0;
-      text-align:left;
-      background-color:@pulsarCommentHeaderBgColor;
-      color:@pulsarCommentHeaderTextColor;
-      .posted {
-        font-size:10px;
+    .comment {
+      margin-bottom:1.75em;
+  /*  background-color:@pulsarCommentsBgColor; */
+      color:@pulsarCommentsTextColor;
+      .header {
+        box-shadow:none;
+        padding-right:0;
+        padding-bottom:0;
+        padding-left:8px;
+        margin-bottom:0;
+        text-align:left;
+        background-color:@pulsarCommentHeaderBgColor;
+        color:@pulsarCommentHeaderTextColor;
+        .posted {
+          font-size:10px;
+        }
+        .author {
+          font-weight:bold;
+        }
       }
-      .author {
-        font-weight:bold;
+      .body {
+        margin-top:8px;
+        font-size:14px;
+  /*    background-color:@pulsarCommentBodyBgColor; */
+        color:@pulsarCommentBodyTextColor;
       }
-    }
-    .body {
-      margin-top:8px;
-      font-size:14px;
-/*    background-color:@pulsarCommentBodyBgColor; */
-      color:@pulsarCommentBodyTextColor;
     }
   }
 }

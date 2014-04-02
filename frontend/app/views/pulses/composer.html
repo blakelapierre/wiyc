@@ -8,6 +8,7 @@
 </div>
 
 <form role="form" class="form">
+
   <div class="form-group">
     <label for="pulseTitle">Title</label>
     <input class="form-control"
@@ -15,13 +16,6 @@
            ng-model="pulse.title"
            placeholder="Enter pulse title/subject"
            />
-  </div>
-  <div class="form-group">
-    <label for="pulseContent">Pulse Content</label>
-    <textarea id="pulseContent"
-              data-ui-tinymce="tinymceOptions"
-              data-ng-model="pulse.content"
-              ></textarea>
   </div>
 
   <div class="form-group">
@@ -33,37 +27,55 @@
   </div>
 
   <div class="form-group">
+    <label for="pulseContent">Pulse Content</label>
+    <textarea id="pulseContent"
+              data-ui-tinymce="tinymceOptions"
+              data-ng-model="pulse.content"
+              ></textarea>
+  </div>
+
+  <div class="form-group">
     <button class="btn btn-primary" ng-click="createPulse()">Publish</button>
   </div>
 </form>
 
-<div class="jumbotron">
-  <h1 ng-bind-html="pulse.title"></h1>
-  <p><img src="favicon.ico" style="position:relative; top:-2px;"/> {{user.displayName}} when you click Publish!</p>
-</div>
+<div class="pulsar-widget">
 
-<div class="row pulse">
-  <div class="col-sm-12">
-    <div class="content">
-      <blockquote ng-bind-html="pulse.excerpt"></blockquote>
+  <div class="pulse">
+
+    <div class="jumbotron">
+      <h1 ng-bind-html="pulse.title"></h1>
+      <p><img src="favicon.ico" style="position:relative; top:-2px;"/> {{user.displayName}} when you click Publish!</p>
     </div>
-    <div class="content" ng-bind-html="pulse.content"></div>
-    <h3>Comments</h3>
-    <div ng-switch on="pulse.comments.length">
-      <div ng-switch-when="0">
-        <p>No comments, yet. Share your thoughts and start the conversation.</p>
-      </div>
-      <div ng-switch-default="">
-        <div class="row comment" ng-repeat="comment in pulse.comments">
-          <div class="header">
-            <div class="col-sm-8 author">{{comment.author}}</div>
-            <div class="col-sm-4 created">{{comment.created}}</div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="content col-sm-12">{{comment.content}}</div>
-          <div class="clearfix"></div>
+
+    <div class="body">
+      <div class="excerpt" ng-bind-html="pulse.excerpt"></div>
+      <div class="content" ng-bind-html="pulse.content"></div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="comments">
+      <div class="heading">
+        <div class="heading-wrap">
+          <span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments
         </div>
       </div>
-    </div>
-  </div>
-</div>
+      <div ng-switch on="pulse.interactions.comments.length">
+        <div ng-switch-when="0">
+          <p>No comments, yet. Share your thoughts and start the conversation.</p>
+        </div>
+        <div ng-switch-default="">
+          <div class="comment" ng-repeat="comment in pulse.interactions.comments">
+            <div class="header">
+              <span class="author">{{comment._creator.displayName}}</span>
+              <span class="created">{{fromNow(comment.created)}}</span>
+            </div>
+            <div class="body" ng-bind-html="comment.content"></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- comments -->
+
+  </div><!-- pulse -->
+
+</div><!-- pulsar-widget -->
