@@ -62,11 +62,7 @@ app.checkAdmin = function (req, res, message) {
 
 app.checkError = function (err, res, label) {
   if (err) {
-    if (label) {
-      app.log.log(label, err);
-    } else {
-      app.log.error(err);
-    }
+    app.log.error(label, err);
     res.json(500, err);
     return true;
   }
@@ -119,9 +115,22 @@ db.on('open', function ( ) {
   app.log.info('socket.io config', socketIoConfig);
   var io = null;
   if (socketIoConfig.enabled) {
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(server, {
+      logger: {
+        debug: app.log.debug,
+        info: app.log.info,
+        error: app.log.error,
+        warn: app.log.warn
+      }
+    });
     io.set('origins', socketIoConfig.allowOrigin);
-
+    io.set('transports', [
+      'websocket',
+      'flashsocket',
+      'htmlfile',
+      'xhr-polling',
+      'jsonp-polling'
+    ]);
     if (socketIoConfig.client.minify) {
       io.enable('browser client minification');
     }
@@ -156,6 +165,7 @@ db.on('open', function ( ) {
       });
     }
     Plugin.instance.start(channel);
+    // Plugin.instance.stop(); // here for testing to make sure plugins *can* stop
   });
 
   app.log.info('Pulsar online with', app.plugins.length, 'plugins and', app.channels.length, 'socket.io channels');

@@ -46,6 +46,7 @@ function PulseWire (app, http, config) {
   self.http = http;
   self.config = config;
 
+  self.routeAssembler = new RouteAssembler(self.app, self.config);
   self.clients = [ ];
 
   self.loadBalancer = new PulseWireLoadBalancer(self);
@@ -53,7 +54,27 @@ function PulseWire (app, http, config) {
     self.loadBalancer.addHost(host);
   });
 
+  /*
+   * MODELS
+   */
+  require('./server/models/conversations');
+
 }
+
+/*
+ * STATIC METHOD
+ *  buildServiceUrl (url)
+ *
+ * PURPOSE
+ *  Builds a service URL that considers pulsar-plugin.mountPoint.
+ */
+PulseWire.buildServiceUrl = function (url) {
+  return PulseWire.packageMeta.pulsar.mountPoint + url;
+};
+
+PulseWire.onClientConnection = function (socket) {
+  return PulseWire.instance.onClientConnection(socket);
+};
 
 /*
  * INSTANCE METHOD
@@ -65,24 +86,148 @@ function PulseWire (app, http, config) {
  */
 PulseWire.prototype.start = function (io) {
   var self = this;
-
   if (!io) {
     return;
   }
   self.io = io;
-  self.io.on('connection', function (socket) { self.onClientConnection(socket); });
+  self.injectSessionRoutes();
+  self.injectConversationsRoutes();
+  self.io.on('connection', PulseWire.onClientConnection);
+};
 
-  var routeAssembler = new RouteAssembler(self.app, self.config);
-  routeAssembler.add({
-    'uri'             : '/pulsewire/sessions',
-    'method'          : 'POST',
+PulseWire.prototype.injectSessionRoutes = function ( ) {
+  var self = this;
+  var serviceUrl = PulseWire.buildServiceUrl('/sessions');
+  self.routeAssembler.add({
+    'method': 'POST',
+    'uri': serviceUrl,
     'controllerMethod': function (req, res) { return self.createUserSession(req,res); }
   });
-  routeAssembler.add({
-    'uri'             : '/pulsewire/sessions',
-    'method'          : 'GET',
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
     'controllerMethod': function (req, res) { return self.getUserSession(req, res); }
   });
+};
+
+PulseWire.prototype.injectConversationsRoutes = function ( ) {
+  var self = this;
+  var serviceUrl;
+
+  var ConversationsController = require('./server/controllers/conversations');
+  var conversations = new ConversationsController(this.app, this.config);
+  var routeAssembler = new RouteAssembler(self.app, self.config);
+
+  serviceUrl = PulseWire.buildServiceUrl(
+    '/conversations'
+  );
+  self.routeAssembler.add({
+    'method': 'POST',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.create(req, res); }
+  });
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.list(req, res); }
+  });
+
+  serviceUrl = PulseWire.buildServiceUrl(
+    '/conversations/:conversationId'
+  );
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.get(req, res); }
+  });
+  self.routeAssembler.add({
+    'method': 'PUT',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.update(req, res); }
+  });
+
+  serviceUrl = PulseWire.buildServiceUrl(
+    '/conversations/:conversationId/members'
+  );
+  self.routeAssembler.add({
+    'method': 'POST',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.addParticipant(req, res); }
+  });
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.listParticipants(req, res); }
+  });
+
+  /*
+   * INDIVIDUAL USER
+   */
+  serviceUrl = PulseWire.buildServiceUrl(
+    '/conversations/:conversationId/members/:userId'
+  );
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.getParticipant(req, res); }
+  });
+  self.routeAssembler.add({
+    'method': 'DELETE',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.removeParticipant(req, res); }
+  });
+
+  /*
+   * INDIVIDUAL MEMBER'S MESSAGES COLLECTION
+   */
+  serviceUrl = PulseWire.buildServiceUrl(
+    '/conversations/:conversationId/members/:userId/messages'
+  );
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.listParticipantMessages(req, res); }
+  });
+
+  /*
+   * MESSAGES COLLECTION
+   */
+  serviceUrl = PulseWire.buildServiceUrl(
+    '/conversations/:conversationId/messages'
+  );
+  self.routeAssembler.add({
+    'method': 'POST',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.createMessage(req, res); }
+  });
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.listMessages(req, res); }
+  });
+
+  /*
+   * INDIVIDUAL MESSAGES
+   */
+  serviceUrl = PulseWire.buildServiceUrl(
+    '/conversations/:conversationId/messages/:messageId'
+  );
+  self.routeAssembler.add({
+    'method': 'GET',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.getMessage(req, res); }
+  });
+  self.routeAssembler.add({
+    'method': 'PUT',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.updateMessage(req, res); }
+  });
+  self.routeAssembler.add({
+    'method': 'DELETE',
+    'uri': serviceUrl,
+    'controllerMethod': function (req, res) { conversations.deleteMessage(req, res); }
+  });
+
 };
 
 /*
@@ -94,12 +239,11 @@ PulseWire.prototype.start = function (io) {
  *  call the method when it wants the plugin to stop doing whatever it does.
  *  This is commonly during system shutdown, or if the plugin exceeds a resource
  *  quota configured by the Pulsar administrator.
- *
- *  Shut down socket.io and release all allocated resources. Stop all manner of
- *  PulseWire processing.
  */
 PulseWire.prototype.stop = function ( ) {
-  this.io.close();
+  var self = this;
+  self.io.removeListener('connection', PulseWire.onClientConnection);
+  self.routeAssembler.detach();
 };
 
 /*
@@ -113,6 +257,12 @@ PulseWire.prototype.stop = function ( ) {
  */
 PulseWire.prototype.createUserSession = function (req, res) {
   var self = this;
+
+  // make sure only authenticated users receive new PulseWire sessions
+  if (!self.app.checkAuthentication(req, res, 'Only authenticated users can request PulseWire sessions')) {
+    return;
+  }
+
   var channelUuid = PulseWire.packageMeta.pulsar.socketio.channelUuid;
   self.loadBalancer.createSessionOnChannel(
     channelUuid,
@@ -128,17 +278,33 @@ PulseWire.prototype.createUserSession = function (req, res) {
   );
 };
 
-PulseWire.prototype.getChannelUrl = function (req, res, channel) {
+/*
+ * REST METHOD
+ *  getUserSession
+ *
+ * PURPOSE
+ *  Retrieves the authenticated user's PulseWire session, if any.
+ */
+PulseWire.prototype.getUserSession = function (req, res) {
   var self = this;
-  return channelUrl;
+  if (!self.app.checkAuthentication(req, res, 'Only authenticated users can retrieve their PulseWire session')) {
+    return;
+  }
+  if (!req.session.pulsewire) {
+    res.json(404, {'message':'No PulseWire session currently exists'});
+    return;
+  }
+  res.json(200, req.session.pulsewire);
 };
 
 /*
- * SOCKET.IO EVENT: onClientConnection
+ * SOCKET.IO EVENT
+ *  onClientConnection
+ *
  * PURPOSE:
- * Called when socket.io receives an ingress connection/socket. Wraps the
- * PulseWire prototocol around the socket presented with closures for
- * PulseWire protocol message handlers.
+ *  Called when socket.io receives an ingress connection/socket. Wraps the
+ *  PulseWire prototocol around the socket presented with closures for
+ *  PulseWire protocol message handlers.
  */
 PulseWire.prototype.onClientConnection = function (socket) {
   this.log.info('ingress socket.io connection');

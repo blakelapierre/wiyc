@@ -47,7 +47,7 @@ PulsesController.prototype.create = function (req, res) {
   if (!this.app.checkAuthentication(req, res, 'Only authenticated users can create pulses.')) {
     return;
   }
-  log.info('pulses.create', req.session.user);
+  log.info('pulses.create', req.session.user._id);
 
   req.body._creator = req.session.user._id;
 
@@ -67,7 +67,7 @@ PulsesController.prototype.create = function (req, res) {
 PulsesController.prototype.list = function(req, res){
   var self = this;
 
-  log.info('pulses.list', req.route, req.query);
+  log.info('pulses.list');
 
   var query =
   Pulses

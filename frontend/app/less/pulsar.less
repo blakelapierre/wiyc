@@ -47,14 +47,6 @@ a.btn:link {
 }
 
 
-/*
- * Probably the single most useful fix anyone can apply to a default Bootstrap
- * deployment: Rip the margin off of the last paragraph of any div.
- */
-div p:last-child {
-  margin-bottom:0;
-}
-
 @import 'pulsar-widget.less';
 @import 'pulsar-footer.less';
 @import 'pulsar-sidebar.less';
@@ -160,4 +152,12 @@ hr {
   border:solid 1px rgba(0,0,16,0.1);
   border-radius: 4px;
   background-color:rgba(0,0,16,0.1);
+}
+
+/*
+ * Rip the bottom margin off of the last paragraph of any div anywhere in all of
+ * the above (the whole site).
+ */
+div p:last-child {
+  margin-bottom:0;
 }
