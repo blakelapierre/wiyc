@@ -5,7 +5,7 @@
     "channelUuid": "f1172fba-e553-4975-8da4-022bce1cf227",
     "hosts": [
       {
-        "address": "127.0.0.1",
+        "address": "api.robcolbert.com",
         "port": 10010,
         "capacity": 200
       }
