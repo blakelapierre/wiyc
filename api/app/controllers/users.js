@@ -29,9 +29,6 @@
 
 'use strict';
 
-var log = require('winston');
-log.info('controller: UsersController');
-
 var mongoose = require('mongoose');
 var mailer = require('nodemailer');
 var Users = mongoose.model('Users');
@@ -45,7 +42,8 @@ function UsersController (app, config) {
 UsersController.prototype.create = function (req, res) {
   var self = this;
   var verificationKey = this.config.app.generateRandomKey();
-  log.debug('users.create', req.route, req.query, req.body);
+  
+  self.app.log.debug('users.create', req.route, req.query, req.body);
 
   req.body.emailVerified = false; // nah - no shortcut on that.
   req.body.emailVerifyKey = verificationKey;
@@ -53,7 +51,7 @@ UsersController.prototype.create = function (req, res) {
 
   Users.create(req.body, function (err, user) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -68,7 +66,7 @@ UsersController.prototype.create = function (req, res) {
     res.json(200, req.session); // dismiss the client.
 
     if (user.email === 'testuser@robcolbert.com') {
-      log.info('skipping new user email for testuser@robcolbert.com');
+      self.app.log.info('skipping new user email for testuser@robcolbert.com');
       return;
     }
 
@@ -106,6 +104,9 @@ UsersController.prototype.create = function (req, res) {
 };
 
 UsersController.prototype.sendEmail = function (addressTo, messageBody, callback) {
+  var self = this;
+  self.app.log.info('EMAIL CONFIG SHIT', this.config);
+
   var transport = mailer.createTransport('SMTP', {
     'service':'Gmail',
     'auth': {
@@ -120,7 +121,7 @@ UsersController.prototype.sendEmail = function (addressTo, messageBody, callback
     'body':messageBody
   };
   transport.sendMail(email, function (err, responseStatus) {
-    log.info('sendmail', err, responseStatus);
+    self.app.log.info('sendmail', err, responseStatus);
     if (callback && (typeof callback === 'function')) {
       callback(err, responseStatus);
     }
@@ -128,11 +129,13 @@ UsersController.prototype.sendEmail = function (addressTo, messageBody, callback
 };
 
 UsersController.prototype.get = function (req, res) {
-  log.debug('users.get', req.route, req.query);
+  var self = this;
+  self.app.log.debug('users.get', req.route, req.query);
+
   var projection = { 'password':0, 'emailVerifyKey':0 };
   Users.findById(req.route.params.userId, projection, function (err, user) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -145,7 +148,8 @@ UsersController.prototype.get = function (req, res) {
 };
 
 UsersController.prototype.getMyProfile = function (req, res) {
-  log.debug('users.getMyProfile');
+  var self = this;
+  self.app.log.debug('users.getMyProfile');
   if (!req.session || !req.session.user) {
     res.json(500, {'msg':'user session required'});
     return; // so get the fuck out
@@ -154,7 +158,7 @@ UsersController.prototype.getMyProfile = function (req, res) {
   var projection = { 'password':0, 'emailVerifyKey':0 };
   Users.findById(req.session.user._id, projection, function (err, user) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -167,11 +171,12 @@ UsersController.prototype.getMyProfile = function (req, res) {
 };
 
 UsersController.prototype.update = function (req, res) {
-  log.debug('users.update', req.route, req.query, req.body);
+  var self = this;
+  self.app.log.debug('users.update', req.route, req.query, req.body);
 
   delete req.body._id;
   if (req.body.password) {
-    req.body.password = this.config.app.hashPassword(req.body.password);
+    req.body.password = self.config.app.hashPassword(req.body.password);
   }
 
   Users.findOneAndUpdate(
@@ -179,7 +184,7 @@ UsersController.prototype.update = function (req, res) {
     req.body,
     function (err, user) {
       if (err) {
-        log.error(err);
+        self.app.log.error(err);
         res.json(500, err);
         return;
       }
@@ -193,12 +198,14 @@ UsersController.prototype.update = function (req, res) {
 };
 
 UsersController.prototype.delete = function (req, res) {
-  log.debug('users.delete', req.route, req.query);
+  var self = this;
+  self.app.log.debug('users.delete', req.route, req.query);
+
   Users.findOneAndRemove(
     {'_id': req.route.params.userId },
     function (err) {
       if (err) {
-        log.error(err);
+        self.app.log.error(err);
         res.json(500, err);
         return;
       }
@@ -208,9 +215,11 @@ UsersController.prototype.delete = function (req, res) {
 };
 
 UsersController.prototype.verifyEmailKey = function (req, res) {
+  var self = this;
+
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -221,7 +230,7 @@ UsersController.prototype.verifyEmailKey = function (req, res) {
     }
 
     if (!req.query.k || (req.query.k !== user.emailVerifyKey)) {
-      log.error('email address verification failed', req.query.k, user.emailVerifyKey);
+      self.app.log.error('email address verification failed', req.query.k, user.emailVerifyKey);
       res.json(500, {'msg':'email address verification has failed'});
       return;
     }
@@ -236,13 +245,15 @@ UsersController.prototype.verifyEmailKey = function (req, res) {
 };
 
 UsersController.prototype.list = function(req, res){
-  log.debug('users.list', req.route, req.query);
+  var self = this;
+  self.app.log.debug('users.list', req.route, req.query);
+
   var paginator = new Paginator(req);
   var projection = { 'password':0, 'emailVerifyKey':0 };
   var query = Users.find({ }, projection, { 'sort': { 'displayName': 1 }});
   paginator.paginateQuery(query).exec(function (err, users) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -255,10 +266,12 @@ UsersController.prototype.list = function(req, res){
 //
 
 UsersController.prototype.addFriend = function (req, res) {
-  log.debug('users.addFriend', req.route, req.query);
+  var self = this;
+  self.app.log.debug('users.addFriend', req.route, req.query);
+
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -269,7 +282,7 @@ UsersController.prototype.addFriend = function (req, res) {
     user.friends.push(req.body);
     user.save(function (err, newUser) {
       if (err) {
-        log.error(err);
+        self.app.log.error(err);
         res.json(500, err);
         return;
       }
@@ -279,10 +292,12 @@ UsersController.prototype.addFriend = function (req, res) {
 };
 
 UsersController.prototype.removeFriend = function (req, res) {
-  log.debug('users.addFriend', req.route, req.query);
+  var self = this;
+  self.app.log.debug('users.addFriend', req.route, req.query);
+
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -293,7 +308,7 @@ UsersController.prototype.removeFriend = function (req, res) {
     user.friends.pull({'_id': req.route.params.friendId});
     user.save(function (err, newUser) {
       if (err) {
-        log.error(err);
+        self.app.log.error(err);
         res.json(500, err);
         return;
       }
@@ -303,10 +318,11 @@ UsersController.prototype.removeFriend = function (req, res) {
 };
 
 UsersController.prototype.listFriends = function (req, res) {
-  log.debug('users.listFriends', req.route, req.query);
+  var self = this;
+  self.app.log.debug('users.listFriends', req.route, req.query);
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      log.error(err);
+      self.app.log.error(err);
       res.json(500, err);
       return;
     }
@@ -319,3 +335,4 @@ UsersController.prototype.listFriends = function (req, res) {
 };
 
 module.exports = exports = UsersController;
+
