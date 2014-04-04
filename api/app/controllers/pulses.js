@@ -202,7 +202,6 @@ PulsesController.prototype.delete = function (req, res) {
 
   Pulses
   .findById(req.route.params.pulseId)
-  .lean(true)
   .exec(function (err, pulse) {
     if (self.app.checkError(err,res,'pulses.delete')) {
       return;

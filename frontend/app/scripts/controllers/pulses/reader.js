@@ -73,7 +73,11 @@ function PulseReaderCtrl ($scope, $route, $sce, $window, $location, UserSession,
     Pulses.delete(
       {'pulseId': $scope.pulse._id},
       function onDeleteSuccess ( ) {
-        $location.path('/#/pulses');
+        var modal = angular.element('#pulseDeleteConfirmModal');
+        modal.on('hidden.bs.modal', function (e) {
+          $location.path('/#/pulses');
+        });
+        modal.modal('hide');
       },
       function onDeleteError (error) {
         console.log('pulse delete error', error);
