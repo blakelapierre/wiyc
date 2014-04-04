@@ -26,12 +26,13 @@ var conversationPopulateChain = [
   }
 ];
 
-function ConversationsController (app, config) {
-  this.app = app;
-  this.config = config;
+function ConversationsController (plugin) {
+  this.plugin = plugin;
+  this.app = plugin.app;
+  this.config = plugin.config;
 }
 
-ConversationsController.prototype.create = function (req, res) {
+ConversationsController.prototype.createConversation = function (req, res) {
   var self = this;
   if (!self.app.checkAuthentication(req,res,'Only authenticated users can start new conversations')) {
     return false;
@@ -66,7 +67,7 @@ ConversationsController.prototype.create = function (req, res) {
   );
 };
 
-ConversationsController.prototype.list = function(req, res){
+ConversationsController.prototype.listConversations = function(req, res){
   var self = this;
   log.debug('conversations.list', req.route, req.query);
 
@@ -86,7 +87,7 @@ ConversationsController.prototype.list = function(req, res){
   });
 };
 
-ConversationsController.prototype.get = function (req, res) {
+ConversationsController.prototype.getConversation = function (req, res) {
   var self = this;
   log.info('conversations.get', req.route.params.conversationId);
 
@@ -106,7 +107,20 @@ ConversationsController.prototype.get = function (req, res) {
   });
 };
 
-ConversationsController.prototype.update = function (req, res) {
+/*
+ * REST METHOD
+ * updateConversation
+ *
+ * HANDLES
+ * PUT    /pulsewire/conversations/:conversationId
+ *
+ * PURPOSE
+ * Update the fields and data for a conversation. This is not the right way to
+ * add messages and members to the conversation. There are separate methods for
+ * those operations. This method is intended to be used solely to change the
+ * topic or some aspect of the conversation exclusive of members and messages.
+ */
+ConversationsController.prototype.updateConversation = function (req, res) {
   var self = this;
   log.info('conversations.update', req.route.params.conversationId);
 
@@ -146,7 +160,38 @@ ConversationsController.prototype.update = function (req, res) {
   });
 };
 
-ConversationsController.prototype.delete = function (req, res) {
+/*
+ * REST METHOD
+ * deleteConversation
+ *
+ * HANDLES
+ * DELETE /pulsewire/conversations/:conversationId
+ *
+ * PURPOSE
+ * Physically removes the conversation from the database with a findOneAndRemove
+ * call.
+ *
+ * NOTE
+ * There are basically two camps in database design: Deleters and those who do
+ * not delete. I'm a deleter. Because the alternative is an isDeleted or
+ * currentStatus field. And, those have indexes. BIG indexes. They burn RAM,
+ * have to be checked with nearly every query and add a level of general
+ * pressure to a system that I try to avoid. Besides, this is always a tunable
+ * operation.
+ *
+ * NOTE
+ * MongoDB, to actually remove data, merely updates two pointers in a
+ * doubly-linked list. That's it. There is no autocompaction, etc. It can and
+ * will reuse the space on disk, but it does not perform anything beyond marking
+ * the space as free and maintaining indexes.
+ *
+ * NOTE
+ * Yes, maintaining indexes is slow in any database. MongoDB is no exception.
+ * And, that's why I prefer to keep the data set small by physically removing
+ * data when the user is done with it instead of having to constantly update
+ * the relevant indexes *and* the record status/isDeleted concept.
+ */
+ConversationsController.prototype.deleteConversation = function (req, res) {
   log.debug('conversations.delete', req.route, req.query);
   Conversations.findOneAndRemove(
     {'_id': req.route.params.id },
@@ -159,6 +204,18 @@ ConversationsController.prototype.delete = function (req, res) {
   );
 };
 
+/*
+ * REST METHOD
+ *  createMessage
+ *
+ * HANDLES
+ * POST   /pulsewire/conversations/:conversationId/messages
+ *
+ * PURPOSE
+ *  Record the user's conversation message to the database and, if successful,
+ *  forward to the main PulseWire controller to emit to conversation members as
+ *  a notification.
+ */
 ConversationsController.prototype.createMessage = function (req, res) {
   var self = this;
   var idx;
@@ -190,20 +247,64 @@ ConversationsController.prototype.createMessage = function (req, res) {
       return;
     }
 
-    conversation.save(function (err, savedConversation) {
-      if (self.app.checkError(err, res, 'pulswire.conversations.createMessage')) {
+    Conversations.findOneAndUpdate(
+      {'_id':req.route.params.conversationId},
+      {'$push': { 'messages': req.body } },
+      {'select': 'messages members'}
+    )
+    .lean(true)
+    .populate(conversationPopulateChain)
+    .exec(function (err, updatedConversation) {
+      if (self.app.checkError(err, res, 'pulsesire.conversations.createMessage')) {
         return;
       }
-      savedConversation.populate(conversationPopulateChain, function (err, populatedConversation) {
-        if (self.app.checkError(err, res, 'pulswire.conversations.createMessage')) {
-          return;
-        }
-        res.json(200, savedConversation);
+
+      /*
+       * Grab the last message on the array that we just pushed.
+       */
+      var messageIdx = updatedConversation.messages.length - 1;
+      var message = updatedConversation.messages[messageIdx];
+
+      /*
+       * Shoot it to the client (your message was sent successfully, and here's
+       * those IDs and other results you need).
+       */
+      res.json(200, message);
+
+      /*
+       * Forward the message and needed conversation data to the PulseWire
+       * plugin main controller to emit as a Conversations message.
+       *
+       * NOTE - We have the members list right here. It would be rude to ask the
+       * plugin to go fetch it again. Grant access to the members field on the
+       * populated conversation and users to save it a trip to the db to
+       * retrieve this required information. No need to even traverse Memcache
+       * or some other horrific design. Just politely hand it to it as a
+       * fire-n-forget (I don't care if you get the real-time notification,
+       * you'll get the message in the db as guaranteed above. Because we don't
+       * *get* to this line of code without a successful MongoDB update and
+       * populate.
+       */
+      self.plugin.emitConversationMessage({
+        'conversationId': updatedConversation._id,
+        'members': updatedConversation.members,
+        'message': message
       });
     });
   });
 };
 
+/*
+ * REST METHOD
+ * listMessages
+ *
+ * HANDLES
+ * GET    /pulsewire/conversations/:conversationId
+ *
+ * PURPOSE
+ * Produce a paginated list of messages within a conversation accepting a page
+ * number and count per page (cpp) value as query parameters.
+ */
 ConversationsController.prototype.listMessages = function (req, res) {
   var self = this;
   var paginator = new Paginator(req);
@@ -225,11 +326,11 @@ ConversationsController.prototype.listMessages = function (req, res) {
   });
 };
 
-ConversationsController.prototype.getMessage = function (req, res) {
+ConversationsController.prototype.getConversationMessage = function (req, res) {
   var self = this;
   self.app.log.info('pulsewire.conversations.getMessage', req.route.params.conversationId, req.route.params.messageId);
 
-  Conversations
+  Conversations // Relax. Yes, the field is indexed.
   .findOne({ 'messages._id': req.route.params.messageId }, {'messages.$': 1})
   .populate(conversationPopulateChain)
   .lean(true)

@@ -21,45 +21,32 @@ function PulseEditCtrl (
 
   $scope.$emit('setPageGroup', 'blog');
 
-  $scope.tinymceOptionsContent = angular.copy(Configuration.tinymceOptions);
-  $scope.tinymceOptionsExcerpt = angular.copy(Configuration.tinymceOptions);
+  $scope.ckeditorOptionsExcerpt = Configuration.ckeditorOptions.small;
+  $scope.ckeditorOptionsContent = Configuration.ckeditorOptions.full;
 
   $scope.pulseContent = '';
   $scope.haveError = false;
   $scope.error = '';
 
-  var contentEditor = null;
-  var excerptEditor = null;
-  $rootScope.$on('tinymceInitComplete', function (event) {
-    contentEditor = window.tinymce.editors[window.tinymce.editors.length - 2];
-    excerptEditor = window.tinymce.editors[window.tinymce.editors.length - 1];
-    Pulses.get({'pulseId': $route.current.params.pulseId}, null, function (pulse) {
-      if (!$scope.session.authenticated.status || (pulse._creator._id !== $scope.session.user._id)) {
-        console.log('BONK');
-        $location.path('/');  // send them home; and
-        return;               // refuse to provide an editable interface for the pulse data.
-      }
-      $scope.pulse = pulse;
-      contentEditor.setContent(pulse.content);
-      excerptEditor.setContent(pulse.excerpt);
-      if (angular.isDefined(window.twttr)) {
-        //setTimeout(window.twttr.widgets.load, 0);
-        window.twttr.widgets.load();
-      }
-    });
+  Pulses.get({'pulseId': $route.current.params.pulseId}, null, function (pulse) {
+    if (!$scope.session.authenticated.status || (pulse._creator._id !== $scope.session.user._id)) {
+      $location.path('/');  // send them home; and
+      return;               // refuse to provide an editable interface for the pulse data.
+    }
+    $scope.pulse = pulse;
+    if (angular.isDefined(window.twttr)) {
+      //setTimeout(window.twttr.widgets.load, 0);
+      window.twttr.widgets.load();
+    }
   });
 
   $scope.calendarMoment = function (date) { return moment(date).calendar(); };
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
 
   $scope.updatePulse = function ( ) {
-    if (!$scope.session.authenticated.status || (contentEditor === null) || (excerptEditor === null)) {
+    if (!$scope.session.authenticated.status) {
       return;
     }
-
-    $scope.pulse.content = contentEditor.getContent();
-    $scope.pulse.excerpt = excerptEditor.getContent();
-
     $scope.pulse.$update(
       {'pulseId':$scope.pulse._id},
       function onPulseUpdateSuccess ( ) {
@@ -89,4 +76,3 @@ PulseEditCtrl.$inject = [
 
 angular.module('robcolbertApp')
 .controller('PulseEditCtrl', PulseEditCtrl);
-

@@ -4,7 +4,7 @@
 
 'use strict';
 
-function PulseReaderCtrl ($scope, $route, $sce, $window, UserSession, Pulses, Configuration) {
+function PulseReaderCtrl ($scope, $route, $sce, $window, $location, UserSession, Pulses, Configuration) {
 
   ga('send', 'pageview');
 
@@ -56,13 +56,27 @@ function PulseReaderCtrl ($scope, $route, $sce, $window, UserSession, Pulses, Co
         ga('send','event', 'Pulses', 'commentCreateSuccess', 1);
         console.log('comment created', newComment);
         $scope.pulse.interactions.comments.push(newComment);
-        $scope.comment.content = '';
+        $scope.commentEditorVisible = false;
+        $scope.comment = { };
+        tinyMCE.activeEditor.setContent('');
       },
       function onCommentCreateError (error) {
         console.log('createComment error', error);
         ga('send','event', 'Pulses', 'commentCreateError', 1);
         $scope.error = error;
         $scope.haveError = true;
+      }
+    );
+  };
+
+  $scope.deletePulse = function ( ) {
+    Pulses.delete(
+      {'pulseId': $scope.pulse._id},
+      function onDeleteSuccess ( ) {
+        $location.path('/#/pulses');
+      },
+      function onDeleteError (error) {
+        console.log('pulse delete error', error);
       }
     );
   };
@@ -73,6 +87,7 @@ PulseReaderCtrl.$inject = [
   '$route',
   '$sce',
   '$window',
+  '$location',
   'UserSession',
   'Pulses',
   'Configuration'

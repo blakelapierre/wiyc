@@ -20,8 +20,8 @@
 
   <div class="form-group">
     <label for="pulseExcerpt">Excerpt</label>
-    <textarea id="pulseExcerpt" class="form-control"
-              data-ui-tinymce="tinymceOptions"
+    <textarea id="pulseExcerpt"
+              data-ckeditor="ckeditorOptionsExcerpt"
               data-ng-model="pulse.excerpt"
               ></textarea>
   </div>
@@ -29,7 +29,7 @@
   <div class="form-group">
     <label for="pulseContent">Pulse Content</label>
     <textarea id="pulseContent"
-              data-ui-tinymce="tinymceOptions"
+              data-ckeditor="ckeditorOptionsContent"
               data-ng-model="pulse.content"
               ></textarea>
   </div>

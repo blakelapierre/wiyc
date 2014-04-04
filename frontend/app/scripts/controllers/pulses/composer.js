@@ -16,7 +16,8 @@ function PulsarComposerCtrl ($scope, $rootScope, $location, $window, Configurati
   });
 
   $scope.editable = true;
-  $scope.tinymceOptions = Configuration.tinymceOptions;
+  $scope.ckeditorOptionsExcerpt = Configuration.ckeditorOptions.small;
+  $scope.ckeditorOptionsContent = Configuration.ckeditorOptions.full;
 
   $scope.user = UserSession.session.user;
   console.log('COMPOSER USER SESSION', $scope.user);
