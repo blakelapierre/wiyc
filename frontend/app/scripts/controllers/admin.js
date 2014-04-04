@@ -6,14 +6,8 @@
 
 function AdminCtrl ($scope, $window, $location, UserSession, SiteSettings, Configuration) {
 
-  $scope.tinymceOptions = Configuration.tinymceOptions;
-  $scope.tinymceOptions.height = 240;
-  $scope.tinymceOptionsplugins = [
-    'advlist autolink lists link charmap preview hr anchor',
-    'pagebreak searchreplace wordcount visualblocks visualchars code',
-    'fullscreen insertdatetime media nonbreaking table contextmenu',
-    'directionality emoticons template paste textcolor'
-  ];
+  $scope.ckeditorOptions = Configuration.ckeditorOptions.full;
+  $scope.ckeditorOptions.height = 240;
 
   $scope.session = UserSession.session;
   if (!$scope.session.authenticated.status || !$scope.session.user.isAdmin) {

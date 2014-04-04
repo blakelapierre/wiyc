@@ -27,40 +27,18 @@ angular.module('robcolbertApp')
       return apiServer.scheme + apiServer.host + ':' + apiServer.port + endpoint;
     };
 
-    this.tinymceOptions = {
-      'script_url': 'bower_components/tinymce/tinymce.min.js',
-      'skin': 'lightgray',
-      'theme': 'modern',
-      'resize': false,
-      'height': 320,
-      'fixed_toolbar_container': '#editor-toolbar',
-      plugins: [
-        'advlist autolink lists link image charmap hr anchor',
-        'pagebreak searchreplace wordcount visualblocks visualchars code',
-        'insertdatetime media nonbreaking table contextmenu',
-        'directionality emoticons paste textcolor'
-        // disabled: 'save template fullscreen print preview'
-      ],
-      'oninit': function ( ) {
-        $rootScope.$broadcast('tinymceInitComplete');
-      }
-    };
-
-    this.sidebarTinymceOptions = {
-      'script_url': 'bower_components/tinymce/tinymce.min.js',
-      'skin': 'lightgray',
-      'theme': 'modern',
-      'resize': false,
-      'height': 200,
-      'fixed_toolbar_container': '#editor-toolbar',
-      plugins: [
-        'advlist autolink lists link image charmap hr anchor',
-        'pagebreak searchreplace wordcount visualblocks visualchars code',
-        'insertdatetime media nonbreaking save table contextmenu',
-        'directionality emoticons paste textcolor'
-      ],
-      'oninit': function ( ) {
-        $rootScope.$broadcast('tinymceInitComplete');
+    this.ckeditorOptions = {
+      'full': {
+        'skin': 'bootstrapck',
+        'language':'en',
+        'uiColor':'#e8e8e8',
+        'height': '250px'
+      },
+      'small': {
+        'skin': 'bootstrapck',
+        'language':'en',
+        'uiColor':'#e8e8e8',
+        'height': '125px'
       }
     };
 

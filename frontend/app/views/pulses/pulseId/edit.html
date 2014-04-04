@@ -9,23 +9,20 @@
   </div>
 
   <div class="form-group">
-    <label for="pulseContent">Update Your Pulse</label>
-    <textarea id="pulseContent"
-              data-ui-tinymce="tinymceOptionsContent"
-              data-ng-model="pulse.content"
-              ></textarea>
-  </div>
-
-  <div class="form-group">
     <label for="pulseExcerpt">Update Your Excerpt</label>
     <textarea class="form-control"
               id="pulseExcerpt"
               name="pulseExcerpt"
-              data-ui-tinymce="tinymceOptionsExcerpt"
+              data-ckeditor="ckeditorOptionsExcerpt"
               data-ng-model="pulse.excerpt"
-              style="resize:vertical;"
-              rows="4"
-              placeholder="Enter a quick summary that appears in lists of pulses."
+              ></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="pulseContent">Update Your Pulse</label>
+    <textarea id="pulseContent"
+              data-ckeditor="ckeditorOptionsContent"
+              data-ng-model="pulse.content"
               ></textarea>
   </div>
 

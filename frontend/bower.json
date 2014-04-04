@@ -4,21 +4,22 @@
   "appPath": "app",
   "appScriptName": "scripts/robcolbert-fe",
   "dependencies": {
-    "angular": "1.2.6",
+    "angular": "latest",
+    "angular-resource": "latest",
+    "angular-cookies": "latest",
+    "angular-sanitize": "latest",
+    "angular-route": "latest",
+    "angular-ui-ace": "latest",
     "json3": "~3.2.6",
     "es5-shim": "~2.1.0",
     "jquery": "~1.10.2",
     "bootstrap": "~3.0.3",
-    "angular-resource": "1.2.6",
-    "angular-cookies": "1.2.6",
-    "angular-sanitize": "1.2.6",
-    "angular-route": "1.2.6",
-    "angular-ui-tinymce": "latest",
-    "angular-ui-ace": "latest",
-    "momentjs": "~2.5.1"
+    "momentjs": "~2.5.1",
+    "ckeditor": "latest",
+    "ng-ckeditor": "latest"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.6",
-    "angular-scenario": "1.2.6"
+    "angular-mocks": "latest",
+    "angular-scenario": "latest"
   }
 }

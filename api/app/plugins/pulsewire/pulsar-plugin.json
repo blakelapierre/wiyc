@@ -1,5 +1,6 @@
 {
   "accessLevel": "admin",
+  "mountPoint":"/pulsewire",
   "socketio": {
     "enabled": true,
     "channelUuid": "f1172fba-e553-4975-8da4-022bce1cf227",

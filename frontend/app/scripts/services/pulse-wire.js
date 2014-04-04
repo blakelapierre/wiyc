@@ -20,8 +20,8 @@ function PulseWire($rootScope, $resource, Configuration) {
     Configuration.buildApiUrl('/pulsewire/sessions'),
     null,
     {
-      'get': { 'method': 'GET' },
-      'create': { 'method': 'POST' }
+      'get': { 'method': 'GET', 'withCredentials': true },
+      'create': { 'method': 'POST', 'withCredentials': true }
     }
   );
 

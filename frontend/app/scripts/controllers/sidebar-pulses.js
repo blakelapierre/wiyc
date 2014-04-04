@@ -8,7 +8,19 @@
 function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses, Configuration) {
 
   $scope.user = UserSession;
-  $scope.tinymceOptions = Configuration.sidebarTinymceOptions;
+  $scope.ckeditorOptions = angular.copy(Configuration.ckeditorOptions.small);
+  $scope.ckeditorOptions.toolbar = [
+    [
+      'Bold', 'Italic',
+      '-',
+      'NumberedList', 'BulletedList',
+      '-',
+      'Link', 'Unlink',
+      '-',
+      'Image','SpecialChar','Iframe'
+
+    ]
+  ]
 
   $scope.composer = {
     'visible': false,

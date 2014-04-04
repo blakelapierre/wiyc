@@ -28,7 +28,7 @@ angular.module('robcolbertApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.tinymce',
+  'ngCkeditor',
   'ui.ace'
 ])
 .config(function ($routeProvider) {

@@ -1,5 +1,5 @@
 {
-    "name": "PulseWire",
+    "name": "pulsar-pulsewire",
     "description": "Real-time communications for Pulsar powered by socket.io",
     "version": "0.0.1",
     "license": "MIT",

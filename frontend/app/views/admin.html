@@ -15,6 +15,10 @@
   </div>
 
   <div class="col-sm-8">
+    <div class="alert"
+         ng-class="alert.class"
+         ng-bind-html="alert.content"
+         ng-show="alert.visible"></div>
     <form role="form">
       <fieldset>
         <legend>Site Information</legend>
@@ -45,7 +49,7 @@
           <label for="siteDescription">Site description</label>
           <textarea id="siteDescription"
                     name="siteDescription"
-                    data-ui-tinymce="tinymceOptions"
+                    data-ckeditor="ckeditorOptions"
                     data-ng-model="options.siteInformation.description"
                     ></textarea>
         </div>
