@@ -850,5 +850,5 @@ MovingPartsCtrl.$inject = [
   'Configuration'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('MovingPartsCtrl', MovingPartsCtrl);

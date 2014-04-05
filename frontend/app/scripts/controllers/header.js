@@ -82,5 +82,5 @@ HeaderCtrl.$inject = [
   'PulseWire'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('HeaderCtrl', HeaderCtrl);

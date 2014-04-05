@@ -26,5 +26,5 @@ PostsService.$inject = [
   'Configuration'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('Posts', PostsService);

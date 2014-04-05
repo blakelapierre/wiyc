@@ -46,5 +46,5 @@ AccountLoginCtrl.$inject = [
   'Sessions'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('AccountLoginCtrl', AccountLoginCtrl);

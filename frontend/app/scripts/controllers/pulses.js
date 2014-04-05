@@ -54,5 +54,5 @@ PulsesCtrl.$inject = [
   'Pulses'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('PulsesCtrl', PulsesCtrl);

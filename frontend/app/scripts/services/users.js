@@ -23,5 +23,5 @@ UsersService.$inject = [
   'Configuration'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('Users', UsersService);

@@ -73,5 +73,5 @@ WebAudioService.$inject = [
 ];
 
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('WebAudio', WebAudioService);

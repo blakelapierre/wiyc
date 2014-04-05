@@ -15,5 +15,5 @@ ContactCtrl.$inject = [
   '$window'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('ContactCtrl', ContactCtrl);

@@ -3,12 +3,12 @@
 // License: MIT
 //
 // DESCRIPTION:
-// You put things here you don't want the world to know. Then, you never commit
-// it or submit to anywhere public. That is how to keep things like your Google
-// password safe while sharing everything you do with the world.
+// This file controls environment-local options for the Pulsar API server. By
+// default, it is configured to access the Pulsar API server on localhost with
+// several invalid credentials.
 //
-// If you do ever share this file at all anywhere, the smartest "Step 2" is to
-// immediately change all your passwords.
+// It will contain sensitive information. Distribution should be carefully
+// managed.
 
 'use strict';
 
@@ -20,17 +20,46 @@ var SocketIoLogLevels = {
 };
 
 module.exports = exports = {
+
+  /*
+   * GMail username and password until I spend time making it more flexible.
+   * Create a GMail account specifically for use by your Pulsar. If you try
+   * to share your personal account, you are probably going to run into problems
+   * and it's not a recommended approach.
+   */
   'emailUser': 'ENTER GMAIL ACCOUNT USERNAME',          // create one for Pulsar
   'emailPassword': 'ENGER GMAIL ACCOUNT PASSWORD',      // create one for Pulsar
+
+  /*
+   * The password salt is used to ensure that your database contains passwords
+   * salted uniquely to your environment. If you value your and your users'
+   * privacy, you will uuidgen a password salt here and archive that UUID
+   * somewhere very safe.
+   */
   'userPasswordSalt': 'CREATE A UNIQUE PASSWORD SALT',  // suggested: Use a UUID
+
+  /*
+   * The cookie secret is used to hash and secure cookie values shared with the
+   * client to help prevent man-in-the-middle attacks on service calls.
+   */
   'cookieSecret': 'CREATE A UNIQUE COOKIE SECRET',      // suggested: Use a UUID
 
-  'frontEnd': 'http://robcolbert.com',
+  /*
+   * Where does your front end service live?
+   */
+  'frontEnd': 'http://localhost',
+
+  /*
+   * To what should I bind the Pulsar API?
+   */
   'bind': {
-    'address': '0.0.0.0',
+    'address': '127.0.0.1',
     'port': 10010
   },
 
+  /*
+   * From where do you accept requests at this Pulsar API?
+   */
   'corsOptions': {
     'allowOrigins': [ 'http://127.0.0.1:9000' ],
     'allowMethods': [ 'GET', 'PUT', 'POST', 'DELETE' ],
@@ -38,20 +67,33 @@ module.exports = exports = {
     'allowCredentials': true
   },
 
+  /*
+   * Do you want to allow performance and availability monitoring of this Pulsar
+   * API instance?
+   */
   'monitorOptions': {
     'enabled': true,
     'mountPoint': '/monitor',
     'maxHistoryLength': 3
   },
 
+  /*
+   * Your list of memcached hosts. memcached is not an optional component at
+   * this time.
+   */
   'memcache': {
     'sessionCacheHosts': [ '127.0.0.1:11211' ],
     'dataCacheHosts'   : [ '127.0.0.1:11211' ]
   },
 
+  /*
+   * socket.io is used to implement real-time messaging in Pulsar. If you elect
+   * to enable socket.io, it makes perfect sense to also enable and use the
+   * PulseWire communications plugin.
+   */
   'socketIo': {
-    'enabled'    : true,
-    'logLevel'   : SocketIoLogLevels.WARN,
+    'enabled': true,
+    'logLevel': SocketIoLogLevels.WARN,
     'allowOrigin': 'http://127.0.0.1:9000',
     'client': {
       'minify': true,

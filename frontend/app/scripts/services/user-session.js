@@ -21,7 +21,6 @@ function UserSession($rootScope, $location, Sessions) {
   self.error = null;
 
   self.$rootScope.$on('setUserSession', function (event, userSession) {
-    console.log('USER SESSION', userSession);
     self.session = userSession;
     if (!angular.isDefined(self.session.authenticated)) {
       self.session.authenticated = { 'status': false };
@@ -58,12 +57,10 @@ function UserSession($rootScope, $location, Sessions) {
   ga('send', 'event', 'Authentication', 'fetchSession', 1);
   Sessions.get(
     function onSessionGetSuccess (session) {
-      console.log('user session created');
       ga('send', 'event', 'Authentication', 'fetchSessionSuccess', 1);
       $rootScope.$broadcast('setUserSession', session);
     },
     function onSessionsGetError (error) {
-      console.log('user session create/fetch failed', error);
       ga('send', 'event', 'Authentication', 'sessionGetError', 1);
       self.haveError = true;
       self.error = error;
@@ -85,5 +82,5 @@ UserSession.$inject = [
 // AngularJS service module registration
 //
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('UserSession', UserSession);

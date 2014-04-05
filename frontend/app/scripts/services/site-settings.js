@@ -18,4 +18,4 @@ SiteSettingsService.$inject = [
   'Configuration'
 ];
 
-angular.module('robcolbertApp').service('SiteSettings', SiteSettingsService);
+angular.module('pulsarApp').service('SiteSettings', SiteSettingsService);

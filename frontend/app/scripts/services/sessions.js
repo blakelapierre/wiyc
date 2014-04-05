@@ -6,7 +6,6 @@
 
 function SessionsService ($resource, Configuration) {
   var serviceUrl = Configuration.buildApiUrl('/sessions');
-  console.log('Sessions service endpoint', serviceUrl);
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
     'get': { 'method': 'GET', 'withCredentials': true },
@@ -20,5 +19,5 @@ SessionsService.$inject = [
   'Configuration',
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('Sessions', SessionsService);

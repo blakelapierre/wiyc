@@ -16,5 +16,5 @@ PulsarStudioCtrl.$inject = [
   '$scope'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('PulsarStudioCtrl', PulsarStudioCtrl);
