@@ -40,5 +40,5 @@ ConversationsCtrl.$inject = [
   '$window'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('ConversationsCtrl', ConversationsCtrl);

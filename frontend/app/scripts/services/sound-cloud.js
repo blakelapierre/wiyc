@@ -82,5 +82,5 @@ SoundCloudService.$inject = [
   '$sce'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('SoundCloud', SoundCloudService);

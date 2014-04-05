@@ -6,7 +6,6 @@
 
 function SidebarPulsesService ($resource, Configuration) {
   var serviceUrl = Configuration.buildApiUrl('/sidebar-pulses/:id');
-  console.log('SidebarPulses service endpoint', serviceUrl);
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
     'list': { 'method': 'GET', 'isArray': true, 'withCredentials': true },
@@ -22,5 +21,5 @@ SidebarPulsesService.$inject = [
   'Configuration',
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('SidebarPulses', SidebarPulsesService);

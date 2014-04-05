@@ -20,7 +20,7 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
       'Image','SpecialChar','Iframe'
 
     ]
-  ]
+  ];
 
   $scope.composer = {
     'visible': false,
@@ -34,7 +34,6 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
     pulses.forEach(function (pulse) {
       pulse.content = $sce.trustAsHtml('<p>' + pulse.content.replace(/\n+/g, '</p><p>') + '</p>');
     });
-    console.log('sidebar pulses have arrived', pulses);
     $scope.pulses = pulses;
     if (angular.isDefined(window.twttr)) {
       setTimeout(window.twttr.widgets.load, 0);
@@ -83,5 +82,5 @@ SidebarPulsesCtrl.$inject = [
   'Configuration'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('SidebarPulsesCtrl', SidebarPulsesCtrl);

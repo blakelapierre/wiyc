@@ -3,8 +3,6 @@
 echo "Building Pulsar AngularJS Front End"
 grunt build
 
-# Patch in the shit I just don't manage with Grunt (prototype stuff)
-cd dist
-	cp -R ../app/source .
-	cp -R ../app/scripts/sandbox ./scripts
-	cd ..
+# Patch in prototype stuff
+cp -R app/source dist
+cp -R app/scripts/sandbox dist/scripts

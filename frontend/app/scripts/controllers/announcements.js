@@ -45,5 +45,5 @@ AnnouncementsCtrl.$inject = [
   '$timeout'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('AnnouncementsCtrl', AnnouncementsCtrl);

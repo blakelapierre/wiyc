@@ -6,7 +6,6 @@
 
 function PulsesService ($resource, Configuration) {
   var serviceUrl = Configuration.buildApiUrl('/pulses/:pulseId');
-  console.log('Pulses service endpoint', serviceUrl);
   var defaultParameters = null;
   return $resource(serviceUrl, defaultParameters, {
     'list': { 'method': 'GET', 'withCredentials': true },
@@ -27,5 +26,5 @@ PulsesService.$inject = [
   'Configuration',
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('Pulses', PulsesService);

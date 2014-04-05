@@ -204,5 +204,5 @@ PresentationEngine.$inject = [
 /*
  * MODULE DEFINITION (AngularJS)
  */
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .service('PresentationEngine', PresentationEngine);

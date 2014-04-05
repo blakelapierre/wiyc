@@ -44,5 +44,5 @@ PrototypeSourceCtrl.$inject = [
   '$http'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('PrototypeSourceCtrl', PrototypeSourceCtrl);

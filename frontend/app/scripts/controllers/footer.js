@@ -101,5 +101,5 @@ FooterCtrl.$inject = [
   'PulseWire'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('FooterCtrl', FooterCtrl);

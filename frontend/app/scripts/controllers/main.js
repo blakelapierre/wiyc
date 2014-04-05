@@ -7,7 +7,6 @@
 function MainCtrl ($scope, $rootScope, $window, UserSession, Pulses) {
   $window.scrollTo(0, 0);
   $scope.session = UserSession.session;
-  console.log('USER', $scope.user);
   $scope.$emit('setPageGroup', 'main');
   ga('send', 'pageview');
 
@@ -28,5 +27,5 @@ MainCtrl.$inject = [
   'Pulses'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('MainCtrl', MainCtrl);

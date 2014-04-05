@@ -164,5 +164,5 @@ PrototypeCtrl.$inject = [
   '$sce'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('PrototypeCtrl', PrototypeCtrl);

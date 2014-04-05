@@ -97,5 +97,5 @@ PulseReaderCtrl.$inject = [
   'Configuration'
 ];
 
-angular.module('robcolbertApp')
+angular.module('pulsarApp')
 .controller('PulseReaderCtrl', PulseReaderCtrl);

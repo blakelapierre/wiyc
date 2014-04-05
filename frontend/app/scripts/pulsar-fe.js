@@ -23,7 +23,7 @@ Array.prototype.contains = function (element) {
  * function itself was <em>also</em> written in America by a natural born
  * citizen.
  */
-angular.module('robcolbertApp', [
+angular.module('pulsarApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

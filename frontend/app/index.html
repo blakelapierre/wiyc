@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html ng-app="pulsarApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html ng-app="pulsarApp" class="no-js lt-ie9 lt-ie8">        <![endif]-->
+<!--[if IE 8]>         <html ng-app="pulsarApp" class="no-js lt-ie9">               <![endif]-->
+<!--[if gt IE 8]><!--> <html ng-app="pulsarApp" class="no-js">                      <!--<![endif]-->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,8 +19,10 @@
     <link rel="stylesheet" href="styles/pulsar.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="robcolbertApp">
-  <div id="fb-root"></div>
+  <body>
+
+    <!-- The Facebook root div is here to support plugins that want to use it. -->
+    <div id="fb-root"></div>
 
     <!--[if lt IE 7]>
     <p class="browsehappy">
@@ -95,15 +97,72 @@
       </div>
     </div>
 
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-6890824-26');
-      ga('set', 'appName', 'Pulsar');
-      ga('set', 'appVersion', '0.1.0');
-    </script>
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="bower_components/ace-builds/src-min-noconflict/theme-chrome.js"></script>
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/momentjs/moment.js"></script>
+    <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/pulsar-fe.js"></script>
+
+    <script src="scripts/services/configuration.js"></script>
+    <script src="scripts/services/notifications.js"></script>
+    <script src="scripts/services/presentation-engine.js"></script>
+    <script src="scripts/services/pulse-wire.js"></script>
+    <script src="scripts/services/pulses.js"></script>
+    <script src="scripts/services/sessions.js"></script>
+    <script src="scripts/services/sidebar-pulses.js"></script>
+    <script src="scripts/services/site-settings.js"></script>
+    <script src="scripts/services/sound-cloud.js"></script>
+    <script src="scripts/services/users.js"></script>
+    <script src="scripts/services/user-session.js"></script>
+    <script src="scripts/services/videos.js"></script>
+    <script src="scripts/services/web-audio.js"></script>
+
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/account-login.js"></script>
+    <script src="scripts/controllers/admin.js"></script>
+    <script src="scripts/controllers/announcements.js"></script>
+    <script src="scripts/controllers/contact.js"></script>
+    <script src="scripts/controllers/conversations.js"></script>
+    <script src="scripts/controllers/footer.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/moving-parts.js"></script>
+    <script src="scripts/controllers/prototype/source.js"></script>
+    <script src="scripts/controllers/prototype.js"></script>
+    <script src="scripts/controllers/pulses/composer.js"></script>
+    <script src="scripts/controllers/pulses/pulseId/edit.js"></script>
+    <script src="scripts/controllers/pulses/reader.js"></script>
+    <script src="scripts/controllers/pulses/studio.js"></script>
+    <script src="scripts/controllers/pulses.js"></script>
+    <script src="scripts/controllers/settings.js"></script>
+    <script src="scripts/controllers/sidebar.js"></script>
+    <script src="scripts/controllers/sidebar-pulses.js"></script>
+    <script src="scripts/controllers/signup.js"></script>
+    <script src="scripts/controllers/user/user-profile.js"></script>
+    <script src="scripts/controllers/videos.js"></script>
+    <script src="scripts/controllers/verify.js"></script>
+    <!-- endbuild -->
 
     <script src="https://www.youtube.com/iframe_api" type="text/javascript"></script>
     <script type="text/javascript" src="scripts/sandbox/soundcloud-api.js"></script>
@@ -119,92 +178,16 @@
             type="text/javascript"
             charset="utf-8"></script>
 
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
+    <script src="http://api.robcolbert.com:10010/socket.io/socket.io.js" type="text/javascript"></script>
 
-    <script src="bower_components/tinymce/tinymce.min.js"></script>
-    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-    <script src="bower_components/ace-builds/src-min-noconflict/theme-chrome.js"></script>
-
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/momentjs/moment.js"></script>
-    <script src="bower_components/ckeditor/ckeditor.js"></script>
-    <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
-    <!-- endbower -->
-    <script src="bower_components/angular-ui-ace/ui-ace.min.js"></script>
-    <!-- endbuild -->
-
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/robcolbert-fe.js"></script>
-
-    <script src="scripts/services/configuration.js"></script>
-    <script src="scripts/services/sessions.js"></script>
-    <script src="scripts/services/users.js"></script>
-    <script src="scripts/services/user-session.js"></script>
-    <script src="scripts/services/site-settings.js"></script>
-    <script src="scripts/services/pulse-wire.js"></script>
-    <script src="scripts/services/presentation-engine.js"></script>
-    <script src="scripts/services/pulses.js"></script>
-    <script src="scripts/services/sidebar-pulses.js"></script>
-    <script src="scripts/services/web-audio.js"></script>
-    <script src="scripts/services/sound-cloud.js"></script>
-    <script src="scripts/services/videos.js"></script>
-
-    <script src="scripts/controllers/header.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/footer.js"></script>
-    <script src="scripts/controllers/signup.js"></script>
-    <script src="scripts/controllers/verify.js"></script>
-    <script src="scripts/controllers/account-login.js"></script>
-    <script src="scripts/controllers/announcements.js"></script>
-    <script src="scripts/controllers/settings.js"></script>
-    <script src="scripts/controllers/admin.js"></script>
-    <script src="scripts/controllers/pulses.js"></script>
-    <script src="scripts/controllers/pulses/composer.js"></script>
-    <script src="scripts/controllers/pulses/studio.js"></script>
-    <script src="scripts/controllers/pulses/reader.js"></script>
-    <script src="scripts/controllers/pulses/pulseId/edit.js"></script>
-    <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/controllers/contact.js"></script>
-    <script src="scripts/controllers/videos.js"></script>
-    <script src="scripts/controllers/sidebar.js"></script>
-    <script src="scripts/controllers/sidebar-pulses.js"></script>
-    <script src="scripts/controllers/prototype.js"></script>
-    <script src="scripts/controllers/prototype/source.js"></script>
-    <script src="scripts/controllers/moving-parts.js"></script>
-    <script src="scripts/controllers/user/user-profile.js"></script>
-    <script src="scripts/services/notifications.js"></script>
-    <script src="scripts/controllers/conversations.js"></script>
-    <!-- endbuild -->
-
-    <script src="http://api.robcolbert.com:10010/socket.io/socket.io.js"
-            type="text/javascript">
-    </script>
-
-    <!-- TinyMCE WYSIWYG Editor -->
-    <script type="text/javascript">
-      tinyMCE.baseURL = 'bower_components/tinymce';
-      tinyMCE.suffix = '.min';
-    </script>
-
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=154736041394120";
-      fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-6890824-26');
+      ga('set', 'appName', 'Pulsar');
+      ga('set', 'appVersion', '0.1.0');
     </script>
 
   </body>
