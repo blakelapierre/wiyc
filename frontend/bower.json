@@ -1,14 +1,14 @@
 {
-  "name": "robcolbert",
+  "name": "pulsar-client",
   "version": "0.0.0",
   "appPath": "app",
   "appScriptName": "scripts/robcolbert-fe",
   "dependencies": {
-    "angular": "latest",
-    "angular-resource": "latest",
-    "angular-cookies": "latest",
-    "angular-sanitize": "latest",
-    "angular-route": "latest",
+    "angular": "~1.2.9",
+    "angular-resource": "~1.2.9",
+    "angular-cookies": "~1.2.9",
+    "angular-sanitize": "~1.2.9",
+    "angular-route": "~1.2.9",
     "angular-ui-ace": "latest",
     "json3": "~3.2.6",
     "es5-shim": "~2.1.0",
@@ -19,7 +19,7 @@
     "ng-ckeditor": "latest"
   },
   "devDependencies": {
-    "angular-mocks": "latest",
-    "angular-scenario": "latest"
+    "angular-mocks": "~1.2.9",
+    "angular-scenario": "~1.2.9"
   }
 }
