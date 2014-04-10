@@ -4,15 +4,17 @@
 
 'use strict';
 
-function SidebarCtrl ($scope) {
+function SidebarCtrl ($scope, UserSession) {
 
+  $scope.session = UserSession.session;
   $scope.className = '';
 
 }
 
 SidebarCtrl.$inject = [
-  '$scope'
+  '$scope',
+  'UserSession'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('SidebarCtrl', SidebarCtrl);

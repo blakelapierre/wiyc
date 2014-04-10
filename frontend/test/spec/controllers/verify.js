@@ -3,7 +3,7 @@
 describe('Controller: VerifyCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('robcolbertApp'));
+  beforeEach(module('pulsarClientApp'));
 
   var VerifyCtrl,
     scope;

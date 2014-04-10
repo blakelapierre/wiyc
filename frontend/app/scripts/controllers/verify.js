@@ -88,5 +88,5 @@ VerifyCtrl.$inject = [
   'Users'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('VerifyCtrl', VerifyCtrl);

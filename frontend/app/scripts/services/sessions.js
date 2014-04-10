@@ -19,5 +19,5 @@ SessionsService.$inject = [
   'Configuration',
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('Sessions', SessionsService);

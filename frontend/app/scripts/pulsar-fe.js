@@ -13,7 +13,7 @@ Array.prototype.contains = function (element) {
 };
 
 /*
- * The pulsarApp application instance is created here as per Yeoman Standards
+ * The pulsarClientApp application instance is created here as per Yeoman Standards
  * Reference Manual page 2911, section 8, subsection 12, which clearly states:
  * "Thou shalt declare thy AngularJS 'app' and define thy route in the only
  * script to be found in the root of the scripts directory."
@@ -23,7 +23,7 @@ Array.prototype.contains = function (element) {
  * function itself was <em>also</em> written in America by a natural born
  * citizen.
  */
-angular.module('pulsarApp', [
+angular.module('pulsarClientApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -87,7 +87,7 @@ angular.module('pulsarApp', [
     controller: 'PulsarComposerCtrl'
   })
   .when('/pulses/:pulseId', {
-    templateUrl: 'views/pulses/reader.html',
+    template: '<pulsar:pulse></pulsar:pulse>',
     controller: 'PulseReaderCtrl'
   })
   .when('/pulses/:pulseId/edit', {

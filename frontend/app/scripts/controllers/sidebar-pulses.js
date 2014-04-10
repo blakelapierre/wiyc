@@ -7,19 +7,24 @@
 
 function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses, Configuration) {
 
-  $scope.user = UserSession;
+  $scope.session = UserSession.session;
   $scope.ckeditorOptions = angular.copy(Configuration.ckeditorOptions.small);
-  $scope.ckeditorOptions.toolbar = [
-    [
-      'Bold', 'Italic',
-      '-',
-      'NumberedList', 'BulletedList',
-      '-',
-      'Link', 'Unlink',
-      '-',
-      'Image','SpecialChar','Iframe'
-
-    ]
+  $scope.ckeditorOptions.toolbarGroups = [
+    { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+    { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+    { name: 'links' },
+    { name: 'iframedialog' },
+    { name: 'insert' },
+    { name: 'forms' },
+    { name: 'tools' },
+    { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
+    { name: 'others' },
+    '/',
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+    { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+    { name: 'styles' },
+    { name: 'colors' },
+    { name: 'about' }
   ];
 
   $scope.composer = {
@@ -48,7 +53,7 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
   $scope.dateAsMoment = function (date) { return moment(date).calendar(); };
 
   $scope.createPulse = function ( ) {
-    if (!$scope.user.session.authenticated.status) {
+    if (!$scope.session.authenticated.status) {
       // Not authenticated, don't even know how you got here, but...no.
       // But, relax. This is only a best effort. The back end isn't going
       // to accept the pulse even if submitted via curl, though.
@@ -71,6 +76,11 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
     );
   };
 
+  $scope.editPulse = function (selectedPulse) {
+    console.log('editPulse', arguments);
+    selectedPulse.editing = true;
+  };
+
 }
 
 SidebarPulsesCtrl.$inject = [
@@ -82,5 +92,5 @@ SidebarPulsesCtrl.$inject = [
   'Configuration'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('SidebarPulsesCtrl', SidebarPulsesCtrl);

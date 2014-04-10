@@ -3,28 +3,7 @@
   <div class="row">
     <div class="col-lg-3" ng-repeat="pulse in pulses.pulses">
       <div class="flip-container" ng-mouseover="pulse.hover = true" ng-mouseleave="pulse.hover = false">
-        <div class="pulsar-widget"
-             ng-class="pulse.hover ? 'hover' : ''"
-             ng-click="loadPulse(pulse._id)"
-             style="cursor:pointer;">
-          <div class="pulse">
-            <div class="heading">
-              <div class="heading-wrap">
-                <div class="title">
-                  <a href="#/pulses/{{pulse._id}}" title="{{pulse.title}}">{{pulse.title}}</a>
-                </div>
-                <div class="byline">
-                  {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}
-                </div>
-              </div>
-            </div>
-            <div class="body" ng-bind-html="pulse.excerpt"></div>
-            <div class="clearfix"></div>
-            <p>
-              <a href="/#/pulses/{{pulse._id}}" title="{{pulse.title}}">Continue reading...</a>
-            </p>
-          </div>
-        </div>
+        <pulsar:pulse-summary></pulsar:pulse-summary>
       </div>
     </div>
     <div class="clearfix"></div>

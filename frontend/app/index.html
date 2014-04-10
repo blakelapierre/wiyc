@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html ng-app="pulsarApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html ng-app="pulsarApp" class="no-js lt-ie9 lt-ie8">        <![endif]-->
-<!--[if IE 8]>         <html ng-app="pulsarApp" class="no-js lt-ie9">               <![endif]-->
-<!--[if gt IE 8]><!--> <html ng-app="pulsarApp" class="no-js">                      <!--<![endif]-->
-  <head>
+<!--[if lt IE 7]>      <html ng-app="pulsarClientApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html ng-app="pulsarClientApp" class="no-js lt-ie9 lt-ie8">        <![endif]-->
+<!--[if IE 8]>         <html ng-app="pulsarClientApp" class="no-js lt-ie9">               <![endif]-->
+<!--[if gt IE 8]><!--> <html ng-app="pulsarClientApp" class="no-js">                      <!--<![endif]-->
+  <head ng-controller="HeadCtrl">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Rob Colbert's Personal Site | Powered by Pulsar</title>
-    <meta name="description" content="Rob Colbert's personal site and Pulsar playground">
+    <title ng-bind="pageInformation.title + ' | ' + site.siteInformation.name"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
@@ -35,6 +34,12 @@
     <div id="topBar" ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
 
     <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="col-xs-12">
+          <pulsar:service-error></pulsar:service-error>
+        </div>
+      </div>
+
       <div class="row-fluid">
         <div class="col-sm-8 col-lg-9 main-view"><div ng-view=""></div></div>
         <div class="col-sm-4 col-lg-3 sidebar"><ng-include src="'views/sidebar.html'"></ng-include></div>
@@ -118,10 +123,12 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/momentjs/moment.js"></script>
     <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
+    <script src="bower_components/threejs/build/three.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/threejs-objloader.js"></script>
     <script src="scripts/pulsar-fe.js"></script>
 
     <script src="scripts/services/configuration.js"></script>
@@ -144,7 +151,10 @@
     <script src="scripts/controllers/announcements.js"></script>
     <script src="scripts/controllers/contact.js"></script>
     <script src="scripts/controllers/conversations.js"></script>
+    <script src="scripts/controllers/directives/service-error-alert.js"></script>
+    <script src="scripts/controllers/directives/soundcloud-player.js"></script>
     <script src="scripts/controllers/footer.js"></script>
+    <script src="scripts/controllers/head.js"></script>
     <script src="scripts/controllers/header.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/moving-parts.js"></script>
@@ -162,10 +172,18 @@
     <script src="scripts/controllers/user/user-profile.js"></script>
     <script src="scripts/controllers/videos.js"></script>
     <script src="scripts/controllers/verify.js"></script>
+
+    <script src="scripts/directives/canvas-threejs.js"></script>
+    <script src="scripts/directives/micropulse.js"></script>
+    <script src="scripts/directives/pulse-summary.js"></script>
+    <script src="scripts/directives/service-error.js"></script>
+    <script src="scripts/directives/soundcloud-player.js"></script>
+    <script src="scripts/directives/youtube-player.js"></script>
+    <script src="scripts/directives/pulse.js"></script>
     <!-- endbuild -->
 
-    <script src="https://www.youtube.com/iframe_api" type="text/javascript"></script>
-    <script type="text/javascript" src="scripts/sandbox/soundcloud-api.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
 
     <!-- Twitter Widget API -->
     <script src="http://platform.twitter.com/widgets.js"
@@ -173,12 +191,12 @@
             type="text/javascript"
             charset="utf-8"></script>
 
-    <!-- SWFObject API (heroin is hard, and YouTube won't switch to methodone) -->
+    <!-- SWFObject API because GoogleTube just won't let go -->
     <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"
             type="text/javascript"
             charset="utf-8"></script>
 
-    <script src="http://api.robcolbert.com:10010/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="http://127.0.0.1:10010/socket.io/socket.io.js" type="text/javascript"></script>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

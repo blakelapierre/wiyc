@@ -9,6 +9,7 @@
 @import url('http://fonts.googleapis.com/css?family=Duru+Sans');
 
 @import 'pulsar-variables.less';
+@import 'pulsar-mixins.less';
 @import 'pulsar-effects.less';
 
 body {
@@ -16,7 +17,7 @@ body {
   background-position:center center;
   background-size:cover;
   background-color:@pulsarBgColor;
-  transition: background 1s;
+  transition: background @pulsarTransitionTime;
   &.theater {
     background-image:url('/images/theater-bg.jpg');
     background-color:@pulsarTheaterBgColor;
@@ -62,7 +63,7 @@ a.btn:link {
 
 @import 'pulsar-comments.less';
 @import 'pulsar-credits.less';
-@import 'pulsar-media-sc.less';
+@import 'pulsar-soundcloud-player.less';
 @import 'pulsar-theater.less';
 
 .main-view {
@@ -83,7 +84,7 @@ a.btn:link {
 }
 
 .divider {
-  border-top:solid 1px darken(@pulsarBaseColor, 25%);
+  border-top:solid 1px darken(@pulsarBgColor, 25%);
 }
 
 .cta-button-container {
@@ -91,14 +92,18 @@ a.btn:link {
   & .cta-button {
     box-shadow: none;
     transform-origin: center;
-    transition: all 0.75s;
-    background-color: darken(@pulsarBaseColor, 80%);
-    color: @pulsarBaseColor;
+    transition: all @pulsarTransitionTime;
+    background-color: darken(@pulsarBgColor, 25%);
+    color: darken(@pulsarTextColor, 25%);
     &.hover {
-      background-color: @pulsarBaseColor;
-      color: darken(@pulsarBaseColor, 80%);
-      transform: translate3d(0,0,80px) rotateX(-350deg);
-      box-shadow: 0 2px 12px rgba(0,0,140,0.5);
+      background-color: @pulsarWidgetBgColor;
+      color: @pulsarWidgetTextColor;
+      transform: translate3d(0,-7px,60px) rotateX(-350deg);
+      box-shadow: 0 2px 12px rgba(0,0,90,0.7);
+    }
+    &:hover {
+      color:rgb(0,128,0);
+      box-shadow: 0 2px 24px rgba(0,128,0,0.7);
     }
   }
 }
@@ -120,17 +125,7 @@ hr {
   & h1 {
     margin-top:0;
   }
-  -webkit-transform-style:preserve-3d;
-  transform-style:preserve-3d;
-
-  -webkit-transform-origin:center center;
-  transform-origin:center center;
-
-  -webkit-perspective-origin:50% 50%;
-  perspective-origin: 50% 50%;
-
-  -webkit-perspective:500px;
-  perspective:500px;
+  .pulsarPerspectiveTransform(center, center, 500px);
 }
 
 .pager {
@@ -140,18 +135,18 @@ hr {
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow:0 0 6px rgba(0,0,0,0.25) inset;
-  border-radius:4px;
+  background-color:darken(@pulsarBgColor, 3%);
+  border-radius:2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border:solid 1px rgba(0,0,16,0.1);
-  border-radius: 4px;
-  background-color:rgba(0,0,16,0.1);
+  background-color:darken(@pulsarBgColor, 25%);
+  box-shadow:0 0 5px darken(@pulsarBgColor, 3%) inset;
 }
 
 /*

@@ -80,5 +80,5 @@ SettingsCtrl.$inject = [
   'Notifications'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('SettingsCtrl', SettingsCtrl);

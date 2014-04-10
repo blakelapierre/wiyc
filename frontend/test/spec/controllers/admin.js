@@ -3,7 +3,7 @@
 describe('Controller: AdminCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('robcolbertApp'));
+  beforeEach(module('pulsarClientApp'));
 
   var AdminCtrl,
     scope;

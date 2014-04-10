@@ -3,14 +3,15 @@
 // License: MIT
 
 'use strict';
-/* global twttr:false */
-/* global moment:false */
 
 function PulsesCtrl ($scope, $route, $location, $window, Pulses) {
   $window.scrollTo(0, 0);
+  ga('send', 'pageview');
 
   $scope.$emit('setPageGroup', 'blog');
-  ga('send', 'pageview');
+  $scope.$emit('setPageInformation', {
+    'title': 'All Pulses'
+  });
 
   $scope.currentPage = parseInt($route.current.params.p) || 1;
   $scope.pulsesPerPage = parseInt($route.current.params.cpp) || 10;
@@ -22,9 +23,10 @@ function PulsesCtrl ($scope, $route, $location, $window, Pulses) {
     },
     function ( ) {
       var idx, maxPages = $scope.pulses.count / $scope.pulsesPerPage;
-
       console.log('pulses have arrived', $scope.pulses);
-      setTimeout(twttr.widgets.load, 0);
+      if (angular.isDefined(window.twttr)) {
+        setTimeout(window.twttr.widgets.load, 0);
+      }
 
       $scope.pages = [ ];
       for (idx = $scope.currentPage - 3; idx <= maxPages; ++idx) {
@@ -36,6 +38,7 @@ function PulsesCtrl ($scope, $route, $location, $window, Pulses) {
     }
   );
 
+  var moment = $window.moment;
   $scope.calendarMoment = function (date) { return moment(date).calendar(); };
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
 
@@ -54,5 +57,5 @@ PulsesCtrl.$inject = [
   'Pulses'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('PulsesCtrl', PulsesCtrl);

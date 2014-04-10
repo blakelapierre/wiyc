@@ -1,0 +1,105 @@
+<div class="pulsar-widget">
+
+  <pulsar:canvas-threejs data-canvas-class="game-canvas"
+                       data-canvas-width="1280"
+                       data-canvas-height="720"
+                       ng-show="isFullscreen"
+                       ></pulsar:canvas-threejs>
+
+  <div class="display-panel" ng-show="isFullscreen">
+    <button class="pull-right tight" ng-click="toggleFullscreen()" style="font-size:15px;">
+      <span class="glyphicon glyphicon-fullscreen"></span>
+    </button>
+    <div style="float:left; margin-left:16px;">
+      <h1>{{trackData.title}} <small>{{trackData.artist}}</small></h1>
+      <img class="sc-logo" src="images/sc_sbs_gradient_130x20.png" alt="SoundCloud Logo"
+           style="position:absolute; bottom:8px; left:16px;" />
+      <div class="display">
+        <button ng-click="playSound()" style="font-size:15px;">
+          <span class="glyphicon glyphicon-play" ng-show="audioState !== 'playing'"></span>
+          <span class="glyphicon glyphicon-pause" ng-show="audioState === 'playing'"></span>
+        </button>
+        <button ng-click="stopSound()" style="font-size:15px;">
+          <span class="glyphicon glyphicon-stop"></span>
+        </button>
+        <div class="display-item" style="display:inline-block;">
+          <span class="label">cur</span>&nbsp;<span class="value">{{audioTimeLabel}}</span>
+        </div>
+        <div class="display-item" style="display:inline-block;">
+          <span class="label">dur</span>&nbsp;<span class="value">{{audioDurationLabel}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" ng-show="!ready">
+    <h2><img src="favicon.ico" /> Loading</h2>
+    <div class="message" ng-bind-html="loadingMessage" ></div>
+  </div>
+
+  <div class="soundcloud-player" ng-show="ready">
+
+    <div class="heading" ng-show="!isFullscreen">
+      <div class="heading-wrap">
+        <div class="genre">
+          {{trackData.genre}}
+        </div>
+        <div class="title">
+          <a ng-href="{{trackData.permalink_url}}"
+             title="Open on SoundCloud"
+             target="_blank"
+             >
+            {{trackData.title}}
+          </a>
+        </div>
+        <div class="byline">
+          <div class="byline-block" ng-bind="calendarMoment(trackData.created_at)"></div>
+          <div class="byline-block"><span class="glyphicon glyphicon-play"></span> {{trackData.playback_count}}</div>
+          <div class="byline-block"><span class="glyphicon glyphicon-thumbs-up"></span> {{trackData.favoritings_count}}</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <div class="media-bar">
+      <div class="artwork-image">
+        <a ng-href="{{trackData.permalink_url}}"
+           target="_blank"
+           title="Open '{{trackData.title}}' on SoundCloud.com">
+          <img ng-src="{{trackData.artwork_url}}" />
+        </a>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+        <div class="waveform-container">
+          <img class="waveform" ng-src="{{trackData.waveform_url}}" />
+        </div>
+      </div>
+
+      <div class="visualizer-container">
+        <canvas class="visualizer" width="1024" height="64"></canvas>
+      </div>
+    </div>
+
+    <div class="description" ng-show="trackData.hasOwnProperty('description') &amp;&amp; !isFullScreen">
+      <p ng-bind-html="trackData.description"></p>
+    </div>
+
+    <div class="controls" ng-show="!isFullscreen">
+      <button ng-click="playSound()" style="font-size:15px;">
+        <span class="glyphicon glyphicon-play"></span> play
+      </button>
+      <button ng-click="stopSound()" style="font-size:15px;">
+        <span class="glyphicon glyphicon-stop"></span> stop
+      </button>
+      <button ng-click="toggleFullscreen()" style="font-size:15px;">
+        <span class="glyphicon glyphicon-fullscreen"></span> full screen
+      </button>
+      {{audioTimeLabel}}
+      {{audioDurationLabel}}
+    </div>
+
+  </div>
+
+</div>

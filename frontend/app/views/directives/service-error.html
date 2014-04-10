@@ -1,0 +1,13 @@
+<div class="alert alert-danger" ng-controller="ServiceErrorAlertCtrl" ng-show="haveError">
+  <button type="button" class="close" ng-click="haveError = false;" aria-hidden="true">&times;</button>
+  <h4>{{error.data.message}}</h4>
+  <p ng-repeat="error in error.data.errors">
+    <span class="label label-danger">{{error.name}}</span> {{error.message}}
+  </p>
+  <div class="alert alert-info" ng-show="error.data.solutions.length > 0" style="margin-top:16px;">
+    <h4>Solutions</h4>
+    <p ng-repeat="solution in error.data.solutions">
+      <span class="label label-info">{{solution.name}}</span> {{solution.message}}
+    </p>
+  </div>
+</div>

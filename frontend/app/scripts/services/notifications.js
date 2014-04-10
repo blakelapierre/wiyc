@@ -89,5 +89,5 @@ NotificationsService.prototype.showNotification = function (title, options) {
 
 NotificationsService.$inject = [ ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('Notifications', NotificationsService);

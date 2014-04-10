@@ -43,6 +43,7 @@ PulseWire.prototype.connect = function ( ) {
   var self = this;
 
   if (!angular.isDefined(window.io)) {
+    console.log('socket.io support is not enabled');
     return;
   }
 
@@ -111,5 +112,5 @@ PulseWire.$inject = [
   'UserSession'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('PulseWire', PulseWire);

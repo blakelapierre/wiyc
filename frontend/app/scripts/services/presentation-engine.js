@@ -20,6 +20,7 @@ function PresentationEngine ($interval) {
   };
   PresentationEngine.TransitionMode = 'transition';
 
+  self.fullscreenEnabled = self.isFullscreenEnabled();
   self.displayMode = PresentationEngine.DisplayModes.STANDARD;
   self.sidebarMode = PresentationEngine.DisplayModes.STANDARD;
   self.nextDisplayMode = null;
@@ -43,6 +44,54 @@ function PresentationEngine ($interval) {
   self.mainView = null;//TOTAL HACK FOR NOW
 
 }
+
+PresentationEngine.prototype.isFullscreenEnabled = function ( ) {
+  return document.exitFullscreen ||
+    document.webkitExitFullscreen ||
+    document.mozCancelFullScreen ||
+    document.msExitFullscreen;
+};
+
+PresentationEngine.prototype.requestFullscreen = function (element) {
+  if (!angular.isDefined(element)) {
+    return false;
+  }
+  this.exitFullscreen();
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+};
+
+PresentationEngine.prototype.isFullscreen = function ( ) {
+  if (document.fullscreenElement) {
+    return true;
+  } else if (document.mozFullScreenElement) {
+    return true;
+  } else if (document.webkitFullscreenElement) {
+    return true;
+  } else if (document.msFullscreenElement) {
+    return true;
+  }
+  return false;
+};
+
+PresentationEngine.prototype.exitFullscreen = function ( ) {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+};
 
 PresentationEngine.prototype.setQuakeMagnitude = function (magnitude) {
   this.effects.quake.magnitude = magnitude;
@@ -204,5 +253,5 @@ PresentationEngine.$inject = [
 /*
  * MODULE DEFINITION (AngularJS)
  */
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('PresentationEngine', PresentationEngine);

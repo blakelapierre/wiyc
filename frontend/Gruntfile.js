@@ -100,7 +100,10 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish'),
-        ignores: [ '<%= yeoman.app %>/scripts/sandbox/**/*.js' ]
+        ignores: [
+          //'<%= yeoman.app %>/scripts/sandbox/**/*.js',
+          '<%= yeoman.app %>/scripts/threejs-objloader.js'
+        ]
       },
       all: [
         'Gruntfile.js',
@@ -154,7 +157,7 @@ module.exports = function (grunt) {
 
     // Executes LESS to build:
     // 1. Boostrap in-place from its packaged sources
-    // 2. robcolbert.less
+    // 2. pulsar.less
     recess: {
       dist: {
         options: {

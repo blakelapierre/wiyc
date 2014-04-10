@@ -12,6 +12,8 @@ function SoundCloudService ($rootScope, $http, $sce) {
   self.error = null;
   self.trackData = null;
 
+  SC.initialize({ 'client_id': self.clientId });
+
   self.buildRequestUrl = function (serviceName, soundId) {
     var url = 'https://api.soundcloud.com/' + serviceName.toString() + '/' + soundId.toString() + '.json';
     return this.blessUrl(url);
@@ -21,9 +23,41 @@ function SoundCloudService ($rootScope, $http, $sce) {
     return url.toString() + '?client_id='+self.clientId;
   };
 
+  /*
+   * The SoundCloud API /resolve.json service is used to retrieve SoundCloud
+   * metadata for any public resource.
+   */
+  self.resolveUrl = function (url, callbackSuccess, callbackError) {
+    var successHandler = callbackSuccess;
+    var errorHandler = callbackError;
+    var thenHandler = function ( ) { };
+
+    if (!angular.isString(url)) {
+      console.log('invalid SoundCloud resource url', url);
+      return;
+    }
+
+    var promise = {
+      'success': function (callback) { successHandler = callback; return promise; },
+      'error': function (callback) { errorHandler = callback; return promise; },
+      'then': function (callback) { thenHandler = callback; return promise; }
+    };
+
+    SC.get('/resolve', { 'url': url }, function (entity, error) {
+      if (error) {
+        errorHandler(error);
+      } else {
+        successHandler(entity);
+      }
+      thenHandler();
+    });
+
+    return promise;
+  };
+
   self.loadTrackData = function (soundId, callback) {
     if (!angular.isString(soundId) && !angular.isNumber(soundId)) {
-      return; // I'll get more verbose with exceptions later in hardening
+      return;
     }
 
     var requestUrl = self.buildRequestUrl('tracks', soundId);
@@ -50,9 +84,13 @@ function SoundCloudService ($rootScope, $http, $sce) {
 
       // trusted HTML content
       // @TODO options group: "Trusted SoundCloud HTML Content"
-      trackData.description = $sce.trustAsHtml(
-        trackData.description.replace(/\n/gi, '<br />')
-      );
+      if (trackData.hasOwnProperty('description') && (trackData.description.length > 0)) {
+        trackData.description = $sce.trustAsHtml(
+          trackData.description.replace(/\n/gi, '<br />')
+        );
+      } else {
+        delete trackData.description;
+      }
 
       self.trackData = trackData;
 
@@ -82,5 +120,5 @@ SoundCloudService.$inject = [
   '$sce'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('SoundCloud', SoundCloudService);

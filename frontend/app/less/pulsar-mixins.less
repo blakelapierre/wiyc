@@ -1,0 +1,17 @@
+// less/pulsar-mixins.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+
+.pulsarPerspectiveTransform(@originX; @originY; @depth) {
+  -webkit-transform-style:preserve-3d;
+  transform-style:preserve-3d;
+
+  -webkit-transform-origin:center center;
+  transform-origin:center center;
+
+  -webkit-perspective-origin:@originX @originY;
+  perspective-origin:@originX @originY;
+
+  -webkit-perspective:@depth;
+  perspective:@depth;
+}

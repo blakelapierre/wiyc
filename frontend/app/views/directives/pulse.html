@@ -1,0 +1,163 @@
+<div class="pulsar-widget">
+  <div class="pulse" ng-show="loaded">
+
+    <div class="heading">
+      <div class="heading-wrap">
+        <div class="title" ng-bind-html="pulse.title"></div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+          <div class="col-sm-7">
+            <img src="favicon.ico" style="position:relative; top:-2px;"/> {{pulse._creator.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}
+          </div>
+          <div class="col-sm-1">
+            <a style="color:#2a2a2a; font-size:16px; margin-right:16px;"
+               ng-href="#/pulses/{{pulse._id}}/edit"
+               title="This is your pulse. You can edit its content in-place."
+               alt="Select to edit this pulse"
+               >
+              <span class="glyphicon glyphicon-edit"></span>
+            </a>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-xs btn-default"
+                    style="color:#2a2a2a;"
+                    title="Give &quot;{{pulse.title}}&quot; a thumbs-down :("
+                    data-toggle="modal"
+                    data-target="#pulseDeleteConfirmModal"
+                    data-ng-show="pulse._creator._id === session.user._id"
+                    >
+              <span class="glyphicon glyphicon-thumbs-down"></span>
+            </button>
+            <span>{{pulse.interactions.dislikes}}</span>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-xs btn-default"
+                    style="color:#2a2a2a;"
+                    title="Give &quot;{{pulse.title}}&quot; a thumbs-up!"
+                    data-toggle="modal"
+                    data-target="#pulseDeleteConfirmModal"
+                    data-ng-show="pulse._creator._id === session.user._id"
+                    >
+              <span class="glyphicon glyphicon-thumbs-up"></span>
+            </button>
+            <span>{{pulse.interactions.dislikes}}</span>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger alert-dismissable" ng-show="haveError">
+      <button type="button" class="close" ng-click="haveError = false;" aria-hidden="true">&times;</button>
+      <strong>Danger!</strong> {{error.data.message}}
+    </div>
+
+    <div class="body">
+      <div class="excerpt"></div>
+      <div class="content"></div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="heading">
+      <div class="heading-wrap">
+        <span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments
+      </div>
+    </div>
+
+    <div class="comments" ng-switch on="pulse.interactions.comments.length">
+      <div ng-switch-when="0">
+        <p>No comments, yet. Share your thoughts and start the conversation.</p>
+      </div>
+      <div ng-switch-default="">
+        <div class="comment" ng-repeat="comment in pulse.interactions.comments">
+          <div class="header">
+            <span class="author">{{comment._creator.displayName}}</span>
+            <span class="created">{{fromNow(comment.created)}}</span>
+          </div>
+          <div class="body" ng-bind-html="comment.content"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin:16px 0;">
+      <button class="btn btn-large btn-default"
+              ng-show="session.authenticated.status"
+              ng-init="commentEditorVisible = false"
+              ng-click="commentEditorVisible = !commentEditorVisible">
+        <span class="glyphicon glyphicon-plus" style="font-size:0.8em;"></span> Add comment
+      </button>
+    </p>
+
+    <form role="form" ng-show="session.authenticated.status &amp;&amp; commentEditorVisible">
+      <div class="form-group">
+        <textarea class="form-control"
+                  id="commentContent"
+                  name="commentContent"
+                  data-ui-tinymce="tinymceOptions"
+                  data-ng-model="comment.content"
+                  placeholder="Enter comment here. Or, enter your comment elsewhere if you can. Be like that."
+                  rows="4"
+                  style="resize:vertical;"
+                  ></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" ng-click="createComment()">Add Comment</button>
+        </div>
+      </form>
+
+      <div ng-show="!session.authenticated.status">
+        <p>
+          You must have a Pulsar account and be logged in to comment.
+        </p>
+        <a href="#/signup" class="btn btn-default btn-lg">Let Me Publish!</a>
+      </div>
+
+      <div class="clearfix"></div>
+
+      </div><!-- pulse -->
+
+      </div><!-- pulsar-widget -->
+
+      <div class="modal"
+           id="pulseDeleteConfirmModal"
+           tabindex="-1"
+           role="dialog"
+           aria-labelledby="deletePulseModalLabel"
+           aria-hidden="true"
+           ng-controller="AccountLoginCtrl">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="deletePulseModalLabel">Deleting "{{pulse.title}}"</h4>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-danger" ng-show="haveError">
+                <div class="pull-right" ng-click="dismissError()" style="cursor:pointer;">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </div>
+              </div>
+              <p>
+                It's yours. You own it. It was awesome while it lasted, and we're sad
+                to see it go. Are you <em>sure</em> you want to delete, "{{pulse.title}}?"
+              </p>
+              <p>
+                Because, for today, deleting a pulse physically removes it from
+                storage in about one second. And, no, the operation can not be undone.
+              </p>
+              <p class="help-block small">
+                <strong>roadmap</strong>: In the future, you will move a pulse to the
+                trash from here, then empty your trash in your dashboard. For today?
+                Please be careful with the two buttons below.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" ng-click="deletePulse()">Delete Pulse</button>
+            </div>
+          </div>
+        </div>
+      </div>

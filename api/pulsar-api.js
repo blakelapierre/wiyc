@@ -1,40 +1,48 @@
-/*
- * FILE
- *  pulsar-api.js
- *
- * PURPOSE
- *  Initializes the Pulsar API server as configured and implemented.
- *
- * LICENSE
- *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
+// pulsar-api.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
 
 'use strict';
 
-var winston = require('winston');
-winston.add(winston.transports.File, { 'filename': 'pulsar-api.log' });
-winston.cli();
-
 var app = require('express')();
-app.log = winston;
+app.log = require('winston');
+app.log.add(app.log.transports.File, { 'filename': 'pulsar-api.log' });
+app.log.cli();
+
+/*
+ * Pulsar API events are managed as an events property on the app because
+ * ExpressJS certainly has its own events, and I don't want to trample on
+ * them or need to worry about them. Thus, Pulsar offers its own events
+ * "namespace" by simply offering app.events.on('somePulsarEvent', ...).
+ */
+var events = require('events');
+app.events = new events.EventEmitter();
+var eventStats = {
+  'listenerCounts': { }
+};
+app.events.on('newListener', function (eventName) {
+  if (eventStats.listenerCounts[eventName]) {
+    eventStats.listenerCounts[eventName] += 1;
+  } else {
+    eventStats.listenerCounts[eventName] = 1;
+  }
+  app.log.info('events.addListener', {
+    'name': eventName,
+    'stats': eventStats
+  });
+});
+
+app.events.on('removeListener', function (eventName) {
+  if (eventStats.listenerCounts[eventName]) {
+    if (--eventStats.listenerCounts[eventName] === 0) {
+      delete eventStats.listenerCounts[eventName];
+    }
+  }
+  app.log.info('events.removeListener', {
+    'name': eventName,
+    'stats': eventStats
+  });
+});
 
 app.checkAuthentication = function (req, res, message) {
   if (!req.session.user || !req.session.authenticated.status) {

@@ -18,4 +18,4 @@ SiteSettingsService.$inject = [
   'Configuration'
 ];
 
-angular.module('pulsarApp').service('SiteSettings', SiteSettingsService);
+angular.module('pulsarClientApp').service('SiteSettings', SiteSettingsService);

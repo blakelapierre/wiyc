@@ -4,11 +4,12 @@
 
 'use strict';
 
-function PulseReaderCtrl ($scope, $route, $sce, $window, $location, UserSession, Pulses, Configuration) {
+function PulseReaderCtrl ($scope, $route, $sce, $compile, $window, $location, UserSession, Pulses, Configuration) {
 
+  $window.scrollTo(0, 0);
   ga('send', 'pageview');
+  $scope.$emit('setPageGroup', 'blog');
 
-  $scope.tinymceOptions = Configuration.tinymceOptions;
   $scope.session = UserSession.session;
   $scope.$on('setUserSession', function (event, session) {
     $scope.session = UserSession.session;
@@ -17,23 +18,23 @@ function PulseReaderCtrl ($scope, $route, $sce, $window, $location, UserSession,
     $scope.session = null;
   });
 
-  $scope.$emit('setPageGroup', 'blog');
-
+  $scope.loaded = false;
   $scope.haveError = false;
   $scope.error = null;
 
   $scope.pulse = Pulses.get(
     {'pulseId': $route.current.params.pulseId},
     null,
-    function onPulsesGetSuccess ( ) {
-      console.log('pulse loaded', $scope.pulse);
+    function onPulsesGetSuccess (pulse) {
+      $scope.loaded = true;
       ga('send','event', 'Pulses', 'loadSuccess', 1);
-      $scope.pulse.excerpt = $sce.trustAsHtml($scope.pulse.excerpt);
-      $scope.pulse.content = $sce.trustAsHtml($scope.pulse.content);
-      if (angular.isDefined(window.twttr)) {
-        setTimeout(window.twttr.widgets.load, 0);
+      $scope.$emit('setPageInformation', {
+        'title': $scope.pulse.title,
+        'attribution': $scope.pulse._creator
+      });
+      if (angular.isDefined($window.twttr)) {
+        setTimeout($window.twttr.widgets.load, 0);
       }
-      $window.scrollTo(0, 0);
     },
     function onPulsesGetError (error) {
       console.log('Pulses.get error', error);
@@ -69,27 +70,13 @@ function PulseReaderCtrl ($scope, $route, $sce, $window, $location, UserSession,
     );
   };
 
-  $scope.deletePulse = function ( ) {
-    Pulses.delete(
-      {'pulseId': $scope.pulse._id},
-      function onDeleteSuccess ( ) {
-        var modal = angular.element('#pulseDeleteConfirmModal');
-        modal.on('hidden.bs.modal', function (e) {
-          $location.path('/#/pulses');
-        });
-        modal.modal('hide');
-      },
-      function onDeleteError (error) {
-        console.log('pulse delete error', error);
-      }
-    );
-  };
 }
 
 PulseReaderCtrl.$inject = [
   '$scope',
   '$route',
   '$sce',
+  '$compile',
   '$window',
   '$location',
   'UserSession',
@@ -97,5 +84,5 @@ PulseReaderCtrl.$inject = [
   'Configuration'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('PulseReaderCtrl', PulseReaderCtrl);

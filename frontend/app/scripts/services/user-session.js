@@ -47,6 +47,43 @@ function UserSession($rootScope, $location, Sessions) {
     return false;
   };
 
+  self.login = function (parameters) {
+    var successHandler = function ( ) { };
+    var errorHandler = function ( ) { };
+    var thenHandler = function ( ) { };
+
+    Sessions.create(
+      parameters,
+      function onSessionCreateSuccess (session) {
+        ga('send','event','Authentication','userLoginSuccess',1);
+        $rootScope.$broadcast('setUserSession', session);
+        successHandler(session);
+      },
+      function onSessionCreateError (error) {
+        console.log('Sessions.create error', error);
+        ga('send','event','Authentication','userLoginError', 1);
+        errorHandler(error);
+      }
+    );
+
+    var promise = {
+      'success': function setSuccessHandler (handler) {
+        successHandler = handler;
+        return promise;
+      },
+      'error': function setErrorHandler (handler) {
+        errorHandler = handler;
+        return promise;
+      },
+      'then': function setThenHandler (handler) {
+        thenHandler = handler;
+        return promise;
+      }
+    };
+
+    return promise;
+  };
+
   self.logout = function ( ) {
     ga('send', 'event', 'Authentication', 'logout', 1);
     Sessions.delete(function ( ) {
@@ -82,5 +119,5 @@ UserSession.$inject = [
 // AngularJS service module registration
 //
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('UserSession', UserSession);

@@ -3,7 +3,7 @@
 describe('Service: SoundCloud', function () {
 
   // load the service's module
-  beforeEach(module('robcolbertApp'));
+  beforeEach(module('pulsarClientApp'));
 
   // instantiate service
   var SoundCloud;

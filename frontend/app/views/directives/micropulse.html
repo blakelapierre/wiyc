@@ -1,0 +1,16 @@
+<div class="pulsar-widget">
+  <div class="pulse">
+    <div class="created">
+      <button class="btn btn-link pull-right"
+              ng-show="pulse._creator._id === session.user._id"
+              ng-click="editPulse(pulse)"
+              title="This is your pulse. You can edit its content in-place."
+              >
+        <span class="glyphicon glyphicon-edit"></span>
+      </button>
+      <strong>{{dateAsMoment(pulse.created)}}</strong><br />
+      <small>by: <strong>{{pulse._creator.displayName}}</strong></small>
+    </div>
+    <div class="body" ng-bind-html="pulse.content"></div>
+  </div>
+</div>

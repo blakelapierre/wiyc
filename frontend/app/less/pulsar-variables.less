@@ -9,10 +9,11 @@
  * BODY
  */
 
-@pulsarBgColor                              : #e8e8e8;
-@pulsarTextColor                            : #2a2a2a;
-
+@pulsarBgColor                              : #f8f8f8;
+@pulsarTextColor                            : #3a3a3a;
 @pulsarBaseColor                            : #f8f8f8;
+
+@pulsarTransitionTime                       : 0.6s;
 
 /*
  * LINKS
@@ -39,22 +40,23 @@
 @pulsarWidgetFontFamily                     : "Share Tech";
 @pulsarWidgetFontSize                       : 18px;
 
-@pulsarWidgetHeadingBgColor                 : #f8f8f8;
-@pulsarWidgetHeadingTextColor               : #2a2a2a;
+@pulsarWidgetHeadingBgColor                 : @pulsarBgColor;
+@pulsarWidgetHeadingTextColor               : @pulsarTextColor;
 @pulsarWidgetHeadingFontFamily              : "Share Tech";
 @pulsarWidgetHeadingFontSize                : 24px;
 
 /*
  * PULSES
  */
+
 @pulsarPulseHeaderBgColor                   : darken(@pulsarBgColor, 4%);
 @pulsarPulseHeaderTextColor                 : lighten(@pulsarTextColor, 4%);
 
 @pulsarPulseBodyBgColor                     : darken(@pulsarBgColor, 2%);
 @pulsarPulseBodyTextColor                   : lighten(@pulsarTextColor, 2%);
 
-@pulsarPulseBodyExcerptBgColor              : @pulsarBgColor;
-@pulsarPulseBodyExcerptTextColor            : @pulsarTextColor;
+@pulsarPulseBodyExcerptBgColor              : @pulsarTextColor;
+@pulsarPulseBodyExcerptTextColor            : @pulsarBgColor;
 
 @pulsarPulseBodyContentBgColor              : @pulsarBgColor;
 @pulsarPulseBodyContentTextColor            : @pulsarTextColor;
@@ -62,6 +64,7 @@
 /*
  * FEATURE BLOCK
  */
+
 @pulsarFeatureBlockBgColor                  : rgba(0,0,0,0.8);
 @pulsarFeatureBlockTextColor                : #2a2a2a;
 
@@ -74,6 +77,7 @@
 /*
  * COMMENTS
  */
+
 @pulsarCommentsBgColor                      : darken(@pulsarBgColor, 4%);
 @pulsarCommentsTextColor                    : lighten(@pulsarTextColor, 4%);
 
@@ -89,6 +93,7 @@
 /*
  * SIDEBAR
  */
+
 @pulsarSidebarBgColor                       : @pulsarBgColor;
 @pulsarSidebarTextColor                     : lighten(@pulsarTextColor, 4%);
 

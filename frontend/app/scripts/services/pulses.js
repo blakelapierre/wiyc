@@ -26,5 +26,5 @@ PulsesService.$inject = [
   'Configuration',
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('Pulses', PulsesService);

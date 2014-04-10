@@ -23,6 +23,7 @@
     "angular": false,
     "ga": false,
     "SC": false,
+    "THREE": false,
     "Notification": false
   }
 }

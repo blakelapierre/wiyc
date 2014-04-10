@@ -1,7 +1,1 @@
-<div class="pulse" ng-repeat="pulse in pulses">
-  <div class="created">
-    <strong>{{dateAsMoment(pulse.created)}}</strong><br />
-    <small>by: <strong>{{pulse._creator.displayName}}</strong></small>
-  </div>
-  <div class="body" ng-bind-html="pulse.content"></div>
-</div>
+<pulsar:micropulse ng-repeat="pulse in pulses"></pulsar:micropulse>

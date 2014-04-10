@@ -6,9 +6,26 @@
 
 function MainCtrl ($scope, $rootScope, $window, UserSession, Pulses) {
   $window.scrollTo(0, 0);
-  $scope.session = UserSession.session;
-  $scope.$emit('setPageGroup', 'main');
   ga('send', 'pageview');
+
+  $scope.session = UserSession.session;
+  if (!$scope.session.authenticated.status) {
+    $scope.$emit('setPageInformation', { 'title': 'Welcome to Pulsar' });
+  } else {
+    $scope.$emit('setPageInformation', {
+      'title': 'Pulsar Home for ' + UserSession.session.user.displayName,
+      'attribution': UserSession.user
+    });
+  }
+
+  $scope.$emit('setPageGroup', 'main');
+
+  $scope.$on('setUserSession', function ( ) {
+    $scope.$emit('setPageInformation', {
+      'title': 'Pulsar Home for ' + UserSession.session.user.displayName,
+      'attribution': UserSession.session
+    });
+  });
 
   $scope.pulses = Pulses.list();
 
@@ -27,5 +44,5 @@ MainCtrl.$inject = [
   'Pulses'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('MainCtrl', MainCtrl);

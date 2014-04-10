@@ -8,15 +8,15 @@ function ConfigurationService ( ) {
 
   var feServer = {
     'scheme': 'http://',
-    'host': '127.0.0.1:9000'
-    //'host': 'robcolbert.com'
+    //'host': '127.0.0.1:9000'
+    'host': 'robcolbert.com'
   };
   this.getFrontEndHost = function ( ) { return feServer.host; };
 
   var apiServer = {
     'scheme': 'http://',
-    'host': '127.0.0.1',
-    //'host': 'api.robcolbert.com',
+    //'host': '127.0.0.1',
+    'host': 'api.robcolbert.com',
     'port': 10010
   };
   this.buildApiUrl = function (endpoint) {
@@ -28,13 +28,17 @@ function ConfigurationService ( ) {
       'skin': 'bootstrapck',
       'language':'en',
       'uiColor':'#e8e8e8',
-      'height': '125px'
+      'height': '125px',
+      'extraPlugins': 'iframe,colordialog,widget',
+      'extraAllowedContent': 'iframe'
     },
     'full': {
       'skin': 'bootstrapck',
       'language':'en',
       'uiColor':'#e8e8e8',
-      'height': '250px'
+      'height': '250px',
+      'extraPlugins': 'iframe,colordialog,widget',
+      'extraAllowedContent': 'iframe'
     }
   };
 
@@ -44,5 +48,5 @@ ConfigurationService.$inject = [
 
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('Configuration', ConfigurationService);

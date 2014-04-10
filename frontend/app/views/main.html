@@ -2,12 +2,14 @@
   <h1>Welcome</h1>
   <p>
     Pulsar is a cross between a Content Management System and an application
-    development platform. It helps people create.
+    development platform. It helps people create. The audio player above is
+    not a SoundCloud embedded player. That is the Pulsar presentation engine
+    building one for you. It can look and feel however you want.
   </p>
   <p>
-    The easiest way to get
-    involved and help push Pulsar forward is to create a profile, have a look
-    around and post new content here to see how Pulsar works.
+    The easiest way to get involved and help push Pulsar forward is to create
+    a profile, have a look around and post new content here to see how Pulsar
+    works.
   </p>
   <div class="cta-button-container text-center">
     <a href="/#/signup"
@@ -18,39 +20,23 @@
   </div>
 </div>
 
+<h2><img src="favicon.ico" /> Test Drive: SoundCloud!</h2>
+<p class="lead">
+  This widget currently requires
+  <a href="http://google.com/chrome">Google Chrome</a>.
+</p>
 <p>
-  Another way to get involved
-  is to install a copy of Pulsar locally and run your own server instance.
+  The following is an example of Pulsar's built-in SoundCloud player. All you
+  need to embed one or more SoundCloud sound(s) into your pulses is the URL
+  of the sound that you would share on social media. Using Pulsar Composer's
+  in-place editor, you just put the cursor where you want the sound and click
+  the SoundCloud button in the tool bar. Paste the URL and you're done. They
+  look and work like this (anywhere - sidebar, main pulses, conversations...
+  anywhere)
 </p>
 
-<h2><img src="favicon.ico"> How It Works</h2>
-<p>
-  Pulsar is similar to blogging software. But, instead of posts, Pulsar
-  creates pulses. Pulses range from static documents similar to standard
-  blog posts created in Pulsar Composer to highly interactive, dynamic
-  video games and other applications created in Pulsar Studio. Watch
-  <a href="/#/moving-parts">Moving Parts</a>, a work-in-progress example
-  of what Pulsar Studio can already do. Next, have a look at
-  <a href="/#/prototype">Prototype</a>, a finished example of what Pulsar
-  Studio can do.
-</p>
-
-<p>
-  From personal blogs to news sites to music sites to online games to
-  web applications of all types, Pulsar wants to be a technology you can use to
-  quickly meet your content creation and website management goals. It is easy to
-  deploy, very easy to maintain, handles remarkable levels of traffic with no
-  single points of failure end-to-end and sits atop some of the best modern
-  technology that money <em>can't</em> buy.
-</p>
-
-<h2><img src="favicon.ico"> Availability</h2>
-<p>
-  Pulsar is is hosted on
-  <a href="https://github.com/robcolbert/pulsarcms" alt="Fork me on github!">github</a>
-  and is being distributed under the
-  <a href="http://opensource.org/licenses/MIT">MIT</a> open source license.
-</p>
+<pulsar:soundcloud-player data-sound-url="https://soundcloud.com/edm/sick-wid-it-by-virus-syndicate"
+                          ng-controller="PulsarSoundCloudPlayerCtrl"></pulsar:soundcloud-player>
 
 <script type="text/javascript">
   var container = $('.jumbotron');

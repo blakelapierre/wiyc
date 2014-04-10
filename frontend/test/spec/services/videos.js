@@ -3,7 +3,7 @@
 describe('Service: Videos', function () {
 
   // load the service's module
-  beforeEach(module('robcolbertApp'));
+  beforeEach(module('pulsarClientApp'));
 
   // instantiate service
   var Videos;

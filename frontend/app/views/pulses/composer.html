@@ -1,80 +1,59 @@
-<h2>Pulsar Composer</h2>
-
-<div class="alert alert-danger" ng-show="haveError">
-  <div class="pull-right" style="margin-left:16px;" ng-click="haveError = false">
-    <span class="glyphicon glyphicon-remove-circle"></span>
-  </div>
-  {{error.data.message}}
-</div>
-
-<form role="form" class="form">
-
-  <div class="form-group">
-    <label for="pulseTitle">Title</label>
-    <input class="form-control"
-           id="pulseTitle"
-           ng-model="pulse.title"
-           placeholder="Enter pulse title/subject"
-           />
-  </div>
-
-  <div class="form-group">
-    <label for="pulseExcerpt">Excerpt</label>
-    <textarea id="pulseExcerpt"
-              data-ckeditor="ckeditorOptionsExcerpt"
-              data-ng-model="pulse.excerpt"
-              ></textarea>
-  </div>
-
-  <div class="form-group">
-    <label for="pulseContent">Pulse Content</label>
-    <textarea id="pulseContent"
-              data-ckeditor="ckeditorOptionsContent"
-              data-ng-model="pulse.content"
-              ></textarea>
-  </div>
-
-  <div class="form-group">
-    <button class="btn btn-primary" ng-click="createPulse()">Publish</button>
-  </div>
-</form>
-
 <div class="pulsar-widget">
-
   <div class="pulse">
 
-    <div class="jumbotron">
-      <h1 ng-bind-html="pulse.title"></h1>
-      <p><img src="favicon.ico" style="position:relative; top:-2px;"/> {{user.displayName}} when you click Publish!</p>
+    <div class="heading">
+      <div class="heading-wrap">
+        <input class="title" type="text"
+               id="titleEditor"
+               ng-model="pulse.title"
+               ng-change="updatePageTitle()"
+               placeholder="Enter pulse title"
+               ></input>
+
+        <button class="btn btn-xs btn-primary pull-right"
+                style="margin-left:16px;"
+                title="Save changes"
+                ng-disabled="!isDirty"
+                ng-click="createPulse()"
+                >
+          <span class="glyphicon glyphicon-floppy-save"></span> Publish
+        </button>
+
+        <img src="favicon.ico" style="position:relative; top:-2px;"/> {{session.user.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}
+
+        <div class="clearfix"></div>
+
+      </div>
     </div>
 
     <div class="body">
-      <div class="excerpt" ng-bind-html="pulse.excerpt"></div>
-      <div class="content" ng-bind-html="pulse.content"></div>
+      <div class="excerpt" id="excerptEditor"></div>
+      <div class="content" id="contentEditor"></div>
       <div class="clearfix"></div>
     </div>
 
-    <div class="comments">
-      <div class="heading">
-        <div class="heading-wrap">
-          <span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments
-        </div>
+    <div class="heading">
+      <div class="heading-wrap">
+        <span class="glyphicon glyphicon-comment" style="font-size:0.8em;"></span> Comments
       </div>
-      <div ng-switch on="pulse.interactions.comments.length">
-        <div ng-switch-when="0">
-          <p>No comments, yet. Share your thoughts and start the conversation.</p>
-        </div>
-        <div ng-switch-default="">
-          <div class="comment" ng-repeat="comment in pulse.interactions.comments">
-            <div class="header">
-              <span class="author">{{comment._creator.displayName}}</span>
-              <span class="created">{{fromNow(comment.created)}}</span>
-            </div>
-            <div class="body" ng-bind-html="comment.content"></div>
+    </div>
+
+    <div class="comments" ng-switch on="pulse.interactions.comments.length">
+      <div ng-switch-when="0">
+        <p>No comments, yet. Share your thoughts and start the conversation.</p>
+      </div>
+      <div ng-switch-default="">
+        <div class="comment" ng-repeat="comment in pulse.interactions.comments">
+          <div class="header">
+            <span class="author">{{comment._creator.displayName}}</span>
+            <span class="created">{{fromNow(comment.created)}}</span>
           </div>
+          <div class="body" ng-bind-html="comment.content"></div>
         </div>
       </div>
-    </div><!-- comments -->
+    </div>
+
+    <div class="clearfix"></div>
 
   </div><!-- pulse -->
 

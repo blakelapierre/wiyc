@@ -17,25 +17,23 @@ function WebAudioService ($window) {
     this.gain = this.context.createGain();
     this.gain.connect(this.context.destination);
     this.analyser = this.context.createAnalyser();
+    this.analyser.smoothingTimeConstant = 0.3;
     this.analyser.connect(this.gain);
     this.freqByteData = new Uint8Array(this.analyser.frequencyBinCount);
     this.timeByteData = new Uint8Array(this.analyser.frequencyBinCount);
-    console.log('PULSAR-WebAudio initialized successfully', this.context);
+    console.log('Pulsar WebAudio initialized successfully', this.context);
   } catch (e) {
-    console.log('PUASAR-WebAudio error', e);
+    console.log('Pulsar WebAudio error', e);
   }
 }
-
 
 WebAudioService.prototype.updateFrequencyAnalysis = function ( ) {
   this.analyser.getByteFrequencyData(this.freqByteData);
 };
 
-
 WebAudioService.prototype.updateTimeAnalysis = function ( ) {
   this.analyser.getByteTimeDomainData(this.timeByteData);
 };
-
 
 WebAudioService.prototype.createMediaElementSource = function (element) {
   var source;
@@ -43,11 +41,10 @@ WebAudioService.prototype.createMediaElementSource = function (element) {
     source = this.context.createMediaElementSource(element);
     source.connect(this.analyser);
   } catch (e) {
-    console.log('PULSAR-WebAudio createMediaElementSource', element, e);
+    console.log('Pulsar WebAudio createMediaElementSource', element, e);
   }
   return source;
 };
-
 
 WebAudioService.prototype.createMediaElementSourceById = function (elementId) {
   var element, source;
@@ -62,7 +59,6 @@ WebAudioService.prototype.createMediaElementSourceById = function (elementId) {
   return source;
 };
 
-
 WebAudioService.prototype.getElementSource = function (elementId) {
   return this.sources[elementId];
 };
@@ -72,6 +68,5 @@ WebAudioService.$inject = [
   '$window'
 ];
 
-
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .service('WebAudio', WebAudioService);

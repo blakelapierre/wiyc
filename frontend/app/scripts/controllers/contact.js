@@ -15,5 +15,5 @@ ContactCtrl.$inject = [
   '$window'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('ContactCtrl', ContactCtrl);

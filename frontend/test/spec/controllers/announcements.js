@@ -3,7 +3,7 @@
 describe('Controller: AnnouncementsCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('robcolbertApp'));
+  beforeEach(module('pulsarClientApp'));
 
   var AnnouncementsCtrl,
     scope;

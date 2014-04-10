@@ -3,7 +3,7 @@
 describe('Controller: ThoughtsCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('robcolbertApp'));
+  beforeEach(module('pulsarClientApp'));
 
   var ThoughtsCtrl,
     scope;

@@ -16,5 +16,5 @@ UserUseridCtrl.$inject = [
   '$scope'
 ];
 
-angular.module('pulsarApp')
+angular.module('pulsarClientApp')
 .controller('UserUseridCtrl', UserUseridCtrl);
