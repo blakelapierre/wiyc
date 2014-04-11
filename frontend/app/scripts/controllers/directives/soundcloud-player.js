@@ -184,7 +184,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
     if (!PresentationEngine.isFullscreen()) {
       player.css('background-color', audioColor);
     } else {
-      player.css('background-color', 'black');
+      player.css('background-color', 'transparent');
     }
 
     drawX = trebCutoff;
@@ -213,13 +213,13 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
     updateVisualizer();
   }
 
-  function startUiUpdateInterval ( ) {
+  function startUiUpdates ( ) {
     $scope.keepUpdating = true;
     player.addClass('active');
     update();
   }
 
-  function stopUiUpdateInterval ( ) {
+  function stopUiUpdates ( ) {
     $scope.keepUpdating = false;
     player.css('background-color', playerOriginalBgColor);
     player.removeClass('active');
@@ -231,7 +231,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
       case 'stopped':
         $scope.audio.play();
         $scope.audioState = 'playing';
-        startUiUpdateInterval();
+        startUiUpdates();
         break;
       case 'paused':
         $scope.audio.play();
@@ -249,14 +249,19 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
   };
 
   $scope.pauseSound = function ( ) {
+    if ($scope.audioState === 'paused') {
+      return;
+    }
     $scope.audio.pause();
-    stopUiUpdateInterval();
+    $scope.autioState = 'paused';
+    stopUiUpdates();
   };
 
   $scope.stopSound = function ( ) {
     $scope.audio.pause();
     $scope.audio.currentTime = 0.0; // rewind
-    stopUiUpdateInterval();
+    $scope.audioState = 'stopped';
+    stopUiUpdates();
   };
 
 }

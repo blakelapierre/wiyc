@@ -17,7 +17,7 @@ function WebAudioService ($window) {
     this.gain = this.context.createGain();
     this.gain.connect(this.context.destination);
     this.analyser = this.context.createAnalyser();
-    this.analyser.smoothingTimeConstant = 0.3;
+    this.analyser.smoothingTimeConstant = 0.4;
     this.analyser.connect(this.gain);
     this.freqByteData = new Uint8Array(this.analyser.frequencyBinCount);
     this.timeByteData = new Uint8Array(this.analyser.frequencyBinCount);

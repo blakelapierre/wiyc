@@ -7,27 +7,28 @@
                        ></pulsar:canvas-threejs>
 
   <div class="display-panel" ng-show="isFullscreen">
-    <button class="pull-right tight" ng-click="toggleFullscreen()" style="font-size:15px;">
-      <span class="glyphicon glyphicon-fullscreen"></span>
-    </button>
-    <div style="float:left; margin-left:16px;">
-      <h1>{{trackData.title}} <small>{{trackData.artist}}</small></h1>
-      <img class="sc-logo" src="images/sc_sbs_gradient_130x20.png" alt="SoundCloud Logo"
-           style="position:absolute; bottom:8px; left:16px;" />
-      <div class="display">
-        <button ng-click="playSound()" style="font-size:15px;">
-          <span class="glyphicon glyphicon-play" ng-show="audioState !== 'playing'"></span>
-          <span class="glyphicon glyphicon-pause" ng-show="audioState === 'playing'"></span>
-        </button>
-        <button ng-click="stopSound()" style="font-size:15px;">
-          <span class="glyphicon glyphicon-stop"></span>
-        </button>
-        <div class="display-item" style="display:inline-block;">
-          <span class="label">cur</span>&nbsp;<span class="value">{{audioTimeLabel}}</span>
-        </div>
-        <div class="display-item" style="display:inline-block;">
-          <span class="label">dur</span>&nbsp;<span class="value">{{audioDurationLabel}}</span>
-        </div>
+    <h2 style="height:2em; text-overflow:ellipsis;">
+      <button class="pull-right tight" ng-click="toggleFullscreen()" style="font-size:15px;">
+        <span class="glyphicon glyphicon-fullscreen"></span>
+      </button>
+      {{trackData.title}} <small>{{trackData.artist}}</small>
+    </h2>
+    <div class="controls">
+      <img class="sc-logo" src="images/sc_sbs_gradient_130x20.png" alt="SoundCloud Logo" />
+      <button ng-click="playSound()">
+        <span class="glyphicon glyphicon-play" ng-show="audioState !== 'playing'"></span>
+        <span class="glyphicon glyphicon-pause" ng-show="audioState === 'playing'"></span>
+      </button>
+      <button ng-click="stopSound()">
+        <span class="glyphicon glyphicon-stop"></span>
+      </button>
+      <div class="display-item" style="display:inline-block;">
+        <div class="display-label">cur</div>
+        <div class="display-value">{{audioTimeLabel}}</div>
+      </div>
+      <div class="display-item" style="display:inline-block;">
+        <div class="display-label">dur</div>
+        <div class="display-value">{{audioDurationLabel}}</div>
       </div>
     </div>
   </div>

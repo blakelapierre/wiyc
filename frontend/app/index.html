@@ -127,6 +127,10 @@
     <!-- endbower -->
     <!-- endbuild -->
 
+    <!-- build:js({.tmp,fonts}) scripts/fonts.js -->
+    <script src="assets/fonts/optimer/optimer_regular.typeface.js"></script>
+    <!-- endbuild -->
+
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/threejs-objloader.js"></script>
     <script src="scripts/pulsar-fe.js"></script>
@@ -173,13 +177,14 @@
     <script src="scripts/controllers/videos.js"></script>
     <script src="scripts/controllers/verify.js"></script>
 
-    <script src="scripts/directives/canvas-threejs.js"></script>
     <script src="scripts/directives/micropulse.js"></script>
     <script src="scripts/directives/pulse-summary.js"></script>
     <script src="scripts/directives/service-error.js"></script>
     <script src="scripts/directives/soundcloud-player.js"></script>
     <script src="scripts/directives/youtube-player.js"></script>
     <script src="scripts/directives/pulse.js"></script>
+
+    <script src="scripts/directives/visualizers/pulsar-default.js"></script>
     <!-- endbuild -->
 
     <script src="https://www.youtube.com/iframe_api"></script>
