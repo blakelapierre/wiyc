@@ -18,6 +18,11 @@ function PulsarCanvasThreejsDirective ( ) {
 
       var DEG2RAD = Math.PI / 180;
 
+      scope.scene = null;
+      scope.pulsar = null;
+      scope.camera = null;
+      scope.renderer = null;
+
       scope.options = {
         'class': attrs.canvasClass || 'visualizer-pulsar-default',
         'width': attrs.canvasWidth || 1280,
@@ -169,7 +174,6 @@ function PulsarCanvasThreejsDirective ( ) {
         scope.pulsarCoreMount.add(scope.rayTreb2);
       }
 
-      var posZ = 0;
       scope.updateVisualizer3d = function (specRatio, bassRatio, midsRatio, trebRatio) {
         if (scope.pulsar === null) {
           return;
@@ -230,7 +234,7 @@ function PulsarCanvasThreejsDirective ( ) {
       scope.$watch('isFullscreen', function ( ) {
         if (!scope.isFullscreen || scope.scene) {
           element.empty();
-          scope.anchor = null;
+          scope.pulsar = null;
           scope.renderer = null;
           scope.camera = null;
           scope.scene = null;
