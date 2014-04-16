@@ -7,7 +7,9 @@
 
 function HeaderCtrl ($scope, $rootScope, UserSession, SiteSettings, PulseWire) {
 
-  $scope.site = SiteSettings.get();
+  $scope.site = SiteSettings.get(function (settings) {
+    SiteSettings.settings = settings;
+  });
 
   $scope.pulsewire = PulseWire;
   $scope.title = 'robcolbert.com';

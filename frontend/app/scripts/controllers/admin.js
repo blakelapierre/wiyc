@@ -16,6 +16,9 @@ function AdminCtrl ($scope, $window, $location, UserSession, SiteSettings, Confi
   }
 
   $scope.options = SiteSettings.get();
+
+  //TODO https://github.com/robcolbert/pulsarcms/issues/21
+  //TODO https://github.com/robcolbert/pulsarcms/issues/22
   $scope.save = function ( ) {
     $scope.options.$update(
       function onSaveSuccess (options) {

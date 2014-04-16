@@ -17,7 +17,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
   var widget = container.find('.pulsar-widget');
   var player = container.find('.soundcloud-player');
   var progressBar = container.find('.progress-bar');
-  var visualizer = container.find('.visualizer');
+  var visualiser = container.find('.visualiser');
   var game = container.find('.game-canvas');
   var uiUpdateInterval = null;
 
@@ -92,7 +92,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
   //container.find('.idle-hide').hide();
 
   progressBar.css('background-color', 'rgb(96,192,255)');
-  visualizer.css('background-color', 'rgb(16,48,64)');
+  visualiser.css('background-color', 'rgb(16,48,64)');
   angular.element('.progress-container').css('background-color', 'rgb(16,48,64)');
 
   $scope.$on('$routeChangeStart', function ( ) {
@@ -118,13 +118,12 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
   function updateAudioEngine ( ) {
     var ratio = $scope.audio.currentTime / $scope.audio.duration;
     progressBar.css('width', (ratio * 100.0) + '%');
-    WebAudio.updateFrequencyAnalysis();
-    WebAudio.updateTimeAnalysis();
+    WebAudio.update();
     $scope.audioTimeLabel = moment(0).utc().seconds($scope.audio.currentTime).format('HH:mm:ss');
   }
 
   function updateVisualizer ( ) {
-    var ctx = visualizer[0].getContext('2d');
+    var ctx = visualiser[0].getContext('2d');
     var ctxWidth = ctx.canvas.width;
     var ctxHeight = ctx.canvas.height;
 
@@ -140,7 +139,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
     var trebAvg = 0.0;
 
     function renderFrequencyBar (x, power) {
-      var barH = graphH * (WebAudio.freqByteData[idx] / 256.0);
+      var barH = graphH * (WebAudio.analysers.left.freqByteData[idx] / 256.0);
       ctx.fillRect(idx, graphH, 1, -barH);
     }
 
@@ -151,7 +150,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
 
     ctx.fillStyle = 'rgb(220,0,0)';
     for ( ; idx < bassCutoff; ++idx) {
-      power = WebAudio.freqByteData[idx];
+      power = WebAudio.analysers.left.freqByteData[idx];
       bassAvg += power;
       renderFrequencyBar(idx, power);
     }
@@ -159,7 +158,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
 
     ctx.fillStyle = 'rgb(0,220,0)';
     for ( ; idx < midsCutoff; ++idx) {
-      power = WebAudio.freqByteData[idx];
+      power = WebAudio.analysers.left.freqByteData[idx];
       midsAvg += power;
       renderFrequencyBar(idx, power);
     }
@@ -167,7 +166,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
 
     ctx.fillStyle = 'rgb(0,0,220)';
     for ( ; idx < trebCutoff; ++idx) {
-      power = WebAudio.freqByteData[idx];
+      power = WebAudio.analysers.left.freqByteData[idx];
       trebAvg += power;
       renderFrequencyBar(idx, power);
     }
@@ -190,7 +189,7 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
     drawX = trebCutoff;
     ctx.fillStyle = audioColor;
     for(var idx = 0; idx < 256; ++idx ) {
-      drawY = WebAudio.timeByteData[idx * 4] / 4.0;
+      drawY = WebAudio.analysers.left.timeByteData[idx * 4] / 4.0;
       ctx.fillRect(drawX++, drawY, 2, 2);
     }
 

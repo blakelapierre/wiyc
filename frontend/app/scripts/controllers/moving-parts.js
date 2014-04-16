@@ -127,8 +127,7 @@ function MovingPartsCtrl (
   function updateAudioEngine ( ) {
     var ratio = $scope.audio.currentTime / $scope.audio.duration;
     $('#progressBar').css('width', (ratio * 100.0) + '%');
-    WebAudio.updateFrequencyAnalysis();
-    WebAudio.updateTimeAnalysis();
+    WebAudio.update();
   }
 
   function updateGameInfo ( ) {
@@ -470,7 +469,7 @@ function MovingPartsCtrl (
         $scope.titleCard.description = 'Okay, let\'s chat about this drone.';
         titleCard.fadeIn(4000.0);
         $scope.youtubeVideo1.setVolume(100);
-        WebAudio.gain.gain.value = 0.25;
+        WebAudio.masterGain.gain.value = 0.25;
         return false;
       }
     });
@@ -480,7 +479,7 @@ function MovingPartsCtrl (
       'callback': function ( ) {
         $scope.titleCard.description = 'That might be Obama\'s <em>personal</em> drone.';
         $scope.youtubeVideo1.setVolume(0);
-        WebAudio.gain.gain.value = 1.0;
+        WebAudio.masterGain.gain.value = 1.0;
         return false;
       }
     });
@@ -519,7 +518,7 @@ function MovingPartsCtrl (
       'offset':107.0,
       'callback': function ( ) {
         showPrompt('KEEP MOUSE/FINGER ON THIS TARGET AT ALL TIMES');
-        WebAudio.gain.gain.value = 0.6;
+        WebAudio.masterGain.gain.value = 0.6;
         return false;
       }
     });
@@ -536,7 +535,7 @@ function MovingPartsCtrl (
       'callback': function ( ) {
         $scope.titleCard.title = 'CHECKPOINT REACHED!';
         $scope.titleCard.description = 'You\'ll be able to continue from here';
-        WebAudio.gain.gain.value = 1.0;
+        WebAudio.masterGain.gain.value = 1.0;
         titleCard.fadeIn(200);
         return false;
       }
@@ -547,7 +546,7 @@ function MovingPartsCtrl (
       'callback': function ( ) {
         titleCard.fadeOut(200);
         $scope.youtubeVideo1.setVolume(100);
-        WebAudio.gain.gain.value = 0.4;
+        WebAudio.masterGain.gain.value = 0.4;
         return false;
       }
     });
@@ -567,7 +566,7 @@ function MovingPartsCtrl (
       'offset': 141.0,
       'callback': function ( ) {
         $scope.youtubeVideo1.setVolume(0);
-        WebAudio.gain.gain.value = 1.0;
+        WebAudio.masterGain.gain.value = 1.0;
         titleCard.fadeOut(500);
         return false;
       }
@@ -578,7 +577,7 @@ function MovingPartsCtrl (
       'callback': function ( ) {
         $scope.youtubeVideo1.seekTo(282.000);
         $scope.youtubeVideo1.setVolume(100);
-        WebAudio.gain.gain.value = 0.7;
+        WebAudio.masterGain.gain.value = 0.7;
         return false;
       }
     });
@@ -589,7 +588,7 @@ function MovingPartsCtrl (
       'callback': function ( ) {
         $scope.titleCard.title='VICTORY!';
         $scope.titleCard.description='Now that\'s what\'s up, hero!!';
-        WebAudio.gain.gain.value = 1.0;
+        WebAudio.masterGain.gain.value = 1.0;
         titleCard.fadeIn(4000);
         return false;
       }

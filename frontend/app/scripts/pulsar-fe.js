@@ -5,14 +5,6 @@
 'use strict';
 
 /*
- * I call this wonderful bit:
- * THE SORT OF SHIT THAT COULD BE IN JAVASCRIPT BUT ISN'T
- */
-Array.prototype.contains = function (element) {
-  return (this.indexOf(element) !== -1); //<< It's not hard
-};
-
-/*
  * The pulsarClientApp application instance is created here as per Yeoman Standards
  * Reference Manual page 2911, section 8, subsection 12, which clearly states:
  * "Thou shalt declare thy AngularJS 'app' and define thy route in the only
@@ -37,10 +29,6 @@ angular.module('pulsarClientApp', [
     templateUrl: 'views/main.html',
     controller: 'MainCtrl'
   })
-//  .when('/videos', {
-//    templateUrl: 'views/videos.html',
-//    controller: 'VideosCtrl'
-//  })
   .when('/conversations', {
     templateUrl: 'views/conversations.html',
     controller: 'ConversationsCtrl'
@@ -116,15 +104,23 @@ angular.module('pulsarClientApp', [
   .when('/posts', {
     redirectTo: '/pulses'
   })
-  .when('/hire-rob', {
-    redirectTo: '/about'
-  })
 
   .when('/admin', {
     templateUrl: 'views/admin.html',
     controller: 'AdminCtrl'
   })
 
+  /*
+   * The Pulsar Route Morgue
+   * This is where routes go when they die before being buried.
+   */
+  .when('/hire-rob', {
+    redirectTo: '/about'
+  })
+
+  /*
+   * Last, but certainly not least:
+   */
   .otherwise({
     redirectTo: '/'
   });

@@ -1,0 +1,33 @@
+I am in-process on building the Pulsar Plugin API - a framework that allows
+developers to easily build new features and services on top of Pulsar as a
+content management and application development platform.
+
+The Pulsar Plugin API is "basically all that stuff" an application developer
+would have to author in order to directly hook into the Pulsar presentation
+engine (graphics, sound, etc). Developers' custom visualizer directive(s) will
+soon be able to be directly injected into the client by the Pulsar Plugin API.
+I simply had to properly learn how this could work in my own lab while doing
+things my own way. Task complete :)
+
+Visualizer plugins are expected to $watch('isFullscreen') and respond
+accordingly by initializing or destroying the visualizer's necessary bits to
+provide visual representation of the audio.
+
+Developers decorate the AngularJS scope with an updateVisualizer3d method that
+will be called by Pulsar at 60Hz when the plugin is active. If the plugin can't
+keep up, Pulsar will reduce the update frequency. The progression is from
+60fps -> 30fps -> 15fps. If the visualizer can't keep up at 15fps, it is turned
+off and Pulsar exists theater mode with an alert describing why. The user will
+be told that their hardware is not fast enough to support the visualizer if it
+can't maintain an average of at least 15fps.
+
+The system always tries for 60Hz. But, it will not "go back" to 60Hz. If a
+visualiser falls to 30fps, it stays there. If it falls to 15fps, it stays there.
+
+The browser's requestAnimationFrame API is being used to drive visualizer
+updates. This is mentioned because requestAnimationFrame does not occur if your
+tab doesn't have focus. If your simulation wants to be time-based and should
+pause (the audio *will* keep playing), be sure to key on time and not simply
+increment variables per update. Make time a factor in your animations if it
+matters. You are not guaranteed a constant update rate. You are only guaranteed
+to be running at 60, 30, 15 or 0 fps.

@@ -1,0 +1,33 @@
+Starlight is a 3D audio visualizer hosted on Pulsar. It uses the Pulsar WebAudio
+service to tap into a real time audio stream that is being analyzed. The
+analysis data is consumed by the visualizer and used to alter the parameters of
+a 3D representation (not simulation) of that data.
+
+WAVEFORM:
+The waveform display is accomplished with a particle system for which the
+position of each particle is being controlled by the visulizer using time
+domain audio "waveform" data. All 1024 audio sample points are being plotted
+as discreet particles in three dimensional space, giving us a very unique
+visual of the audio waveform stream itself.
+
+The particles themselves appear to be lit by the Starlight because the light's
+RGB color is being set to bass, mids and treble, respectively - and because
+the material for rendering the sprites is having its color set to the exact
+same color and intensity. Where the illusion would break down is when the
+light moves very far away from the particles. This is why the waveform
+display is quite large in the final stage.
+
+It also gives the illusion that the particles are emitting light. So, I have
+added a directional light to the scene positioned at the center of the
+particle system "looking at" the text on display.
+
+All I needed to read to know this would work was the Three.js ParticleSystem
+docs:
+
+ParticleSystem( geometry, material )
+geometry — An instance of Geometry.
+material — An instance of Material (optional).
+
+And, about geometry:
+An instance of Geometry, where each vertex designates the position of a
+particle in the system.

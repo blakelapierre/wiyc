@@ -14,6 +14,7 @@ module.exports = function(config) {
       '../api/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js',
       'app/bower_components/ace-builds/src-min-noconflict/ace.js',
       'app/bower_components/ckeditor/ckeditor.js',
+      'app/bower_components/threejs/build/three.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-resource/angular-resource.js',
@@ -25,7 +26,6 @@ module.exports = function(config) {
       'app/bower_components/ng-ckeditor/ng-ckeditor.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
-      'app/scripts/sandbox/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],

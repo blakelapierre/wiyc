@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "Building Pulsar AngularJS Front End"
-grunt build
+# grunt build
 
 # Patch in prototype stuff
 cp -R app/source dist
-cp -R app/scripts/sandbox dist/scripts
+cp -R app/assets dist

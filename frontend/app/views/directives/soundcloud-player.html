@@ -1,10 +1,12 @@
 <div class="pulsar-widget">
 
-  <pulsar:canvas-threejs data-canvas-class="game-canvas"
-                       data-canvas-width="1280"
-                       data-canvas-height="720"
-                       ng-show="isFullscreen"
-                       ></pulsar:canvas-threejs>
+  <pulsar:visualiser-starlight
+    data-canvas-class="game-canvas"
+    data-canvas-width="1280"
+    data-canvas-height="720"
+    data-message="{{message}}"
+    ng-show="isFullscreen"
+    ></pulsar:visualiser-starlight>
 
   <div class="display-panel" ng-show="isFullscreen">
     <h2 style="height:2em; text-overflow:ellipsis;">
@@ -78,8 +80,8 @@
         </div>
       </div>
 
-      <div class="visualizer-container">
-        <canvas class="visualizer" width="1024" height="64"></canvas>
+      <div class="visualiser-container">
+        <canvas class="visualiser" width="1024" height="64"></canvas>
       </div>
     </div>
 

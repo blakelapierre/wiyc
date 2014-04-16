@@ -8,8 +8,8 @@ function PulsarSoundcloudPlayerDirective ( ) {
   return {
     templateUrl: 'views/directives/soundcloud-player.html',
     restrict: 'E',
-    link: function postLink (/*scope, element, attrs*/) {
-
+    link: function postLink (scope, element, attrs) {
+      scope.message = attrs.starlightMessage;
     }
   };
 }

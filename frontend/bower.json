@@ -17,7 +17,8 @@
     "momentjs": "~2.5.1",
     "ckeditor": "latest",
     "ng-ckeditor": "latest",
-    "threejs": "*"
+    "threejs": "*",
+    "shifty": "~1.2.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.9",
