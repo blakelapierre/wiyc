@@ -5,3 +5,5 @@ dist
 app/bower_components
 app/videos
 app/styles/pulsar.css
+app/assets/frigate
+app/assets/future-city
