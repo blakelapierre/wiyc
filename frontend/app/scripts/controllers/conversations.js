@@ -4,13 +4,25 @@
 
 'use strict';
 
-function ConversationsCtrl ($scope, $window) {
+function ConversationsCtrl ($scope, $window, UserMedia) {
+
   $window.scrollTo(0, 0);
   $scope.$emit('setPageGroup', 'conversations');
   ga('send', 'pageview');
 
+  UserMedia.getUserMedia({
+    'videoElementId': 'videoLocal',
+    'video': true,
+    'audio': true
+  });
+  $scope.$on('pulsarUserMediaStreamStart', function (event, media) {
+    console.log('pulsarUserMediaStreamStart', event, media);
+  });
+  $scope.$on('pulsarUserMediaStreamError', function (event, error) {
+    console.log('pulsarUserMediaStreamError', event, error);
+  });
+
   $scope.conversations = [
-  /*
     {
       'topic': 'Test conversation',
       'participants': [
@@ -29,7 +41,6 @@ function ConversationsCtrl ($scope, $window) {
         }
       ]
     }
-  */
   ];
   $scope.conversation = $scope.conversations[0];
   console.log('conversations', $scope.conversations);
@@ -37,7 +48,8 @@ function ConversationsCtrl ($scope, $window) {
 
 ConversationsCtrl.$inject = [
   '$scope',
-  '$window'
+  '$window',
+  'UserMedia'
 ];
 
 angular.module('pulsarClientApp')
