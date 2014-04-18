@@ -86,33 +86,34 @@
       min-height:320px;
       .heading {
         display:block;
-        position:relative;
         padding:0;
         height:120px;
-        .title {
-          display:block;
-          position:absolute;
-          top:8px; right:8px; left:8px;
-          margin:0;
-          padding:0;
-          display:block;
-          font-size:24px;
-          line-height:1em;
-        }
-        .byline {
-          display:block;
-          position:absolute;
-          right:8px; bottom:8px; left:8px;
-          margin:0;
-          padding:0;
-          padding-top:8px;
-          border-top:solid 1px @pulsarTextColor;
-          font-size:16px;
-          line-height:1em;
+        .heading-wrap {
+          padding:8px;
+          .title {
+            display:block;
+            font-size:24px;
+            line-height:1.1em;
+            height:2.2em;
+            text-overflow:ellipsis;
+            overflow:hidden;
+          }
+          .byline {
+            display:block;
+            padding-top:8px;
+            border-top:solid 1px @pulsarTextColor;
+            font-size:16px;
+            line-height:1.1em;
+          }
         }
       }
       .excerpt {
-        margin-bottom:16px;
+        height:160px;
+        overflow:auto;
+      }
+      .prompt {
+        position:absolute;
+        left: 0; bottom: 0;
       }
     }
   }
