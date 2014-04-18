@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Building Pulsar API"
-rm -f    robcolbert-api.log
+rm -f    pulsar-api.log
 
-rm -f    ../robcolbert-api.tar.gz
-tar -czf ../robcolbert-api.tar.gz *
+rm -f    ../pulsar-api.tar.gz
+tar -czf ../pulsar-api.tar.gz *
