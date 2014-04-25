@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: UserUseridCtrl', function () {
+describe('Controller: PasswordResetCtrl', function () {
 
   // load the controller's module
   beforeEach(module('pulsarClientApp'));
 
-  var UserUseridCtrl,
+  var PasswordResetCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    UserUseridCtrl = $controller('UserUseridCtrl', {
+    PasswordResetCtrl = $controller('PasswordResetCtrl', {
       $scope: scope
     });
   }));

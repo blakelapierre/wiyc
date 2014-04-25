@@ -45,8 +45,6 @@ function WebAudioService ($window) {
     this.analysers.right = this.createAnalyser(0.4, 1024);
     this.analysers.right.analyser.connect(this.channelMerger, 0, 1);
 
-    console.log('analysers', this.analysers);
-
     this.channelSplitter = this.context.createChannelSplitter(2);
     this.channelSplitter.connect(this.analysers.left.analyser, 0);
     this.channelSplitter.connect(this.analysers.right.analyser, 1);

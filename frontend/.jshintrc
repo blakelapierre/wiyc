@@ -23,6 +23,7 @@
     "angular": false,
     "ga": false,
     "SC": false,
+    "CKEDITOR": false,
     "THREE": false,
     "Notification": false
   }

@@ -88,7 +88,7 @@ angular.module('pulsarClientApp', [
   })
 
   .when('/user/:userId?', {
-    templateUrl: 'views/user/profile.html',
+    templateUrl: 'views/user/user-profile.html',
     controller: 'UserUseridCtrl'
   })
 
@@ -121,6 +121,10 @@ angular.module('pulsarClientApp', [
   /*
    * Last, but certainly not least:
    */
+  .when('/password-reset', {
+    templateUrl: 'views/password-reset.html',
+    controller: 'PasswordResetCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

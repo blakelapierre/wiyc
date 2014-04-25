@@ -4,13 +4,12 @@
 
 'use strict';
 
-function PulsarMicropulseDirective () {
+function PulsarMicropulseDirective ( ) {
   return {
     templateUrl: 'views/directives/micropulse.html',
     restrict: 'E',
-    link: function postLink (/*scope, element, attrs*/) {
-      // TODO instantiate CKEDITOR.inline around editable pulses allowing for
-      // in-place edits of micropulses owned by the current user
+    link: function postLink (/* scope, element, attrs */) {
+
     }
   };
 }

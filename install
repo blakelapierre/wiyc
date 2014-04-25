@@ -1,0 +1,31 @@
+#!/bin/bash
+
+## THESE ARE SYSTEM-ALTERING COMMANDS. PLEASE MAKE SURE IT'S OKAY FOR THEM TO
+## EXECUTE IN YOUR ENVIRONMENT BEFORE RUNNING THIS SCRIPT.
+
+sudo yum install          \
+  mongodb-server          \
+  mongodb                 \
+  nodejs                  \
+  npm                     \
+  memcached               \
+  lighttpd
+
+sudo npm install -g       \
+  yo                      \
+  generator-webapp        \
+  generator-angular
+
+
+## The effects of the following commands are local to Pulsar itself and do not
+## alter global system configuration.
+
+cd api
+	npm install
+	cd ..
+
+cd frontend
+	npm install
+	bower install
+	grunt
+	cd..

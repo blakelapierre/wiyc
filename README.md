@@ -12,6 +12,13 @@ Another supported use of the Pulsar platform is as the backing store for mobile 
 git clone https://github.com/robcolbert/pulsarcms.git
 ```
 
+Once you have Pulsar locally cloned, make sure your system has all required tools by running the following command:
+
+```
+cd pulsarcms
+./install
+```
+
 ## Usage
 
 

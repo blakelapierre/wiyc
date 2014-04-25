@@ -55,10 +55,11 @@
           <a href="" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-user"></span> {{session.user.displayName}} <b class="caret"></b></a>
           <ul class="dropdown-menu">
+            <li><a href="#/user"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-heart"></span> Friends</a></li>
             <li><a href="#/conversations"><span class="glyphicon glyphicon-envelope"></span> Conversations</a></li>
-            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-user"></span> Friends</a></li>
             <li class="divider"></li>
-            <li><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span> Profile Settings</a></li>
+            <li><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span> Account Settings</a></li>
             <li ng-show="session.user.isAdmin"><a href="#/admin"><span class="glyphicon glyphicon-check"></span> Admin Tools</a></li>
             <li class="divider"></li>
             <li><a href="" ng-click="clearUserSession()"><span class="glyphicon glyphicon-road"></span> Logout</a></li>

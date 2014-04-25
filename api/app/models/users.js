@@ -13,7 +13,7 @@ function validateNotEmpty (value) {
   return value && (value.length !== 0);
 }
 
-var accountStandingStatuses = ['active', 'admin', 'banned'];
+var accountStandingStatuses = ['active', 'admin', 'banned', 'password-reset'];
 function validateAccountStandingStatus (value) {
   return accountStandingStatuses.indexOf(value) !== -1;
 }
@@ -36,6 +36,7 @@ var UsersSchema = new mongoose.Schema({
   },
   'emailVerified': { 'type': Boolean, 'default': false },
   'emailVerifyKey': { 'type': String, 'required': false },
+  'passwordResetKey': { 'type': String, 'required': false },
   'accountStanding': {
     'status': {
       'type': String,
@@ -45,11 +46,12 @@ var UsersSchema = new mongoose.Schema({
     'reason': { 'type': String },
     'expires': { 'type': Date }
   },
-  'displayName': { 'type': String, 'default': 'New User' },
   'password': { 'type': String, 'required': true },
   'slug': { 'type': String, 'required': false, 'index': { 'unique': true, 'sparse': true } },
   'lastLogin': { 'type': Date, 'required': false },
   'loginCount': { 'type': Number, 'default': 0 },
+  'displayName': { 'type': String, 'default': 'New User' },
+  'tagline': { 'type': String, 'required': false },
   'about': { 'type': String, 'required': false },
   'website': { 'type': String, 'required': false },
   'friends': [{

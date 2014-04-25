@@ -66,8 +66,12 @@ PulsesController.prototype.create = function (req, res) {
 
 PulsesController.prototype.list = function(req, res){
   var self = this;
+  var options = { };
 
-  log.info('pulses.list');
+  if (req.query.userId) {
+    options._creator = req.query.userId;
+  }
+  log.info('pulses.list', options);
 
   var query =
   Pulses

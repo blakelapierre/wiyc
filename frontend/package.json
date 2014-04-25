@@ -2,6 +2,7 @@
   "name": "robcolbert",
   "version": "0.0.0",
   "dependencies": {},
+  "main": "./app/scripts/pulsar-fe.js",
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-autoprefixer": "~0.4.0",

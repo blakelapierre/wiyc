@@ -9,23 +9,6 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
 
   $scope.session = UserSession.session;
   $scope.ckeditorOptions = angular.copy(Configuration.ckeditorOptions.small);
-  $scope.ckeditorOptions.toolbarGroups = [
-    { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-    { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-    { name: 'links' },
-    { name: 'iframedialog' },
-    { name: 'insert' },
-    { name: 'forms' },
-    { name: 'tools' },
-    { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
-    { name: 'others' },
-    '/',
-    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-    { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-    { name: 'styles' },
-    { name: 'colors' },
-    { name: 'about' }
-  ];
 
   $scope.composer = {
     'visible': false,
@@ -54,11 +37,9 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
 
   $scope.createPulse = function ( ) {
     if (!$scope.session.authenticated.status) {
-      // Not authenticated, don't even know how you got here, but...no.
-      // But, relax. This is only a best effort. The back end isn't going
-      // to accept the pulse even if submitted via curl, though.
       return;
     }
+
     SidebarPulses.create(
       {'content':$scope.composer.content},
       function onPulseCreateSuccess (pulse) {
@@ -76,9 +57,42 @@ function SidebarPulsesCtrl ($scope, $rootScope, $sce, UserSession, SidebarPulses
     );
   };
 
+  /*
+   * Called by view when user wants to edit a micropulse they created.
+   * @param selectedPulse The pulse selected for editing in the sidebar.
+   */
   $scope.editPulse = function (selectedPulse) {
+    if (!$scope.session.authenticated.status) {
+      return;
+    }
+
     console.log('editPulse', arguments);
     selectedPulse.editing = true;
+
+    var pulseDivId = 'micropulse-'+selectedPulse._id.toString();
+    console.log('editing micropulse', pulseDivId);
+
+    var micropulseEditor = CKEDITOR.inline(pulseDivId);
+    // micropulseEditor.setData('');
+
+    function onMicropulseEditorChange ( ) {
+      // $scope.$apply(function ( ) {
+      //   selectedPulse.isDirty = true;
+      //   selectedPulse.content = micropulseEditor.getData();
+      // });
+    }
+
+    micropulseEditor.on('change', onMicropulseEditorChange);
+    micropulseEditor.on('key', onMicropulseEditorChange);
+    micropulseEditor.on('blur', onMicropulseEditorChange);
+
+    var element = angular.element('#'+pulseDivId);
+    element.attr('contenteditable', true);
+    element.bind('$destroy', function ( ) {
+      micropulseEditor.destroy(false);
+      micropulseEditor = null;
+    });
+
   };
 
 }

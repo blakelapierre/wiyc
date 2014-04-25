@@ -15,12 +15,6 @@ function PulsarPulseDirective ($compile) {
       scope.$watch('pulse.content', function ( ) {
         element.find('.body .content').append($compile(scope.pulse.content)(scope));
       });
-//       scope.$watch('loaded', function ( ) {
-//       });
-
-      // TODO instantiate CKEDITOR.inline around editable elements if the pulse's
-      // _creator._id matches session.user._id and session.authentication.status
-      // is true
     }
   };
 }
