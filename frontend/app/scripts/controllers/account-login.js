@@ -5,7 +5,7 @@
 'use strict';
 /* global $: false */
 
-function AccountLoginCtrl ($scope, $rootScope, $window, UserSession) {
+function AccountLoginCtrl ($scope, $rootScope, $window, $location, UserSession) {
   $scope.email = '';
   $scope.password = '';
 
@@ -14,6 +14,11 @@ function AccountLoginCtrl ($scope, $rootScope, $window, UserSession) {
   $scope.dismissError = function ( ) {
     $scope.haveError = false;
     $scope.error = null;
+  };
+
+  $scope.forgotPassword = function ( ) {
+    $location.path('/request-password-reset');
+    $('#userLoginModal').modal('hide');
   };
 
   $scope.userLogin = function ( ) {
@@ -38,6 +43,7 @@ AccountLoginCtrl.$inject = [
   '$scope',
   '$rootScope',
   '$window',
+  '$location',
   'UserSession'
 ];
 

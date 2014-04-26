@@ -65,8 +65,8 @@ PulsarWaveformParticleSystem.prototype = Object.create(THREE.ParticleSystem.prot
 PulsarWaveformParticleSystem.prototype.update = function (analyser) {
   var idx, value;
   for (idx = this.options.numPoints - 1; idx >= 0; --idx) {
-    value = this.options.height * (analyser.timeByteData[idx] / 255.0);
-    this.geometry.vertices[idx].y = value - 15.0;
+    value = this.options.height * (0.5 - (analyser.timeByteData[idx] / 255.0));
+    this.geometry.vertices[idx].y = value;
   }
   this.geometry.verticesNeedUpdate = true;
 };
@@ -286,10 +286,9 @@ PulsarStarlightVisualizer.prototype.update = function starlightUpdate (specRatio
    * Camera animations
    */
 
-  var oldPosition, newPosition = new THREE.Vector3(this.camera.position);
   var x, y, z;
   if ((this.cameraTween === null) && (Math.random() > 0.997)) {
-    x = 20 + (Math.random() * 40);
+    x = 20 + (Math.random() * 50);
     if (Math.random() < 0.5) {
       x = -x;
     }
@@ -297,7 +296,7 @@ PulsarStarlightVisualizer.prototype.update = function starlightUpdate (specRatio
     y = 3.0 + (Math.random() * 35.0);
     // please do not flip Y, you'll go through the (soon to exist) floor
 
-    z = 30 + (Math.random() * 70);
+    z = 40 + (Math.random() * 160);
     if (Math.random() < 0.10) {
       z = -z;
     }
@@ -308,8 +307,8 @@ PulsarStarlightVisualizer.prototype.update = function starlightUpdate (specRatio
       'to':   { 'x': x, 'y': y, 'z': z },
       'duration': 5000,
       'easing': 'easeInOutQuad',
-      'step': function (state) {
-        self.camera.position.set(state.x, state.y, state.z);
+      'step': function (tweenState) {
+        self.camera.position.set(tweenState.x, tweenState.y, tweenState.z);
       },
       'finish': function ( ) {
         self.cameraTween = null;
@@ -543,15 +542,17 @@ PulsarStarlightVisualizer.prototype.createWaveforms = function (waveformOptions)
 
   waveform = new PulsarWaveformParticleSystem(waveformOptions);
   waveform.rotation.set(0, 225 * DEG2RAD, 0);
-  waveform.position.y = 30;
-  waveform.position.z = -(waveformOptions.height * 2);
+  waveform.position.x = -20;
+  waveform.position.y = 0;
+  waveform.position.z = -(waveformOptions.width * 0.75);
   this.scene.add(waveform);
   this.waveforms.left = waveform;
 
   waveform = new PulsarWaveformParticleSystem(waveformOptions);
   waveform.rotation.set(0, 315 * DEG2RAD, 0);
-  waveform.position.y = 30
-  waveform.position.z = -(waveformOptions.height * 2);
+  waveform.position.x = 20;
+  waveform.position.y = 0;
+  waveform.position.z = -(waveformOptions.width * 0.75);
   this.scene.add(waveform);
   this.waveforms.right = waveform;
 };
@@ -643,7 +644,7 @@ function PulsarStarlightVisualizerDirective ($window, WebAudio, SiteSettings) {
         visualiser.createWaveforms({
           'numPoints': 1024,
           'width': 256.0,
-          'height': 40.0,
+          'height': 100.0,
           'centered': false,
           'color': 0xffffff,
           'sizeAttenuation': true,

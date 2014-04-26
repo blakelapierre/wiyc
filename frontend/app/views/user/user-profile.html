@@ -2,10 +2,11 @@
 
   <div class="heading">
     <div class="heading-wrap">
-      <div class="display-name"
+      <input class="display-name"
            ng-model="user.displayName"
-           ng-change="isDirty = true"
-           contenteditable></div>
+           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 }}"
+           ng-change="contentChanged()"
+           />
       <div class="pull-right"
            style="margin-left:16px;"
            ng-show="isSaving"
@@ -25,10 +26,10 @@
       <div class="col-sm-4">
 
         <div class="profile-photo-wrap">
-          <img class="profile-photo" ng-src="user.photoUrl" />
-          <div class="profile-photo-menu">
-            <button class="btn btn-default">Change Photo</button>
-          </div>
+          <img class="profile-photo" ng-src="{{user.photoUrl}}" />
+          <!-- div class="profile-photo-menu">
+            <button class="btn btn-link">Change Photo</button>
+          </div -->
         </div>
 
         <!-- form name="quick-message-form">
@@ -43,13 +44,14 @@
 
         <div class="tagline"
              ng-model="user.tagline"
-             ng-model-options="{ updateOn: 'default blur', debounce: {'default': 2000, 'blur': 0} }"
+             ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 }}"
              ng-change="contentChanged()"
              contenteditable
+             editor-toolbar="basic"
              ></div>
         <div class="about"
              ng-model="user.about"
-             ng-model-options="{ updateOn: 'default blur', debounce: {'default': 2000, 'blur': 0} }"
+             ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 }}"
              ng-change="contentChanged()"
              contenteditable
              editor-toolbar="full"

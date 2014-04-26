@@ -109,6 +109,14 @@ angular.module('pulsarClientApp', [
     templateUrl: 'views/admin.html',
     controller: 'AdminCtrl'
   })
+  .when('/request-password-reset', {
+    templateUrl: 'views/request-password-reset.html',
+    controller: 'RequestPasswordResetCtrl'
+  })
+  .when('/execute-password-reset', {
+    templateUrl: 'views/execute-password-reset.html',
+    controller: 'ExecutePasswordResetCtrl'
+  })
 
   /*
    * The Pulsar Route Morgue
@@ -121,10 +129,6 @@ angular.module('pulsarClientApp', [
   /*
    * Last, but certainly not least:
    */
-  .when('/password-reset', {
-    templateUrl: 'views/password-reset.html',
-    controller: 'PasswordResetCtrl'
-  })
   .otherwise({
     redirectTo: '/'
   });

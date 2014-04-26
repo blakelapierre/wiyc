@@ -29,6 +29,7 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
     { 'userId': userId },
     function onGetUserSuccess (user) {
       $scope.haveError = false;
+      user.photoUrl = 'images/profile-default.png';
       console.log('Users.get', user);
     },
     function onGetUserError (error) {

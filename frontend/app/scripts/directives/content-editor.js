@@ -8,13 +8,62 @@ function PulsarContenteditableDirective ( ) {
     'transclude': true,
     'link': function contenteditableLink (scope, element, attrs, ngModel) {
 
+      var contentEditor = null;
+      var contentEditorOptions = null;
+      var unbindModelWatch = null;
+
+      function onContentEditorChange (event) {
+        if (!event) {
+          return; // can't help you
+        }
+
+        var viewValue = contentEditor.getData();
+        if (viewValue === '<p></p>') {
+          viewValue = null;
+        }
+        scope.$apply(function ( ) {
+          ngModel.$setViewValue(viewValue, event.name);
+        });
+      }
+
       if (!ngModel) {
         console.error('contenteditable requires ng-model');
         return;
       }
 
-      var contentEditorOptions = {
+      if (attrs.editorMode && (attrs.editorMode === 'raw')) {
+        console.log('disabling CKEditor for element', attrs.ngModel);
+
+        ngModel.$render = function ( ) {
+          element.text(ngModel.$viewValue);
+        };
+
+        unbindModelWatch = scope.$watch(attrs.ngModel, function ( ) {
+          if (ngModel.$modelValue === element.text()) {
+            return; // staaaaahhhhhhppp!!
+          }
+          element.text(ngModel.$modelValue);
+        });
+
+        element.on('change key blur', function onContentChange (event) {
+          console.log('content changed', event.name);
+          scope.$apply(function ( ) {
+            ngModel.$setViewValue(element.text(), event.name);
+          });
+        });
+
+        element.bind('$destroy', function ( ) {
+          if (unbindModelWatch) {
+            unbindModelWatch();
+            unbindModelWatch = null;
+          }
+        });
+        return;
+      }
+
+      contentEditorOptions = {
         'toolbar': attrs.editorToolbar || 'basic',
+        'toolbar_none': [ ],
         'toolbar_basic': [
           {
             'name': 'basicstyles',
@@ -80,26 +129,12 @@ function PulsarContenteditableDirective ( ) {
         // element.html(ngModel.$viewValue);
       };
 
-      function onContentEditorChange (event) {
-        if (!event) {
-          return; // can't help you
-        }
-
-        var viewValue = contentEditor.getData();
-        if (viewValue === '<p></p>') {
-          viewValue = null;
-        }
-        scope.$apply(function ( ) {
-          ngModel.$setViewValue(viewValue, event.name);
-        });
-      }
-
-      var contentEditor = CKEDITOR.inline(element[0], contentEditorOptions);
+      contentEditor = CKEDITOR.inline(element[0], contentEditorOptions);
       contentEditor.on('change', onContentEditorChange);
       contentEditor.on('key', onContentEditorChange);
       contentEditor.on('blur', onContentEditorChange);
 
-      var unbindModelWatch = scope.$watch(attrs.ngModel, function ( ) {
+      unbindModelWatch = scope.$watch(attrs.ngModel, function ( ) {
         if (ngModel.$modelValue === contentEditor.getData()) {
           return; // staaaaahhhhhhppp!!
         }

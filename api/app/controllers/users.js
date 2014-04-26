@@ -219,7 +219,10 @@ UsersController.prototype.requestPasswordReset = function (req, res) {
   self.log.debug('users.requestPasswordReset', req.route, req.query, req.body);
 
   if (!req.body.email) {
-    res.json(403, 'Password reset requests must set the email address in the HTTP content body.');
+    res.json(
+      403,
+      { 'message':'Please provide the email address you used when creating your Pulsar profile.' }
+    );
     return;
   }
 
@@ -259,7 +262,7 @@ UsersController.prototype.requestPasswordReset = function (req, res) {
         var messageBody =
         'A password reset request was received for your Pulsar account. To ' +
         ' reset your password, please visit this URL:\n\n' +
-        'http://robcolbert.com/#/password-reset?token=' +
+        'http://robcolbert.com/#/execute-password-reset?token=' +
         encodeURIComponent(user.passwordResetKey) +
         '&email=' + encodeURIComponent(email) + '\n\n' +
         'If you did not intend to reset your password, simply ignore this ' +

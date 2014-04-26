@@ -6,6 +6,7 @@
 
 function AdminCtrl ($scope, $window, $location, UserSession, SiteSettings, Configuration) {
 
+  $window.scrollTo(0, 0);
   $scope.ckeditorOptions = Configuration.ckeditorOptions.full;
   $scope.ckeditorOptions.height = 240;
 
