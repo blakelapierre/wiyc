@@ -5,7 +5,9 @@
 'use strict';
 
 function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
+
   $scope.haveError = false;
+  $scope.session = UserSession.session;
 
   $scope.calendarMoment = function (date, format) {
     return moment(date).format(format);
@@ -29,6 +31,7 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
     { 'userId': userId },
     function onGetUserSuccess (user) {
       $scope.haveError = false;
+      $scope.isMyProfile = ($scope.session.authenticated.status && (user._id === $scope.session.user._id));
       user.photoUrl = 'images/profile-default.png';
       console.log('Users.get', user);
     },

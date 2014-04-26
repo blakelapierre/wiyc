@@ -6,7 +6,9 @@
            ng-model="user.displayName"
            ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 }}"
            ng-change="contentChanged()"
+           ng-show="isMyProfile"
            />
+      <div class="display-name" ng-show="!isMyProfile">{{user.displayName}}</div>
       <div class="pull-right"
            style="margin-left:16px;"
            ng-show="isSaving"
@@ -46,16 +48,21 @@
              ng-model="user.tagline"
              ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 }}"
              ng-change="contentChanged()"
-             contenteditable
              editor-toolbar="basic"
+             contenteditable
+             ng-show="isMyProfile"
              ></div>
+        <div class="tagline" ng-show="!isMyProfile" ng-bind-html="user.tagline"></div>
+
         <div class="about"
              ng-model="user.about"
              ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 }}"
              ng-change="contentChanged()"
-             contenteditable
              editor-toolbar="full"
+             contenteditable
+             ng-show="isMyProfile"
              ></div>
+        <div class="about" ng-show="!isMyProfile" ng-bind-html="user.about"></div>
       </div>
       <div class="clearfix"></div>
     </div>
