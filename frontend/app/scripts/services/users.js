@@ -16,10 +16,10 @@ function UsersService ($resource, Configuration) {
     'create': { 'method': 'POST' },
     'verify': { 'method': 'POST', 'url': verifyServiceUrl },
     'get': { 'method': 'GET' },
-    'update': { 'method': 'PUT' },
-    'requestPasswordReset': { 'method': 'POST', 'url': requestPasswordResetUrl },
-    'executePasswordReset': { 'method': 'POST', 'url': executePasswordResetUrl },
-    'delete': { 'method': 'DELETE' },
+    'update': { 'method': 'PUT', 'withCredentials': true },
+    'requestPasswordReset': { 'method': 'POST', 'url': requestPasswordResetUrl, 'withCredentials': true },
+    'executePasswordReset': { 'method': 'POST', 'url': executePasswordResetUrl, 'withCredentials': true },
+    'delete': { 'method': 'DELETE', 'withCredentials': true },
     'list': { 'method': 'GET', 'isArray': true }
   });
 
