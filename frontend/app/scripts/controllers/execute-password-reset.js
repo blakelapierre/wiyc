@@ -30,9 +30,10 @@ function ExecutePasswordResetCtrl ($scope, $route, $window, Users) {
   };
 }
 
-PasswordResetCtrl.$inject = [
+ExecutePasswordResetCtrl.$inject = [
   '$scope',
   '$route',
+  '$window',
   'Users'
 ];
 

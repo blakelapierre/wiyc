@@ -175,6 +175,15 @@ UsersController.prototype.update = function (req, res) {
   var self = this;
   self.log.debug('users.update', req.route, req.query, req.body);
 
+  var authMessage = 'Only authenticated users can update user profiles.';
+  if (!self.app.checkAuthentication(req,res,authMessage)) {
+    return;
+  }
+  if (req.body._id !== req.session.user._id) {
+    res.json(403, {'message':'Users can only update their own profiles.'});
+    return;
+  }
+
   delete req.body._id;
   if (req.body.password) {
     req.body.password = self.config.app.hashPassword(req.body.password);
