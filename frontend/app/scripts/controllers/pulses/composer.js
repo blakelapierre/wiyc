@@ -53,7 +53,7 @@ function PulsarComposerCtrl ($scope, $rootScope, $location, $window, Configurati
       },
       function onCreatePulseError (error) {
         ga('send','event', 'Pulses', 'createError', 1);
-        $scope.$emit('setServiceError', error);
+        $scope.$emit('pulsarServiceError', error);
       }
     );
   };

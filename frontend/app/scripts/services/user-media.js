@@ -7,26 +7,25 @@
 function UserMediaService ($rootScope) {
 
   this.$rootScope = $rootScope;
+  this.mediaStream = null;
 
 }
 
 UserMediaService.prototype.getUserMedia = function (options) {
-  var self = this;
 
+  var successDelegate = function ( ) { };
   var onGetUserMediaSuccess = function (mediaStream) {
-    var video = document.getElementById(options.videoElementId);
-    video.src = window.URL.createObjectURL(mediaStream);
+    console.log('getUserMedia', mediaStream);
+    self.mediaStream = mediaStream;
     self.$rootScope.$broadcast('pulsarUserMediaStreamStart', mediaStream);
-    video.onloadedmetadata = function (metadata) {
-      // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-      // See crbug.com/110938.
-      console.log('have user media stream', metadata);
-    };
+    successDelegate(mediaStream);
   };
 
+  var errorDelegate = function ( ) { };
   var onGetUserMediaError = function (error) {
     console.log('getUserMedia error', error);
     self.$rootScope.$broadcast('pulsarUserMediaStreamError', error);
+    errorDelegate(error);
   };
 
   if (navigator.getUserMedia) {
@@ -39,6 +38,10 @@ UserMediaService.prototype.getUserMedia = function (options) {
     navigator.msGetUserMedia(options, onGetUserMediaSuccess, onGetUserMediaError);
   }
 
+  return {
+    'success': function (handler) { successHandler = handler; },
+    'error': function (handler) { errorHandler = handler; }
+  };
 };
 
 UserMediaService.$inject = [

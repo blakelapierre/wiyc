@@ -45,9 +45,8 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
         $scope.loadingMessage = 'loading metadata for sound ' + $scope.soundId.toString();
       });
       SoundCloud.loadTrackData(urlData.id, function (err, trackData) {
-        console.log('SoundCloud trackData', trackData);
         if (trackData.kind !== 'track') {
-          $scope.$emit('setServiceError', {
+          $scope.$emit('pulsarServiceError', {
             'data': {
               'message':'SoundCloud resource type not supported.',
               'errors': [
@@ -73,7 +72,6 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
         $scope.audio.src = SoundCloud.blessUrl(trackData.stream_url); // jshint ignore:line
         $scope.audio.load();
         $scope.audio.addEventListener('canplay', function ( ) {
-          console.log('THREEjs stuff', $scope.scene, $scope.camera, $scope.renderer);
           $scope.$apply(function ( ) {
             $scope.source = WebAudio.createMediaElementSource($scope.audio);
             $scope.ready = true;

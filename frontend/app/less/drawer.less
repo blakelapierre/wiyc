@@ -1,0 +1,33 @@
+// drawer.less
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+
+.pulsar-drawer {
+  position: fixed;
+  left: 12px; right: 12px;
+  top: 100%; bottom: 0; // closed at bottom of display
+
+  padding: 16px;
+  opacity: 0;
+
+  background-color: @pulsarBgColor;
+  color: @pulsarTextColor;
+
+  border: solid 8px @pulsarDrawerBorderColor;
+  border-bottom: none;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.5);
+
+  &.visible {
+    top: 40%;
+    bottom: 32px;
+    opacity: 1;
+    overflow: auto;
+    animation: pulsar-drawerborderstrobe 4s infinite;
+  }
+
+  .pulsar-widget {
+    margin: 16px;
+  }
+
+  transition: all 0.4s linear;
+}

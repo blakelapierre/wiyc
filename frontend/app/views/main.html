@@ -1,42 +1,147 @@
-<div class="jumbotron">
-  <h1>Welcome</h1>
-  <p>
-    Pulsar is a cross between a Content Management System and an application
-    development platform. It helps people create. The audio player above is
-    not a SoundCloud embedded player. That is the Pulsar presentation engine
-    building one for you. It can look and feel however you want.
-  </p>
-  <p>
-    The easiest way to get involved and help push Pulsar forward is to create
-    a profile, have a look around and post new content here to see how Pulsar
-    works.
-  </p>
-  <div class="cta-button-container text-center">
-    <a href="/#/signup"
-       class="btn btn-default btn-lg cta-button"
-       >
-      Create Profile
-    </a>
+<section>
+  <div class="jumbotron" style="background-color:rgba(255,255,255,0.6);">
+    <h1>Welcome</h1>
+    <p>
+      Pulsar is a cross between a Content Management System and an application
+      development platform. It helps people create and communicate. The easiest
+      way to get involved and help push Pulsar forward is to create a profile,
+      have a look around, post new content here to see how Pulsar works and then
+      tell people you think should know about it. Here's step one:
+    </p>
+    <div class="cta-button-container text-center">
+      <a href="/#/signup"
+         class="btn btn-default btn-lg cta-button"
+         >
+        Create Profile
+      </a>
+    </div>
+  </div><!-- jumbotron -->
+</section>
+
+<section>
+  <div class="content">
+    <h2>Pulsar Helps People Create and Communicate</h2>
+    <p class="lead">
+      Pulsar has two primary jobs: Help people create and communicate more effectively while staying entirely out of their way. The basic philosophy is for Pulsar to be helpful while not being irritating.
+    </p>
+    <p>
+      Are you already creating online? Do you know someone who is? Are you/they
+      frustrated with "online in general, fuck this shit?"
+    </p>
+    <p>
+      I'm just saying: Pulsar might be worth exploring. It's an easier
+      <em>and</em> more technologically advanced way to manage your stuff online
+      and keep in touch/share with those who matter most to you. Period. That can
+      be your immediate family or your world-wide audience of fans.
+    </p>
+    <p>
+      Bloggers, music and video producers, talk show hosts and pretty much anyone
+      out there with something to say or do either professionally or as a hobby
+      <em>should</em> already be looking at Pulsar. If you know a creative person
+      who struggles with "online bullshit" (you'll know if you do), please send
+      them my way. I'd love to talk about how Pulsar can specifically help them.
+    </p>
   </div>
-</div>
+</section>
 
-<h2><img src="favicon.ico" /> Test Drive: SoundCloud!</h2>
-<p class="lead">
-  This widget currently requires
-  <a href="http://google.com/chrome">Google Chrome</a>.
-</p>
-<p>
-  The following is an example of Pulsar's built-in SoundCloud player. All you
-  need to embed one or more SoundCloud sound(s) into your pulses is the URL
-  of the sound that you would share on social media. Using Pulsar Composer's
-  in-place editor, you just put the cursor where you want the sound and click
-  the SoundCloud button in the tool bar. Paste the URL and you're done. They
-  look and work like this (anywhere - sidebar, main pulses, conversations...
-  anywhere)
-</p>
+<section style="background-image:url('images/bg/section-bg-sublogic.jpg');">
+  <div class="content">
+    <h2>What Else Have You Done?</h2>
+    <img class="img pull-left" src="images/sublogic-robot.jpg" alt="subLOGIC.fm - hear music. support artists. simple." style="margin:16px; width:96px; height:96px;" />
+    <p>
+      I am the former owner of subLOGIC.fm, a California-based dubstep blog that used to feature some of the best electronic dance music on Earth with live Internet broadcasts. Five years later, and Pulsar is my current effort. This is what I was trying to create back when. The technologies have all improved. And, if you want the absolute best experience on this site (until later), you're already using Google Chrome.
+    </p>
+    <p>
+      This time around, I'm focusing 100% of my energy and effort on the technology while using that energy to build a platform for artists and creative people world-wide to use to their maximum benefit. And, I'm building the technology for free as well as simply giving it away.
+    </p>
+    <p>
+      I also spend about 16 years as a professional video game developer working at Sony Computer Entertainment of America, Electronic Arts/Maxis (Darkspore), 2K Sports. In enterprise, I've worked at Google, VMware, and Cisco Systems. I've learned that I'm completely allergic to overly corporate environments. I think that's because I like to create.
+    </p>
+  </div>
+</section>
 
-<pulsar:soundcloud-player data-sound-url="https://soundcloud.com/edm/sick-wid-it-by-virus-syndicate"
-                          ng-controller="PulsarSoundCloudPlayerCtrl"></pulsar:soundcloud-player>
+<section style="background-image:url('images/bg/section-bg-virus-syndicate.jpg');">
+  <div class="content">
+    <h2>How Does That Stuff Apply Here?</h2>
+    <p class="lead">
+      This widget requires
+      <a href="http://google.com/chrome">Google Chrome</a> for the full/best
+      experience. Your mileage may vary in different browsers, mobile, etc. This
+      is a demonstration of just how far Pulsar can push a browser today.
+    </p>
+    <p>
+      The following is an example of Pulsar's built-in SoundCloud player widget.
+      This is not the SoundCloud widget - it's custom Pulsar code. Using Pulsar
+      Composer's in-place editor, you just put the cursor where you want the
+      sound and click the SoundCloud button in the tool bar. Paste the URL and
+      you're done. They look and work like this.
+    </p>
+
+    <pulsar:soundcloud-player
+      data-sound-url="https://soundcloud.com/edm/sick-wid-it-by-virus-syndicate"
+      ng-controller="PulsarSoundCloudPlayerCtrl"
+      ></pulsar:soundcloud-player>
+
+    <h3>What Are You Seeing?</h3>
+    <p class="lead">That's not a screenshot. Press play and go fullscreen.</p>
+    <p>
+      That is an HTML5 presentation styled with CSS3. No third-party plugins are
+      in use. That is not the SoundCloud "widget", but it does use the
+      SoundCloud API to stream audio directly into the Web Audio API. From
+      there, the audio is decomposed into separate left/right streams and
+      analyzed for a variety of information. Bass is separated into "red",
+      midrange frequencies are separated into "green" and high-frequency audio
+      is separated out into "blue". A 2D &lt;canvas&gt; element is used to
+      render the audio frequency spectrum analyzer and time domain waveform
+      analyzer.
+    </p>
+    <p>
+      The "code" to embed the Pulsar SoundCloud audio player into a pulse is:
+    </p>
+
+<pre style="width:100%; overflow:auto;"><code language="language-html">&lt;pulsar:soundcloud-player
+  data-sound-url="https://soundcloud.com/edm/sick-wid-it-by-virus-syndicate"
+  ng-controller="PulsarSoundCloudPlayerCtrl"
+  &gt;&lt;/pulsar:soundcloud-player&gt;
+</code></pre>
+
+    <p>
+      The fullscreen player (hit the fullscreen button) additionally uses WebGL
+      to implement a full 3D music visualizer. The primary audio frequency powers (bass, mids and treble) are being used to modulate a variety of parameters in the control logic of the 3D scene. The size of the Starlight is controlled along X for bass, Y for mids and Z for treble (colored red, green and blue, respectively). The Starlight also emits light with an RGB mix that matches the audio frequency powers.
+    </p>
+    <p>
+      The Starlight visualizer runs at 60fps on modest hardware without using a single plugin. It's just the browser. The browser is only running Pulsar. Pulsar is using Web Audio, WebGL/Three.js, &lt;canvas&gt; and a ton of JavaScript. End of story.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="content">
+    <h2>GET STARTED!</h2>
+    <p>
+      I know. Yet another account? Yet another password? Yet another identity
+      to manage online? Why can't it just take my Facebook, Twitter or Google
+      credentials?
+    </p>
+    <p>
+      Pulsar's goal while helping people create and communicate is to allow
+      them the exciting freedom that comes along with actually owning your
+      own data. Thus, no, Pulsar does not want to communicate with 3rd-party
+      authentication service providers. It doesn't want them to know when
+      you're using it.
+    </p>
+    <p>
+      Whenever you're ready:
+    </p>
+    <div class="cta-button-container text-center">
+      <a href="/#/signup"
+         class="btn btn-default btn-lg cta-button"
+         >
+        Create Profile
+      </a>
+    </div>
+  </div>
+</section>
 
 <script type="text/javascript">
   var container = $('.jumbotron');

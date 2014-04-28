@@ -43,8 +43,8 @@
       .profile-photo-wrap {
         position: relative;
         display: block;
-        width: 256px;
-        height: 256px;
+        width: 100%;
+        height: auto;
 
         .profile-photo {
           position: relative;
@@ -62,11 +62,24 @@
 
         .profile-photo-menu {
           position: absolute;
-          display: none;
           top: 0;
           right: 0;
           bottom: 0;
           left: 0;
+          padding: 8px;
+          background-color: rgba(192, 192, 192, 0.9);
+          opacity: 0;
+          transition: all 0.1s linear;
+
+          button {
+            margin:8px;
+          }
+
+          &.visible {
+            visibility: visible;
+            opacity: 1;
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.9) inset;
+          }
         }
       }
 

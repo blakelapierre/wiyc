@@ -10,6 +10,7 @@
 
 @import 'variables.less';
 @import 'mixins.less';
+@import 'animations.less';
 @import 'effects.less';
 
 body {
@@ -47,9 +48,12 @@ a.btn:link {
   text-decoration:none;
 }
 
-
+@import 'section.less';
 @import 'widget.less';
+@import 'layer.less';
+@import 'drawer.less';
 @import 'dialog.less';
+
 @import 'footer.less';
 @import 'sidebar.less';
 @import 'content-section.less';
@@ -71,6 +75,10 @@ a.btn:link {
 
 .main-view {
   margin-bottom:32px;
+
+  p {
+    line-height: 1.4;
+  }
 }
 
 .prototype .meta-label {
@@ -92,7 +100,9 @@ a.btn:link {
 
 .cta-button-container {
   position:relative;
-  & .cta-button {
+  margin: 24px;
+
+  .cta-button {
     box-shadow: none;
     transform-origin: center;
     transition: all @pulsarTransitionTime;
@@ -125,10 +135,15 @@ hr {
 }
 
 .jumbotron {
-  & h1 {
+  margin-bottom: 0;
+  background-color: @pulsarBgColor;
+  color: @pulsarTextColor;
+
+  .pulsarPerspectiveTransform(center, center, 500px);
+
+  h1 {
     margin-top:0;
   }
-  .pulsarPerspectiveTransform(center, center, 500px);
 }
 
 .pager {

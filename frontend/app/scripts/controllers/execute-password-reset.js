@@ -22,7 +22,7 @@ function ExecutePasswordResetCtrl ($scope, $route, $window, Users) {
       },
       function onSetNewPasswordError (error) {
         console.error('setNewPassword', error);
-        $scope.$emit('setServiceError', error);
+        $scope.$emit('pulsarServiceError', error);
         $scope.state = 'error';
         $window.scrollTo(0, 0);
       }

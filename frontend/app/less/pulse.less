@@ -6,17 +6,20 @@
 // https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
 
 .pulsar-widget {
-  z-index:200;
+
   .pulse {
     display:block;
     position:relative;
+
     .heading {
       display:block;
       padding:8px 16px;
+
       .heading-wrap {
         position:relative;
         padding:0;
       }
+
       .title {
         display:block;
         width:100%;
@@ -29,20 +32,25 @@
         border:none;
         outline:none;
       }
+
       .byline {
         display:block;
         font-size:16px;
       }
+
     }
+
     .body {
       padding:0;
       margin-bottom:16px;
+
       .excerpt {
         padding:16px;
         margin-bottom:16px;
         background-color:@pulsarPulseBodyExcerptBgColor;
         color:@pulsarPulseBodyExcerptTextColor;
       }
+
       .content {
         display:block;
         padding:16px;
@@ -50,6 +58,7 @@
         color:@pulsarPulseBodyContentTextColor;
       }
     }
+
     .jumbotron {
       margin-bottom:0;
     }
@@ -65,31 +74,40 @@
   perspective-origin: 50% 50%;
   -webkit-perspective:500px;
   perspective:500px;
+
   .flip-container {
     box-shadow:0 0 12px rgba(0,0,0,0.8) inset;
     background:none;
   }
+
   .pulsar-widget {
     position:relative;
     transform-origin: center;
     transition: all 0.25s;
+
     &.hover {
       transform: translate3d(0,0,10px);
     }
+
     &.chosen {
       transform: translate3d(-2000px, 0, 10px);
     }
+
     .pulse {
+      min-height:320px;
+
       p {
         line-height:1.1em;
       }
-      min-height:320px;
+
       .heading {
         display:block;
         padding:0;
         height:120px;
+
         .heading-wrap {
           padding:8px;
+
           .title {
             display:block;
             font-size:24px;
@@ -98,6 +116,7 @@
             text-overflow:ellipsis;
             overflow:hidden;
           }
+
           .byline {
             display:block;
             padding-top:8px;
@@ -107,10 +126,12 @@
           }
         }
       }
+
       .excerpt {
         height:160px;
         overflow:auto;
       }
+
       .prompt {
         position:absolute;
         left: 0; bottom: 0;

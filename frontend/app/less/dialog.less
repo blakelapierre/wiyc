@@ -3,7 +3,10 @@
 // License: MIT
 
 .pulsar-widget {
+
   .pulsar-dialog {
+    position:relative;
+
     .heading {
       .heading-wrap {
         .title {
@@ -12,10 +15,20 @@
         }
       }
     }
+
     .body {
       padding:16px;
       background-color: @pulsarDialogBgColor;
       color: @pulsarDialogTextColor;
+      overflow: auto;
+
+      &.body-small {
+        max-height: 200px;
+      }
+
+      div.alert:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }

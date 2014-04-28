@@ -3,55 +3,63 @@
 // License: MIT
 
 .pulsar-widget {
-  margin-bottom:16px;
-  padding:16px;
-  background-color:@pulsarWidgetBgColor;
-  color:@pulsarWidgetTextColor;
+  position: relative;
+  margin-bottom: 16px;
+  padding: 16px;
+  background-color: @pulsarWidgetBgColor;
+  color: @pulsarWidgetTextColor;
   font-family: @pulsarWidgetFontFamily;
   font-size: @pulsarWidgetFontSize;
-  box-shadow:0 0 5px rgba(0,0,0,0.3) inset;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3) inset;
   .heading {
-    padding:8px 0;
-    margin-bottom:16px;
+    padding: 8px 0;
+    margin-bottom: 16px;
     font-family: @pulsarWidgetHeadingFontFamily;
     font-size: @pulsarWidgetHeadingFontSize;
-    line-height:1em;
-    background-color:@pulsarWidgetHeadingBgColor;
-    color:@pulsarWidgetHeadingTextColor;
-    box-shadow:0 0 5px rgba(0,0,0,0.3);
-    border:solid 1px darken(@pulsarWidgetHeadingBgColor, 20%);
+    line-height: 1em;
+    background-color: @pulsarWidgetHeadingBgColor;
+    color: @pulsarWidgetHeadingTextColor;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    border: solid 1px darken(@pulsarWidgetHeadingBgColor, 20%);
     .heading-wrap {
-      padding:8px 16px;
+      padding: 8px 16px;
     }
     .glyphicon {
-      font-size:0.8em;
+      font-size: 0.8em;
     }
   }
   .body {
-    background-color:@pulsarWidgetBgColor;
+    background-color: @pulsarWidgetBgColor;
     color: @pulsarWidgetTextColor;
   }
+
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &.left {
-    float:left;
-    width:40%;
-    margin-right:16px;
-    margin-bottom:8px;
+    float: left;
+    width: 40%;
+    margin-right: 16px;
+    margin-bottom: 8px;
   }
   &.three-col {
-    float:left;
-    width:30%;
-    margin:1.5%;
+    float: left;
+    width: 30%;
+    margin: 1.5%;
   }
   &.four-col {
-    float:left;
-    width:20%;
-    margin:2.5%;
+    float: left;
+    width: 20%;
+    margin: 2.5%;
   }
   &.right {
-    float:right;
-    width:40%;
-    margin-left:16px;
-    margin-bottom:8px;
+    float: right;
+    width: 40%;
+    margin-left: 16px;
+    margin-bottom: 8px;
   }
 }
-

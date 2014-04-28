@@ -6,20 +6,28 @@
 
 function ConversationsCtrl ($scope, $window, UserMedia) {
 
+  var self = this;
+
   $window.scrollTo(0, 0);
   $scope.$emit('setPageGroup', 'conversations');
+
   ga('send', 'pageview');
 
-  UserMedia.getUserMedia({
-    'videoElementId': 'videoLocal',
-    'video': true,
-    'audio': true
+  $scope.$on('pulsarUserMediaStreamStart', function (event, userMediaStream) {
+    console.log('pulsarUserMediaStreamStart', event, userMediaStream);
+    var video = document.getElementById('videoLocal');
+    video.src = window.URL.createObjectURL(userMediaStream);
+    video.onloadedmetadata = function (metadata) {
+      console.log('userStreamMetadata', metadata);
+      $scope.$apply(function ( ) {
+        $scope.userMediaStream = userMediaStream;
+        $scope.userMediaStreamMetadata = metadata;
+      });
+    };
   });
-  $scope.$on('pulsarUserMediaStreamStart', function (event, media) {
-    console.log('pulsarUserMediaStreamStart', event, media);
-  });
+
   $scope.$on('pulsarUserMediaStreamError', function (event, error) {
-    console.log('pulsarUserMediaStreamError', event, error);
+    console.error('pulsarUserMediaStreamError', event, error);
   });
 
   $scope.conversations = [

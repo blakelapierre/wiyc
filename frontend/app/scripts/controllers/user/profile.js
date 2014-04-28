@@ -19,10 +19,10 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
 
   angular.element('.profile-photo-wrap').hover(
     function ( ) {
-      angular.element(this).find('.profile-photo-menu').css('display', 'block');
+      angular.element(this).find('.profile-photo-menu').addClass('visible');
     },
     function ( ) {
-      angular.element(this).find('.profile-photo-menu').css('display', 'none');
+      angular.element(this).find('.profile-photo-menu').removeClass('visible');
     }
   );
 
@@ -38,7 +38,7 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
     function onGetUserError (error) {
       $scope.haveError = true;
       ga('send','event', 'user-profile', 'createError', 1);
-      $scope.$emit('setServiceError', error);
+      $scope.$emit('pulsarServiceError', error);
       console.log('Users.get error', error);
     }
   );
@@ -64,6 +64,7 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
       function onUpdateUserError (error) {
         console.error('user update error', error);
         $scope.isSaving = false;
+        $scope.$emit('pulsarServiceError', error);
       }
     );
   };

@@ -19,7 +19,7 @@ function RequestPasswordResetCtrl ($scope, $window, Users) {
       },
       function onRequestPasswordResetError (error) {
         console.error('request-password-reset', error);
-        $scope.$emit('setServiceError', error);
+        $scope.$emit('pulsarServiceError', error);
         $window.scrollTo(0, 0);
       }
     );
