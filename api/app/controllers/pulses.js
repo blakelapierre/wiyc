@@ -1,31 +1,6 @@
-/*
- * FILE
- *  controllers/pulses.js
- *
- * PURPOSE
- *
- *
- * LICENSE
- *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
+// controllers/pulses.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
 
 'use strict';
 
@@ -49,6 +24,9 @@ PulsesController.prototype.create = function (req, res) {
   }
   log.info('pulses.create', req.session.user._id);
 
+  if (req.body._id) {
+    delete req.body._id;
+  }
   req.body._creator = req.session.user._id;
 
   Pulses.create(req.body, function (err, newPulse) {
@@ -66,18 +44,19 @@ PulsesController.prototype.create = function (req, res) {
 
 PulsesController.prototype.list = function(req, res){
   var self = this;
-  var options = { };
+  var options = {
+    'status': 'published'
+  };
 
   if (req.query.userId) {
     options._creator = req.query.userId;
   }
+  if (req.query.status) {
+    options.status = req.query.status;
+  }
   log.info('pulses.list', options);
 
-  var query =
-  Pulses
-  .find({ }, '_creator created title content excerpt')
-  .lean(false);
-
+  var query = Pulses.find(options, '_creator created title content excerpt');
   var paginator = new Paginator(req);
   query = paginator.paginateQuery(query);
 
@@ -88,11 +67,22 @@ PulsesController.prototype.list = function(req, res){
     if (self.app.checkError(err,res,'pulses.list')) {
       return;
     }
-    var response = {
-      'totalPages':20,
-      'pulses': pulses
-    };
-    res.json(200, response);
+    Pulses.count(options, function (err, count) {
+      options.pagination = {
+        'page': paginator.page,
+        'countPerPage': paginator.countPerPage,
+        'totalPulses': count,
+        // Nah - I think I'd like to keep it real. Clients can choose to not
+        // keep it real (and format it). But, clients can't keep it real if
+        // I've stripped away all this valid comedy:
+        'totalPages': /*Math.ceil(*/count / paginator.countPerPage/*)*/
+      };
+      var response = {
+        'options': options,
+        'pulses': pulses
+      };
+      res.json(200, response);
+    });
   });
 };
 
@@ -180,6 +170,7 @@ PulsesController.prototype.update = function (req, res) {
     pulse.title = req.body.title;
     pulse.excerpt = req.body.excerpt;
     pulse.content = req.body.content;
+    pulse.status = req.body.status;
     pulse.increment();
 
     pulse.save(function (err, newPulse) {

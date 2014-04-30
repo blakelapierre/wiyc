@@ -75,6 +75,9 @@ var UsersSchema = new mongoose.Schema({
         'conversations': { 'type': Boolean, 'default': false },
         'comments': { 'type': Boolean, 'default': false },
         'requests': { 'type': Boolean, 'default': true }
+      },
+      'content': {
+        'maximumRating': { 'type': Boolean, 'default': true }
       }
     },
     'defaults': {

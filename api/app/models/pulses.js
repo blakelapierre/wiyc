@@ -34,9 +34,20 @@ log.info('model: Pulses');
 
 var mongoose = require('mongoose');
 
+var pulseStatusValues = ['draft', 'published', 'trash'];
+function validatePulseStatus (value) {
+  return pulseStatusValues.indexOf(value) !== -1;
+}
+
 var PulsesSchema = new mongoose.Schema({
   '_creator': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users' },
   'created': { 'type': Date, 'default': Date.now, 'index': true },
+  'status': {
+    'type': String,
+    'required': true,
+    'default': 'draft',
+    'validate': [ validatePulseStatus, 'Pulse status fails validation' ]
+  },
   'title': { 'type': String, 'required': true, 'index': true },
   'content': { 'type': String, 'required': true },
   'excerpt': { 'type': String, 'required': false, 'index': true },

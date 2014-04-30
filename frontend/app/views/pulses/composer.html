@@ -10,16 +10,20 @@
                placeholder="Enter pulse title"
                ></input>
 
-        <button class="btn btn-xs btn-primary pull-right"
-                style="margin-left:16px;"
-                title="Save changes"
-                ng-disabled="!isDirty"
-                ng-click="createPulse()"
-                >
-          <span class="glyphicon glyphicon-floppy-save"></span> Publish
-        </button>
-
-        <img src="favicon.ico" style="position:relative; top:-2px;"/> {{session.user.displayName}} {{calendarMoment(pulse.created).toLowerCase()}}
+        <form class="form form-inline" role="form" name="publishingControls">
+          <div class="form-group">
+            <select class="form-control input-sm" name="status" ng-change="isDirty = true" ng-model="pulse.status" ng-options="status.value as status.label for status in pulseStatuses"></select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-sm btn-primary"
+                    title="Save changes"
+                    ng-disabled="!isDirty"
+                    ng-click="createPulse(); $event.preventDefault();"
+                    >
+              <span class="glyphicon glyphicon-floppy-save"></span> Save
+            </button>
+          </div>
+        </form>
 
         <div class="clearfix"></div>
 

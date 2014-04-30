@@ -38,12 +38,17 @@
             </div>
           </div>
 
-          <!-- form name="quick-message-form">
-            <div contenteditable ng-model="message.content"></div>
-            <button class="btn btn-default">
-              <span class="glyphicon glyphicon-envelope"> Send Message
-            </button>
-          </form -->
+          <section>
+            <div class="pulsar-widget">
+              <form name="quick-message-form">
+                <div contenteditable ng-model="message.content"
+                     style="background-color:white; height:120px; overflow: auto; border: solid 1px black; margin-bottom:16px; line-height: 1.1em; padding:8px;"></div>
+                <button class="btn btn-default">
+                  <span class="glyphicon glyphicon-envelope"> Send Message
+                </button>
+              </form>
+            </div>
+          </section>
 
         </div>
         <div class="col-sm-8">
@@ -71,31 +76,62 @@
         <div class="clearfix"></div>
       </section>
 
-      <section class="row-fluid pulse-list" ng-show="pulses.pulses.length &gt; 0">
-        <div class="col-lg-3" ng-repeat="pulse in pulses.pulses">
-          <div class="flip-container" ng-mouseover="pulse.hover = true" ng-mouseleave="pulse.hover = false">
-            <pulsar:pulse-summary></pulsar:pulse-summary>
-          </div>
+      <section ng-show="isMyProfile">
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+          <label class="btn btn-default active" ng-click="setPulseFilter('published')">
+            <input type="radio" name="options" id="status-published"> Published
+          </label>
+          <label class="btn btn-default" ng-click="setPulseFilter('draft')">
+            <input type="radio" name="options" id="status-draft"> Drafts
+          </label>
+          <label class="btn btn-default" ng-click="setPulseFilter('trash')">
+            <input type="radio" name="options" id="stauts-trash"> Trash
+          </label>
         </div>
-        <div class="clearfix"></div>
       </section>
 
-      <div class="pager">
-        <ul>
-          <li ng-show="currentPage &gt; 1"><a ng-href="/#/pulses?p={{currentPage - 1}}">Newer</a></li>
-          <li ng-repeat="page in pulses.pages"><a ng-href="/#/pulses?p={{page}}">{{page}}</a></li>
-          <li ng-show="currentPage &lt; pulses.totalPages"><a ng-href="/#/pulses?p={{currentPage + 1}}">Older</a></li>
-        </ul>
-      </div>
+      <section ng-show="pulses.pulses.length &gt; 0">
+        <div class="content">
+          <div class="row-fluid pulse-list">
+            <div class="col-lg-4" ng-repeat="pulse in pulses.pulses">
+              <div class="flip-container" ng-mouseover="pulse.hover = true" ng-mouseleave="pulse.hover = false">
+                <pulsar:pulse-summary></pulsar:pulse-summary>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </section>
 
-      <div ng-show="pulses.pulses.length === 0">
-        <h1>Tumbleweeds</h1>
-        <p>
-          Sadly, this Pulsar is empty. It has no pulse. It needs people like you to
-          <a href="/#/signup" alt="Create a Pulsar profile now">create a profile</a>
-          and publish some pulses for others to read.
-        </p>
-      </div>
+      <section ng-show="pulses.pulses.length === 0">
+        <div class="pulsar-widget" ng-switch="pulseStatusFilter">
+          <div ng-switch-when="published">
+            <p>
+              {{user.displayName}} has no published pulses.
+            </p>
+          </div>
+          <div ng-switch-when="draft">
+            <p>
+              {{user.displayName}} has no working draft pulses.
+            </p>
+          </div>
+          <div ng-switch-when="trash">
+            <p>
+              {{user.displayName}} has no trashed pulses.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="pager">
+          <ul>
+            <li ng-show="currentPage &gt; 1"><a ng-href="/#/pulses?p={{currentPage - 1}}">Newer</a></li>
+            <li ng-repeat="page in pulses.pages"><a ng-href="/#/pulses?p={{page}}">{{page}}</a></li>
+            <li ng-show="currentPage &lt; pulses.totalPages"><a ng-href="/#/pulses?p={{currentPage + 1}}">Older</a></li>
+          </ul>
+        </div>
+      </section>
 
     </div>
 

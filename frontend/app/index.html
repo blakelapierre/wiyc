@@ -20,7 +20,7 @@
   </head>
   <body>
 
-    <!-- The Facebook root div is here to support plugins that want to use it. -->
+    <!-- The Facebook root is here to support plugins that want to use it. Pulsar's core does not make use of Facebook in any way. -->
     <div id="fb-root"></div>
 
     <!--[if lt IE 7]>
@@ -33,9 +33,13 @@
 
     <div id="topBar" ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
 
-    <div class="container">
-      <div ng-view=""></div>
-    </div>
+    <section style="margin-bottom: 16px;">
+      <div class="container">
+        <div ng-view=""></div>
+      </div>
+    </section>
+
+    <pulsar:bottom-menu></pulsar:bottom-menu>
 
     <pulsar:service-error></pulsar:service-error>
 
@@ -87,7 +91,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-link" ng-click="forgotPassword()">Forgot Password</a>
+            <a href="/#/signup" style="margin-right:16px;">Create New Profile</a>
+            <a href="#" style="margin-right:16px;" ng-click="forgotPassword(); $event.preventDefault();">Forgot Password</a>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary" ng-click="userLogin()">Login</button>
           </div>
@@ -184,6 +189,8 @@
     <script src="scripts/directives/visualisers/pulsar-starlight.js"></script>
     <script src="scripts/directives/content-editor.js"></script>
     <script src="scripts/services/video-call.js"></script>
+    <script src="scripts/controllers/privacy-policy.js"></script>
+    <script src="scripts/directives/pulsar-bottom-menu.js"></script>
     <!-- endbuild -->
 
     <script src="https://www.youtube.com/iframe_api"></script>

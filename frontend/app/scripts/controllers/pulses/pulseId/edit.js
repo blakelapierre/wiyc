@@ -28,6 +28,8 @@ function PulseEditCtrl (
   var excerptEditor = null;
   var contentEditor = null;
 
+  $scope.pulseStatuses = Configuration.pulseStatuses;
+
   function onExcerptEditorChange ( ) {
     $scope.$apply(function ( ) {
       $scope.isDirty = true;

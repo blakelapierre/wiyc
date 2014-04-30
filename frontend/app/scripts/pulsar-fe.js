@@ -129,7 +129,13 @@ angular.module('pulsarClientApp', [
   /*
    * Last, but certainly not least:
    */
+  .when('/privacy-policy', {
+    templateUrl: 'views/privacy-policy.html',
+    controller: 'PrivacyPolicyCtrl'
+  })
+
   .otherwise({
     redirectTo: '/'
   });
+
 });

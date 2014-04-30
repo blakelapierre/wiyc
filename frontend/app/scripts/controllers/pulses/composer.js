@@ -8,7 +8,9 @@ function PulsarComposerCtrl ($scope, $rootScope, $location, $window, Configurati
 
   $window.scrollTo(0, 0);
   CKEDITOR.disableAutoInline = true;
+
   $scope.session = UserSession.session;
+  $scope.pulseStatuses = Configuration.pulseStatuses;
 
   ga('send','pageview');
   $scope.$emit('setPageGroup', 'blog');
@@ -42,7 +44,10 @@ function PulsarComposerCtrl ($scope, $rootScope, $location, $window, Configurati
   $scope.calendarMoment = function (date) { return moment(date).calendar(); };
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
 
-  $scope.pulse = { };
+  $scope.pulse = {
+    'status': 'draft'
+  };
+
   $scope.createPulse = function ( ) {
     Pulses.create(
       $scope.pulse,

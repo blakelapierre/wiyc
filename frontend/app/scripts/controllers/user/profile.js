@@ -4,7 +4,7 @@
 
 'use strict';
 
-function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
+function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) {
 
   $scope.haveError = false;
   $scope.session = UserSession.session;
@@ -44,7 +44,7 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
   );
 
   $scope.pulses = Pulses.list(
-    { 'userId': userId },
+    { 'userId': userId, 'status': 'published' },
     function onPulsesListSuccess (pulses) {
 
     },
@@ -52,6 +52,19 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
 
     }
   );
+
+  $scope.setPulseFilter = function (pulseStatusType) {
+    Pulses.list(
+      { 'userId': userId, 'status': pulseStatusType},
+      function onSetPulseFilterSuccess (pulses) {
+        $scope.pulseStatusFilter = pulseStatusType;
+        $scope.pulses = pulses;
+      },
+      function onSetPulseFilterError (error) {
+        $scope.$emit('setServiceError', error);
+      }
+    );
+  };
 
   $scope.isSaving = false;
   $scope.contentChanged = function ( ) {
@@ -68,11 +81,17 @@ function UserUseridCtrl ($scope, $route, UserSession, Users, Pulses) {
       }
     );
   };
+
+  $scope.loadPulse = function (pulseId) {
+    console.log('loading pulse', pulseId.toString());
+    $location.path('/pulses/'+pulseId.toString());
+  };
 }
 
 UserUseridCtrl.$inject = [
   '$scope',
   '$route',
+  '$location',
   'UserSession',
   'Users',
   'Pulses'
