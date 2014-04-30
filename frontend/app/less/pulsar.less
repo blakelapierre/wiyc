@@ -15,37 +15,37 @@
 
 body {
   padding: 68px 0 32px 0;
-  background-position:center center;
-  background-size:cover;
-  background-color:@pulsarBgColor;
+  background-position: center center;
+  background-size: cover;
+  background-color: @pulsarBgColor;
   transition: background @pulsarTransitionTime;
   &.theater {
-    background-image:url('/images/theater-bg.jpg');
-    background-color:@pulsarTheaterBgColor;
-    color:@pulsarTheaterTextColor;
+    background-image: url('/images/theater-bg.jpg');
+    background-color: @pulsarTheaterBgColor;
+    color: @pulsarTheaterTextColor;
   }
 }
 
 a:link {
-  color:@pulsarAnchorLinkColor;
-  text-decoration:@pulsarAnchorLinkDecoration;
+  color: @pulsarAnchorLinkColor;
+  text-decoration: @pulsarAnchorLinkDecoration;
 }
 a:hover {
-  color:@pulsarAnchorHoverColor;
-  text-decoration:@pulsarAnchorHoverDecoration;
+  color: @pulsarAnchorHoverColor;
+  text-decoration: @pulsarAnchorHoverDecoration;
 }
 a:active {
-  color:@pulsarAnchorActiveColor;
-  text-decoration:@pulsarAnchorActiveDecoration;
+  color: @pulsarAnchorActiveColor;
+  text-decoration: @pulsarAnchorActiveDecoration;
 }
 a:visited {
-  color:@pulsarAnchorVisitedColor;
-  text-decoration:@pulsarAnchorVisitedDecoration;
+  color: @pulsarAnchorVisitedColor;
+  text-decoration: @pulsarAnchorVisitedDecoration;
 }
 
 a.btn:link {
-  color:#ffffff;
-  text-decoration:none;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 @import 'section.less';
@@ -54,9 +54,10 @@ a.btn:link {
 @import 'drawer.less';
 @import 'dialog.less';
 
-@import 'footer.less';
-@import 'sidebar.less';
 @import 'content-section.less';
+@import 'sidebar.less';
+@import 'bottom-menu.less';
+@import 'footer.less';
 
 @import 'user/profile.less';
 
@@ -74,7 +75,7 @@ a.btn:link {
 @import 'theater.less';
 
 .main-view {
-  margin-bottom:32px;
+  margin-bottom: 32px;
 
   p {
     line-height: 1.4;
@@ -82,9 +83,9 @@ a.btn:link {
 }
 
 .prototype .meta-label {
-  float:left;
-  margin-right:16px;
-  margin-bottom:16px;
+  float: left;
+  margin-right: 16px;
+  margin-bottom: 16px;
 }
 
 .no-select {
@@ -95,11 +96,11 @@ a.btn:link {
 }
 
 .divider {
-  border-top:solid 1px darken(@pulsarBgColor, 25%);
+  border-top: solid 1px darken(@pulsarBgColor, 25%);
 }
 
 .cta-button-container {
-  position:relative;
+  position: relative;
   margin: 24px;
 
   .cta-button {
@@ -115,23 +116,23 @@ a.btn:link {
       box-shadow: 0 2px 12px rgba(0,0,90,0.7);
     }
     &:hover {
-      color:rgb(0,128,0);
+      color: rgb(0,128,0);
       box-shadow: 0 2px 24px rgba(0,128,0,0.7);
     }
   }
 }
 
 textarea {
-  resize:vertical;
+  resize: vertical;
 }
 
 hr {
-  display:block;
-  height:2px;
-  border:0;
-  border-top:1px solid darken(@pulsarBgColor, 20%);
-  margin:1em 0;
-  padding:0;
+  display: block;
+  height: 2px;
+  border: 0;
+  border-top: 1px solid darken(@pulsarBgColor, 20%);
+  margin: 1em 0;
+  padding: 0;
 }
 
 .jumbotron {
@@ -142,14 +143,14 @@ hr {
   .pulsarPerspectiveTransform(center, center, 500px);
 
   h1 {
-    margin-top:0;
+    margin-top: 0;
   }
 }
 
 .pager {
-  margin-top:32px;
-  padding-top:16px;
-  border-top:solid 1px darken(@pulsarBgColor, 20%);
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: solid 1px darken(@pulsarBgColor, 20%);
 }
 
 .reference-list {
@@ -163,13 +164,13 @@ hr {
 }
 
 ::-webkit-scrollbar-track {
-  background-color:darken(@pulsarBgColor, 3%);
-  border-radius:2px;
+  background-color: darken(@pulsarBgColor, 3%);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color:darken(@pulsarBgColor, 25%);
-  box-shadow:0 0 5px darken(@pulsarBgColor, 3%) inset;
+  background-color: darken(@pulsarBgColor, 25%);
+  box-shadow: 0 0 5px darken(@pulsarBgColor, 3%) inset;
 }
 
 /*
@@ -177,13 +178,16 @@ hr {
  * the above (the whole site).
  */
 div p:last-child {
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 
 .text-justify {
   text-align: justify;
 }
 
+/*
+ * Rips the focus ring off of everything (buh-bye, now - yer nasty).
+ */
 *:focus
 {
   outline: none;

@@ -1,12 +1,34 @@
 'use strict';
 
+function PulsarBottomMenuCtrl (UserSession) {
+  return {
+    templateUrl: 'views/directives/bottom-menu.html',
+    restrict: 'E',
+    link: function postLink(scope, element, attrs) {
+
+      scope.session = UserSession.session;
+      console.log('UserSession in bottom-menu', UserSession.session);
+
+      scope.$on('setUserSession', function (event, userSession) {
+        console.log('UserSession updated in bottom-menu', userSession);
+        scope.session = userSession;
+        if (!angular.isDefined(scope.session.authenticated)) {
+          scope.session.authenticated = { 'status': false };
+        }
+      });
+
+      scope.$on('clearUserSession', function (/* event */) {
+        console.log('UserSession cleared in bottom-menu');
+        self.session = UserSession.defaultSession;
+      });
+
+    }
+  };
+}
+
+PulsarBottomMenuCtrl.$inject = [
+  'UserSession'
+];
+
 angular.module('pulsarClientApp')
-  .directive('pulsarBottomMenu', function () {
-    return {
-      templateUrl: 'views/directives/bottom-menu.html',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        // element.text('this is the pulsarBottomMenu directive');
-      }
-    };
-  });
+.directive('pulsarBottomMenu', PulsarBottomMenuCtrl);

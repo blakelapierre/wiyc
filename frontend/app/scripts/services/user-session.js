@@ -15,8 +15,8 @@ function UserSession($rootScope, $location, Sessions) {
 
   self.$rootScope = $rootScope;
 
-  var defaultSession = { 'authenticated': { 'status': false } };
-  self.session = defaultSession;
+  self.defaultSession = { 'authenticated': { 'status': false } };
+  self.session = self.defaultSession;
   self.haveError = false;
   self.error = null;
 
@@ -29,7 +29,7 @@ function UserSession($rootScope, $location, Sessions) {
 
   self.$rootScope.$on('clearUserSession', function (/* event */) {
     console.log('clearing user session');
-    self.session = defaultSession;
+    self.session = self.defaultSession;
   });
 
   self.checkAuthentication = function (withRedirect) {

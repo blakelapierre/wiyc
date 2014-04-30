@@ -19,6 +19,30 @@ section, .section {
     h2:first-child {
       margin-top: 0;
     }
+
+    &.paddingv-xl { /* xtra-large */
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    &.paddingv-lg { /* large */
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    /*
+     * There is no "normal". That is known as, "Don't use a class."
+     */
+
+    &.paddingv-sm { /* small(er) than normal */
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    &.paddingv-xs { /* xtra-small(er) than normal */
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 
   .pulsar-widget {

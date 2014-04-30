@@ -42,6 +42,13 @@ function ConfigurationService ( ) {
     }
   };
 
+  //TODO move this to a service call so I can data-drive the available choices.
+  this.pulseStatuses = [
+    { 'value': 'draft',     'label': 'Working Draft' },
+    { 'value': 'published', 'label': 'Published' },
+    { 'value': 'trash',     'label': 'Trash' }
+  ];
+
 }
 
 ConfigurationService.$inject = [
