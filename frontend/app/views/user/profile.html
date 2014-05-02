@@ -78,13 +78,13 @@
 
       <section ng-show="isMyProfile">
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-          <label class="btn btn-default active" ng-click="setPulseFilter('published')">
+          <label class="btn btn-default" ng-class="pulseStatusFilter === 'published' ? 'active' : ''" ng-click="setPulseFilter('published')">
             <input type="radio" name="options" id="status-published"> Published
           </label>
-          <label class="btn btn-default" ng-click="setPulseFilter('draft')">
+          <label class="btn btn-default" ng-class="pulseStatusFilter === 'draft' ? 'active' : ''" ng-click="setPulseFilter('draft')">
             <input type="radio" name="options" id="status-draft"> Drafts
           </label>
-          <label class="btn btn-default" ng-click="setPulseFilter('trash')">
+          <label class="btn btn-default" ng-class="pulseStatusFilter === 'trash' ? 'active' : ''" ng-click="setPulseFilter('trash')">
             <input type="radio" name="options" id="stauts-trash"> Trash
           </label>
         </div>

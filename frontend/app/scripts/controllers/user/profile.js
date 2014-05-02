@@ -43,29 +43,6 @@ function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) 
     }
   );
 
-  $scope.pulses = Pulses.list(
-    { 'userId': userId, 'status': 'published' },
-    function onPulsesListSuccess (pulses) {
-
-    },
-    function onPulsesListError (error) {
-
-    }
-  );
-
-  $scope.setPulseFilter = function (pulseStatusType) {
-    Pulses.list(
-      { 'userId': userId, 'status': pulseStatusType},
-      function onSetPulseFilterSuccess (pulses) {
-        $scope.pulseStatusFilter = pulseStatusType;
-        $scope.pulses = pulses;
-      },
-      function onSetPulseFilterError (error) {
-        $scope.$emit('setServiceError', error);
-      }
-    );
-  };
-
   $scope.loadPulse = function (pulse) {
     var pulseId = pulse._id.toString();
     console.log('loading pulse', pulseId);
@@ -96,6 +73,26 @@ function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) 
     );
   };
 
+  $scope.loadPulses = function ( ) {
+    $scope.pulses = Pulses.list(
+      { 'userId': userId, 'status': $scope.pulseStatusFilter },
+      function onSetPulseFilterSuccess (pulses) {
+        $scope.pulses = pulses;
+      },
+      function onSetPulseFilterError (error) {
+        $scope.$emit('setServiceError', error);
+      }
+    );
+  }
+
+  $scope.setPulseFilter = function (pulseStatusType) {
+    $location.search('filter', pulseStatusType);
+    $scope.pulseStatusFilter = pulseStatusType;
+    $scope.loadPulses();
+  };
+
+  $scope.pulseStatusFilter = $location.search().filter || 'published';
+  $scope.loadPulses();
 }
 
 UserUseridCtrl.$inject = [

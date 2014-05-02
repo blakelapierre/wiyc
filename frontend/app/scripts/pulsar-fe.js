@@ -89,7 +89,8 @@ angular.module('pulsarClientApp', [
 
   .when('/user/:userId?', {
     templateUrl: 'views/user/profile.html',
-    controller: 'UserUseridCtrl'
+    controller: 'UserUseridCtrl',
+    reloadOnSearch: false
   })
 
   .when('/posts/compose', {
