@@ -27,7 +27,7 @@ function PulsarContenteditableDirective ( ) {
       }
 
       if (!ngModel) {
-        console.error('contenteditable requires ng-model');
+        console.error('The Pulsar contenteditable directive requires ng-model');
         return;
       }
 
@@ -106,7 +106,7 @@ function PulsarContenteditableDirective ( ) {
           },
           {
             'name': 'insert',
-            'items': [ 'Image', 'Table', 'SpecialChar' ]
+            'items': [ 'Image', 'SoundCloud Player', 'Table', 'SpecialChar' ]
           },
           {
             'name': 'forms',

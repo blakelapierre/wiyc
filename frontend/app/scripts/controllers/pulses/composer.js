@@ -67,62 +67,8 @@ function PulsarComposerCtrl ($scope, $rootScope, $location, $window, Configurati
     twttr.widgets.load();
   };
 
-  function onExcerptEditorChange ( ) {
-    $scope.$apply(function ( ) {
-      $scope.isDirty = true;
-      $scope.pulse.excerpt = excerptEditor.getData();
-    });
-  }
-  function onContentEditorChange ( ) {
-    $scope.$apply(function ( ) {
-      $scope.isDirty = true;
-      $scope.pulse.content = contentEditor.getData();
-    });
-  }
-
   element = angular.element('#titleEditor');
   element.attr('contenteditable', true);
-
-  /*
-   * Not really sure which approach is smarter for updates:
-   *
-   * 1. Using the change event's .editor property? or
-   * 2. Using my already known editor references?
-   *
-   * I know I can trust my references. Or, can I? We'll find out.
-   * Going with references for now, but leaving this note here for
-   * myself as a reminder if it blows up or isn't the best approach
-   * learned another way.
-   */
-
-  excerptEditor = CKEDITOR.inline('excerptEditor');
-  excerptEditor.setData('');
-  excerptEditor.on('change', onExcerptEditorChange);
-  excerptEditor.on('key', onExcerptEditorChange);
-  excerptEditor.on('blur', onExcerptEditorChange);
-
-  element = angular.element('#excerptEditor');
-  element.attr('contenteditable', true);
-  element.bind('$destroy', function ( ) {
-    excerptEditor.destroy(false);
-    excerptEditor = null;
-  });
-
-  contentEditor = CKEDITOR.inline('contentEditor');
-  contentEditor.setData('');
-  contentEditor.on('change', onContentEditorChange);
-  contentEditor.on('key', onContentEditorChange);
-  contentEditor.on('blur', onContentEditorChange);
-
-  element = angular.element('#contentEditor');
-  element.attr('contenteditable', true);
-  element.bind('$destroy', function ( ) {
-    contentEditor.destroy(false);
-    contentEditor = null;
-  });
-
-  console.log('in-place editors enabled');
-
 }
 
 PulsarComposerCtrl.$inject = [

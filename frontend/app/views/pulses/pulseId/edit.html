@@ -44,8 +44,18 @@
     </div>
 
     <div class="body">
-      <div class="excerpt" id="excerptEditor"></div>
-      <div class="content" id="contentEditor"></div>
+      <div class="excerpt" id="excerptEditor"
+           ng-model="pulse.excerpt"
+           ng-change="isDirty = true"
+           data-editor-toolbar="basic"
+           contenteditable
+           ></div>
+      <div class="content" id="contentEditor"
+           ng-model="pulse.content"
+           ng-change="isDirty = true"
+           data-editor-toolbar="full"
+           contenteditable
+           ></div>
       <div class="clearfix"></div>
     </div>
 
