@@ -42,9 +42,10 @@ function PulsesCtrl ($scope, $route, $location, $window, Pulses) {
   $scope.calendarMoment = function (date) { return moment(date).calendar(); };
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
 
-  $scope.loadPulse = function (pulseId) {
-    console.log('loading pulse', pulseId.toString());
-    $location.path('/pulses/'+pulseId.toString());
+  $scope.loadPulse = function (pulse) {
+    var pulseId = pulse._id.toString();
+    console.log('loading pulse', pulseId);
+    $location.path('/pulses/' + pulseId);
   };
 
 }

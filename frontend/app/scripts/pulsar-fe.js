@@ -88,7 +88,7 @@ angular.module('pulsarClientApp', [
   })
 
   .when('/user/:userId?', {
-    templateUrl: 'views/user/user-profile.html',
+    templateUrl: 'views/user/profile.html',
     controller: 'UserUseridCtrl'
   })
 

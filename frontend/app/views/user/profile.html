@@ -94,8 +94,11 @@
         <div class="content">
           <div class="row-fluid pulse-list">
             <div class="col-lg-4" ng-repeat="pulse in pulses.pulses">
-              <div class="flip-container" ng-mouseover="pulse.hover = true" ng-mouseleave="pulse.hover = false">
-                <pulsar:pulse-summary></pulsar:pulse-summary>
+              <div class="flip-container"
+                   ng-mouseover="pulse.hover = true"
+                   ng-mouseleave="pulse.hover = false"
+                   >
+                <pulsar:pulse-summary ng-click="loadPulse(pulse)"></pulsar:pulse-summary>
               </div>
             </div>
             <div class="clearfix"></div>

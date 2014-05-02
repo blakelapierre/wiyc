@@ -66,6 +66,20 @@ function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) 
     );
   };
 
+  $scope.loadPulse = function (pulse) {
+    var pulseId = pulse._id.toString();
+    console.log('loading pulse', pulseId);
+    $location.path('/pulses/' + pulseId);
+  };
+
+  $scope.publishPulse = function (pulse) {
+
+  };
+
+  $scope.deletePulse = function (pulse) {
+
+  };
+
   $scope.isSaving = false;
   $scope.contentChanged = function ( ) {
     $scope.isSaving = true;
@@ -82,10 +96,6 @@ function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) 
     );
   };
 
-  $scope.loadPulse = function (pulseId) {
-    console.log('loading pulse', pulseId.toString());
-    $location.path('/pulses/'+pulseId.toString());
-  };
 }
 
 UserUseridCtrl.$inject = [
