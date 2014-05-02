@@ -4,24 +4,9 @@
 
 'use strict';
 
-/*
- * The controller accesses $element to retrieve its attributes. That is all.
- * Attribute values on the element are used to pass the soundId forward to the
- * controller. Yes, there are different ways of doing this. I'm exploring this
- * one as a maintainability test.
- */
-
-function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, SoundCloud, PresentationEngine) {
+function PulsarSoundCloudPlayerCtrl ($scope, $interval, WebAudio, SoundCloud, PresentationEngine) {
   var self = this;
-  var container = $element;
-  var widget = container.find('.pulsar-widget');
-  var player = container.find('.soundcloud-player');
-  var progressBar = container.find('.progress-bar');
-  var visualiser = container.find('.visualiser');
-  var game = container.find('.game-canvas');
   var uiUpdateInterval = null;
-
-  var playerOriginalBgColor = player.css('background-color');
 
   $scope.ready = false;
   $scope.audio = null;
@@ -33,6 +18,10 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
    * https://soundcloud.com/officialsnails/dirty-raxxx
    * https://soundcloud.com/mid-tempo/the-dealer-by-bro-safari-x-ufo
    * https://soundcloud.com/karluvklub/sixxx-free
+   *
+   * I use a watch on the URL so the current track can be switched. This is
+   * engineered a little forward in expectation of SC playlist support as
+   * well as playlists users build here on Pulsar with additional features.
    */
 
   $scope.soundUrl = null;
@@ -85,114 +74,23 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
   });
 
   $scope.loadingMessage = 'initializing...';
-  $scope.soundUrl = $element.attr('data-sound-url');
-
-  //container.find('.idle-hide').hide();
-
-  progressBar.css('background-color', 'rgb(96,192,255)');
-  visualiser.css('background-color', 'rgb(16,48,64)');
-  angular.element('.progress-container').css('background-color', 'rgb(16,48,64)');
 
   $scope.$on('$routeChangeStart', function ( ) {
     $scope.stopSound();
   });
-
-  $scope.toggleFullscreen = function ( ) {
-    if (PresentationEngine.isFullscreen()) {
-      widget.removeClass('full-screen');
-      PresentationEngine.exitFullscreen();
-      $scope.isFullscreen = false;
-      return;
-    }
-    PresentationEngine.requestFullscreen(widget[0]);
-    widget.addClass('full-screen');
-    $scope.isFullscreen = true;
-  };
 
   $scope.calendarMoment = function (date) {
     return moment(date).fromNow();
   };
 
   function updateAudioEngine ( ) {
-    var ratio = $scope.audio.currentTime / $scope.audio.duration;
-    progressBar.css('width', (ratio * 100.0) + '%');
+    var ratio;
+
     WebAudio.update();
+
+    ratio = $scope.audio.currentTime / $scope.audio.duration;
+    $scope.visualizer.progressBar.css('width', (ratio * 100.0) + '%');
     $scope.audioTimeLabel = moment(0).utc().seconds($scope.audio.currentTime).format('HH:mm:ss');
-  }
-
-  function updateVisualizer ( ) {
-    var ctx = visualiser[0].getContext('2d');
-    var ctxWidth = ctx.canvas.width;
-    var ctxHeight = ctx.canvas.height;
-
-    ctx.lineCap = 'round';
-    ctx.clearRect(0, 0, ctxWidth, ctxHeight)
-
-    var graphH = 64.0;
-    var drawX, drawY;
-    var power;
-
-    var bassAvg = 0.0;
-    var midsAvg = 0.0;
-    var trebAvg = 0.0;
-
-    function renderFrequencyBar (x, power) {
-      var barH = graphH * (WebAudio.analysers.left.freqByteData[idx] / 256.0);
-      ctx.fillRect(idx, graphH, 1, -barH);
-    }
-
-    var idx = 0;
-    var bassCutoff = 80;
-    var midsCutoff = 256;
-    var trebCutoff = 768;
-
-    ctx.fillStyle = 'rgb(220,0,0)';
-    for ( ; idx < bassCutoff; ++idx) {
-      power = WebAudio.analysers.left.freqByteData[idx];
-      bassAvg += power;
-      renderFrequencyBar(idx, power);
-    }
-    bassAvg = parseInt(bassAvg / bassCutoff);
-
-    ctx.fillStyle = 'rgb(0,220,0)';
-    for ( ; idx < midsCutoff; ++idx) {
-      power = WebAudio.analysers.left.freqByteData[idx];
-      midsAvg += power;
-      renderFrequencyBar(idx, power);
-    }
-    midsAvg = parseInt(midsAvg / (midsCutoff - bassCutoff));
-
-    ctx.fillStyle = 'rgb(0,0,220)';
-    for ( ; idx < trebCutoff; ++idx) {
-      power = WebAudio.analysers.left.freqByteData[idx];
-      trebAvg += power;
-      renderFrequencyBar(idx, power);
-    }
-    trebAvg = parseInt(trebAvg / (trebCutoff - midsCutoff));
-
-    var audioColor = 'rgb('+bassAvg+','+midsAvg+','+trebAvg+')';
-
-    var bassRatio = bassAvg / 255.0;
-    var midsRatio = midsAvg / 255.0;
-    var trebRatio = trebAvg / 255.0;
-    var specRatio = (bassRatio + midsRatio + trebRatio) / 3.0;
-    $scope.updateVisualizer3d(specRatio, bassRatio, midsRatio, trebRatio);
-
-    if (!PresentationEngine.isFullscreen()) {
-      player.css('background-color', audioColor);
-    } else {
-      player.css('background-color', 'transparent');
-    }
-
-    drawX = trebCutoff;
-    ctx.fillStyle = audioColor;
-    for(var idx = 0; idx < 256; ++idx ) {
-      drawY = WebAudio.analysers.left.timeByteData[idx * 4] / 4.0;
-      ctx.fillRect(drawX++, drawY, 2, 2);
-    }
-
-    ctx.fillStyle = 'rgb(24,48,96)';
-    ctx.fillRect(768,0,3,64);
   }
 
   $scope.keepUpdating = false;
@@ -201,25 +99,26 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
     if ($scope.keepUpdating) {
       requestAnimationFrame(update);
     }
-//     $scope.skipUpdate = !($scope.skipUpdate);
-//     if ($scope.skipUpdate) {
-//       return;
-//     }
+
+    $scope.skipUpdate = !($scope.skipUpdate);
+    if ($scope.skipUpdate) {
+      return;
+    }
 
     updateAudioEngine();
-    updateVisualizer();
+    $scope.visualizer.update();
   }
 
   function startUiUpdates ( ) {
     $scope.keepUpdating = true;
-    player.addClass('active');
+    $scope.visualizer.player.addClass('active');
     update();
   }
 
   function stopUiUpdates ( ) {
     $scope.keepUpdating = false;
-    player.css('background-color', playerOriginalBgColor);
-    player.removeClass('active');
+    $scope.visualizer.player.css('background-color', $scope.visualizer.playerOriginalBgColor);
+    $scope.visualizer.player.removeClass('active');
   }
 
   $scope.audioState = 'stopped';
@@ -240,9 +139,6 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
         $scope.audioState = 'paused';
         break;
     }
-    if (!$scope.isPlaying) {
-    } else {
-    }
   };
 
   $scope.pauseSound = function ( ) {
@@ -261,10 +157,21 @@ function PulsarSoundCloudPlayerCtrl ($element, $scope, $interval, WebAudio, Soun
     stopUiUpdates();
   };
 
+  $scope.toggleFullscreen = function ( ) {
+    if (PresentationEngine.isFullscreen()) {
+      $scope.visualizer.widget.removeClass('full-screen');
+      PresentationEngine.exitFullscreen();
+      $scope.isFullscreen = false;
+      return;
+    }
+    PresentationEngine.requestFullscreen($scope.visualizer.widget[0]);
+    $scope.visualizer.widget.addClass('full-screen');
+    $scope.isFullscreen = true;
+  };
+
 }
 
 PulsarSoundCloudPlayerCtrl.$inject = [
-  '$element',
   '$scope',
   '$interval',
   'WebAudio',

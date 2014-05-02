@@ -59,7 +59,6 @@ function PulseReaderCtrl ($scope, $route, $sce, $compile, $window, $location, Us
         $scope.pulse.interactions.comments.push(newComment);
         $scope.commentEditorVisible = false;
         $scope.comment = { };
-        tinyMCE.activeEditor.setContent('');
       },
       function onCommentCreateError (error) {
         console.log('createComment error', error);

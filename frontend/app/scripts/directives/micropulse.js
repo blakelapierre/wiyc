@@ -6,11 +6,8 @@
 
 function PulsarMicropulseDirective ( ) {
   return {
-    templateUrl: 'views/directives/micropulse.html',
-    restrict: 'E',
-    link: function postLink (/* scope, element, attrs */) {
-
-    }
+    'templateUrl': 'views/directives/micropulse.html',
+    'restrict': 'E'
   };
 }
 

@@ -1,3 +1,7 @@
+// directives/bottom-menu.js
+// Copyright (C) Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
+
 'use strict';
 
 function PulsarBottomMenuCtrl (UserSession) {

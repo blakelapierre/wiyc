@@ -6,9 +6,9 @@
 
 function PulsarPulseSummaryDirective ( ) {
   return {
-    templateUrl: 'views/directives/pulse-summary.html',
-    restrict: 'E',
-    link: function postLink (/*scope, element, attrs*/) {
+    'templateUrl': 'views/directives/pulse-summary.html',
+    'restrict': 'E',
+    'link': function postLink (/* scope, element, attrs */) {
       // TODO instantiate CKEDITOR.inline around editable pulses allowing for
       // in-place edits of micropulses owned by the current user
     }
