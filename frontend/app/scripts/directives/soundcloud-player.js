@@ -88,7 +88,9 @@ PulsarSoundCloudPlayer.prototype.update = function ( ) {
   var midsRatio = midsAvg / 255.0;
   var trebRatio = trebAvg / 255.0;
   var specRatio = (bassRatio + midsRatio + trebRatio) / 3.0;
+
   self.scope.updateVisualizer3d(specRatio, bassRatio, midsRatio, trebRatio);
+  self.player.css('background-color', 'rgb('+bassAvg+','+midsAvg+','+trebAvg+')');
 
   drawX = trebCutoff;
   ctx.fillStyle = audioColor;

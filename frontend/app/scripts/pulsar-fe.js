@@ -20,7 +20,6 @@ angular.module('pulsarClientApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ngCkeditor',
   'ui.ace'
 ])
 .config(function ($routeProvider) {
@@ -89,7 +88,7 @@ angular.module('pulsarClientApp', [
 
   .when('/user/:userId?', {
     templateUrl: 'views/user/profile.html',
-    controller: 'UserUseridCtrl',
+    controller: 'UserProfileCtrl',
     reloadOnSearch: false
   })
 

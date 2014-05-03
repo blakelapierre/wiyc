@@ -18,6 +18,11 @@ function validateAccountStandingStatus (value) {
   return accountStandingStatuses.indexOf(value) !== -1;
 }
 
+var pulseVisibilityValues = ['public', 'contacts', 'banned', 'password-reset'];
+function validateAccountStandingStatus (value) {
+  return pulseVisibilityValues.indexOf(value) !== -1;
+}
+
 var UsersSchema = new mongoose.Schema({
   'created': {
     'type': Date,
@@ -54,10 +59,15 @@ var UsersSchema = new mongoose.Schema({
   'tagline': { 'type': String, 'required': false },
   'about': { 'type': String, 'required': false },
   'website': { 'type': String, 'required': false },
-  'friends': [{
-    'friendId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true }
+  'contacts': [{
+    'contactId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users' },
+    'connected': { 'type': Date, 'default': Date.now },
   }],
-  'friendCount': { 'type': Number, 'default': 0 },
+  'contactCount': { 'type': Number, 'default': 0 },
+  'contactRequests': [{
+    'sender': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users'},
+    'message': { 'type': String, 'required': false },
+  }],
   'ignored': [{
     'userId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true }
   }],
@@ -81,11 +91,8 @@ var UsersSchema = new mongoose.Schema({
       }
     },
     'defaults': {
-      'posts': {
-        'visibility': { 'type': String, 'default': 'friends' }
-      },
       'pulses': {
-        'visibility': { 'type': String, 'default': 'friends' }
+        'visibility': { 'type': String, 'default': 'contacts' }
       }
     }
   }

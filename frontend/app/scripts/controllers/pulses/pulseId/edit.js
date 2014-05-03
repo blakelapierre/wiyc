@@ -28,6 +28,7 @@ function PulseEditCtrl (
   var contentEditor = null;
 
   $scope.pulseStatuses = Configuration.pulseStatuses;
+  $scope.pulseVisibilityValues = Configuration.pulseVisibilityValues;
 
   function onExcerptEditorChange ( ) {
     $scope.$apply(function ( ) {

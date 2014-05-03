@@ -16,7 +16,6 @@
     "bootstrap": "~3.0.3",
     "momentjs": "~2.5.1",
     "ckeditor": "latest",
-    "ng-ckeditor": "latest",
     "threejs": "*",
     "shifty": "~1.2.0"
   },

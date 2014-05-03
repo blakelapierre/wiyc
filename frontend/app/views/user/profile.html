@@ -38,15 +38,38 @@
             </div>
           </div>
 
-          <section>
+          <section ng-show="!isMyProfile">
             <div class="pulsar-widget">
-              <form name="quick-message-form">
-                <div contenteditable ng-model="message.content"
-                     style="background-color:white; height:120px; overflow: auto; border: solid 1px black; margin-bottom:16px; line-height: 1.1em; padding:8px;"></div>
-                <button class="btn btn-default">
-                  <span class="glyphicon glyphicon-envelope"> Send Message
-                </button>
-              </form>
+              <button class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-user" style="font-size:0.9em;"></span> Add to Contacts
+              </button>
+              <button class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-envelope" style="font-size:0.9em;"></span> Message
+              </button>
+              <button class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-facetime-video" style="font-size:0.9em;"></span> Video Call
+              </button>
+              <button class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-earphone" style="font-size:0.9em;"></span> Voice Call
+              </button>
+              <button class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-ban-circle" style="font-size:0.9em;"></span> Block
+              </button>
+            </div>
+          </section>
+
+          <section ng-show="isMyProfile">
+            <div class="pulsar-widget">
+              <div class="heading">
+                <div class="heading-wrap">
+                  <div class="title">Contacts</div>
+                </div>
+              </div>
+
+              <div class="body">
+                <div class="content">
+                </div>
+              </div>
             </div>
           </section>
 
@@ -67,7 +90,7 @@
                ng-model="user.about"
                ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 }}"
                ng-change="contentChanged()"
-               editor-toolbar="full"
+               editor-toolbar="nomedia"
                contenteditable
                ng-show="isMyProfile"
                ></div>

@@ -11,6 +11,7 @@ function PulsarComposerCtrl ($scope, $rootScope, $location, $window, Configurati
 
   $scope.session = UserSession.session;
   $scope.pulseStatuses = Configuration.pulseStatuses;
+  $scope.pulseVisibilityValues = Configuration.pulseVisibilityValues;
 
   ga('send','pageview');
   $scope.$emit('setPageGroup', 'blog');
@@ -45,6 +46,7 @@ function PulsarComposerCtrl ($scope, $rootScope, $location, $window, Configurati
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
 
   $scope.pulse = {
+    'visibility': 'public',
     'status': 'draft'
   };
 

@@ -34,14 +34,24 @@ log.info('model: Pulses');
 
 var mongoose = require('mongoose');
 
-var pulseStatusValues = ['draft', 'published', 'trash'];
+var statusValues = ['draft', 'published', 'trash'];
 function validatePulseStatus (value) {
-  return pulseStatusValues.indexOf(value) !== -1;
+  return statusValues.indexOf(value) !== -1;
+}
+
+var visibilityValues = ['public', 'contacts', 'private'];
+function validateVisibilityValue (value) {
+  return visibilityValues.indexOf(value) !== -1;
 }
 
 var PulsesSchema = new mongoose.Schema({
   '_creator': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users' },
   'created': { 'type': Date, 'default': Date.now, 'index': true },
+  'visibility': {
+    'type': String,
+    'required': true,
+    'validate': [ validateVisibilityValue, 'Pulse visibility fails validation']
+  },
   'status': {
     'type': String,
     'required': true,

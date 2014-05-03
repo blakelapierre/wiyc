@@ -167,10 +167,11 @@ PulsesController.prototype.update = function (req, res) {
     // content filtering is going to be required here. A little testing is
     // needed, but some manner of filtering is going to be required here.
 
+    pulse.visibility = req.body.visibility;
+    pulse.status = req.body.status;
     pulse.title = req.body.title;
     pulse.excerpt = req.body.excerpt;
     pulse.content = req.body.content;
-    pulse.status = req.body.status;
     pulse.increment();
 
     pulse.save(function (err, newPulse) {

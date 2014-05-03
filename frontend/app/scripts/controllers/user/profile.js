@@ -4,8 +4,9 @@
 
 'use strict';
 
-function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) {
+function UserProfileCtrl ($scope, $route, $location, $window, $sce, UserSession, Users, Pulses) {
 
+  $window.scrollTo(0, 0);
   $scope.haveError = false;
   $scope.session = UserSession.session;
 
@@ -26,7 +27,15 @@ function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) 
     }
   );
 
-  var userId = $route.current.params.userId || UserSession.session.user._id;
+  var userId = null;
+  if ($route.current.params.userId) {
+    userId = $route.current.params.userId;
+    $scope.isMyProfile = (userId.toString() === UserSession.session.user._id.toString());
+  } else if (UserSession.session.user._id) {
+    userId = UserSession.session.user._id;
+    $scope.isMyProfile = true;
+  }
+
   $scope.user = Users.get(
     { 'userId': userId },
     function onGetUserSuccess (user) {
@@ -47,6 +56,7 @@ function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) 
     var pulseId = pulse._id.toString();
     console.log('loading pulse', pulseId);
     $location.path('/pulses/' + pulseId);
+    $location.search('filter', null);
   };
 
   $scope.publishPulse = function (pulse) {
@@ -91,18 +101,25 @@ function UserUseridCtrl ($scope, $route, $location, UserSession, Users, Pulses) 
     $scope.loadPulses();
   };
 
-  $scope.pulseStatusFilter = $location.search().filter || 'published';
+  if ($scope.isMyProfile) {
+    $scope.pulseStatusFilter = $location.search().filter || 'published';
+  } else {
+    $location.search('filter', null);
+    $scope.pulseStatusFilter = 'published';
+  }
   $scope.loadPulses();
 }
 
-UserUseridCtrl.$inject = [
+UserProfileCtrl.$inject = [
   '$scope',
   '$route',
   '$location',
+  '$window',
+  '$sce',
   'UserSession',
   'Users',
   'Pulses'
 ];
 
 angular.module('pulsarClientApp')
-.controller('UserUseridCtrl', UserUseridCtrl);
+.controller('UserProfileCtrl', UserProfileCtrl);

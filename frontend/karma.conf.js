@@ -23,7 +23,6 @@ module.exports = function(config) {
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/momentjs/moment.js',
       'app/bower_components/angular-ui-ace/ui-ace.min.js',
-      'app/bower_components/ng-ckeditor/ng-ckeditor.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',

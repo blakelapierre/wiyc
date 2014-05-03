@@ -6,7 +6,7 @@
 
 function ConversationsCtrl ($scope, $window, PulsarVideoCall) {
 
-  var self = this;
+//  var self = this;
 
   $window.scrollTo(0, 0);
   $scope.$emit('setPageGroup', 'conversations');
@@ -31,7 +31,7 @@ function ConversationsCtrl ($scope, $window, PulsarVideoCall) {
     console.error('pulsarUserMediaStreamError', event, error);
   });
 
-  //PulsarVideoCall.connect(); // testing
+  PulsarVideoCall.connect(); // testing
 
   $scope.conversations = [
     {

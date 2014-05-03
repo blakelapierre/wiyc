@@ -73,18 +73,6 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'PUT',     'uri': '/settings', 'controllerMethod': settings.update.bind(settings) });
 
   //
-  // PULSE CATEGORIES
-  //
-  var pulseCategories = new (require('../app/controllers/pulse-categories'))(app, config);
-
-  routes.add({ 'method': 'POST',    'uri': '/pulse-categories', 'controllerMethod': pulseCategories.create.bind(pulseCategories) });
-  routes.add({ 'method': 'GET',     'uri': '/pulse-categories', 'controllerMethod': pulseCategories.list.bind(pulseCategories) });
-
-  routes.add({ 'method': 'GET',     'uri': '/pulse-categories/:categoryId', 'controllerMethod': pulseCategories.get.bind(pulseCategories) });
-  routes.add({ 'method': 'PUT',     'uri': '/pulse-categories/:categoryId', 'controllerMethod': pulseCategories.update.bind(pulseCategories) });
-  routes.add({ 'method': 'DELETE',  'uri': '/pulse-categories/:categoryId', 'controllerMethod': pulseCategories.delete.bind(pulseCategories) });
-
-  //
   // PULSES
   //
   var pulses = new (require('../app/controllers/pulses'))(app, config);

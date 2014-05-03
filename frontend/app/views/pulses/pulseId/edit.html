@@ -3,7 +3,6 @@
 
     <div class="heading">
       <div class="heading-wrap">
-
         <input class="title" type="text"
                contenteditable
                ng-model="pulse.title"
@@ -11,31 +10,6 @@
                placeholder="Enter pulse title"
                data-editor-mode="html5"
                ></input>
-
-        <form class="form form-inline" role="form" name="publishingControls">
-          <div class="form-group">
-            <select class="form-control input-sm" name="status" ng-change="isDirty = true" ng-model="pulse.status" ng-options="status.value as status.label for status in pulseStatuses"></select>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-sm btn-primary"
-                    title="Save changes"
-                    ng-disabled="!isDirty"
-                    ng-click="updatePulse(); $event.preventDefault();"
-                    >
-              <span class="glyphicon glyphicon-floppy-save"></span> Update
-            </button>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-sm btn-danger"
-                    title="Delete pulse..."
-                    data-toggle="modal"
-                    data-target="#pulseDeleteConfirmModal"
-                    >
-              <span class="glyphicon glyphicon-trash"></span> Delete
-            </button>
-          </div>
-        </form>
-
       </div>
     </div>
 
@@ -59,6 +33,31 @@
            ></div>
       <div class="clearfix"></div>
     </div>
+
+    <section style="margin-bottom:16px;">
+      <form class="form form-inline" role="form" name="publishingControls" style="font-size: 18px;">
+        <fieldset>
+          <legend>Publishing Controls</legend>
+          <div class="form-group">
+            <label for="visibility">visibility</label>
+            <select class="form-control input-sm" name="visibility" ng-change="isDirty = true" ng-model="pulse.visibility" ng-options="value.value as value.label for value in pulseVisibilityValues"></select>
+          </div>
+          <div class="form-group">
+            <label for="status">status</label>
+            <select class="form-control input-sm" name="status" ng-change="isDirty = true" ng-model="pulse.status" ng-options="status.value as status.label for status in pulseStatuses"></select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-sm btn-primary"
+                    title="Save changes"
+                    ng-disabled="!isDirty"
+                    ng-click="updatePulse(); $event.preventDefault();"
+                    >
+              <span class="glyphicon glyphicon-floppy-save"></span> Save
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
 
     <div class="heading">
       <div class="heading-wrap">
