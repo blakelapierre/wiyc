@@ -6,25 +6,36 @@
 // https://github.com/robcolbert/pulsarcms/wiki/Theme-Developers
 
 .message-center {
-  .conversations, .messages {
-    background-color : @pulsarWidgetBgColor;
-    color : @pulsarWidgetTextColor;
-    height : 240px;
+
+  .conversations {
+    max-height : 240px;
+
     .conversation {
+      margin-bottom: 16px;
+
       .topic {
         font-family : @pulsarWidgetHeadingFontFamily;
-        font-size : @pulsarWidgetHeadingFontSize;
+        font-size : 18px;
         background-color : @pulsarWidgetHeadingBgColor;
         color : @pulsarWidgetHeadingTextColor;
       }
+
       .participants {
+
         .participant {
-          .profile-photo {
-            width : 32px;
-            height : 32px;
-          }
+
         }
       }
     }
   }
+
+  .messages {
+
+  }
+
+  .profile-photo {
+    width : 32px;
+    height : 32px;
+  }
+
 }

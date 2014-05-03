@@ -12,6 +12,7 @@ function UserMediaService ($rootScope) {
 }
 
 UserMediaService.prototype.getUserMedia = function (options) {
+  var self = this;
 
   var successDelegate = function ( ) { };
   var onGetUserMediaSuccess = function (mediaStream) {
@@ -39,8 +40,8 @@ UserMediaService.prototype.getUserMedia = function (options) {
   }
 
   return {
-    'success': function (handler) { successHandler = handler; },
-    'error': function (handler) { errorHandler = handler; }
+    'success': function (handler) { successDelegate = handler; return this; },
+    'error': function (handler) { errorDelegate = handler; return this; }
   };
 };
 

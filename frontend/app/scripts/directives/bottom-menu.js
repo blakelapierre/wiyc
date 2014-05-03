@@ -6,9 +6,9 @@
 
 function PulsarBottomMenuCtrl (UserSession) {
   return {
-    templateUrl: 'views/directives/bottom-menu.html',
-    restrict: 'E',
-    link: function postLink(scope, element, attrs) {
+    'templateUrl': 'views/directives/bottom-menu.html',
+    'restrict': 'E',
+    'link': function postLink(scope/*, element, attrs*/) {
 
       scope.session = UserSession.session;
       console.log('UserSession in bottom-menu', UserSession.session);
@@ -23,7 +23,7 @@ function PulsarBottomMenuCtrl (UserSession) {
 
       scope.$on('clearUserSession', function (/* event */) {
         console.log('UserSession cleared in bottom-menu');
-        self.session = UserSession.defaultSession;
+        scope.session = UserSession.defaultSession;
       });
 
     }

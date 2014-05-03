@@ -4,7 +4,7 @@
 
 'use strict';
 
-function ConversationsCtrl ($scope, $window, UserMedia) {
+function ConversationsCtrl ($scope, $window, PulsarVideoCall) {
 
   var self = this;
 
@@ -20,6 +20,7 @@ function ConversationsCtrl ($scope, $window, UserMedia) {
     video.onloadedmetadata = function (metadata) {
       console.log('userStreamMetadata', metadata);
       $scope.$apply(function ( ) {
+        $scope.inVideoCall = true;
         $scope.userMediaStream = userMediaStream;
         $scope.userMediaStreamMetadata = metadata;
       });
@@ -30,11 +31,55 @@ function ConversationsCtrl ($scope, $window, UserMedia) {
     console.error('pulsarUserMediaStreamError', event, error);
   });
 
+  //PulsarVideoCall.connect(); // testing
+
   $scope.conversations = [
     {
       'topic': 'Test conversation',
       'participants': [
         {
+          '_id': 'INVALID_HARD_CODED',
+          'displayName': 'Rob Colbert',
+          'profileImageUrl':'http://127.0.0.1:9000/images/rob-profile-dark.jpg'
+        }
+      ],
+      'messages': [
+        {
+          'created':'PLACEHOLDER TS',
+          'sender': {
+            '_id':'UserIdValue',
+            'displayName':'Rob Colbert'
+          },
+          'content': 'This is a hard-coded placeholder message defined in JSON to build this whole UX against. Will tweak later.'
+        }
+      ]
+    },
+    {
+      'topic': 'Test conversation',
+      'participants': [
+        {
+          '_id': 'INVALID_HARD_CODED',
+          'displayName': 'Rob Colbert',
+          'profileImageUrl':'http://127.0.0.1:9000/images/rob-profile-dark.jpg'
+        }
+      ],
+      'messages': [
+        {
+          'created':'PLACEHOLDER TS',
+          'sender': {
+            '_id':'UserIdValue',
+            'displayName':'Rob Colbert'
+          },
+          'content': 'This is a hard-coded placeholder message defined in JSON to build this whole UX against. Will tweak later.'
+        }
+      ]
+    },
+    {
+      'topic': 'Test conversation',
+      'participants': [
+        {
+          '_id': 'INVALID_HARD_CODED',
+          'displayName': 'Rob Colbert',
           'profileImageUrl':'http://127.0.0.1:9000/images/rob-profile-dark.jpg'
         }
       ],
@@ -57,7 +102,7 @@ function ConversationsCtrl ($scope, $window, UserMedia) {
 ConversationsCtrl.$inject = [
   '$scope',
   '$window',
-  'UserMedia'
+  'PulsarVideoCall'
 ];
 
 angular.module('pulsarClientApp')

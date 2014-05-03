@@ -4,7 +4,7 @@
 
 'use strict';
 
-function PulsarServiceErrorDirective ($rootScope) {
+function PulsarServiceErrorDirective ($rootScope, $timeout) {
   return {
     'templateUrl': 'views/directives/service-error.html', //<< It's themeable
     'restrict': 'E', //<< Allow use only as element
@@ -58,7 +58,8 @@ function PulsarServiceErrorDirective ($rootScope) {
 }
 
 PulsarServiceErrorDirective.$inject = [
-  '$rootScope'
+  '$rootScope',
+  '$timeout'
 ];
 
 angular.module('pulsarClientApp')

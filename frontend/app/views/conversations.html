@@ -1,27 +1,52 @@
-<!-- div>
-  <video id="videoRemote" autoplay src="videos/asort-mean.001.ogv"
-         style="position:relative; float:left; width:75%;"></video>
-  <video id="videoLocal" autoplay style="position:relative; float:right; width:25%;"></video>
-</div -->
+<div ng-show="inVideoCall">
+  <video id="videoRemote"
+         autoplay
+         style="position:relative; float:left; width:75%;"
+         ></video>
+  <video id="videoLocal"
+         autoplay
+         style="position:relative; float:right; width:25%;"
+         ></video>
+</div>
 
 <div class="row message-center">
 
   <div class="col-sm-6 col-lg-4">
-    <div class="pulsar-widget conversations">
 
+    <div class="pulsar-widget">
       <div class="heading">
         <div class="heading-wrap">
-          Conversations
+          <div class="title">Conversations</div>
         </div>
       </div>
-
-      <div class="conversation" ng-repeat="conversation in conversations">
-        <div class="topic">{{conversation.topic}}</div>
-        <div class="participants">
-          <div class="participant" ng-repeat="participant in conversation.participants">
-            <img class="profile-photo" ng-src="{{participant.profileImageUrl}}" />
-            <div class="display-name">{{participant.name}}</div>
+      <div class="body">
+        <div class="content conversations">
+          <div class="conversation" ng-repeat="conversation in conversations">
+            <div class="topic">{{conversation.topic}}</div>
+            <div class="participants">
+              <div class="participant" ng-repeat="participant in conversation.participants">
+                <img class="profile-photo" ng-src="{{participant.profileImageUrl}}" title="{{participant.displayName}}" />
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pulsar-widget">
+      <div class="heading">
+        <div class="heading-wrap">
+          <div class="title">Contacts</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="content">
+          <p>
+            This is where the contacts list is going to be. You'll select a
+            contact, then create a message (same editor as Composer; can embed
+            media, etc.). You'll also be able to start voice and video calls if
+            if you have the required hardware and a supported browser.
+          </p>
         </div>
       </div>
     </div>

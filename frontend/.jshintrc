@@ -25,6 +25,7 @@
     "SC": false,
     "CKEDITOR": false,
     "THREE": false,
-    "Notification": false
+    "Notification": false,
+    "moment": false
   }
 }
