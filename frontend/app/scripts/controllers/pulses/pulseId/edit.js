@@ -24,7 +24,6 @@ function PulseEditCtrl (
   ga('send','pageview');
   $scope.$emit('setPageGroup', 'blog');
 
-  var element;
   var excerptEditor = null;
   var contentEditor = null;
 
@@ -61,8 +60,6 @@ function PulseEditCtrl (
         //setTimeout(window.twttr.widgets.load, 0);
         window.twttr.widgets.load();
       }
-      element = angular.element('#titleEditor');
-      element.attr('contenteditable', true);
     }
   );
 

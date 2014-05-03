@@ -5,10 +5,11 @@
       <div class="heading-wrap">
 
         <input class="title" type="text"
-               id="titleEditor"
+               contenteditable
                ng-model="pulse.title"
                ng-change="isDirty = true"
                placeholder="Enter pulse title"
+               data-editor-mode="html5"
                ></input>
 
         <form class="form form-inline" role="form" name="publishingControls">
@@ -45,16 +46,16 @@
 
     <div class="body">
       <div class="excerpt" id="excerptEditor"
+           contenteditable
            ng-model="pulse.excerpt"
            ng-change="isDirty = true"
            data-editor-toolbar="basic"
-           contenteditable
            ></div>
       <div class="content" id="contentEditor"
+           contenteditable
            ng-model="pulse.content"
            ng-change="isDirty = true"
            data-editor-toolbar="full"
-           contenteditable
            ></div>
       <div class="clearfix"></div>
     </div>

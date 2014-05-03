@@ -94,15 +94,9 @@ function PulsarSoundCloudPlayerCtrl ($scope, $interval, WebAudio, SoundCloud, Pr
   }
 
   $scope.keepUpdating = false;
-  $scope.skipUpdate = false;
   function update ( ) {
     if ($scope.keepUpdating) {
       requestAnimationFrame(update);
-    }
-
-    $scope.skipUpdate = !($scope.skipUpdate);
-    if ($scope.skipUpdate) {
-      return;
     }
 
     updateAudioEngine();

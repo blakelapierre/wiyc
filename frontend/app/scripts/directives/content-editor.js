@@ -12,31 +12,13 @@ function PulsarContenteditableDirective ( ) {
       var contentEditorOptions = null;
       var unbindModelWatch = null;
 
-      function onContentEditorChange (event) {
-        if (!event) {
-          return; // can't help you
-        }
-
-        var viewValue = contentEditor.getData();
-        if (viewValue === '<p></p>') {
-          viewValue = null;
-        }
-        scope.$apply(function ( ) {
-          ngModel.$setViewValue(viewValue, event.name);
-        });
-      }
-
       if (!ngModel) {
         console.error('The Pulsar contenteditable directive requires ng-model');
         return;
       }
 
-      if (attrs.editorMode && (attrs.editorMode === 'raw')) {
+      if (attrs.editorMode && (attrs.editorMode === 'html5')) {
         console.log('disabling CKEditor for element', attrs.ngModel);
-
-        ngModel.$render = function ( ) {
-          element.text(ngModel.$viewValue);
-        };
 
         unbindModelWatch = scope.$watch(attrs.ngModel, function ( ) {
           if (ngModel.$modelValue === element.text()) {
@@ -125,6 +107,19 @@ function PulsarContenteditableDirective ( ) {
         'uiColor': '#FAFAFA'
       };
 
+      function onContentEditorChange (event) {
+        if (!event) {
+          return; // can't help you
+        }
+
+        var viewValue = contentEditor.getData();
+        if (viewValue === '<p></p>') {
+          viewValue = null;
+        }
+        scope.$apply(function ( ) {
+          ngModel.$setViewValue(viewValue, event.name);
+        });
+      }
       ngModel.$render = function ( ) {
         // element.html(ngModel.$viewValue);
       };
@@ -154,6 +149,7 @@ function PulsarContenteditableDirective ( ) {
 }
 
 PulsarContenteditableDirective.$inject = [
+
 ];
 
 angular.module('pulsarClientApp')
