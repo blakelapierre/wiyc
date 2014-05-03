@@ -1,8 +1,12 @@
 #!/bin/bash
 
 echo "Building Pulsar AngularJS Front End"
-# grunt build
+grunt build
 
 # Patch in prototype stuff
 cp -R app/source dist
 cp -R app/assets dist
+
+# Create an un-cache-busted version of profile-default.png for use in some
+# hard-coded JavaScript (for now) until I get image uploads in.
+cp    dist/images/*profile-default.png dist/images/profile-default.png
