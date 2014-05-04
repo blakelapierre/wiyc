@@ -2,19 +2,22 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 // Licence: MIT
 
-// Zack's cell's unlock code: 4879
-
 'use strict';
 
+var log = require('winston');
+log.info('++ controller: Users');
+
+var fs = require('fs');
 var crypto = require('crypto');
-var mongoose = require('mongoose');
 var mailer = require('nodemailer');
+
+var mongoose = require('mongoose');
+
 var Users = mongoose.model('Users');
 var Paginator = require('pulsar-api-framework').expressjs.Paginator;
 
 function UsersController (app, config) {
   this.app = app;
-  this.log = app.log;
   this.config = config;
 }
 
@@ -22,7 +25,7 @@ UsersController.prototype.create = function (req, res) {
   var self = this;
   var verificationKey = this.config.app.generateRandomKey();
 
-  self.log.debug('users.create', req.route, req.query, req.body);
+  log.debug('users.create', req.route, req.query, req.body);
 
   req.body.emailVerified = false; // nah - no shortcut on that.
   req.body.emailVerifyKey = verificationKey;
@@ -30,7 +33,7 @@ UsersController.prototype.create = function (req, res) {
 
   Users.create(req.body, function (err, user) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -43,53 +46,46 @@ UsersController.prototype.create = function (req, res) {
       'slug': user.slug
     };
     res.json(200, req.session); // dismiss the client.
+    self.sendVerificationEmail({
+      'user': user,
+      'verificationKey': verificationKey,
+      'subject': 'Welcome to Pulsar, please verify your email address.',
+      'messageTemplate': '../templates/welcome-email.template'
+    });
+  });
+};
 
-    if (user.email === 'testuser@robcolbert.com') {
-      self.log.info('skipping new user email for testuser@robcolbert.com');
+UsersController.prototype.sendVerificationEmail = function (options) {
+  var self = this;
+
+  var profileLink =
+  this.config.app.frontendUrl + '/#/user/' + options.user._id;
+
+  var emailVerifyLink =
+  this.config.app.frontendUrl + '/#/verify' +
+  '?u=' + options.user._id + '&k=' + options.verificationKey;
+
+  fs.readFile(options.messageTemplate, function (err, messageTemplate) {
+    if (err) {
+      log.error(err);
       return;
     }
+    var messageBody = messageTemplate
+    .replace('{{emailAddress}}', options.user.email)
+    .replace('{{emailVerifyLink}}', emailVerifyLink)
+    .replace('{{profileLink}}', profileLink);
 
-    //
-    // send an email address verification email
-    //
-
-    var messageBody =
-    'A user account was created on Pulsar using email address ' +
-    req.session.user.email +
-    '. To confirm, please visit this link:' +
-    '\n\n' +
-    'http://robcolbert.com/#/verify?u='+user._id+'&k=' + verificationKey +
-    '\n\n' +
-    'If you did not create a user account on Pulsar, no further action is ' +
-    'required. Please ignore this message, and accept this apology for the ' +
-    'inconvenience. We do what we can, but people do make mistakes/typos.' +
-    '\n\n' +
-    'If you verify your email address and continue to use Pulsar, your ' +
-    'profile page will be located at the following URL:' +
-    '\n\n' +
-    'http://robcolbert.com/#/user/' + user._id +
-    '\n\n' +
-    'Enjoy using Pulsar. It should be fine. Sure, there are going to be some ' +
-    'growing pains here and there as with any other online service. But, ' +
-    'overall, I think it\'ll be fine. If not, guess what we\'ll learn ' +
-    'together? Let the fun begin...' +
-    '\n\n' +
-    'Best regards,\n' +
-    '-Rob <rob.isConnected@gmail.com>';
-
-    self.sendEmail(
-      req.body.email,
-      'Welcome to Pulsar, please verify your email address.',
-      messageBody
-    );
-
+    if (options.user.email === 'testuser@robcolbert.com') {
+      log.info('skipping new user email for testuser@robcolbert.com');
+      fs.writeFile('email-message.pulsar', messageBody);
+      return;
+    }
+    self.sendEmail(options.user.email, options.subject, messageBody);
   });
 };
 
 UsersController.prototype.sendEmail = function (addressTo, subject, messageBody, callback) {
-  var self = this;
-  self.log.info('EMAIL CONFIG SHIT', this.config);
-
+  log.info('EMAIL CONFIG SHIT', this.config);
   var transport = mailer.createTransport('SMTP', {
     'service':'Gmail',
     'auth': {
@@ -104,7 +100,7 @@ UsersController.prototype.sendEmail = function (addressTo, subject, messageBody,
     'body': messageBody
   };
   transport.sendMail(email, function (err, responseStatus) {
-    self.log.info('sendmail', err, responseStatus);
+    log.info('sendmail', err, responseStatus);
     if (callback && (typeof callback === 'function')) {
       callback(err, responseStatus);
     }
@@ -112,13 +108,11 @@ UsersController.prototype.sendEmail = function (addressTo, subject, messageBody,
 };
 
 UsersController.prototype.get = function (req, res) {
-  var self = this;
-  self.log.debug('users.get', req.route, req.query);
-
+  log.debug('users.get', req.route, req.query);
   var projection = { 'password':0, 'emailVerifyKey':0 };
   Users.findById(req.route.params.userId, projection, function (err, user) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -149,8 +143,7 @@ UsersController.prototype.get = function (req, res) {
 };
 
 UsersController.prototype.getMyProfile = function (req, res) {
-  var self = this;
-  self.log.debug('users.getMyProfile');
+  log.debug('users.getMyProfile');
   if (!req.session || !req.session.user) {
     res.json(500, {'msg':'user session required'});
     return; // so get the fuck out
@@ -159,7 +152,7 @@ UsersController.prototype.getMyProfile = function (req, res) {
   var projection = { 'password':0, 'emailVerifyKey':0 };
   Users.findById(req.session.user._id, projection, function (err, user) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -173,7 +166,7 @@ UsersController.prototype.getMyProfile = function (req, res) {
 
 UsersController.prototype.update = function (req, res) {
   var self = this;
-  self.log.debug('users.update', req.route, req.query, req.body);
+  log.debug('users.update', req.route, req.query, req.body);
 
   var authMessage = 'Only authenticated users can update user profiles.';
   if (!self.app.checkAuthentication(req,res,authMessage)) {
@@ -184,27 +177,27 @@ UsersController.prototype.update = function (req, res) {
     return;
   }
 
-  delete req.body._id;
-  if (req.body.password) {
-    req.body.password = self.config.app.hashPassword(req.body.password);
-  }
-
-  Users.findOneAndUpdate(
-    {'_id': req.route.params.userId},
-    req.body,
-    function (err, user) {
-      if (err) {
-        self.log.error('users.update', err);
-        res.json(500, err);
-        return;
-      }
-      if (!user) {
-        res.json(404, {'msg':'user not found'});
-        return;
-      }
-      res.json(200, user);
+  Users.findById(req.session.user._id, function (err, user) {
+    if (err) {
+      log.error('users.update', err);
+      res.json(500, err);
+      return;
     }
-  );
+    if (!user) {
+      res.json(404, {'msg':'user not found'});
+      return;
+    }
+
+    if (req.body.password) {
+      req.body.password = self.config.app.hashPassword(req.body.password);
+    }
+    if (req.body.email !== user.email) {
+      user.emailVerified = false;
+      user.email = req.body.email;
+    }
+
+    res.json(200, user);
+  });
 };
 
 /*
@@ -225,7 +218,7 @@ UsersController.prototype.update = function (req, res) {
  */
 UsersController.prototype.requestPasswordReset = function (req, res) {
   var self = this;
-  self.log.debug('users.requestPasswordReset', req.route, req.query, req.body);
+  log.debug('users.requestPasswordReset', req.route, req.query, req.body);
 
   if (!req.body.email) {
     res.json(
@@ -284,11 +277,8 @@ UsersController.prototype.requestPasswordReset = function (req, res) {
 };
 
 UsersController.prototype.executePasswordReset = function (req, res) {
-  var self = this;
+  log.info('users.executePasswordReset', req.route, req.query, req.body);
 
-  self.log.info('users.executePasswordReset', req.route, req.query, req.body);
-
-  //
   /* (Rjc) - 2014-04-24
    * The auth token, email address and desired password are only accepted from
    * the HTTP content body by design. This helps to prevent people from building
@@ -337,7 +327,7 @@ UsersController.prototype.executePasswordReset = function (req, res) {
     { 'password': encodedPassword, 'passwordResetKey': null },
     function (err, user) {
       if (err) {
-        self.log.error('users.executePasswordReset', err);
+        log.error('users.executePasswordReset', err);
         res.json(500, err);
         return;
       }
@@ -354,14 +344,12 @@ UsersController.prototype.executePasswordReset = function (req, res) {
 };
 
 UsersController.prototype.delete = function (req, res) {
-  var self = this;
-  self.log.debug('users.delete', req.route, req.query);
-
+  log.debug('users.delete', req.route, req.query);
   Users.findOneAndRemove(
     {'_id': req.route.params.userId },
     function (err) {
       if (err) {
-        self.log.error(err);
+        log.error(err);
         res.json(500, err);
         return;
       }
@@ -371,11 +359,10 @@ UsersController.prototype.delete = function (req, res) {
 };
 
 UsersController.prototype.verifyEmailKey = function (req, res) {
-  var self = this;
-
+  log.debug('users.verifyEmailKey', req.route, req.query);
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -386,7 +373,7 @@ UsersController.prototype.verifyEmailKey = function (req, res) {
     }
 
     if (!req.query.k || (req.query.k !== user.emailVerifyKey)) {
-      self.log.error('email address verification failed', req.query.k, user.emailVerifyKey);
+      log.error('email address verification failed', req.query.k, user.emailVerifyKey);
       res.json(500, {'msg':'email address verification has failed'});
       return;
     }
@@ -401,15 +388,18 @@ UsersController.prototype.verifyEmailKey = function (req, res) {
 };
 
 UsersController.prototype.list = function(req, res){
-  var self = this;
-  self.log.debug('users.list', req.route, req.query);
-
   var paginator = new Paginator(req);
-  var projection = { 'password':0, 'emailVerifyKey':0 };
+  var projection = {
+    'password':  0,        // security
+    'email': 0,           // security
+    'emailVerifyKey': 0,  // security
+    'about': 0            // efficiency
+  };
   var query = Users.find({ }, projection, { 'sort': { 'displayName': 1 }});
+  log.debug('users.list', req.route, req.query);
   paginator.paginateQuery(query).exec(function (err, users) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -422,12 +412,11 @@ UsersController.prototype.list = function(req, res){
 //
 
 UsersController.prototype.addFriend = function (req, res) {
-  var self = this;
-  self.log.debug('users.addFriend', req.route, req.query);
+  log.debug('users.addFriend', req.route, req.query);
 
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -438,7 +427,7 @@ UsersController.prototype.addFriend = function (req, res) {
     user.friends.push(req.body);
     user.save(function (err, newUser) {
       if (err) {
-        self.log.error(err);
+        log.error(err);
         res.json(500, err);
         return;
       }
@@ -448,12 +437,10 @@ UsersController.prototype.addFriend = function (req, res) {
 };
 
 UsersController.prototype.removeFriend = function (req, res) {
-  var self = this;
-  self.log.debug('users.addFriend', req.route, req.query);
-
+  log.debug('users.addFriend', req.route, req.query);
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }
@@ -464,7 +451,7 @@ UsersController.prototype.removeFriend = function (req, res) {
     user.friends.pull({'_id': req.route.params.friendId});
     user.save(function (err, newUser) {
       if (err) {
-        self.log.error(err);
+        log.error(err);
         res.json(500, err);
         return;
       }
@@ -474,11 +461,10 @@ UsersController.prototype.removeFriend = function (req, res) {
 };
 
 UsersController.prototype.listFriends = function (req, res) {
-  var self = this;
-  self.log.debug('users.listFriends', req.route, req.query);
+  log.debug('users.listFriends', req.route, req.query);
   Users.findById(req.route.params.userId, function (err, user) {
     if (err) {
-      self.log.error(err);
+      log.error(err);
       res.json(500, err);
       return;
     }

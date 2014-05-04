@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <title>api.robcolbert.com | Rob Colbert's personal API server</title>
+  <title>Pulsar API | A CMS Powered by the MEAN Stack</title>
   <link href='http://fonts.googleapis.com/css?family=Exo+2:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
   <style type="text/css">
-    html, body { margin:0; padding:0; }
-    body { font-family:"Exo 2"; font-size:16px; }
-    .container { margin:100px; }
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Exo 2";
+      font-size: 18px;
+      height: 100%;
+      background-color: #f0f0f0;
+    }
+    .container {
+      padding: 40px;
+      margin: 20px;
+      position:absolute;
+      top:0; right:0; bottom:0; left:0;
+      background-color: #e8e8e8;
+      color: #4a4a4a;
+      box-shadow: 0 0 16px #4a4a4a inset;
+      border: solid 1px #808080;
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h3>api.robcolbert.com</h3>
+  <h1>PULSAR API <img src="favicon.ico" style="position:relative; top: -16px;" /></h1>
   <p>
-    Welcome to my personal API server. This is its only publicly browseable HTML
-    page. Snazzy, ain't it? Everything here <em>except</em> for this page is
-    served via Rob's HTTP JSON API running on Node.js.
+    The Pulsar API is powered by:
+    <a href="http://www.mongodb.org/">MongoDB</a>,
+    <a href="http://nodejs.org/">Node.js</a>,
+    <a href="http://mongoosejs.com/">MongooseJS</a>,
+    <a href="http://expressjs.com/">ExpressJS</a> and
+    <a href="https://angularjs.org/">AngularJS</a>. It is a standalone system written in JavaScript on Node.js that does not require a client to do work. Pulsar clients require this API in order to do any work and will not operate without access to at least one Pulsar API instance.
   </p>
   <p>
-    Thanks for stopping by.
+    The Pulsar API provides a range of services to a variety of clients. These can be browser clients (desktop and/or mobile), mobile clients running a web frame in an app, a native SDK mobile client accessing the service through custom software or anything else, really. Before long, I hope some sort of Raspberry Pi or Cubieboard will be controlling the lights on the side of a building to spell out micropulses.
   </p>
   <p>
-    -Rob
+    The Pulsar API is able to be used by anyone anywhere. You just have to be able to authenticate to Pulsar (log in). Once you have an HTTP session, you can create, retrieve, update and delete pulses, micropulses, comments and more. Want to integrate your pulses directly into your existing blog? No problem. That is specifically what the Pulsar API is for, and it's how the current Pulsar client does literally everything.
+  </p>
+  <p>
+    This will eventually the Pulsar API documentation being served directly from the Pulsar API server itself.
   </p>
 </div>
 
+<a href="https://github.com/robcolbert/pulsarcms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork Pulsar on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 </body>
 </html>

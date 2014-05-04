@@ -42,12 +42,18 @@ function ConfigurationService ( ) {
     }
   };
 
-  //TODO move this to a service call so I can data-drive the available choices.
+  //TODO move these to a service call so I can data-drive the available choices.
   this.pulseStatuses = [
     { 'value': 'draft',     'label': 'Working Draft' },
     { 'value': 'published', 'label': 'Published' },
     { 'value': 'trash',     'label': 'Trash' }
   ];
+  this.pulseVisibilityValues = [
+    { 'value': 'public', 'label': 'Public' },
+    { 'value': 'contacts', 'label': 'Contacts Only' },
+    { 'value': 'private', 'label': 'Private' }
+  ];
+  //TODO end
 
 }
 

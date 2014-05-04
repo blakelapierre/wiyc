@@ -30,7 +30,7 @@
 'use strict';
 
 var log = require('winston');
-log.info('model: SettingsController');
+log.info('model: Settings');
 
 var mongoose = require('mongoose');
 

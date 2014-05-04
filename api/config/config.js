@@ -56,6 +56,7 @@ var config = {
     'root': rootPath,
     'app': {
       'name': 'pulsar-api-dev',
+      'frontendUrl': localConfig.frontendUrl,
       'cookieSecret': localConfig.cookieSecret,
       'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
@@ -75,6 +76,7 @@ var config = {
     'root': rootPath,
     'app': {
       'name': 'pulsar-api-test',
+      'frontendUrl': localConfig.frontendUrl,
       'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,
@@ -96,6 +98,7 @@ var config = {
     'root': rootPath,
     'app': {
       'name': 'pulsar-api-prod',
+      'frontendUrl': localConfig.frontendUrl,
       'passwordSalt': localConfig.userPasswordSalt,
       'hashPassword': hashPassword,
       'generateRandomKey': generateRandomKey,

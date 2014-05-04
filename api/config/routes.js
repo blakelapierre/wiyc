@@ -29,6 +29,7 @@
 
 'use strict';
 
+var mongoose = require('mongoose');
 var RouteAssembler = require('pulsar-api-framework').expressjs.RouteAssembler;
 
 function configureRoutes (app, config) {
@@ -76,6 +77,7 @@ function configureRoutes (app, config) {
   // PULSES
   //
   var pulses = new (require('../app/controllers/pulses'))(app, config);
+  var pulseInteractions = new (require('../app/controllers/interactions'))(mongoose.model('Pulses'), app, config);
 
   routes.add({ 'method': 'GET',     'uri': '/pulses', 'controllerMethod': pulses.list.bind(pulses) });
   routes.add({ 'method': 'POST',    'uri': '/pulses', 'controllerMethod': pulses.create.bind(pulses) });
@@ -84,13 +86,15 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'PUT',     'uri': '/pulses/:pulseId', 'controllerMethod': pulses.update.bind(pulses) });
   routes.add({ 'method': 'DELETE',  'uri': '/pulses/:pulseId', 'controllerMethod': pulses.delete.bind(pulses) });
 
-  routes.add({ 'method': 'POST',    'uri': '/pulses/:pulseId/comments', 'controllerMethod': pulses.createComment.bind(pulses) });
-  routes.add({ 'method': 'GET',     'uri': '/pulses/:pulseId/comments', 'controllerMethod': pulses.getComments.bind(pulses) });
+  // Simply tell interactions where to find a /pulses/:objectId, and it adds the
+  // interaction service endpoints and handler methods to it:
+  pulseInteractions.mount(routes, '/pulses/:objectId');
 
   //
   // SIDEBAR PULSES
   //
   var sidebarPulses = new (require('../app/controllers/sidebar-pulses'))(app, config);
+  var sidebarPulseInteractions = new (require('../app/controllers/interactions'))(mongoose.model('SidebarPulses'), app, config);
 
   routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses', 'controllerMethod': sidebarPulses.list.bind(sidebarPulses) });
   routes.add({ 'method': 'POST',    'uri': '/sidebar-pulses', 'controllerMethod': sidebarPulses.create.bind(sidebarPulses) });
@@ -99,20 +103,20 @@ function configureRoutes (app, config) {
   routes.add({ 'method': 'PUT',     'uri': '/sidebar-pulses/:pulseId', 'controllerMethod': sidebarPulses.update.bind(sidebarPulses) });
   routes.add({ 'method': 'DELETE',  'uri': '/sidebar-pulses/:pulseId', 'controllerMethod': sidebarPulses.delete.bind(sidebarPulses) });
 
-  routes.add({ 'method': 'POST',    'uri': '/sidebar-pulses/:pulseId/comments', 'controllerMethod': sidebarPulses.createComment.bind(sidebarPulses) });
-  routes.add({ 'method': 'GET',     'uri': '/sidebar-pulses/:pulseId/comments', 'controllerMethod': sidebarPulses.getComments.bind(sidebarPulses) });
+  // Simply tell interactions where to find a sidebar-pulse/:objectId, and it
+  // adds the interaction service endpoints and handler methods to it:
+  sidebarPulseInteractions.mount(routes, '/sidebar-pulses/:objectId');
 
   //
   // VIDEOS
   //
-  var videos = new (require('../app/controllers/videos'))(app, config);
 
-  routes.add({ 'method': 'POST',    'uri': '/videos', 'controllerMethod': videos.create.bind(videos) });
-  routes.add({ 'method': 'GET',     'uri': '/videos', 'controllerMethod': videos.list.bind(videos) });
-
-  routes.add({ 'method': 'GET',     'uri': '/videos/:videoId', 'controllerMethod': videos.get.bind(videos) });
-  routes.add({ 'method': 'PUT',     'uri': '/videos/:videoId', 'controllerMethod': videos.update.bind(videos) });
-  routes.add({ 'method': 'DELETE',  'uri': '/videos/:videoId', 'controllerMethod': videos.delete.bind(videos) });
+  // var videos = new (require('../app/controllers/videos'))(app, config);
+  // routes.add({ 'method': 'POST',    'uri': '/videos', 'controllerMethod': videos.create.bind(videos) });
+  // routes.add({ 'method': 'GET',     'uri': '/videos', 'controllerMethod': videos.list.bind(videos) });
+  // routes.add({ 'method': 'GET',     'uri': '/videos/:videoId', 'controllerMethod': videos.get.bind(videos) });
+  // routes.add({ 'method': 'PUT',     'uri': '/videos/:videoId', 'controllerMethod': videos.update.bind(videos) });
+  // routes.add({ 'method': 'DELETE',  'uri': '/videos/:videoId', 'controllerMethod': videos.delete.bind(videos) });
 
 }
 

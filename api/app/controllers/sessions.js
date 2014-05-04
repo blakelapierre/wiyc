@@ -5,7 +5,7 @@
 'use strict';
 
 var log = require('winston');
-log.info('controller: SessionsController');
+log.info('++ controller: SessionsController');
 
 var mongoose = require('mongoose');
 var Users = mongoose.model('Users');

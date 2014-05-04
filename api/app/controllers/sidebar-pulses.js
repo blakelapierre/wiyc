@@ -1,31 +1,6 @@
-/*
- * FILE
- *  controllers/sidebar-pulses.js
- *
- * PURPOSE
- *
- *
- * LICENSE
- *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
+// controllers/sidebar-pulses.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
 
 'use strict';
 
@@ -177,57 +152,6 @@ SidebarPulsesController.prototype.delete = function (req, res) {
       }
       res.json(200, {'message':'Sidebar pulse successfully removed'});
     });
-  });
-};
-
-SidebarPulsesController.prototype.createComment = function (req, res) {
-  var self = this;
-
-  if (!self.app.checkAuthentication(req,res,'Only authenticated users can create comments')) {
-    return;
-  }
-  log.info('sidebar-pulses.createComment', req.session.user, req.route.params.pulseId);
-
-  SidebarPulses
-  .findById(req.route.params.pulseId)
-  .populate('_creator', '_id displayName')
-  .exec(function (err, pulse) {
-    if (self.app.checkError(err, res, 'sidebar-pulses.createComment')) {
-      return;
-    }
-    pulse.interactions.comments.push(req.body);
-    pulse.save(function (err, commentedPulse) {
-      if (self.app.checkError(err, res, 'sidebar-pulses.createComment')) {
-        return;
-      }
-      commentedPulse.populate('_creator', function (err, populatedPulse) {
-        if (self.app.checkError(err, res, 'sidebar-pulses.createComment')) {
-          return;
-        }
-        res.json(200, populatedPulse);
-      });
-    });
-  });
-};
-
-SidebarPulsesController.prototype.getComments = function (req, res) {
-  var self = this;
-
-  log.info('sidebar-pulses.getComments', req.route.params.pulseId);
-
-  var query =
-  SidebarPulses
-  .findById(req.route.params.pulseId, 'comments')
-  .lean(true);
-
-  var paginator = new Paginator(req);
-  paginator.paginateQuery(query)
-  .populate('_creator', '_id displayName')
-  .exec(function (err, pulse) {
-    if (self.app.checkError(err, res, 'sidebar-pulses.getComments')) {
-      return;
-    }
-    res.json(200, pulse.comments);
   });
 };
 

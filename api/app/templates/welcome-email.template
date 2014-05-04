@@ -1,0 +1,15 @@
+A user account was created on Pulsar using email address {{emailAddress}}. To confirm, please visit this link:
+
+{{emailVerifyLink}}
+
+If you did not create a user account on Pulsar, no further action is required. Please ignore this message, and accept this apology for the inconvenience. If you verify your email address by following the link above, your profile page will be located at the following URL:
+
+{{profileLink}}
+
+I genuinely hope Pulsar helps you create something spectacular! If you need to get in touch, my email address is rob.isConnected@gmail.com, and I run a public instance of Pulsar at {{frontendUrl}}
+
+Stop by and say hello sometime :)
+
+-Rob Colbert <rob.isConnected@gmail.com>
+Creator of Pulsar
+http://robcolbert.com/

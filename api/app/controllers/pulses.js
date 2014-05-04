@@ -5,7 +5,7 @@
 'use strict';
 
 var log = require('winston');
-log.info('controller: PulsesController');
+log.info('++ controller: PulsesController');
 
 var mongoose = require('mongoose');
 var Pulses = mongoose.model('Pulses');
@@ -216,72 +216,6 @@ PulsesController.prototype.delete = function (req, res) {
       }
       res.json(200, {'message':'Pulse deleted successfully'});
     });
-  });
-};
-
-PulsesController.prototype.createComment = function (req, res) {
-  var self = this;
-
-  if (!self.app.checkAuthentication(req, res, 'Pulse comments can only be created by authenticated Pulsar users.')) {
-    return;
-  }
-  log.info('pulses.createComment', req.route.params.pulseId);
-
-  Pulses
-  .findById(req.route.params.pulseId)
-  .populate('_creator', '_id displayName')
-  .exec(function (err, pulse) {
-    if (self.app.checkError(err,res,'pulses.createComment')) {
-      return;
-    }
-    if (!pulse) {
-      res.json(404, {'msg':'pulse not found'});
-      return;
-    }
-
-    req.body._creator = req.session.user._id;
-    pulse.interactions.comments.push(req.body);
-    pulse.save(function (err, newPulse) {
-      if (self.app.checkError(err,res,'pulses.createComment')) {
-        return;
-      }
-      var commentIdx = newPulse.interactions.comments.length - 1;
-      newPulse.populate(
-        {
-          'path': 'interactions.comments._creator',
-          'select': '_id displayName'
-        },
-        function (err, populatedPulse) {
-          if (self.app.checkError(err,res,'pulses.createComment')) {
-            return;
-          }
-          var comment = populatedPulse.interactions.comments[commentIdx];
-          res.json(200, comment);
-        }
-      );
-    });
-  });
-};
-
-PulsesController.prototype.getComments = function (req, res) {
-  var self = this;
-
-  log.info('pulses.getComments', req.route, req.query);
-
-  var paginator = new Paginator(req);
-  var query =
-  Pulses
-  .findById(req.route.params.pulseId, 'comments')
-  .lean(true);
-
-  paginator.paginateQuery(query)
-  .sort({'created': 1})
-  .populate('_creator', '_id displayName')
-  .exec(function (err, pulse) {
-    if (self.app.checkError(err,res,'pulses.getComments')) {
-      return;
-    }
-    res.json(200, pulse.interactions.comments);
   });
 };
 

@@ -206,7 +206,7 @@ function PulsarContenteditableDirective ( ) {
         var idx, found = false;
         for (idx = scope.contentEditors.length - 1; !found && (idx >= 0); --idx) {
           if (scope.contentEditors[idx].id === contentEditor.id) {
-            console.log('deregistering scope editor instance', contentEditor.id);
+            console.log('deregistering scope-shared CKEDITOR instance', contentEditor.id);
             scope.contentEditors.splice(idx, 1);
             found = true;
           }
