@@ -5,7 +5,7 @@
   (as in drag-and-drop-your-native-icon/files-right-onto-the-physical-representation-of-this-DOM-element)
   for files.
 
-  When that happens (a drop), angular does it's magic and an HTML5 File object will be sitting on your
+  When that happens (a drop), angular does its magic and an HTML5 File object will be sitting on your
   $scope.
 
   Example:
