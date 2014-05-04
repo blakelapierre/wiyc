@@ -15,7 +15,7 @@
 */
 
 function PulsarFileDropAreaDirective ( ) {
-  function processDragOverEnter(e) {
+  function processDragOverEnter (e) {
     e.preventDefault();
     e.dataTransfer.effectAllowed = 'copy';
     return false;
