@@ -1,34 +1,29 @@
+// models/partials/interactions.js
+// Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
+// License: MIT
 /*
- * FILE
- *  models/partials/interactions.js
- *
- * PURPOSE
- *
- *
- * LICENSE
- *  Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
+PURPOSE:
+Defines a reusable MongooseJS model partial for (re)use around the entire Pulsar
+API. Pulsar also provides a controller for this partial that can simply be
+pathed and patched into your service's domain as desired. You don't even need to
+call them a thumbs-up in the URL.
+
+LEARN MORE:
+https://github.com/robcolbert/pulsarcms/wiki/Pulsar-API:-Interactions
+*/
 
 var mongoose = require('mongoose');
 
+/*
+ * Information about "who" liked "what" is stored on user profiles, not here.
+ * Thumbs-Up and Thumbs-Down are simple counts on objects. They do not account.
+ * Accountable actions are stored on a user's profile with a date and an Object
+ * reference. The fact that they are stored on the user's ACCOUNT (whoah) is by
+ * design and very on-purpose.
+ *
+ * The philosophy is to keep interactions mostly agnostic where appropriate and
+ * simple by design. Because simple is always appropriate.
+ */
 module.exports = {
   'likes': { 'type': Number, 'default': 0 },
   'dislikes': { 'type': Number, 'default': 0 },

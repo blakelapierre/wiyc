@@ -9,19 +9,36 @@ log.info('model: Users');
 
 var mongoose = require('mongoose');
 
-function validateNotEmpty (value) {
+function NotEmptyValue ( ) { }
+NotEmptyValue.validate = function (value) {
   return value && (value.length !== 0);
-}
+};
 
-var accountStandingStatuses = ['active', 'admin', 'banned', 'password-reset'];
-function validateAccountStandingStatus (value) {
-  return accountStandingStatuses.indexOf(value) !== -1;
-}
+function AccountStandingStatus ( ) { }
+AccountStandingStatus.validate = function (value) {
+  return ['active', 'admin', 'banned', 'password-reset']
+         .indexOf(value) !== -1;
+};
 
-var pulseVisibilityValues = ['public', 'contacts', 'banned', 'password-reset'];
-function validateAccountStandingStatus (value) {
-  return pulseVisibilityValues.indexOf(value) !== -1;
-}
+function PulseVisibility ( ) { }
+PulseVisibility.validate = function (value) {
+  return ['public', 'contacts', 'banned', 'password-reset']
+         .indexOf(value) !== -1;
+};
+
+function InteractionType ( ) { }
+InteractionType.validate = function (value) {
+  return [
+
+    'contact-add', 'contact-remove',
+    'ignore-add',  'ignore-remove',
+
+    'comment',
+    'thumb-up',
+    'thumb-down'
+
+  ].indexOf(value) !== -1;
+};
 
 var UsersSchema = new mongoose.Schema({
   'created': {
@@ -37,7 +54,7 @@ var UsersSchema = new mongoose.Schema({
     'index': {
       'unique': true
     },
-    'validate': [ validateNotEmpty, 'Email address must not be empty' ]
+    'validate': [ NotEmptyValue.validate, 'Email address must not be empty' ]
   },
   'emailVerified': { 'type': Boolean, 'default': false },
   'emailVerifyKey': { 'type': String, 'required': false },
@@ -46,7 +63,7 @@ var UsersSchema = new mongoose.Schema({
     'status': {
       'type': String,
       'default': 'active',
-      'validate': [ validateAccountStandingStatus, 'Account standing fails validation' ]
+      'validate': [ AccountStandingStatus.validate, 'Account standing fails validation' ]
     },
     'reason': { 'type': String },
     'expires': { 'type': Date }
@@ -73,6 +90,12 @@ var UsersSchema = new mongoose.Schema({
   }],
   'ignoredCount': { 'type': Number, 'default': 0 },
   'messageCount': { 'type': Number, 'default': 0 },
+  'interactions': [{
+    'type': { 'type': String, 'required': true, 'validate': InteractionType.validate },
+    'created': { 'type': Date, 'required': true, 'default': Date.now },
+    'objectId': { 'type': mongoose.Schema.Types.ObjectId, 'required': true },
+    'interactionId':  { 'type': mongoose.Schema.Types.ObjectId, 'required': true }
+  }],
   'settings': {
     'flags': {
       'desktopNotifications': {

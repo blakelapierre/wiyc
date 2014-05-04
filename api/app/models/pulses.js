@@ -34,15 +34,17 @@ log.info('model: Pulses');
 
 var mongoose = require('mongoose');
 
-var statusValues = ['draft', 'published', 'trash'];
-function validatePulseStatus (value) {
-  return statusValues.indexOf(value) !== -1;
-}
+function PulseStatusValues ( ) { }
+PulseStatusValues.validate = function (value) {
+  return ['draft', 'published', 'trash'] // <-- how to Pulsar :)
+         .indexOf(value) !== -1;
+};
 
-var visibilityValues = ['public', 'contacts', 'private'];
-function validateVisibilityValue (value) {
-  return visibilityValues.indexOf(value) !== -1;
-}
+function PulseVisibilityValues ( ) { }
+PulseVisibilityValues.validate = function (value) {
+  return ['public', 'contacts', 'private'] // <-- how to Pulsar :)
+         .indexOf(value) !== -1;
+};
 
 var PulsesSchema = new mongoose.Schema({
   '_creator': { 'type': mongoose.Schema.Types.ObjectId, 'required': true, 'ref': 'Users' },
@@ -50,13 +52,13 @@ var PulsesSchema = new mongoose.Schema({
   'visibility': {
     'type': String,
     'required': true,
-    'validate': [ validateVisibilityValue, 'Pulse visibility fails validation']
+    'validate': [ PulseVisibilityValues.validate, 'Pulse visibility value fails validation']
   },
   'status': {
     'type': String,
     'required': true,
     'default': 'draft',
-    'validate': [ validatePulseStatus, 'Pulse status fails validation' ]
+    'validate': [ PulseStatusValues.validate, 'Pulse status value fails validation' ]
   },
   'title': { 'type': String, 'required': true, 'index': true },
   'content': { 'type': String, 'required': true },
