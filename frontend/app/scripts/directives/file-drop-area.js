@@ -19,14 +19,14 @@ function PulsarFileDropAreaDirective ( ) {
     e.preventDefault();
     e.dataTransfer.effectAllowed = 'copy';
     return false;
-  };
+  }
 
   return {
     'restrict': 'A',
     'scope': {
       'file': '=fileDropArea'
     },
-    'link': function fileDropAreaLink (scope, element, attrs) {
+    'link': function fileDropAreaLink (scope, element) {
       element.bind('dragover', processDragOverEnter);
       element.bind('dragenter', processDragOverEnter);
 
