@@ -108,6 +108,10 @@ function UserProfileCtrl ($scope, $route, $location, $window, $sce, UserSession,
     $scope.pulseStatusFilter = 'published';
   }
   $scope.loadPulses();
+
+  $scope.$watch('user.droppedFile', function(droppedFile) {
+    if (droppedFile) $scope.user.photoUrl = URL.createObjectURL(droppedFile);
+  });
 }
 
 UserProfileCtrl.$inject = [

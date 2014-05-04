@@ -17,7 +17,7 @@
 function PulsarFileDropAreaDirective ( ) {
   function processDragOverEnter (e) {
     e.preventDefault();
-    e.dataTransfer.effectAllowed = 'copy';
+    e.originalEvent.dataTransfer.effectAllowed = 'copy'; // It looks like these are jQuery events coming in?!
     return false;
   }
 
@@ -26,15 +26,30 @@ function PulsarFileDropAreaDirective ( ) {
     'scope': {
       'file': '=fileDropArea'
     },
-    'link': function fileDropAreaLink (scope, element) {
+    'link': function fileDropAreaLink (scope, element, attrs) {
+      var fileType = attrs.fileDropAreaType,
+          fileTypeRegExp = fileType ? new RegExp(fileType) : /.*/;
+
       element.bind('dragover', processDragOverEnter);
       element.bind('dragenter', processDragOverEnter);
 
       element.bind('drop', function(e) {
         e.preventDefault();
 
-        scope.file = e.dataTransfer.files[0];
+        var file = e.originalEvent.dataTransfer.files[0]; // It looks like these are jQuery events coming in?!
 
+        if (file) {
+          if (fileTypeRegExp.test(file.type)) {
+            scope.file = file;
+          }
+          else {
+            scope.file = undefined;
+          }
+        }
+        else {
+          scope.file = undefined;
+        }
+        
         return false;
       });
     }
