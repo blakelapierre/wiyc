@@ -98,6 +98,8 @@ function UserSession($rootScope, $location, Sessions) {
       $rootScope.$broadcast('setUserSession', session);
     },
     function onSessionsGetError (error) {
+      $rootScope.$broadcast('pulsarMaintenanceMode');
+      $location.path('/maintenance-mode');
       ga('send', 'event', 'Authentication', 'sessionGetError', 1);
       self.haveError = true;
       self.error = error;

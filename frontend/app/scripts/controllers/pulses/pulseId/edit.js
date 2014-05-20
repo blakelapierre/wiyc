@@ -61,6 +61,7 @@ function PulseEditCtrl (
         //setTimeout(window.twttr.widgets.load, 0);
         window.twttr.widgets.load();
       }
+      $scope.$emit('createEditors');
     }
   );
 

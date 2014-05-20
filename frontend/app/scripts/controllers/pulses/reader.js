@@ -29,14 +29,7 @@ function PulseReaderCtrl ($scope, $route, $sce, $timeout, $window, $location, Us
     {'pulseId': $route.current.params.pulseId},
     null,
     function onPulseGetSuccess (pulse) {
-      console.log('there are', $scope.contentEditors.length, 'content editors');
       $scope.loaded = true;
-      $scope.contentEditors[0].on('instanceReady', function ( ) {
-        $scope.$apply(function ( ) { $scope.commentEditorVisible = false; });
-      });
-      $scope.contentEditors[0].on('readOnly', function (event) {
-        console.log('EDITOR READ ONLY EVENT', event.editor);
-      });
       ga('send','event', 'Pulses', 'loadSuccess', 1);
       $scope.$emit('setPageInformation', {
         'title': $scope.pulse.title,
@@ -58,11 +51,7 @@ function PulseReaderCtrl ($scope, $route, $sce, $timeout, $window, $location, Us
   $scope.fromNow = function (date) { return moment(date).fromNow(); };
 
   $scope.focusCommentEditor = function ( ) {
-    $scope.contentEditors[0].setMode();
-    $timeout(function ( ) {
-      var editor = angular.element('#comment-editor');
-      editor[0].focus();
-    }, 0);
+    $scope.$emit('createEditors');
   };
 
   $scope.createComment = function ( ) {

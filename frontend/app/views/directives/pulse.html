@@ -84,7 +84,7 @@
       </div>
     </div>
 
-    <div style="margin:16px 0;" ng-init="commentEditorVisible = true;" ng-show="!commentEditorVisible">
+    <div style="margin:16px 0;" ng-init="commentEditorVisible = false;" ng-show="!commentEditorVisible">
       <button class="btn btn-large btn-default"
               ng-show="session.authenticated.status"
               ng-click="commentEditorVisible = !commentEditorVisible; focusCommentEditor();">
@@ -93,10 +93,12 @@
     </div>
 
     <form role="form" ng-show="session.authenticated.status &amp;&amp; commentEditorVisible">
-      <div class="content" id="comment-editor"
+      <div class="content"
+           id="comment-editor"
            contenteditable
            ng-model="comment.content"
            data-toolbar-mode="nomedia"
+           data-create-mode="deferred"
            style="min-height:200px; box-shadow:0 0 8px rgba(0,0,0,0.8) inset; margin-bottom:16px;"
            ></div>
       <div class="form-group">

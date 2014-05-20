@@ -8,6 +8,8 @@ function PulsarContenteditableDirective ( ) {
     'transclude': true,
     'link': function contenteditableLink (scope, element, attrs, ngModel) {
 
+      console.log('PulsarContenteditableDirective.link');
+
       var contentEditor = null;
       var contentEditorOptions = null;
       var unbindModelWatch = null;
@@ -40,6 +42,7 @@ function PulsarContenteditableDirective ( ) {
             unbindModelWatch = null;
           }
         });
+
         return;
       }
 
@@ -162,12 +165,10 @@ function PulsarContenteditableDirective ( ) {
         if (!event) {
           return; // can't help you
         }
-
         var viewValue = contentEditor.getData();
         if (viewValue === '<p></p>') {
           viewValue = null;
         }
-
         scope.$apply(function ( ) {
           ngModel.$setViewValue(viewValue, event.name);
         });
@@ -177,48 +178,51 @@ function PulsarContenteditableDirective ( ) {
       //   element.html(ngModel.$viewValue);
       // };
 
-      element.attr('contenteditable', true);
-      console.log('creating CKEDITOR on element', element[0]);
-      contentEditor = CKEDITOR.inline(element[0], contentEditorOptions);
-      contentEditor.on('change', onContentEditorChange);
-      contentEditor.on('key', onContentEditorChange);
-      contentEditor.on('blur', onContentEditorChange);
-      element.attr('contenteditable', true);
+      function createEditorInstance ( ) {
+        contentEditor = CKEDITOR.inline(element[0], contentEditorOptions);
+        contentEditor.on('instanceReady', function ( ) {
+          console.log('CKEDITOR instance ready');
+        });
+        contentEditor.on('change', onContentEditorChange);
+        contentEditor.on('key', onContentEditorChange);
+        contentEditor.on('blur', onContentEditorChange);
 
-      if (!scope.contentEditors) {
-        scope.contentEditors = [ ];
-      }
-      scope.contentEditors.push(contentEditor);
-
-      unbindModelWatch = scope.$watch(attrs.ngModel, function ( ) {
-        if (ngModel.$modelValue === contentEditor.getData()) {
-          return; // staaaaahhhhhhppp!!
-        }
+        unbindModelWatch = scope.$watch(attrs.ngModel, function ( ) {
+          if (ngModel.$modelValue === contentEditor.getData()) {
+            return; // staaaaahhhhhhppp!!
+          }
+          contentEditor.setData(ngModel.$modelValue);
+        });
         contentEditor.setData(ngModel.$modelValue);
+      }
+
+      scope.$on('createEditors', function ( ) {
+        if (contentEditor) {
+          return; // prevent a CKEditor tantrum
+        }
+        createEditorInstance();
       });
+
+      if (!attrs.createMode || (attrs.createMode === 'auto')) {
+        createEditorInstance();
+      }
 
       element.bind('$destroy', function ( ) {
         if (unbindModelWatch) {
           unbindModelWatch();
           unbindModelWatch = null;
         }
-
-        var idx, found = false;
-        for (idx = scope.contentEditors.length - 1; !found && (idx >= 0); --idx) {
-          if (scope.contentEditors[idx].id === contentEditor.id) {
-            console.log('deregistering scope-shared CKEDITOR instance', contentEditor.id);
-            scope.contentEditors.splice(idx, 1);
-            found = true;
-          }
+        if (contentEditor) {
+          contentEditor.destroy(true);
+          contentEditor = null;
         }
-        contentEditor.destroy(false);
-        contentEditor = null;
       });
     }
   };
 }
 
 PulsarContenteditableDirective.$inject = [
+
 ];
 
 angular.module('pulsarClientApp')
