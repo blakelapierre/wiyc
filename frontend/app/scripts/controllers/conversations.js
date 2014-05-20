@@ -40,7 +40,7 @@ function ConversationsCtrl ($scope, $window, PulsarVideoCall) {
         {
           '_id': 'INVALID_HARD_CODED',
           'displayName': 'Rob Colbert',
-          'profileImageUrl':'http://127.0.0.1:9000/images/rob-profile-dark.jpg'
+          'profileImageUrl':'images/rob-profile-dark.jpg'
         }
       ],
       'messages': [
@@ -60,7 +60,7 @@ function ConversationsCtrl ($scope, $window, PulsarVideoCall) {
         {
           '_id': 'INVALID_HARD_CODED',
           'displayName': 'Rob Colbert',
-          'profileImageUrl':'http://127.0.0.1:9000/images/rob-profile-dark.jpg'
+          'profileImageUrl':'images/rob-profile-dark.jpg'
         }
       ],
       'messages': [
@@ -80,7 +80,7 @@ function ConversationsCtrl ($scope, $window, PulsarVideoCall) {
         {
           '_id': 'INVALID_HARD_CODED',
           'displayName': 'Rob Colbert',
-          'profileImageUrl':'http://127.0.0.1:9000/images/rob-profile-dark.jpg'
+          'profileImageUrl':'images/rob-profile-dark.jpg'
         }
       ],
       'messages': [
