@@ -1,6 +1,10 @@
 {
   "name": "pulsar-api",
-  "version": "0.0.1",
+  "version": "0.0.1-2",
+  "subdomain": "rjc-pulsar-api",
+  "engines": {
+    "node": "0.10.x"
+  },
   "private": true,
   "scripts": {
     "start": "pulsar-api.js"
@@ -25,5 +29,8 @@
     "request": "~2.27.0",
     "time-grunt": "~0.1.1",
     "load-grunt-tasks": "~0.2.0"
+  },
+  "bundledDependencies": {
+    "pulsar-api-framework": "0.0.x"
   }
 }

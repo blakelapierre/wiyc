@@ -27,8 +27,8 @@ module.exports = exports = {
    * to share your personal account, you are probably going to run into problems
    * and it's not a recommended approach.
    */
-  'emailUser': 'ENTER GMAIL ACCOUNT USERNAME',          // create one for Pulsar
-  'emailPassword': 'ENGER GMAIL ACCOUNT PASSWORD',      // create one for Pulsar
+  'emailUser': process.env.PULSAR_GMAIL_USERNAME,
+  'emailPassword': process.env.PULSAR_GMAIL_PASSWORD,
 
   /*
    * The password salt is used to ensure that your database contains passwords
@@ -36,32 +36,32 @@ module.exports = exports = {
    * privacy, you will uuidgen a password salt here and archive that UUID
    * somewhere very safe.
    */
-  'userPasswordSalt': 'CREATE A UNIQUE PASSWORD SALT',  // suggested: Use a UUID
+  'userPasswordSalt': process.env.PULSAR_PASSWORD_SALT,
 
   /*
    * The cookie secret is used to hash and secure cookie values shared with the
    * client to help prevent man-in-the-middle attacks on service calls.
    */
-  'cookieSecret': 'CREATE A UNIQUE COOKIE SECRET',      // suggested: Use a UUID
+  'cookieSecret': process.env.PULSAR_COOKIE_SECRET,
 
   /*
    * Where does your front end service live?
    */
-  'frontEnd': 'http://localhost',
+  'frontEnd': 'http://robcolbert.com',
 
   /*
    * To what should I bind the Pulsar API?
    */
   'bind': {
-    'address': '127.0.0.1',
-    'port': 10010
+    'address': '0.0.0.0',
+    'port': 80
   },
 
   /*
    * From where do you accept requests at this Pulsar API?
    */
   'corsOptions': {
-    'allowOrigins': [ 'http://127.0.0.1:9000' ],
+    'allowOrigins': [ 'http://robcolbert.com' ],
     'allowMethods': [ 'GET', 'PUT', 'POST', 'DELETE' ],
     'allowHeaders': [ 'Content-Type', 'Authorization' ],
     'allowCredentials': true
@@ -94,7 +94,7 @@ module.exports = exports = {
   'socketIo': {
     'enabled': true,
     'logLevel': SocketIoLogLevels.WARN,
-    'allowOrigin': 'http://127.0.0.1:9000',
+    'allowOrigin': 'http://robcolbert.com',
     'client': {
       'minify': true,
       'etag': true,

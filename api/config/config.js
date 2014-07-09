@@ -67,7 +67,7 @@ var config = {
       'socketio': localConfig.socketIo
     },
     'bind': localConfig.bind,
-    'db': 'mongodb://localhost/pulsar-api-development',
+    'db': process.env.PULSAR_API_DB,
     'cors': localConfig.corsOptions,
     'monitor': localConfig.monitorOptions
   },
@@ -89,7 +89,7 @@ var config = {
       'socketio': localConfig.socketIo
     },
     'bind': localConfig.bind,
-    'db': 'mongodb://localhost/pulsar-api-test',
+    'db': process.env.PULSAR_API_DB,
     'cors': localConfig.corsOptions,
     'monitor': localConfig.monitorOptions
   },
@@ -111,7 +111,7 @@ var config = {
       'socketio': localConfig.socketIo
     },
     'bind': localConfig.bind,
-    'db': 'mongodb://localhost/pulsar-api-production',
+    'db': process.env.PULSAR_API_DB,
     'cors': localConfig.corsOptions,
     'monitor': localConfig.monitorOptions
   }
