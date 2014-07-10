@@ -90,6 +90,8 @@ app.log.info('connecting to database at ' + config.db);
 mongoose.connect(config.db);
 
 var db = mongoose.connection;
+app.db = db;
+
 db.on('error', function (err) {
   if (err) {
     app.log.error('db connect', err);

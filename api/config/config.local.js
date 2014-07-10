@@ -53,8 +53,8 @@ module.exports = exports = {
    * To what should I bind the Pulsar API?
    */
   'bind': {
-    'address': '0.0.0.0',
-    'port': 80
+    'address': process.env.PULSAR_API_BIND_ADDRESS,
+    'port': process.env.PULSAR_API_BIND_PORT
   },
 
   /*

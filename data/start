@@ -16,6 +16,4 @@ echo "starting memcached"
 memcached -d
 
 echo "starting local mongod"
-mongod --config=mongod.conf --smallfiles --fork
-
-mongo
+mongod --config=mongod.conf --smallfiles

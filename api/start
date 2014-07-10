@@ -1,2 +1,12 @@
 #!/bin/bash
+
+export SUBDOMAIN="pulsar-api"
+export NODE_ENV="development"
+export PULSAR_API_DB="mongodb://localhost/pulsar-api-development"
+export PULSAR_API_BIND_ADDRESS="127.0.0.1"
+export PULSAR_API_BIND_PORT=10030
+export PULSAR_GMAIL_USERNAME="[GO CREATE A NEW ACCOUNT]"
+export PULSAR_GMAIL_PASSWORD="[GO CREATE A NEW ACCOUNT]"
+export PULSAR_PASSWORD_HASH="[I recommend a fresh UUID]"
+
 node pulsar-api.js
