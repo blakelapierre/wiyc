@@ -8,6 +8,7 @@ function ConfigurationService ( ) {
 
   var feServer = {
     'scheme': 'http://',
+    //'host': '127.0.0.1:8080'
     //'host': '127.0.0.1:9000'
     'host': 'robcolbert.com'
   };
@@ -16,11 +17,16 @@ function ConfigurationService ( ) {
   var apiServer = {
     'scheme': 'http://',
     //'host': '127.0.0.1',
-    'host': 'api.robcolbert.com',
-    'port': 10010
+    'host': 'robcolbert.com',
+    'port': 80
+    //'port': 8080
   };
   this.buildApiUrl = function (endpoint) {
-    return apiServer.scheme + apiServer.host + ':' + apiServer.port + endpoint;
+    var url = apiServer.scheme + apiServer.host;
+    if (apiServer.port !== 80) {
+      url += ':' + apiServer.port;
+    }
+    return url + endpoint;
   };
 
   this.ckeditorOptions = {

@@ -47,7 +47,7 @@ module.exports = exports = {
   /*
    * Where does your front end service live?
    */
-  'frontEnd': 'http://robcolbert.com',
+  'frontendUrl': 'http://robcolbert.com',
 
   /*
    * To what should I bind the Pulsar API?
@@ -61,7 +61,7 @@ module.exports = exports = {
    * From where do you accept requests at this Pulsar API?
    */
   'corsOptions': {
-    'allowOrigins': [ 'http://robcolbert.com' ],
+    'allowOrigins': [ process.env.PULSAR_ALLOW_ORIGIN ],
     'allowMethods': [ 'GET', 'PUT', 'POST', 'DELETE' ],
     'allowHeaders': [ 'Content-Type', 'Authorization' ],
     'allowCredentials': true
@@ -92,7 +92,7 @@ module.exports = exports = {
    * PulseWire communications plugin.
    */
   'socketIo': {
-    'enabled': true,
+    'enabled': false,
     'logLevel': SocketIoLogLevels.WARN,
     'allowOrigin': 'http://robcolbert.com',
     'client': {

@@ -8,8 +8,6 @@ function PulsarContenteditableDirective ( ) {
     'transclude': true,
     'link': function contenteditableLink (scope, element, attrs, ngModel) {
 
-      console.log('PulsarContenteditableDirective.link');
-
       var contentEditor = null;
       var contentEditorOptions = null;
       var unbindModelWatch = null;
@@ -169,9 +167,8 @@ function PulsarContenteditableDirective ( ) {
         if (viewValue === '<p></p>') {
           viewValue = null;
         }
-        scope.$apply(function ( ) {
-          ngModel.$setViewValue(viewValue, event.name);
-        });
+        console.debug('updating view value');
+        ngModel.$setViewValue(viewValue, event.name);
       }
 
       // ngModel.$render = function ( ) {
@@ -191,8 +188,10 @@ function PulsarContenteditableDirective ( ) {
           if (ngModel.$modelValue === contentEditor.getData()) {
             return; // staaaaahhhhhhppp!!
           }
+          console.debug('updating editor value');
           contentEditor.setData(ngModel.$modelValue);
         });
+        console.debug('updating editor value');
         contentEditor.setData(ngModel.$modelValue);
       }
 

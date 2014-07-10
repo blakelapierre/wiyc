@@ -69,11 +69,15 @@ function UserProfileCtrl ($scope, $route, $location, $window, $sce, UserSession,
 
   $scope.isSaving = false;
   $scope.contentChanged = function ( ) {
+    if ($scope.isSaving) {
+      return;
+    }
     $scope.isSaving = true;
     $scope.user.$update(
       { 'userId': $scope.user._id },
       function onUserUpdateSuccess (user) {
         $scope.isSaving = false;
+        console.debug('user updated', user);
       },
       function onUpdateUserError (error) {
         console.error('user update error', error);

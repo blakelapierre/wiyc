@@ -14,9 +14,10 @@ var mailer = require('nodemailer');
 var mongoose = require('mongoose');
 
 var Users = mongoose.model('Users');
-var Paginator = require('pulsar-api-framework').expressjs.Paginator;
+var Paginator = require('pulsar-api-framework')
+  .expressjs.Paginator;
 
-function UsersController (app, config) {
+function UsersController(app, config) {
   this.app = app;
   this.config = config;
 }
@@ -50,7 +51,7 @@ UsersController.prototype.create = function (req, res) {
       'user': user,
       'verificationKey': verificationKey,
       'subject': 'Welcome to Pulsar, please verify your email address.',
-      'messageTemplate': '../templates/welcome-email.template'
+      'messageTemplate': 'app/templates/welcome-email.template'
     });
   });
 };
@@ -59,21 +60,22 @@ UsersController.prototype.sendVerificationEmail = function (options) {
   var self = this;
 
   var profileLink =
-  this.config.app.frontendUrl + '/#/user/' + options.user._id;
+    this.config.app.frontendUrl + '/#/user/' + options.user._id;
 
   var emailVerifyLink =
-  this.config.app.frontendUrl + '/#/verify' +
-  '?u=' + options.user._id + '&k=' + options.verificationKey;
+    this.config.app.frontendUrl + '/#/verify' +
+    '?u=' + options.user._id + '&k=' + options.verificationKey;
 
+  console.log('cwd', process.cwd());
   fs.readFile(options.messageTemplate, function (err, messageTemplate) {
     if (err) {
       log.error(err);
       return;
     }
-    var messageBody = messageTemplate
-    .replace('{{emailAddress}}', options.user.email)
-    .replace('{{emailVerifyLink}}', emailVerifyLink)
-    .replace('{{profileLink}}', profileLink);
+    var messageBody = messageTemplate.toString()
+      .replace('{{emailAddress}}', options.user.email)
+      .replace('{{emailVerifyLink}}', emailVerifyLink)
+      .replace('{{profileLink}}', profileLink);
 
     if (options.user.email === 'testuser@robcolbert.com') {
       log.info('skipping new user email for testuser@robcolbert.com');
@@ -87,10 +89,10 @@ UsersController.prototype.sendVerificationEmail = function (options) {
 UsersController.prototype.sendEmail = function (addressTo, subject, messageBody, callback) {
   log.info('EMAIL CONFIG SHIT', this.config);
   var transport = mailer.createTransport('SMTP', {
-    'service':'Gmail',
+    'service': 'Gmail',
     'auth': {
-      'user':this.config.app.emailUser,
-      'pass':this.config.app.emailPassword
+      'user': this.config.app.emailUser,
+      'pass': this.config.app.emailPassword
     }
   });
   var email = {
@@ -109,7 +111,10 @@ UsersController.prototype.sendEmail = function (addressTo, subject, messageBody,
 
 UsersController.prototype.get = function (req, res) {
   log.debug('users.get', req.route, req.query);
-  var projection = { 'password':0, 'emailVerifyKey':0 };
+  var projection = {
+    'password': 0,
+    'emailVerifyKey': 0
+  };
   Users.findById(req.route.params.userId, projection, function (err, user) {
     if (err) {
       log.error(err);
@@ -118,23 +123,18 @@ UsersController.prototype.get = function (req, res) {
     }
     if (!user) {
       res.json(404, {
-        'message':'Requested user profile not found.',
-        'errors': [
-          {
-            'name':'User Not Found',
-            'message':'No user exists with the specified UserId.'
-          }
-        ],
-        'solutions': [
-          {
-            'name':'Check URL',
-            'message':'If you typed the URL manually, please check it and try again. If you clicked a link, please let the site maintainer know they have a broken link.'
-          },
-          {
-            'name':'Feel the Regret',
-            'message':'If you deleted your profile, maybe you shouldn\'t have? Just a thought.'
-          }
-        ]
+        'message': 'Requested user profile not found.',
+        'errors': [{
+          'name': 'User Not Found',
+          'message': 'No user exists with the specified UserId.'
+        }],
+        'solutions': [{
+          'name': 'Check URL',
+          'message': 'If you typed the URL manually, please check it and try again. If you clicked a link, please let the site maintainer know they have a broken link.'
+        }, {
+          'name': 'Feel the Regret',
+          'message': 'If you deleted your profile, maybe you shouldn\'t have? Just a thought.'
+        }]
       });
       return;
     }
@@ -145,11 +145,16 @@ UsersController.prototype.get = function (req, res) {
 UsersController.prototype.getMyProfile = function (req, res) {
   log.debug('users.getMyProfile');
   if (!req.session || !req.session.user) {
-    res.json(500, {'msg':'user session required'});
+    res.json(500, {
+      'msg': 'user session required'
+    });
     return; // so get the fuck out
   }
 
-  var projection = { 'password':0, 'emailVerifyKey':0 };
+  var projection = {
+    'password': 0,
+    'emailVerifyKey': 0
+  };
   Users.findById(req.session.user._id, projection, function (err, user) {
     if (err) {
       log.error(err);
@@ -157,7 +162,9 @@ UsersController.prototype.getMyProfile = function (req, res) {
       return;
     }
     if (!user) {
-      res.json(404, {'msg':'user not found'});
+      res.json(404, {
+        'msg': 'user not found'
+      });
       return;
     }
     res.json(200, user);
@@ -169,11 +176,14 @@ UsersController.prototype.update = function (req, res) {
   log.debug('users.update', req.route, req.query, req.body);
 
   var authMessage = 'Only authenticated users can update user profiles.';
-  if (!self.app.checkAuthentication(req,res,authMessage)) {
+  if (!self.app.checkAuthentication(req, res, authMessage)) {
     return;
   }
+
   if (req.body._id !== req.session.user._id) {
-    res.json(403, {'message':'Users can only update their own profiles.'});
+    res.json(403, {
+      'message': 'Users can only update their own profiles.'
+    });
     return;
   }
 
@@ -184,19 +194,39 @@ UsersController.prototype.update = function (req, res) {
       return;
     }
     if (!user) {
-      res.json(404, {'msg':'user not found'});
+      res.json(404, {
+        'msg': 'user not found'
+      });
       return;
     }
 
-    if (req.body.password) {
-      req.body.password = self.config.app.hashPassword(req.body.password);
+    if (req.body.hasOwnProperty('password')) {
+      user.password = self.config.app.hashPassword(req.body.password);
     }
-    if (req.body.email !== user.email) {
+    if (req.body.hasOwnProperty('email') && (req.body.email !== user.email)) {
       user.emailVerified = false;
       user.email = req.body.email;
     }
 
-    res.json(200, user);
+    if (req.body.hasOwnProperty('displayName')) {
+      user.displayName = req.body.displayName;
+    }
+    if (req.body.hasOwnProperty('tagline')) {
+      user.tagline = req.body.tagline;
+    }
+    if (req.body.hasOwnProperty('about')) {
+      user.about = req.body.about;
+    }
+    if (req.body.hasOwnProperty('website')) {
+      user.website = req.body.website;
+    }
+
+    user.save(function (err, newUser) {
+      if (self.app.checkError(err, res, 'users.requestPasswordReset')) {
+        return;
+      }
+      res.json(200, newUser);
+    });
   });
 };
 
@@ -222,19 +252,24 @@ UsersController.prototype.requestPasswordReset = function (req, res) {
 
   if (!req.body.email) {
     res.json(
-      403,
-      { 'message':'Please provide the email address you used when creating your Pulsar profile.' }
+      403, {
+        'message': 'Please provide the email address you used when creating your Pulsar profile.'
+      }
     );
     return;
   }
 
   var email = req.body.email.toLowerCase();
-  Users.findOne({ 'email': email }, function (err, user) {
-    if (self.app.checkError(err,res,'users.requestPasswordReset')) {
+  Users.findOne({
+    'email': email
+  }, function (err, user) {
+    if (self.app.checkError(err, res, 'users.requestPasswordReset')) {
       return;
     }
     if (!user) {
-      res.json(404,{'message':'No user account with requested email address.'});
+      res.json(404, {
+        'message': 'No user account with requested email address.'
+      });
       return;
     }
 
@@ -242,16 +277,17 @@ UsersController.prototype.requestPasswordReset = function (req, res) {
     // secure source. It's still pseudorandom, but pulled from a higher quality
     // source.
 
-    crypto.randomBytes(32, function(err, randomBytes) {
+    crypto.randomBytes(32, function (err, randomBytes) {
       if (err) {
         res.json(500, err);
         return;
       }
 
-      user.passwordResetKey = new Buffer(randomBytes).toString('base64');
+      user.passwordResetKey = new Buffer(randomBytes)
+        .toString('base64');
 
       user.save(function (err, user) {
-        if (self.app.checkError(err,res,'users.requestPasswordReset')) {
+        if (self.app.checkError(err, res, 'users.requestPasswordReset')) {
           return;
         }
         res.json(200, user);
@@ -262,13 +298,13 @@ UsersController.prototype.requestPasswordReset = function (req, res) {
         // @TODO there's a lot of hard-coded here. Need to spend a day on config
         // again.
         var messageBody =
-        'A password reset request was received for your Pulsar account. To ' +
-        ' reset your password, please visit this URL:\n\n' +
-        'http://robcolbert.com/#/execute-password-reset?token=' +
-        encodeURIComponent(user.passwordResetKey) +
-        '&email=' + encodeURIComponent(email) + '\n\n' +
-        'If you did not intend to reset your password, simply ignore this ' +
-        'email and no further action will be taken.';
+          'A password reset request was received for your Pulsar account. To ' +
+          ' reset your password, please visit this URL:\n\n' +
+          'http://robcolbert.com/#/execute-password-reset?token=' +
+          encodeURIComponent(user.passwordResetKey) +
+          '&email=' + encodeURIComponent(email) + '\n\n' +
+          'If you did not intend to reset your password, simply ignore this ' +
+          'email and no further action will be taken.';
 
         self.sendEmail(email, 'PULSAR Password Reset Request', messageBody);
       });
@@ -299,22 +335,25 @@ UsersController.prototype.executePasswordReset = function (req, res) {
 
   if (!req.body.token) {
     res.json(
-      403,
-      {'message':'Password reset requests must include an authentication token.'}
+      403, {
+        'message': 'Password reset requests must include an authentication token.'
+      }
     );
     return;
   }
   if (!req.body.email) {
     res.json(
-      500,
-      {'message':'Must specify user\'s email address'}
+      500, {
+        'message': 'Must specify user\'s email address'
+      }
     );
     return;
   }
   if (!req.body.password) {
     res.json(
-      500,
-      {'message':'Must specify new password to set for user account'}
+      500, {
+        'message': 'Must specify new password to set for user account'
+      }
     );
     return;
   }
@@ -322,9 +361,13 @@ UsersController.prototype.executePasswordReset = function (req, res) {
   var email = req.body.email;
   var encodedPassword = this.config.app.hashPassword(req.body.password);
 
-  Users.findOneAndUpdate(
-    { 'email': email, 'passwordResetKey': req.body.token },
-    { 'password': encodedPassword, 'passwordResetKey': null },
+  Users.findOneAndUpdate({
+      'email': email,
+      'passwordResetKey': req.body.token
+    }, {
+      'password': encodedPassword,
+      'passwordResetKey': null
+    },
     function (err, user) {
       if (err) {
         log.error('users.executePasswordReset', err);
@@ -333,8 +376,8 @@ UsersController.prototype.executePasswordReset = function (req, res) {
       }
       if (!user) {
         res.json(404, {
-          'message':'No user account found with that email address and ' +
-                    'outstanding password reset request token.'
+          'message': 'No user account found with that email address and ' +
+            'outstanding password reset request token.'
         });
         return;
       }
@@ -345,8 +388,9 @@ UsersController.prototype.executePasswordReset = function (req, res) {
 
 UsersController.prototype.delete = function (req, res) {
   log.debug('users.delete', req.route, req.query);
-  Users.findOneAndRemove(
-    {'_id': req.route.params.userId },
+  Users.findOneAndRemove({
+      '_id': req.route.params.userId
+    },
     function (err) {
       if (err) {
         log.error(err);
@@ -368,13 +412,17 @@ UsersController.prototype.verifyEmailKey = function (req, res) {
     }
 
     if (!user) {
-      res.json(404, {'msg':'invalid verification request'});
+      res.json(404, {
+        'msg': 'invalid verification request'
+      });
       return;
     }
 
     if (!req.query.k || (req.query.k !== user.emailVerifyKey)) {
       log.error('email address verification failed', req.query.k, user.emailVerifyKey);
-      res.json(500, {'msg':'email address verification has failed'});
+      res.json(500, {
+        'msg': 'email address verification has failed'
+      });
       return;
     }
 
@@ -387,24 +435,29 @@ UsersController.prototype.verifyEmailKey = function (req, res) {
   });
 };
 
-UsersController.prototype.list = function(req, res){
+UsersController.prototype.list = function (req, res) {
   var paginator = new Paginator(req);
   var projection = {
-    'password':  0,        // security
-    'email': 0,           // security
-    'emailVerifyKey': 0,  // security
-    'about': 0            // efficiency
+    'password': 0, // security
+    'email': 0, // security
+    'emailVerifyKey': 0, // security
+    'about': 0 // efficiency
   };
-  var query = Users.find({ }, projection, { 'sort': { 'displayName': 1 }});
-  log.debug('users.list', req.route, req.query);
-  paginator.paginateQuery(query).exec(function (err, users) {
-    if (err) {
-      log.error(err);
-      res.json(500, err);
-      return;
+  var query = Users.find({}, projection, {
+    'sort': {
+      'displayName': 1
     }
-    res.json(200, users);
   });
+  log.debug('users.list', req.route, req.query);
+  paginator.paginateQuery(query)
+    .exec(function (err, users) {
+      if (err) {
+        log.error(err);
+        res.json(500, err);
+        return;
+      }
+      res.json(200, users);
+    });
 };
 
 //
@@ -421,7 +474,9 @@ UsersController.prototype.addFriend = function (req, res) {
       return;
     }
     if (!user) {
-      res.json(404, {'msg':'user not found'});
+      res.json(404, {
+        'msg': 'user not found'
+      });
       return;
     }
     user.friends.push(req.body);
@@ -445,10 +500,14 @@ UsersController.prototype.removeFriend = function (req, res) {
       return;
     }
     if (!user) {
-      res.json(404, {'msg':'user not found'});
+      res.json(404, {
+        'msg': 'user not found'
+      });
       return;
     }
-    user.friends.pull({'_id': req.route.params.friendId});
+    user.friends.pull({
+      '_id': req.route.params.friendId
+    });
     user.save(function (err, newUser) {
       if (err) {
         log.error(err);
@@ -469,12 +528,15 @@ UsersController.prototype.listFriends = function (req, res) {
       return;
     }
     if (!user) {
-      res.json(404, {'msg':'user not found'});
+      res.json(404, {
+        'msg': 'user not found'
+      });
       return;
     }
-    res.json(200, {'friends': user.friends });
+    res.json(200, {
+      'friends': user.friends
+    });
   });
 };
 
 module.exports = exports = UsersController;
-

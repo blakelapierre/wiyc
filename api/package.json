@@ -1,7 +1,12 @@
 {
   "name": "pulsar-api",
-  "version": "0.0.1-2",
+  "version": "0.0.3",
   "subdomain": "rjc-pulsar-api",
+  "domains": [
+    "robcolbert.com",
+    "api.robcolbert.com",
+    "www.robcolbert.com"
+  ],
   "engines": {
     "node": "0.10.x"
   },

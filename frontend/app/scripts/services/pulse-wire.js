@@ -28,7 +28,7 @@ function PulseWire($rootScope, $resource, Configuration) {
   $rootScope.$on('setUserSession', function (event, userSession) {
     self.userSession = userSession;
     if (userSession.authenticated.status) {
-      self.connect();
+      // self.connect();
     } else {
       if (self.socket !== null) {
         self.socket.close();

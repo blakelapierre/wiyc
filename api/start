@@ -1,12 +1,17 @@
 #!/bin/bash
 
-export SUBDOMAIN="pulsar-api"
+export SUBDOMAIN="rjc-pulsar-api"
 export NODE_ENV="development"
-export PULSAR_API_DB="mongodb://localhost/pulsar-api-development"
-export PULSAR_API_BIND_ADDRESS="127.0.0.1"
-export PULSAR_API_BIND_PORT=10030
-export PULSAR_GMAIL_USERNAME="[GO CREATE A NEW ACCOUNT]"
-export PULSAR_GMAIL_PASSWORD="[GO CREATE A NEW ACCOUNT]"
-export PULSAR_PASSWORD_HASH="[I recommend a fresh UUID]"
 
-node pulsar-api.js
+export PULSAR_API_DB="mongodb://localhost/pulsar-api-development"
+
+export PULSAR_API_BIND_ADDRESS="0.0.0.0"
+export PULSAR_API_BIND_PORT=8080
+
+export PULSAR_ALLOW_ORIGIN="http://localhost:8080"
+
+export PULSAR_GMAIL_USERNAME="[CREATE ONE FOR PULSAR]"
+export PULSAR_GMAIL_PASSWORD="[CREATE ONE FOR PULSAR]"
+export PULSAR_PASSWORD_HASH="[CREATE A UUID/GUID AND USE IT HERE]"
+
+grunt
