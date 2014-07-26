@@ -9,7 +9,7 @@ log.info('controller: Conversations');
 
 var mongoose = require('mongoose');
 var Conversations = mongoose.model('Conversations');
-var Paginator = require('pulsar-api-framework').expressjs.Paginator;
+var Paginator = require('puretech-foundation').Mongoose.Paginator;
 
 var conversationPopulateChain = [
   {

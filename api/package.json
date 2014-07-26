@@ -10,11 +10,12 @@
   "engines": {
     "node": "0.10.x"
   },
-  "private": true,
+  "main": "pulsar-api.js",
   "scripts": {
     "start": "pulsar-api.js"
   },
   "dependencies": {
+    "puretech-foundation": "0.0.x",
     "connect-memcached": "0.0.6",
     "connect-mongodb": "^1.1.5",
     "express": "~3.3.4",
@@ -37,6 +38,5 @@
     "load-grunt-tasks": "~0.2.0"
   },
   "bundledDependencies": {
-    "pulsar-api-framework": "0.0.x"
   }
 }

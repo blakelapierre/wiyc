@@ -9,7 +9,7 @@ log.info('++ controller: VideosController');
 
 var mongoose = require('mongoose');
 var Videos = mongoose.model('Videos');
-var Paginator = require('pulsar-api-framework').expressjs.Paginator;
+var Paginator = require('puretech-foundation').Mongoose.Paginator;
 
 function VideosController (app, config) {
   this.app = app;

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "Building Pulsar API"
-rm -f    pulsar-api.log
-
-rm -f    ../pulsar-api.tar.gz
-tar -czf ../pulsar-api.tar.gz *

@@ -5,7 +5,7 @@
 'use strict';
 
 var express = require('express');
-var pulsar = require('pulsar-api-framework');
+var PureTechFoundation = require('puretech-foundation');
 
 // var MemcachedStore = require('connect-memcached')(express);
 var MongoStore = require('connect-mongodb');
@@ -13,7 +13,7 @@ var MongoStore = require('connect-mongodb');
 module.exports = function(app, config) {
   app.configure(function () {
     app.use(express.compress());
-    app.use(new pulsar.expressjs.CORS(app, config));
+    app.use(new PureTechFoundation.Express.CORS(app, config));
     app.use(express.static(config.root + '/public'));
 
     app.set('port', config.port);

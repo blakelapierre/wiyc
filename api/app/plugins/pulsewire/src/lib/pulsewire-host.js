@@ -2,7 +2,9 @@
 // Copyright (C) 2014 Rob Colbert <rob.isConnected@gmail.com>
 // License: MIT
 
-var GUID = require('pulsar-api-framework').tools.GUID;
+'use strict';
+
+var GUID = require('puretech-foundation').Tools.GUID;
 
 function PulseWireHost (container, address, port, capacity) {
   var self = this;

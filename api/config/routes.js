@@ -30,7 +30,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var RouteAssembler = require('pulsar-api-framework').expressjs.RouteAssembler;
+var RouteAssembler = require('puretech-foundation').Express.RouteAssembler;
 
 function configureRoutes (app, config) {
 

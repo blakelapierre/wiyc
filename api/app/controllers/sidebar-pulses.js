@@ -9,7 +9,7 @@ log.info('controller: SidebarPulsesController');
 
 var mongoose = require('mongoose');
 var SidebarPulses = mongoose.model('SidebarPulses');
-var Paginator = require('pulsar-api-framework').expressjs.Paginator;
+var Paginator = require('puretech-foundation').Mongoose.Paginator;
 
 function SidebarPulsesController (app, config) {
   this.app = app;

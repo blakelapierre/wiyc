@@ -9,9 +9,8 @@ export PULSAR_API_BIND_PORT=8080
 export PULSAR_ALLOW_ORIGIN="http://127.0.0.1:9000"
 
 export PULSAR_API_DB="mongodb://localhost/pulsar-api-development"
-export PULSAR_GMAIL_USERNAME=""
-export PULSAR_GMAIL_PASSWORD=""
-export PULSAR_PASSWORD_HASH="68b99b11-f6dc-4d58-9f1e-92fbb60b17c1"
+export PULSAR_GMAIL_USERNAME="[CREATE ONE]"
+export PULSAR_GMAIL_PASSWORD="[CREATE ONE]"
+export PULSAR_PASSWORD_HASH="[CREATE ONE]"
 
 grunt
-# node pulsar-api.js

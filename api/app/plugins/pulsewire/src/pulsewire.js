@@ -4,9 +4,9 @@
 
 'use strict';
 
-var PulsarApiFramework  = require('pulsar-api-framework');
-var RouteAssembler      = PulsarApiFramework.expressjs.RouteAssembler;
-var GUID                = PulsarApiFramework.tools.GUID;
+var PuretechFoundation  = require('puretech-foundation');
+var RouteAssembler      = PuretechFoundation.Express.RouteAssembler;
+var GUID                = PuretechFoundation.Tools.GUID;
 
 var PulseWireLoadBalancer = require('./lib/pulsewire-load-balancer');
 var PulseWireClient       = require('./lib/pulsewire-client');

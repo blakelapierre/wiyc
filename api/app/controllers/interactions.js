@@ -17,7 +17,7 @@
 var log = require('winston');
 log.info('++ controller: InteractionsController');
 
-var Paginator = require('pulsar-api-framework').expressjs.Paginator;
+var Paginator = require('puretech-foundation').Mongoose.Paginator;
 
 function InteractionsController (model, app, config) {
   this.model = model;

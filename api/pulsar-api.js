@@ -78,13 +78,10 @@ app.checkError = function (err, res, label) {
 };
 
 var server = require('http').createServer(app);
-var monitor = null;
 
 var mongoose = require('mongoose');
 var fs = require('fs');
 var config = require('./config/config');
-
-var PulsarApiFramework = require('pulsar-api-framework');
 
 app.log.info('connecting to database at ' + config.db);
 mongoose.connect(config.db);
@@ -113,9 +110,6 @@ db.on('open', function ( ) {
   // ExpressJS REST API
   require('./config/express')(app, config);
   require('./config/routes')(app, config);
-
-  // Pulsar Monitor Service
-  monitor = new PulsarApiFramework.monitor.Monitor(app, config);
 
   app.log.info('API server listening on '+config.bind.address+':'+config.bind.port);
   server.listen(config.bind.port, config.bind.address);

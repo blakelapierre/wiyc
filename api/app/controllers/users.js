@@ -14,8 +14,7 @@ var mailer = require('nodemailer');
 var mongoose = require('mongoose');
 
 var Users = mongoose.model('Users');
-var Paginator = require('pulsar-api-framework')
-  .expressjs.Paginator;
+var Paginator = require('puretech-foundation').Mongoose.Paginator;
 
 function UsersController(app, config) {
   this.app = app;

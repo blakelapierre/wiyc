@@ -1,19 +1,9 @@
 #!/bin/bash
+
 mkdir -p db
 mkdir -p logs
 mkdir -p run
 rm -Rf logs/*
 
-echo "killall mongod"
-killall mongod
-
-echo "killall memcached"
-killall memcached
-
-sleep 1
-
-echo "starting memcached"
-memcached -d
-
-echo "starting local mongod"
+echo "starting mongod..."
 mongod --config=mongod.conf --smallfiles
