@@ -6,7 +6,7 @@ describe('Service: UserSession', function () {
  * $route and I have no idea how to stub that in.
  */
   // load the service's module
-//  beforeEach(module('pulsarClientApp'));
+//  beforeEach(module('wiyc'));
 
   // instantiate service
   // var UserSession;

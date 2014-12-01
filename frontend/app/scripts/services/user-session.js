@@ -121,5 +121,5 @@ UserSession.$inject = [
 // AngularJS service module registration
 //
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .service('UserSession', UserSession);

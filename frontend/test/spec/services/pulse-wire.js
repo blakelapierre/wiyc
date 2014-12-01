@@ -3,7 +3,7 @@
 describe('Service: PulseWire', function () {
 
   // load the service's module
-  beforeEach(module('pulsarClientApp'));
+  beforeEach(module('wiyc'));
 
   // instantiate service
   var PulseWire;

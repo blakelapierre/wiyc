@@ -19,5 +19,5 @@ SessionsService.$inject = [
   'Configuration',
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .service('Sessions', SessionsService);

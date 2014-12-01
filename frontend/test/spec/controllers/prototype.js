@@ -3,7 +3,7 @@
 describe('Controller: PrototypeCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('pulsarClientApp'));
+  beforeEach(module('wiyc'));
 
   var PrototypeCtrl;
   var scope;

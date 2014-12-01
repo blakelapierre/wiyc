@@ -45,7 +45,10 @@ module.exports = function (grunt) {
       },
       recess: {
         files: ['<%= yeoman.app %>/less/{,*/}*.less'],
-        tasks: ['newer:recess']
+        tasks: ['recess', 'newer:copy:styles'],
+        options: {
+          livereload: true
+        }
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -166,9 +169,6 @@ module.exports = function (grunt) {
           compile: true
         },
         files: {
-          'app/bower_components/bootstrap/dist/css/bootstrap.css': [
-            'app/bower_components/bootstrap/less/bootstrap.less'
-          ],
           'app/styles/pulsar.css': [
             'app/less/pulsar.less'
           ]
@@ -359,7 +359,9 @@ module.exports = function (grunt) {
       'clean:server',
       'bower-install',
       'concurrent:server',
+      'recess',
       'autoprefixer',
+      'copy:styles',
       'connect:livereload',
       'watch'
     ]);

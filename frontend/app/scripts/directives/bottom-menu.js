@@ -34,5 +34,5 @@ PulsarBottomMenuCtrl.$inject = [
   'UserSession'
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .directive('pulsarBottomMenu', PulsarBottomMenuCtrl);

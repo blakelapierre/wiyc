@@ -3,7 +3,7 @@
 describe('Controller: DirectivesSoundcloudPlayerCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('pulsarClientApp'));
+  beforeEach(module('wiyc'));
 
   var DirectivesSoundcloudPlayerCtrl,
     scope;

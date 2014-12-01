@@ -99,6 +99,8 @@ db.on('error', function (err) {
 db.on('open', function ( ) {
   app.log.info('connected to database');
 
+  console.log(db);
+
   // Data Models
   var modelsPath = __dirname + '/app/models';
   fs.readdirSync(modelsPath).forEach(function (file) {

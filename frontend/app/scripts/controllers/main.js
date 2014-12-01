@@ -44,5 +44,5 @@ MainCtrl.$inject = [
   'Pulses'
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .controller('MainCtrl', MainCtrl);

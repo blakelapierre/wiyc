@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .controller('VideosCtrl', [
   '$window',
   '$scope',

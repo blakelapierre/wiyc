@@ -3,7 +3,7 @@
 describe('Directive: contenteditable', function () {
 
   // load the directive's module
-  beforeEach(module('pulsarClientApp'));
+  beforeEach(module('wiyc'));
 
   //var element;
   var scope;

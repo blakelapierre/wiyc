@@ -1,0 +1,35 @@
+<div class="congressperson">
+  <div class="header">
+    <span class="name">{{congressperson.name}}</span>
+    <span class="state">{{congressperson.state}}</span>
+  </div>
+
+  <div class="row">
+    Most Recent Truth: {{congressperson.mostRecentTruth}}
+    Most Recent Lie: {{congressperson.mostRecentLie}}
+    <div class="col-xs-12 col-sm-6 col-md-8 videos" horizontal-scroll>
+      <div class="videos-list">
+        <div class="day" ng-repeat="day in congressperson.videos">
+          <div class="date">{{day.date | date}}</div>
+          <div class="videos">
+            <div class="video" ng-repeat="video in day.videos">
+              <div class="time">{{video.date || time}}</div>
+              <div class="location">{{video.location}}</div>
+              <video src=""></video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-md-4">
+      <div class="map">
+      Map
+      </div>
+
+      <div class="events">
+      Event log
+      </div>
+    </div>
+  </div>
+</div>

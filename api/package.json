@@ -15,7 +15,7 @@
     "start": "pulsar-api.js"
   },
   "dependencies": {
-    "puretech-foundation": "0.0.x",
+    "puretech-foundation": "robcolbert/puretech-foundation",
     "connect-memcached": "0.0.6",
     "connect-mongodb": "^1.1.5",
     "express": "~3.3.4",

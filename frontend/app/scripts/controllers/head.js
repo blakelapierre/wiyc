@@ -4,7 +4,7 @@
 
 'use strict';
 
-function HeadCtrl ($rootScope, $scope, SiteSettings) {
+function HeadCtrl ($rootScope, $scope) {
 
   $scope.pageInformation = {
     'title': 'Loading...',
@@ -15,17 +15,12 @@ function HeadCtrl ($rootScope, $scope, SiteSettings) {
     $scope.pageInformation = pageInformation;
   });
 
-  $scope.site = SiteSettings.get(function ( ) {
-    //console.log('site settings', $scope.site);
-  });
-
 }
 
 HeadCtrl.$inject = [
   '$rootScope',
-  '$scope',
-  'SiteSettings'
+  '$scope'
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .controller('HeadCtrl', HeadCtrl);

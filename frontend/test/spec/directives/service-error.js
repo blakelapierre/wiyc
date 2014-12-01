@@ -3,7 +3,7 @@
 describe('Directive: pulsarServiceError', function () {
 
   // load the directive's module
-  beforeEach(module('pulsarClientApp'));
+  beforeEach(module('wiyc'));
 
   //var element;
   var scope;

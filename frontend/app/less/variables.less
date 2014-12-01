@@ -9,8 +9,8 @@
  * BODY
  */
 
-@pulsarBgColor                              : #f8f8f8;
-@pulsarTextColor                            : #3a3a3a;
+@pulsarBgColor                              : #000000;
+@pulsarTextColor                            : #ffffff;
 @pulsarBaseColor                            : #f8f8f8;
 
 @pulsarTransitionTime                       : 0.6s;
@@ -115,11 +115,18 @@
 @pulsarSidebarWidgetElementBodyTextColor    : lighten(@pulsarSidebarWidgetTextColor, 4%);
 
 /*
+ * HEADER
+ */
+
+@pulsarHeaderBgColor                        : @pulsarBgColor;
+@pulsarHeaderTextColor                      : @pulsarTextColor;
+
+/*
  * FOOTER
  */
 
-@pulsarFooterBgColor                        : #f8f8f8;
-@pulsarFooterTextColor                      : #2a2a2a;
+@pulsarFooterBgColor                        : @pulsarBgColor;
+@pulsarFooterTextColor                      : @pulsarTextColor;
 
 /*
  * DIALOG

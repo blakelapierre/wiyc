@@ -3,7 +3,7 @@
 describe('Controller: PostsCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('pulsarClientApp'));
+  beforeEach(module('wiyc'));
 
   var PostsCtrl,
     scope;

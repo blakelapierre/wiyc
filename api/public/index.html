@@ -1,67 +1,16 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <title>Pulsar API | A CMS Powered by the MEAN Stack</title>
-  <link href='http://fonts.googleapis.com/css?family=Exo+2:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
-  <style type="text/css">
-    html, body {
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: "Exo 2";
-      font-size: 18px;
-      height: 100%;
-      background-color: #f0f0f0;
-    }
-    .container {
-      padding: 40px;
-      margin: 20px;
-      position:absolute;
-      top:0; right:0; bottom:0; left:0;
-      background-color: #e8e8e8;
-      color: #4a4a4a;
-      box-shadow: 0 0 16px #4a4a4a inset;
-      border: solid 1px #808080;
-      overflow: auto;
-    }
-  </style>
-</head>
-<body>
-
-<div class="container">
-  <h1>POWERED BY MEAN</h1>
-  <p>
-    The PureTech API Foundation and Pulsar CMS are powered by the MEAN stack. The system's back-end API is built using MongoDB, Node.js, ExpressJS and Mongoose. The front ends are powered by AngularJS.
-  </p>
-  <p>
-    Yes. Front ends. Plural. There is a blog-like front end and one that's been custom-tailored for delivering music and other interactive media.
-  </p>
-
-  <h2>PULSAR<img src="favicon.ico" style="position:relative; top: -16px;" /> API</h2>
-  <p>
-    The Pulsar API is powered by:
-    <a href="http://www.mongodb.org/">MongoDB</a>,
-    <a href="http://nodejs.org/">Node.js</a>,
-    <a href="http://mongoosejs.com/">MongooseJS</a> and
-    <a href="http://expressjs.com/">ExpressJS</a>. It is a standalone system written in JavaScript on Node.js that does not require a client to do work. Pulsar clients require this API in order to do any work and will not operate without access to at least one Pulsar API instance.
-  </p>
-  <p>
-    The Pulsar API provides a range of services to a variety of clients. These can be browser clients (desktop and/or mobile), mobile clients running a web frame in an app, a native SDK mobile client accessing the service through custom software or anything else, really. Before long, I hope some sort of Raspberry Pi or Cubieboard will be controlling the lights on the side of a building to spell out micropulses.
-  </p>
-  <p>
-    The Pulsar API is able to be used by anyone anywhere. You just have to be able to authenticate to Pulsar (log in). Once you have an HTTP session, you can create, retrieve, update and delete pulses, micropulses, comments and more. Want to integrate your pulses directly into your existing blog? No problem. That is specifically what the Pulsar API is for, and it's how the current Pulsar client does literally everything.
-  </p>
-  <p>
-    This will eventually the Pulsar API documentation being served directly from the Pulsar API server itself.
-  </p>
-
-  <h2>PULSAR<img src="favicon.ico" style="position:relative; top: -16px;" /> FRONT END</h2>
-  <p>
-    Pulsar does have an official front end powered by
-    <a href="https://angularjs.org/">AngularJS</a>. It is a standalone HTML5 Single-Page Application (SPA) built as an example of what's possible using the Pulsar API and the PureTech API application development framework.
-</div>
-
-<a href="https://github.com/robcolbert/pulsarcms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork Pulsar on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-</body>
-</html>
+<!DOCTYPE html><!--[if lt IE 7]>      <html ng-app="pulsarClientApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--><!--[if IE 7]>         <html ng-app="pulsarClientApp" class="no-js lt-ie9 lt-ie8">        <![endif]--><!--[if IE 8]>         <html ng-app="pulsarClientApp" class="no-js lt-ie9">               <![endif]--><!--[if gt IE 8]><!--><html ng-app="pulsarClientApp" class="no-js"><!--<![endif]--><head ng-controller="HeadCtrl"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title ng-bind="pageInformation.title + ' | ' + site.siteInformation.name"></title><meta name="viewport" content="width=device-width, initial-scale=1"><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><link rel="stylesheet" href="styles/8e3595bc.vendor.css"><link rel="stylesheet" href="styles/c76d8d93.pulsar.css"><meta property="og:url" content="http://wiyc.io/"><meta property="og:site_name" content="Where Is Your Congressperson"><meta property="og:title" content="Find Out Where Your Congressperson Is"><meta property="og:description" content="To make informed judgements about your congressperson you must know where they stand. The best way to know this is to watch and listen to what they have to say. 'Where Is Your Congressperson' is a collective effort to capture, organize, and distribute everything every congressperson says and does."><meta property="og:type" content="website"><meta property="og:author" content="https://github.com/blakelapierre/wiyc"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:site" content="@wiyc"><meta property="twitter:creator" content="@wiyc"><meta property="twitter:title" content="Where Is Your Congressperson"><meta property="twitter:description" content="A tracker for your congressperson"><body><!-- The Facebook root is here to support plugins that want to use it. Pulsar's core does not make use of Facebook in any way. --><div id="fb-root"></div><!--[if lt IE 7]>
+    <p class="browsehappy">
+      You are using an <strong>outdated</strong> browser.
+      Please <a href="http://browsehappy.com/">upgrade your browser</a> to
+      improve your experience.
+    </p>
+    <![endif]--><div id="topBar" ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div><section style="margin-bottom: 16px"><div class="container-fluid"><div ng-view="" style="min-height: 400px"></div></div></section><pulsar:bottom-menu></pulsar:bottom-menu><pulsar:service-error></pulsar:service-error><div class="footer" ng-include="'views/footer.html'" ng-controller="FooterCtrl"></div><div class="modal fade bs-example-modal-sm" id="userLoginModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" ng-controller="AccountLoginCtrl"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Account Login</h4></div><div class="modal-body"><div class="alert alert-danger" ng-show="haveError"><div class="pull-right" ng-click="dismissError()" style="cursor:pointer"><span class="glyphicon glyphicon-remove-circle"></span></div>{{error.data.message}}</div><div class="form-horizontal"><div class="form-group"><label class="col-sm-2 control-label" for="loginUsernameInput">Email</label><div class="col-sm-10"><input type="email" class="form-control" id="loginUsernameInput" ng-model="email"></div></div><div class="form-group"><label class="col-sm-2 control-label" for="loginPasswordInput">Password</label><div class="col-sm-10"><input type="password" class="form-control" id="loginPasswordInput" ng-model="password"></div></div><div class="form-group"><div class="col-sm-10 col-sm-offset-2"><div class="checkbox"><label><input type="checkbox" value="">Remember me</label></div></div></div></div></div><div class="modal-footer"><a href="/#/signup" style="margin-right:16px">Create New Profile</a> <a href="#" style="margin-right:16px" ng-click="forgotPassword(); $event.preventDefault();">Forgot Password</a> <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-primary" ng-click="userLogin()">Login</button></div></div></div></div><!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]--><script src="scripts/92e8831c.editors.js"></script><script src="bower_components/ckeditor/ckeditor.js"></script><script type="text/javascript">CKEDITOR.disableAutoInline = true;</script><script src="scripts/2c76fadf.vendor.js"></script><script src="scripts/a1f4f249.fonts.js"></script><script src="scripts/79a86475.scripts.js"></script><script src="https://www.youtube.com/iframe_api"></script><script src="http://connect.soundcloud.com/sdk.js"></script><!-- Twitter Widget API --><script src="http://platform.twitter.com/widgets.js" async type="text/javascript" charset="utf-8"></script><!-- SWFObject API because GoogleTube just won't let go --><script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" type="text/javascript" charset="utf-8"></script><!-- script src="http://api.robcolbert.com:10010/socket.io/socket.io.js" type="text/javascript"></script --><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-6890824-26');
+      ga('set', 'appName', 'Pulsar');
+      ga('set', 'appVersion', '0.1.0');</script>

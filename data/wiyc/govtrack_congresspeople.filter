@@ -1,0 +1,11 @@
+[.objects[] | {
+  videos: [],
+  timeline: [{"$event": "start", date: .startdate}],
+  website,
+  leadership_title,
+  party,
+  state,
+  chamber:
+  .role_type,
+  lookup_name: (.person.firstname + .person.lastname),
+  name: (.person.firstname + " " + .person.lastname)}]

@@ -11,7 +11,6 @@
 @import 'variables.less';
 @import 'mixins.less';
 @import 'animations.less';
-@import 'effects.less';
 
 body {
   padding: 68px 0 32px 0;
@@ -51,28 +50,13 @@ a.btn:link {
 @import 'section.less';
 @import 'widget.less';
 @import 'layer.less';
-@import 'drawer.less';
-@import 'dialog.less';
 
 @import 'content-section.less';
-@import 'sidebar.less';
-@import 'bottom-menu.less';
+@import 'header.less';
 @import 'footer.less';
 
-@import 'user/profile.less';
-
-@import 'pulse.less';
-@import 'feature-block.less';
-@import 'sidebar-pulse.less';
-@import 'sidebar-announcement.less';
-
-@import 'message-center.less';
-@import 'message-center/conversations.less';
-
-@import 'comments.less';
-@import 'credits.less';
-@import 'soundcloud-player.less';
-@import 'theater.less';
+@import 'congressperson.less';
+@import 'teaser.less';
 
 .main-view {
   margin-bottom: 32px;
@@ -164,13 +148,13 @@ hr {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: darken(@pulsarBgColor, 3%);
+  background-color: lighten(@pulsarBgColor, 10%);
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: darken(@pulsarBgColor, 25%);
-  box-shadow: 0 0 5px darken(@pulsarBgColor, 3%) inset;
+  background-color: lighten(@pulsarBgColor, 33%);
+  box-shadow: 0 0 5px lighten(@pulsarBgColor, 3%) inset;
 }
 
 /*

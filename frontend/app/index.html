@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html ng-app="pulsarClientApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html ng-app="pulsarClientApp" class="no-js lt-ie9 lt-ie8">        <![endif]-->
-<!--[if IE 8]>         <html ng-app="pulsarClientApp" class="no-js lt-ie9">               <![endif]-->
-<!--[if gt IE 8]><!--> <html ng-app="pulsarClientApp" class="no-js">                      <!--<![endif]-->
+<!--[if lt IE 7]>      <html ng-app="wiyc" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html ng-app="wiyc" class="no-js lt-ie9 lt-ie8">        <![endif]-->
+<!--[if IE 8]>         <html ng-app="wiyc" class="no-js lt-ie9">               <![endif]-->
+<!--[if gt IE 8]><!--> <html ng-app="wiyc" class="no-js">                      <!--<![endif]-->
   <head ng-controller="HeadCtrl">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,18 +18,18 @@
     <link rel="stylesheet" href="styles/pulsar.css">
     <!-- endbuild -->
 
-    <meta property="og:url" content="http://robcolbert.com/" />
-    <meta property="og:site_name" content="Pulsar" />
-    <meta property="og:title" content="A modern content management system and application development platform." />
-    <meta property="og:description" content="With Pulsar, it's instantly possible to compose and share online content and even build and publish entire web applications using the Pulsar framework. " />
+    <meta property="og:url" content="http://wiyc.io/" />
+    <meta property="og:site_name" content="Where Is Your Congressperson" />
+    <meta property="og:title" content="Find Out Where Your Congressperson Is" />
+    <meta property="og:description" content="To make informed judgements about your congressperson you must know where they stand. The best way to know this is to watch and listen to what say. 'Where Is Your Congressperson' is a collective effort to capture, organize, and distribute everything every congressperson says and does in as close to real-time as possible." />
     <meta property="og:type" content="website" />
-    <meta property="og:author" content="https://github.com/robcolbert/pulsarcms" />
+    <meta property="og:author" content="https://github.com/blakelapierre/wiyc" />
 
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:site" content="@robcolbert" />
-    <meta property="twitter:creator" content="@robcolbert" />
-    <meta property="twitter:title" content="Pulsar" />
-    <meta property="twitter:description" content="A modern content management system and application development platform." />
+    <meta property="twitter:site" content="@wiyc" />
+    <meta property="twitter:creator" content="@wiyc" />
+    <meta property="twitter:title" content="Where Is Your Congressperson" />
+    <meta property="twitter:description" content="A tracker for your congressperson" />
   </head>
   <body>
 
@@ -47,72 +47,13 @@
     <div id="topBar" ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
 
     <section style="margin-bottom: 16px;">
-      <div class="container">
+      <div class="container-fluid">
         <div ng-view="" style="min-height: 400px;"></div>
+        <teaser></teaser>
       </div>
     </section>
 
-    <pulsar:bottom-menu></pulsar:bottom-menu>
-
-    <pulsar:service-error></pulsar:service-error>
-
     <div class="footer" ng-include="'views/footer.html'" ng-controller="FooterCtrl"></div>
-
-    <div class="modal fade bs-example-modal-sm"
-         id="userLoginModal"
-         tabindex="-1"
-         role="dialog"
-         aria-labelledby="mySmallModalLabel"
-         aria-hidden="true"
-         ng-controller="AccountLoginCtrl">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Account Login</h4>
-          </div>
-          <div class="modal-body">
-            <div class="alert alert-danger" ng-show="haveError">
-              <div class="pull-right" ng-click="dismissError()" style="cursor:pointer;">
-                <span class="glyphicon glyphicon-remove-circle"></span>
-              </div>
-              {{error.data.message}}
-            </div>
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="loginUsernameInput">Email</label>
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="loginUsernameInput" ng-model="email">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="loginPasswordInput">Password</label>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" id="loginPasswordInput" ng-model="password">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-10 col-sm-offset-2">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value="">
-                        Remember me
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <a href="/#/signup" style="margin-right:16px;">Create New Profile</a>
-            <a href="#" style="margin-right:16px;" ng-click="forgotPassword(); $event.preventDefault();">Forgot Password</a>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="userLogin()">Login</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -136,7 +77,7 @@
     <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/momentjs/moment.js"></script>
-    <script src="bower_components/threejs/build/three.min.js"></script>
+    <script src="bower_components/threejs/build/three.js"></script>
     <script src="bower_components/shifty/dist/shifty.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -146,66 +87,25 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/threejs-objloader.js"></script>
     <script src="scripts/pulsar-polyfills.js"></script>
     <script src="scripts/pulsar-fe.js"></script>
 
     <script src="scripts/services/configuration.js"></script>
-    <script src="scripts/services/notifications.js"></script>
-    <script src="scripts/services/presentation-engine.js"></script>
-    <script src="scripts/services/pulse-wire.js"></script>
-    <script src="scripts/services/pulses.js"></script>
+    <script src="scripts/services/congresspeople.js"></script>
     <script src="scripts/services/sessions.js"></script>
-    <script src="scripts/services/sidebar-pulses.js"></script>
-    <script src="scripts/services/site-settings.js"></script>
-    <script src="scripts/services/sound-cloud.js"></script>
-    <script src="scripts/services/users.js"></script>
     <script src="scripts/services/user-session.js"></script>
-    <script src="scripts/services/videos.js"></script>
-    <script src="scripts/services/web-audio.js"></script>
-    <script src="scripts/services/user-media.js"></script>
-    <script src="scripts/services/video-call.js"></script>
 
     <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/controllers/account-login.js"></script>
-    <script src="scripts/controllers/admin.js"></script>
-    <script src="scripts/controllers/announcements.js"></script>
-    <script src="scripts/controllers/contact.js"></script>
-    <script src="scripts/controllers/conversations.js"></script>
-    <script src="scripts/controllers/directives/soundcloud-player.js"></script>
+    <script src="scripts/controllers/congresspeople.js"></script>
+    <script src="scripts/controllers/congressperson.js"></script>
     <script src="scripts/controllers/footer.js"></script>
     <script src="scripts/controllers/head.js"></script>
     <script src="scripts/controllers/header.js"></script>
     <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/moving-parts.js"></script>
-    <script src="scripts/controllers/prototype/source.js"></script>
-    <script src="scripts/controllers/prototype.js"></script>
-    <script src="scripts/controllers/pulses/composer.js"></script>
-    <script src="scripts/controllers/pulses/pulseId/edit.js"></script>
-    <script src="scripts/controllers/pulses/reader.js"></script>
-    <script src="scripts/controllers/pulses/studio.js"></script>
-    <script src="scripts/controllers/pulses.js"></script>
-    <script src="scripts/controllers/settings.js"></script>
-    <script src="scripts/controllers/sidebar.js"></script>
-    <script src="scripts/controllers/sidebar-pulses.js"></script>
-    <script src="scripts/controllers/signup.js"></script>
-    <script src="scripts/controllers/user/profile.js"></script>
     <script src="scripts/controllers/videos.js"></script>
-    <script src="scripts/controllers/verify.js"></script>
-    <script src="scripts/controllers/request-password-reset.js"></script>
-    <script src="scripts/controllers/execute-password-reset.js"></script>
-    <script src="scripts/controllers/privacy-policy.js"></script>
 
-    <script src="scripts/directives/micropulse.js"></script>
-    <script src="scripts/directives/pulse-summary.js"></script>
-    <script src="scripts/directives/service-error.js"></script>
-    <script src="scripts/directives/soundcloud-player.js"></script>
-    <script src="scripts/directives/youtube-player.js"></script>
-    <script src="scripts/directives/pulse.js"></script>
-    <script src="scripts/directives/visualisers/pulsar-starlight.js"></script>
-    <script src="scripts/directives/content-editor.js"></script>
-    <script src="scripts/directives/bottom-menu.js"></script>
-    <script src="scripts/directives/file-drop-area.js"></script>
+    <script src="scripts/directives/teaser.js"></script>
+    <script src="scripts/directives/horizontal-scroll.js"></script>
     <!-- endbuild -->
 
     <script src="https://www.youtube.com/iframe_api"></script>

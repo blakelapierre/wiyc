@@ -3,7 +3,7 @@
 describe('Controller: FooterCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('pulsarClientApp'));
+  beforeEach(module('wiyc'));
 
   var FooterCtrl,
     scope;

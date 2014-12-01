@@ -9,17 +9,17 @@ function ConfigurationService ( ) {
   var feServer = {
     'scheme': 'http://',
     //'host': '127.0.0.1:8080'
-    //'host': '127.0.0.1:9000'
-    'host': 'robcolbert.com'
+    'host': '127.0.0.1:9000'
+    // 'host': 'robcolbert.com'
   };
   this.getFrontEndHost = function ( ) { return feServer.host; };
 
   var apiServer = {
     'scheme': 'http://',
-    //'host': '127.0.0.1',
-    'host': 'robcolbert.com',
-    'port': 80
-    //'port': 8080
+    'host': '127.0.0.1',
+    // 'host': 'robcolbert.com',
+    // 'port': 80
+    'port': 8080
   };
   this.buildApiUrl = function (endpoint) {
     var url = apiServer.scheme + apiServer.host;
@@ -67,5 +67,5 @@ ConfigurationService.$inject = [
 
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .service('Configuration', ConfigurationService);

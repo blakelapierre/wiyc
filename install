@@ -28,4 +28,4 @@ cd frontend
 	npm install
 	bower install
 	grunt
-	cd..
+	cd ..

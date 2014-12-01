@@ -5,13 +5,8 @@
 'use strict';
 /* global $:false */
 
-function HeaderCtrl ($scope, $rootScope, UserSession, SiteSettings, PulseWire) {
+function HeaderCtrl ($scope, $rootScope, UserSession) {
 
-  $scope.site = SiteSettings.get(function (settings) {
-    SiteSettings.settings = settings;
-  });
-
-  $scope.pulsewire = PulseWire;
   $scope.title = 'robcolbert.com';
   $scope.brand = 'PULSAR';
   $scope.subtitle = 'simplicity as a science';
@@ -79,10 +74,8 @@ function HeaderCtrl ($scope, $rootScope, UserSession, SiteSettings, PulseWire) {
 HeaderCtrl.$inject = [
   '$scope',
   '$rootScope',
-  'UserSession',
-  'SiteSettings',
-  'PulseWire'
+  'UserSession'
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .controller('HeaderCtrl', HeaderCtrl);

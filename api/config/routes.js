@@ -107,6 +107,16 @@ function configureRoutes (app, config) {
   // adds the interaction service endpoints and handler methods to it:
   sidebarPulseInteractions.mount(routes, '/sidebar-pulses/:objectId');
 
+
+  var congresspeople = new (require('../app/controllers/congresspeople'))(app, config);
+
+  routes.add({ 'method': 'GET',   'uri': '/congresspeople', 'controllerMethod': congresspeople.list.bind(congresspeople) });
+
+  routes.add({ 'method': 'GET',   'uri': '/congresspeople/:name', 'controllerMethod': congresspeople.get.bind(congresspeople) });
+
+  routes.add({ 'method': 'POST',  'uri': '/congresspeople/:name/comment', 'controllerMethod': congresspeople.comment.bind(congresspeople) });
+  routes.add({ 'method': 'POST',  'uri': '/congresspeople/:name/video', 'controllerMethod': congresspeople.addVideo.bind(congresspeople) });
+
   //
   // VIDEOS
   //

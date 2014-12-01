@@ -5,11 +5,10 @@
 'use strict';
 /* global $:false */
 
-function FooterCtrl ($scope, $interval, $location, Configuration, UserSession, PulseWire) {
+function FooterCtrl ($scope, $interval, $location, Configuration, UserSession) {
   var self = this;
 
   self.$interval = $interval;
-  self.PulseWire = PulseWire;
 
   self.$scope = $scope;
 
@@ -28,15 +27,6 @@ function FooterCtrl ($scope, $interval, $location, Configuration, UserSession, P
   self.messageAdvanceInterval = null;
   $scope.messages = [ ];
   $scope.message = null;
-
-  self.pushMessage({
-    'created': new Date(),
-    'content':'Welcome to Pulsar'
-  });
-  self.pushMessage({
-    'created': new Date(),
-    'content':'If you like Pulsar, <a href="/#/signup">create an account</a>!'
-  });
 
   $scope.clickSettings = function ( ) {
     ga('send', 'event', 'Footer', 'clickSettings', 1);
@@ -97,9 +87,8 @@ FooterCtrl.$inject = [
   '$interval',
   '$location',
   'Configuration',
-  'UserSession',
-  'PulseWire'
+  'UserSession'
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .controller('FooterCtrl', FooterCtrl);

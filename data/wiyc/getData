@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# future-proofed (govtrack.us currently has hard cap of 6000)
+#curl -o govtrack_congresspeople.json "https://www.govtrack.us/api/v2/role?current=true&limit=6000"
+
+#cat govtrack_congresspeople.json | jq '[.objects[] | {videos: [], timeline: [{"$event": "start", date: .startdate}], website, leadership_title, party, state, chamber: .role_type, name: (.person.firstname + " " + .person.lastname)}]' | tee datafiles/congresspeople.json
+
+
+cat govtrack_congresspeople.json | jq -f govtrack_congresspeople.filter | tee datafiles/congresspeople.json

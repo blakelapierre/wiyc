@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mongo pulsar-api-development --eval "db.congresspeople.remove()"
+
+mongoimport -d pulsar-api-development -c congresspeoples --jsonArray --file datafiles/congresspeople.json

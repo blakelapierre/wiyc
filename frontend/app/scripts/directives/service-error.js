@@ -62,5 +62,5 @@ PulsarServiceErrorDirective.$inject = [
   '$timeout'
 ];
 
-angular.module('pulsarClientApp')
+angular.module('wiyc')
 .directive('pulsarServiceError', PulsarServiceErrorDirective);
