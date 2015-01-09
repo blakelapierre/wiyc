@@ -30,10 +30,7 @@ module.exports = function (grunt) {
     watch: {
       js: {
         files: ['<%= yeoman.app %>/scripts/**/*.js'],
-        tasks: ['newer:jshint:all'],
-        options: {
-          livereload: true
-        }
+        tasks: ['newer:jshint:all']
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
@@ -45,18 +42,12 @@ module.exports = function (grunt) {
       },
       recess: {
         files: ['<%= yeoman.app %>/less/{,*/}*.less'],
-        tasks: ['recess', 'newer:copy:styles'],
-        options: {
-          livereload: true
-        }
+        tasks: ['recess', 'newer:copy:styles']
       },
       gruntfile: {
         files: ['Gruntfile.js']
       },
       livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
         files: [
           '<%= yeoman.app %>/**/*.html',
           '.tmp/styles/{,*/}*.css',
